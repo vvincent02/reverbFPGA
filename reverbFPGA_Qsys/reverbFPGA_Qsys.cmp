@@ -1,0 +1,47 @@
+	component reverbFPGA_Qsys is
+		port (
+			audio_config_external_interface_SDAT              : inout std_logic                     := 'X';             -- SDAT
+			audio_config_external_interface_SCLK              : out   std_logic;                                        -- SCLK
+			audio_controller_avalon_left_channel_sink_data    : in    std_logic_vector(23 downto 0) := (others => 'X'); -- data
+			audio_controller_avalon_left_channel_sink_valid   : in    std_logic                     := 'X';             -- valid
+			audio_controller_avalon_left_channel_sink_ready   : out   std_logic;                                        -- ready
+			audio_controller_avalon_left_channel_source_ready : in    std_logic                     := 'X';             -- ready
+			audio_controller_avalon_left_channel_source_data  : out   std_logic_vector(23 downto 0);                    -- data
+			audio_controller_avalon_left_channel_source_valid : out   std_logic;                                        -- valid
+			audio_controller_external_interface_ADCDAT        : in    std_logic                     := 'X';             -- ADCDAT
+			audio_controller_external_interface_ADCLRCK       : in    std_logic                     := 'X';             -- ADCLRCK
+			audio_controller_external_interface_BCLK          : in    std_logic                     := 'X';             -- BCLK
+			audio_controller_external_interface_DACDAT        : out   std_logic;                                        -- DACDAT
+			audio_controller_external_interface_DACLRCK       : in    std_logic                     := 'X';             -- DACLRCK
+			clk_clk                                           : in    std_logic                     := 'X';             -- clk
+			dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
+			decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
+			hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := 'X';             -- eventi
+			hps_0_h2f_mpu_events_evento                       : out   std_logic;                                        -- evento
+			hps_0_h2f_mpu_events_standbywfe                   : out   std_logic_vector(1 downto 0);                     -- standbywfe
+			hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     -- standbywfi
+			hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
+			memory_mem_a                                      : out   std_logic_vector(12 downto 0);                    -- mem_a
+			memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     -- mem_ba
+			memory_mem_ck                                     : out   std_logic;                                        -- mem_ck
+			memory_mem_ck_n                                   : out   std_logic;                                        -- mem_ck_n
+			memory_mem_cke                                    : out   std_logic;                                        -- mem_cke
+			memory_mem_cs_n                                   : out   std_logic;                                        -- mem_cs_n
+			memory_mem_ras_n                                  : out   std_logic;                                        -- mem_ras_n
+			memory_mem_cas_n                                  : out   std_logic;                                        -- mem_cas_n
+			memory_mem_we_n                                   : out   std_logic;                                        -- mem_we_n
+			memory_mem_reset_n                                : out   std_logic;                                        -- mem_reset_n
+			memory_mem_dq                                     : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dq
+			memory_mem_dqs                                    : inout std_logic                     := 'X';             -- mem_dqs
+			memory_mem_dqs_n                                  : inout std_logic                     := 'X';             -- mem_dqs_n
+			memory_mem_odt                                    : out   std_logic;                                        -- mem_odt
+			memory_oct_rzqin                                  : in    std_logic                     := 'X';             -- oct_rzqin
+			mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
+			paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+			paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+			predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
+			reset_reset_n                                     : in    std_logic                     := 'X';             -- reset_n
+			serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X'              -- noe
+		);
+	end component reverbFPGA_Qsys;
+
