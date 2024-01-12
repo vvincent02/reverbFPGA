@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 ENTITY LFCF IS
 GENERIC(
-	dataSize: integer range 1 to 32,
+	dataSize: integer range 1 to 32;
 	N : integer range 1 to 65535
 );
 PORT(
@@ -21,46 +21,51 @@ END LFCF;
 
 ARCHITECTURE archi OF LFCF IS
 
-signal delayedOutputAdder : signed(dataSize downto 0);
-signal outFCFilter : signed(dataSize downto 0);
+signal delayedOutputAdder : signed(dataIN'range);
+signal outFCFilter : signed(dataIN'range);
 
-signal firstInputAdder : signed(dataSize downto 0);
-signal secondInputAdder : signed(dataSize downto 0);
+signal firstInputAdder : signed(dataIN'range);
+signal secondInputAdder : signed(dataIN'range);
 
-signal outputAdder : signed(dataSize downto 0);
+signal outputAdder : signed(dataIN'range);
+
+type delayArray is array(1 to N) of signed(dataIN'range);
+signal delayLine : delayArray;
 
 BEGIN
 
-FCFilter : entity work.FCF(archi)
-	generic map(dataSize+1)
-	port map(clk => clk, rst => rst, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => resize(dampingValue, dataSize+1));
-
 gain : entity work.coefMult(archi)
-	generic map(dataSize+1)
-	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => resize(decayValue, dataSize+1));
+	generic map(dataIN'length)
+	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => decayValue);
+	
+FCFilter : entity work.FCF(archi)
+	generic map(dataIN'length)
+	port map(clk => clk, rst => rst, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
 
 -- opérateur décalage de N échantillons	
 process(clk, rst)
-
-variable cnt : integer range 0 to N; 
-
 begin
-
 	if(clk'EVENT and clk='1') then
 		if(rst='0') then -- reset synchrone
-			cnt := 0;
-			delayedOutputAdder <= (others => '0');
+			delayLine <= (others => (others => '0'));
 		else 
-			cnt := cnt + 1;
-			if(cnt = N) then
-				delayedOutputAdder <= outputAdder;
-				cnt := 0;
+			-- décalage de la ligne à retard
+			for i in N downto 2 loop
+            delayLine(i) <= delayLine(i-1);
+         end loop;
+			
+			-- ajout de la dernière valeur
+			delayLine(1) <= outputAdder;
 		end if;
 	end if;
-
 end process;
+
+delayedOutputAdder <= delayLine(N);
 	
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;
+
+-- sortie de l'entité
+dataOUT <= delayedOutputAdder;
 
 END archi;

@@ -5,7 +5,6 @@ use ieee.numeric_std.all;
 ENTITY coefMult IS
 GENERIC(
 	dataSize: integer range 1 to 32
-	
 );
 PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
@@ -22,7 +21,7 @@ signal multTempValue : signed(2*dataSize+1 downto 0);
 
 BEGIN
 
-multTempValue <= signed(resize(dataIN, dataSize+1)) * signed(std_logic_vector(resize(coef, dataSize+1)));  
-dataOUT <= resize(multTempValue / S_coefFullScale, dataSize);
+multTempValue <= resize(dataIN, dataSize+1) * signed(std_logic_vector('0' & coef));  
+dataOUT <= resize(multTempValue(multTempValue'high downto dataSize+1), dataSize);
 
 END archi;
