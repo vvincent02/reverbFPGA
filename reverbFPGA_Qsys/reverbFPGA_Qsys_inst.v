@@ -1,4 +1,6 @@
 	reverbFPGA_Qsys u0 (
+		.audio_config_external_interface_SDAT              (<connected-to-audio_config_external_interface_SDAT>),              //             audio_config_external_interface.SDAT
+		.audio_config_external_interface_SCLK              (<connected-to-audio_config_external_interface_SCLK>),              //                                            .SCLK
 		.audio_controller_avalon_left_channel_sink_data    (<connected-to-audio_controller_avalon_left_channel_sink_data>),    //   audio_controller_avalon_left_channel_sink.data
 		.audio_controller_avalon_left_channel_sink_valid   (<connected-to-audio_controller_avalon_left_channel_sink_valid>),   //                                            .valid
 		.audio_controller_avalon_left_channel_sink_ready   (<connected-to-audio_controller_avalon_left_channel_sink_ready>),   //                                            .ready
@@ -38,8 +40,6 @@
 		.paramvalueupdate_pio_external_connection_export   (<connected-to-paramvalueupdate_pio_external_connection_export>),   //    paramvalueupdate_pio_external_connection.export
 		.predelayvalue_pio_external_connection_export      (<connected-to-predelayvalue_pio_external_connection_export>),      //       predelayvalue_pio_external_connection.export
 		.reset_reset_n                                     (<connected-to-reset_reset_n>),                                     //                                       reset.reset_n
-		.serial_flash_loader_0_noe_in_noe                  (<connected-to-serial_flash_loader_0_noe_in_noe>),                  //                serial_flash_loader_0_noe_in.noe
-		.audio_config_external_interface_SDAT              (<connected-to-audio_config_external_interface_SDAT>),              //             audio_config_external_interface.SDAT
-		.audio_config_external_interface_SCLK              (<connected-to-audio_config_external_interface_SCLK>)               //                                            .SCLK
+		.serial_flash_loader_0_noe_in_noe                  (<connected-to-serial_flash_loader_0_noe_in_noe>)                   //                serial_flash_loader_0_noe_in.noe
 	);
 

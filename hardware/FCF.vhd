@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 ENTITY FCF IS
 GENERIC(
-	dataSize: integer range 1 to 32
+	dataSize: integer range 1 to 64
 );
 PORT(
 	clk : IN std_logic;

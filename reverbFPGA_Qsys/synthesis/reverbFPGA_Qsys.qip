@@ -2,7 +2,7 @@ set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_TOOL_VERSION "18.0"
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "reverbFPGA_Qsys" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../reverbFPGA_Qsys.sopcinfo"]
-set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name SLD_INFO "QSYS_NAME reverbFPGA_Qsys HAS_SOPCINFO 1 GENERATION_ID 1704890399"
+set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name SLD_INFO "QSYS_NAME reverbFPGA_Qsys HAS_SOPCINFO 1 GENERATION_ID 1705143784"
 set_global_assignment -library "reverbFPGA_Qsys" -name MISC_FILE [file join $::quartus(qip_path) "../reverbFPGA_Qsys.cmp"]
 set_global_assignment -library "reverbFPGA_Qsys" -name SLD_FILE [file join $::quartus(qip_path) "reverbFPGA_Qsys.regmap"]
 set_global_assignment -library "reverbFPGA_Qsys" -name MISC_FILE [file join $::quartus(qip_path) "../../C"]
@@ -18,7 +18,7 @@ set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcwNDg5MDM5OQ==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTcwNTE0Mzc4NA==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBW::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::NUNTRU1BNUYzMUM2::QXV0byBERVZJQ0U="
 set_global_assignment -entity "reverbFPGA_Qsys" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Ng==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -6295,9 +6295,9 @@ set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPG
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "bWljX2F0dGVudWF0aW9u::LTZkQg==::TWljcm9waG9uZSBBdHRlbnVhdGlvbg=="
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "ZGF0YV9mb3JtYXQ=::TGVmdCBKdXN0aWZpZWQ=::RGF0YSBGb3JtYXQ="
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "Yml0X2xlbmd0aA==::MjQ=::Qml0IExlbmd0aA=="
-set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "c2FtcGxpbmdfcmF0ZQ==::OTYga0h6::U2FtcGxpbmcgUmF0ZQ=="
+set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "c2FtcGxpbmdfcmF0ZQ==::NDgga0h6::U2FtcGxpbmcgUmF0ZQ=="
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "Ym9zcg==::MjUwZnMvMjU2ZnM=::QmFzZSBPdmVyLVNhbXBsaW5nIFJhdGU="
-set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "c3JfcmVnaXN0ZXI=::Nw==::U2FtcGxpbmcgUmF0ZSBSZWdpc3RlciBTZXR0aW5n"
+set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "c3JfcmVnaXN0ZXI=::MA==::U2FtcGxpbmcgUmF0ZSBSZWdpc3RlciBTZXR0aW5n"
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "dmlkZW9fZm9ybWF0::TlRTQw==::VmlkZW8gU291cmNlIEZvcm1hdA=="
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::Q3ljbG9uZSBW::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "reverbFPGA_Qsys_audio_config" -library "reverbFPGA_Qsys" -name IP_COMPONENT_PARAMETER "QVVUT19DTEtfQ0xPQ0tfUkFURQ==::NTAwMDAwMDA=::QXV0byBDTE9DS19SQVRF"

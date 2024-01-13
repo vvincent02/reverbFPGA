@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 ENTITY LFCF IS
 GENERIC(
-	dataSize: integer range 1 to 32;
+	dataSize: integer range 1 to 64;
 	N : integer range 1 to 65535
 );
 PORT(

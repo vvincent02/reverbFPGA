@@ -1,5 +1,7 @@
 
 module reverbFPGA_Qsys (
+	audio_config_external_interface_SDAT,
+	audio_config_external_interface_SCLK,
 	audio_controller_avalon_left_channel_sink_data,
 	audio_controller_avalon_left_channel_sink_valid,
 	audio_controller_avalon_left_channel_sink_ready,
@@ -39,10 +41,10 @@ module reverbFPGA_Qsys (
 	paramvalueupdate_pio_external_connection_export,
 	predelayvalue_pio_external_connection_export,
 	reset_reset_n,
-	serial_flash_loader_0_noe_in_noe,
-	audio_config_external_interface_SDAT,
-	audio_config_external_interface_SCLK);	
+	serial_flash_loader_0_noe_in_noe);	
 
+	inout		audio_config_external_interface_SDAT;
+	output		audio_config_external_interface_SCLK;
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
 	input		audio_controller_avalon_left_channel_sink_valid;
 	output		audio_controller_avalon_left_channel_sink_ready;
@@ -83,6 +85,4 @@ module reverbFPGA_Qsys (
 	output	[23:0]	predelayvalue_pio_external_connection_export;
 	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
-	inout		audio_config_external_interface_SDAT;
-	output		audio_config_external_interface_SCLK;
 endmodule

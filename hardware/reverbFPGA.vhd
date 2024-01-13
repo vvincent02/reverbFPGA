@@ -48,6 +48,9 @@ END reverbFPGA;
 
 ARCHITECTURE archi OF reverbFPGA IS
 
+-- horloge de cadencement des opérations numériques
+signal clkSampling : std_logic;
+
 -- paramètres de la reverb
 signal preDelayValue : std_logic_vector(23 downto 0);
 signal decayValue : std_logic_vector(23 downto 0);
@@ -61,6 +64,9 @@ signal audioIN_data : std_logic_vector(23 downto 0);
 signal audioOUT_ready : std_logic;
 signal audioOUT_valid : std_logic;
 signal audioOUT_data : std_logic_vector(23 downto 0);
+
+-- signal de sortie avant remise à l'échelle sur 24 bits signés
+signal dataOUT : signed(40 downto 0);
 
 -- Qsys component
 component reverbFPGA_Qsys is
@@ -167,8 +173,16 @@ port map (
    audio_config_external_interface_SCLK              => HPS_I2C1_SCLK               --                                            .SCLK
 );
 
+clkSamlingDivider : entity work.clkDivider(archi)
+	generic map(1042)
+	port map(clk => CLOCK_50, rst => rst, clkDiv => clkSampling);
+
+lateReverbComponent : entity work.lateReverb(archi)
+	generic map(41)
+	port map(clk => clkSampling, rst => rst, dataIN => resize(signed(audioIN_data), 41), dataOUT => dataOUT, dampingValue => "10000000000000000000000000000000000000000", decayValue => "10000000000000000000000000000000000000000", g => "10000000000000000000000000000000000000000");  
+
 audioOUT_ready <= audioIN_ready;
 audioOUT_valid <= audioIN_valid;
-audioOUT_data <= audioIN_data;
+audioOUT_data <= std_logic_vector(dataOUT(dataOUT'high downto 41-audioIN_data'length));
 
 END archi;

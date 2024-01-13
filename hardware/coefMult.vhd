@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 ENTITY coefMult IS
 GENERIC(
-	dataSize: integer range 1 to 32
+	dataSize: integer range 1 to 64
 );
 PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
