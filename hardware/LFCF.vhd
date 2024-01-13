@@ -34,33 +34,20 @@ signal delayLine : delayArray;
 
 BEGIN
 
+-- gain (feedback correspondant au paramètre decay de la reverb)
 gain : entity work.coefMult(archi)
 	generic map(dataIN'length)
 	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => decayValue);
-	
+
+-- filtre FCF dans la boucle de retour	
 FCFilter : entity work.FCF(archi)
 	generic map(dataIN'length)
 	port map(clk => clk, rst => rst, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
 
--- opérateur décalage de N échantillons	
-process(clk, rst)
-begin
-	if(clk'EVENT and clk='1') then
-		if(rst='0') then -- reset synchrone
-			delayLine <= (others => (others => '0'));
-		else 
-			-- décalage de la ligne à retard
-			for i in N downto 2 loop
-            delayLine(i) <= delayLine(i-1);
-         end loop;
-			
-			-- ajout de la dernière valeur
-			delayLine(1) <= outputAdder;
-		end if;
-	end if;
-end process;
-
-delayedOutputAdder <= delayLine(N);
+-- opérateur retard
+delayLineOperator : entity work.delayLine(archi)
+	generic map(dataIN'length, N)
+	port map(clk => clk, rst => rst, dataIN => outputAdder, dataOUT => delayedOutputAdder);
 	
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;

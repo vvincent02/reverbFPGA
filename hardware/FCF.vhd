@@ -30,10 +30,12 @@ signal outputAdder : signed(dataIN'range);
 
 BEGIN
 
+-- gain (1-d)
 gain1 : entity work.coefMult(archi)
 	generic map(dataIN'length)
 	port map(dataIN => dataIN, dataOUT => firstInputAdder, coef => U_fullScaleVector - dampingValue);
 
+-- gain d (retour de la boucle)
 gain2 : entity work.coefMult(archi)
 	generic map(dataIN'length)
 	port map(dataIN => prevOutputAdder, dataOUT => secondInputAdder, coef => dampingValue);
