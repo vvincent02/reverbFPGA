@@ -41,7 +41,8 @@
 			paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 			predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
 			reset_reset_n                                     : in    std_logic                     := 'X';             -- reset_n
-			serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X'              -- noe
+			serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X';             -- noe
+			clksampling_clk                                   : out   std_logic                                         -- clk
 		);
 	end component reverbFPGA_Qsys;
 
@@ -88,6 +89,7 @@
 			paramvalueupdate_pio_external_connection_export   => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,   --    paramvalueupdate_pio_external_connection.export
 			predelayvalue_pio_external_connection_export      => CONNECTED_TO_predelayvalue_pio_external_connection_export,      --       predelayvalue_pio_external_connection.export
 			reset_reset_n                                     => CONNECTED_TO_reset_reset_n,                                     --                                       reset.reset_n
-			serial_flash_loader_0_noe_in_noe                  => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                   --                serial_flash_loader_0_noe_in.noe
+			serial_flash_loader_0_noe_in_noe                  => CONNECTED_TO_serial_flash_loader_0_noe_in_noe,                  --                serial_flash_loader_0_noe_in.noe
+			clksampling_clk                                   => CONNECTED_TO_clksampling_clk                                    --                                 clksampling.clk
 		);
 

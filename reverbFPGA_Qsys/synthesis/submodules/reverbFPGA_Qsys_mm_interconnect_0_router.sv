@@ -44,10 +44,10 @@
 
 module reverbFPGA_Qsys_mm_interconnect_0_router_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 0,
+     parameter DEFAULT_CHANNEL = 6,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 0 
+               DEFAULT_DESTID = 5 
    )
   (output [91 - 89 : 0] default_destination_id,
    output [7-1 : 0] default_wr_channel,
@@ -135,18 +135,18 @@ module reverbFPGA_Qsys_mm_interconnect_0_router
     // during address decoding
     // -------------------------------------------------------
     localparam PAD0 = log2ceil(64'h10 - 64'h0); 
-    localparam PAD1 = log2ceil(64'h50 - 64'h40); 
-    localparam PAD2 = log2ceil(64'h60 - 64'h50); 
-    localparam PAD3 = log2ceil(64'h70 - 64'h60); 
-    localparam PAD4 = log2ceil(64'h80 - 64'h70); 
-    localparam PAD5 = log2ceil(64'h90 - 64'h80); 
-    localparam PAD6 = log2ceil(64'ha0 - 64'h90); 
+    localparam PAD1 = log2ceil(64'h20 - 64'h10); 
+    localparam PAD2 = log2ceil(64'h30 - 64'h20); 
+    localparam PAD3 = log2ceil(64'h40 - 64'h30); 
+    localparam PAD4 = log2ceil(64'h50 - 64'h40); 
+    localparam PAD5 = log2ceil(64'h60 - 64'h50); 
+    localparam PAD6 = log2ceil(64'h70 - 64'h60); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'ha0;
+    localparam ADDR_RANGE = 64'h70;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -200,45 +200,45 @@ module reverbFPGA_Qsys_mm_interconnect_0_router
         // --------------------------------------------------
 
     // ( 0x0 .. 0x10 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 8'h0   ) begin
-            src_channel = 7'b0000001;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
-    end
-
-    // ( 0x40 .. 0x50 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 8'h40  && read_transaction  ) begin
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 7'h0  && read_transaction  ) begin
             src_channel = 7'b1000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
     end
 
-    // ( 0x50 .. 0x60 )
-    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 8'h50   ) begin
+    // ( 0x10 .. 0x20 )
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 7'h10   ) begin
             src_channel = 7'b0100000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
-    // ( 0x60 .. 0x70 )
-    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 8'h60   ) begin
+    // ( 0x20 .. 0x30 )
+    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 7'h20   ) begin
             src_channel = 7'b0010000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
     end
 
-    // ( 0x70 .. 0x80 )
-    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 8'h70   ) begin
+    // ( 0x30 .. 0x40 )
+    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 7'h30   ) begin
             src_channel = 7'b0001000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
-    // ( 0x80 .. 0x90 )
-    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 8'h80   ) begin
+    // ( 0x40 .. 0x50 )
+    if ( {address[RG:PAD4],{PAD4{1'b0}}} == 7'h40   ) begin
             src_channel = 7'b0000100;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
     end
 
-    // ( 0x90 .. 0xa0 )
-    if ( {address[RG:PAD6],{PAD6{1'b0}}} == 8'h90  && read_transaction  ) begin
+    // ( 0x50 .. 0x60 )
+    if ( {address[RG:PAD5],{PAD5{1'b0}}} == 7'h50  && read_transaction  ) begin
             src_channel = 7'b0000010;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
+    end
+
+    // ( 0x60 .. 0x70 )
+    if ( {address[RG:PAD6],{PAD6{1'b0}}} == 7'h60   ) begin
+            src_channel = 7'b0000001;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 
 end

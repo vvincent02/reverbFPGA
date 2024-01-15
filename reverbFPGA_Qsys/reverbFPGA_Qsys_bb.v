@@ -41,7 +41,8 @@ module reverbFPGA_Qsys (
 	paramvalueupdate_pio_external_connection_export,
 	predelayvalue_pio_external_connection_export,
 	reset_reset_n,
-	serial_flash_loader_0_noe_in_noe);	
+	serial_flash_loader_0_noe_in_noe,
+	clksampling_clk);	
 
 	inout		audio_config_external_interface_SDAT;
 	output		audio_config_external_interface_SCLK;
@@ -85,4 +86,5 @@ module reverbFPGA_Qsys (
 	output	[23:0]	predelayvalue_pio_external_connection_export;
 	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
+	output		clksampling_clk;
 endmodule

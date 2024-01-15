@@ -22,6 +22,7 @@ entity reverbFPGA_Qsys is
 		audio_controller_external_interface_DACDAT        : out   std_logic;                                        --                                            .DACDAT
 		audio_controller_external_interface_DACLRCK       : in    std_logic                     := '0';             --                                            .DACLRCK
 		clk_clk                                           : in    std_logic                     := '0';             --                                         clk.clk
+		clksampling_clk                                   : out   std_logic;                                        --                                 clksampling.clk
 		dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    --        dampingvalue_pio_external_connection.export
 		decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    --          decayvalue_pio_external_connection.export
 		hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := '0';             --                        hps_0_h2f_mpu_events.eventi
@@ -982,5 +983,7 @@ begin
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 
 	hps_0_h2f_reset_reset_ports_inv <= not hps_0_h2f_reset_reset;
+
+	clksampling_clk <= clk_clk;
 
 end architecture rtl; -- of reverbFPGA_Qsys

@@ -97,7 +97,7 @@
       <config name='CONFIG_HPS_UART1_RTS' value='0' />
       <config name='CONFIG_HPS_UART1_RX' value='0' />
     </peripheral>
-    <peripheral name='i2c0' used='true' />
+    <peripheral name='i2c0' used='false' />
     <peripheral name='i2c1' used='false' />
     <peripheral name='i2c2' used='false' />
     <peripheral name='i2c3' used='false' />
@@ -106,8 +106,6 @@
     <peripheral name='trace' used='false' />
   </peripherals>
   <pin_muxes>
-    <pin_mux name='GENERALIO7' choice='I2C0_SDA' value='1' />
-    <pin_mux name='GENERALIO8' choice='I2C0_SCL' value='1' />
     <pin_mux name='GENERALIO0' choice='GPIO/LoanIO' value='0' />
     <pin_mux name='GPLMUX48' choice='GPIO' value='1' />
     <pin_mux name='GPLMUX0' choice='GPIO' value='1' />

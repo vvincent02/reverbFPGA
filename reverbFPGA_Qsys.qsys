@@ -17,11 +17,27 @@
          type = "int";
       }
    }
+   element audio_config.avalon_av_config_slave
+   {
+      datum baseAddress
+      {
+         value = "96";
+         type = "String";
+      }
+   }
    element audio_controller
    {
       datum _sortIndex
       {
          value = "8";
+         type = "int";
+      }
+   }
+   element clkSampling
+   {
+      datum _sortIndex
+      {
+         value = "11";
          type = "int";
       }
    }
@@ -45,7 +61,7 @@
    {
       datum baseAddress
       {
-         value = "96";
+         value = "32";
          type = "String";
       }
    }
@@ -61,7 +77,7 @@
    {
       datum baseAddress
       {
-         value = "112";
+         value = "48";
          type = "String";
       }
    }
@@ -85,7 +101,7 @@
    {
       datum baseAddress
       {
-         value = "80";
+         value = "16";
          type = "String";
       }
    }
@@ -101,7 +117,7 @@
    {
       datum baseAddress
       {
-         value = "144";
+         value = "80";
          type = "String";
       }
    }
@@ -117,7 +133,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "0";
          type = "String";
       }
    }
@@ -133,7 +149,7 @@
    {
       datum baseAddress
       {
-         value = "128";
+         value = "64";
          type = "String";
       }
    }
@@ -193,6 +209,11 @@
    dir="end" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
+   name="clksampling"
+   internal="clkSampling.clk"
+   type="clock"
+   dir="start" />
+ <interface
    name="dampingvalue_pio_external_connection"
    internal="dampingValue_PIO.external_connection"
    type="conduit"
@@ -202,6 +223,7 @@
    internal="decayValue_PIO.external_connection"
    type="conduit"
    dir="end" />
+ <interface name="hps_0_h2f_loan_io" internal="hps_0.h2f_loan_io" />
  <interface
    name="hps_0_h2f_mpu_events"
    internal="hps_0.h2f_mpu_events"
@@ -289,6 +311,12 @@
   <parameter name="audio_out" value="true" />
   <parameter name="avalon_bus_type" value="Streaming" />
   <parameter name="dw" value="24" />
+ </module>
+ <module name="clkSampling" kind="clock_source" version="18.0" enabled="1">
+  <parameter name="clockFrequency" value="48000" />
+  <parameter name="clockFrequencyKnown" value="false" />
+  <parameter name="inputClockFrequency" value="50000000" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module name="clk_0" kind="clock_source" version="18.0" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
@@ -949,7 +977,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="audio_config.avalon_av_config_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -958,7 +986,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="paramType_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0090" />
+  <parameter name="baseAddress" value="0x0050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -967,7 +995,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="preDelayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0080" />
+  <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -976,7 +1004,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="decayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="baseAddress" value="0x0030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -985,7 +1013,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="dampingValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0060" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -994,7 +1022,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="mixValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="baseAddress" value="0x0010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1003,7 +1031,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="paramValueUpdate_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1043,6 +1071,11 @@
    kind="clock"
    version="18.0"
    start="clk_0.clk"
+   end="clkSampling.clk_in" />
+ <connection
+   kind="clock"
+   version="18.0"
+   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -1054,6 +1087,11 @@
    version="18.0"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
+ <connection
+   kind="reset"
+   version="18.0"
+   start="clk_0.clk_reset"
+   end="clkSampling.clk_in_reset" />
  <connection
    kind="reset"
    version="18.0"
