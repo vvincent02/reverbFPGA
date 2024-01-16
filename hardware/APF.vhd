@@ -8,7 +8,8 @@ GENERIC(
 	N : integer range 1 to 65535
 );
 PORT(
-	clk : IN std_logic;
+	clk50M : IN std_logic;
+	samplingClk : IN std_logic;
 	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
@@ -46,7 +47,7 @@ gain2 : entity work.coefMult(archi)
 -- opérateur retard
 delayLineOperator : entity work.delayLine(archi)
 	generic map(dataIN'length, N)
-	port map(clk => clk, rst => rst, dataIN => outputAdder1, dataOUT => firstInputAdder2);
+	port map(clk50M => clk50M, samplingClk => samplingClk, rst => rst, dataIN => outputAdder1, dataOUT => firstInputAdder2);
 	
 -- sommateurs
 outputAdder1 <= firstInputAdder1 + secondInputAdder1;

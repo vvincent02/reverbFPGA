@@ -8,7 +8,8 @@ GENERIC(
 	N : integer range 1 to 65535
 );
 PORT(
-	clk : IN std_logic;
+	clk50M : IN std_logic;
+	samplingClk : IN std_logic;
 	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
@@ -29,9 +30,6 @@ signal secondInputAdder : signed(dataIN'range);
 
 signal outputAdder : signed(dataIN'range);
 
-type delayArray is array(1 to N) of signed(dataIN'range);
-signal delayLine : delayArray;
-
 BEGIN
 
 -- gain (feedback correspondant au paramètre decay de la reverb)
@@ -42,12 +40,12 @@ gain : entity work.coefMult(archi)
 -- filtre FCF dans la boucle de retour	
 FCFilter : entity work.FCF(archi)
 	generic map(dataIN'length)
-	port map(clk => clk, rst => rst, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
+	port map(samplingClk => samplingClk, rst => rst, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
 
 -- opérateur retard
 delayLineOperator : entity work.delayLine(archi)
 	generic map(dataIN'length, N)
-	port map(clk => clk, rst => rst, dataIN => outputAdder, dataOUT => delayedOutputAdder);
+	port map(clk50M => clk50M, samplingClk => samplingClk, rst => rst, dataIN => outputAdder, dataOUT => delayedOutputAdder);
 	
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;

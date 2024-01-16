@@ -7,7 +7,7 @@ GENERIC(
 	dataSize: integer range 1 to 64
 );
 PORT(
-	clk : IN std_logic;
+	samplingClk : IN std_logic;
 	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
@@ -41,9 +41,9 @@ gain2 : entity work.coefMult(archi)
 	port map(dataIN => prevOutputAdder, dataOUT => secondInputAdder, coef => dampingValue);
 
 -- registre à décalage d'un échantillon	
-process(clk, rst)
+process(samplingClk, rst)
 begin
-	if(clk'EVENT and clk='1') then
+	if(samplingClk'EVENT and samplingClk='1') then
 		if(rst='0') then -- reset synchrone
 			prevOutputAdder <= (others => '0');
 		else 

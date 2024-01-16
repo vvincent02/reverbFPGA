@@ -7,7 +7,7 @@ use ieee.numeric_std.all;
 
 ENTITY RAM IS
 GENERIC(
-	data_width : integer range 1 to 64, 
+	data_width : integer range 1 to 64;
 	nbr_blocks : integer range 1 to 65535
 );
 PORT(

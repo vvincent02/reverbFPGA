@@ -485,8 +485,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_CLK
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_CLK2
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_DAT
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_DAT2
-set_location_assignment PIN_AB12 -to SW[0]
-set_location_assignment PIN_AB12 -to SW_0
 set_location_assignment PIN_AC12 -to SW[1]
 set_location_assignment PIN_AC12 -to SW_1
 set_location_assignment PIN_AF9 -to SW[2]
@@ -505,8 +503,6 @@ set_location_assignment PIN_AD10 -to SW[8]
 set_location_assignment PIN_AD10 -to SW_8
 set_location_assignment PIN_AE12 -to SW[9]
 set_location_assignment PIN_AE12 -to SW_9
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_0
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_1
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2]
@@ -1501,4 +1497,6 @@ set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name SAVE_DISK_SPACE ON
 set_global_assignment -name BOARD "DE1-SoC Board"
 set_global_assignment -name SMART_RECOMPILE ON
+set_global_assignment -name VHDL_FILE hardware/RAM.vhd
+set_location_assignment PIN_AB12 -to rst
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
