@@ -312,13 +312,13 @@
   <parameter name="avalon_bus_type" value="Streaming" />
   <parameter name="dw" value="24" />
  </module>
- <module name="clkSampling" kind="clock_source" version="18.0" enabled="1">
+ <module name="clkSampling" kind="clock_source" version="23.1" enabled="1">
   <parameter name="clockFrequency" value="48000" />
   <parameter name="clockFrequencyKnown" value="false" />
   <parameter name="inputClockFrequency" value="50000000" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
- <module name="clk_0" kind="clock_source" version="18.0" enabled="1">
+ <module name="clk_0" kind="clock_source" version="23.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
@@ -327,7 +327,7 @@
  <module
    name="dampingValue_PIO"
    kind="altera_avalon_pio"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -345,7 +345,7 @@
  <module
    name="decayValue_PIO"
    kind="altera_avalon_pio"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -360,7 +360,7 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="24" />
  </module>
- <module name="hps_0" kind="altera_hps" version="18.0" enabled="1">
+ <module name="hps_0" kind="altera_hps" version="23.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
   <parameter name="ABS_RAM_MEM_INIT_FILENAME" value="meminit" />
   <parameter name="ACV_PHY_CLK_ADD_FR_PHASE" value="0.0" />
@@ -893,7 +893,7 @@
  <module
    name="mixValue_PIO"
    kind="altera_avalon_pio"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -911,7 +911,7 @@
  <module
    name="paramType_PIO"
    kind="altera_avalon_pio"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -929,7 +929,7 @@
  <module
    name="paramValueUpdate_PIO"
    kind="altera_avalon_pio"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -947,7 +947,7 @@
  <module
    name="preDelayValue_PIO"
    kind="altera_avalon_pio"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -965,7 +965,7 @@
  <module
    name="serial_flash_loader"
    kind="altera_serial_flash_loader"
-   version="18.0"
+   version="23.1"
    enabled="1">
   <parameter name="ENHANCED_MODE" value="true" />
   <parameter name="INTENDED_DEVICE_FAMILY" value="Cyclone V" />
@@ -973,7 +973,7 @@
  </module>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="audio_config.avalon_av_config_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -982,7 +982,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="paramType_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -991,7 +991,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="preDelayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -1000,7 +1000,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="decayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -1009,7 +1009,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="dampingValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -1018,7 +1018,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="mixValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -1027,7 +1027,7 @@
  </connection>
  <connection
    kind="avalon"
-   version="18.0"
+   version="23.1"
    start="hps_0.h2f_lw_axi_master"
    end="paramValueUpdate_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
@@ -1036,100 +1036,100 @@
  </connection>
  <connection
    kind="avalon_streaming"
-   version="18.0"
+   version="23.1"
    start="audio_controller.avalon_right_channel_source"
    end="audio_controller.avalon_right_channel_sink" />
- <connection kind="clock" version="18.0" start="clk_0.clk" end="paramType_PIO.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="paramType_PIO.clk" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="preDelayValue_PIO.clk" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="decayValue_PIO.clk" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="dampingValue_PIO.clk" />
- <connection kind="clock" version="18.0" start="clk_0.clk" end="mixValue_PIO.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="mixValue_PIO.clk" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="paramValueUpdate_PIO.clk" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="audio_controller.clk" />
- <connection kind="clock" version="18.0" start="clk_0.clk" end="audio_config.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="audio_config.clk" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="clkSampling.clk_in" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="hps_0.h2f_axi_clock" />
  <connection
    kind="clock"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="clkSampling.clk_in_reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="paramType_PIO.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="preDelayValue_PIO.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="decayValue_PIO.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="dampingValue_PIO.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="mixValue_PIO.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="paramValueUpdate_PIO.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="audio_controller.reset" />
  <connection
    kind="reset"
-   version="18.0"
+   version="23.1"
    start="clk_0.clk_reset"
    end="audio_config.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />

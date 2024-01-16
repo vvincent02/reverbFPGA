@@ -28,10 +28,10 @@ type int_Array8 is array(1 to 8) of integer range 1 to 65535;
 type int_Array4 is array(1 to 4) of integer range 1 to 65535;
 
 -- retards des blocs LFCF en parallèle
-constant N_LFCF : int_Array8 := (1557, 1617, 1491, 1422, 1277, 1356, 1188, 1116);
+constant N_LFCF : int_Array8 := (150, 150, 150, 150, 150, 150, 150, 150);
 
 -- retards des blocs APF en série
-constant N_APF : int_Array4 := (225, 556, 441, 341);
+constant N_APF : int_Array4 := (150, 150, 150, 150);
 
 signal inputAdder : S_vectArray8;
 signal outputAdder : signed(dataIN'range);

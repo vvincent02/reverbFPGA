@@ -14,6 +14,7 @@
 			audio_controller_external_interface_DACDAT        : out   std_logic;                                        -- DACDAT
 			audio_controller_external_interface_DACLRCK       : in    std_logic                     := 'X';             -- DACLRCK
 			clk_clk                                           : in    std_logic                     := 'X';             -- clk
+			clksampling_clk                                   : out   std_logic;                                        -- clk
 			dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
 			decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
 			hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := 'X';             -- eventi
@@ -41,8 +42,7 @@
 			paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 			predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
 			reset_reset_n                                     : in    std_logic                     := 'X';             -- reset_n
-			serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X';             -- noe
-			clksampling_clk                                   : out   std_logic                                         -- clk
+			serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X'              -- noe
 		);
 	end component reverbFPGA_Qsys;
 
@@ -62,6 +62,7 @@
 			audio_controller_external_interface_DACDAT        => CONNECTED_TO_audio_controller_external_interface_DACDAT,        --                                            .DACDAT
 			audio_controller_external_interface_DACLRCK       => CONNECTED_TO_audio_controller_external_interface_DACLRCK,       --                                            .DACLRCK
 			clk_clk                                           => CONNECTED_TO_clk_clk,                                           --                                         clk.clk
+			clksampling_clk                                   => CONNECTED_TO_clksampling_clk,                                   --                                 clksampling.clk
 			dampingvalue_pio_external_connection_export       => CONNECTED_TO_dampingvalue_pio_external_connection_export,       --        dampingvalue_pio_external_connection.export
 			decayvalue_pio_external_connection_export         => CONNECTED_TO_decayvalue_pio_external_connection_export,         --          decayvalue_pio_external_connection.export
 			hps_0_h2f_mpu_events_eventi                       => CONNECTED_TO_hps_0_h2f_mpu_events_eventi,                       --                        hps_0_h2f_mpu_events.eventi
@@ -89,7 +90,6 @@
 			paramvalueupdate_pio_external_connection_export   => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,   --    paramvalueupdate_pio_external_connection.export
 			predelayvalue_pio_external_connection_export      => CONNECTED_TO_predelayvalue_pio_external_connection_export,      --       predelayvalue_pio_external_connection.export
 			reset_reset_n                                     => CONNECTED_TO_reset_reset_n,                                     --                                       reset.reset_n
-			serial_flash_loader_0_noe_in_noe                  => CONNECTED_TO_serial_flash_loader_0_noe_in_noe,                  --                serial_flash_loader_0_noe_in.noe
-			clksampling_clk                                   => CONNECTED_TO_clksampling_clk                                    --                                 clksampling.clk
+			serial_flash_loader_0_noe_in_noe                  => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                   --                serial_flash_loader_0_noe_in.noe
 		);
 

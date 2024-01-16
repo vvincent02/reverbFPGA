@@ -14,6 +14,7 @@ module reverbFPGA_Qsys (
 	audio_controller_external_interface_DACDAT,
 	audio_controller_external_interface_DACLRCK,
 	clk_clk,
+	clksampling_clk,
 	dampingvalue_pio_external_connection_export,
 	decayvalue_pio_external_connection_export,
 	hps_0_h2f_mpu_events_eventi,
@@ -41,8 +42,7 @@ module reverbFPGA_Qsys (
 	paramvalueupdate_pio_external_connection_export,
 	predelayvalue_pio_external_connection_export,
 	reset_reset_n,
-	serial_flash_loader_0_noe_in_noe,
-	clksampling_clk);	
+	serial_flash_loader_0_noe_in_noe);	
 
 	inout		audio_config_external_interface_SDAT;
 	output		audio_config_external_interface_SCLK;
@@ -58,6 +58,7 @@ module reverbFPGA_Qsys (
 	output		audio_controller_external_interface_DACDAT;
 	input		audio_controller_external_interface_DACLRCK;
 	input		clk_clk;
+	output		clksampling_clk;
 	output	[23:0]	dampingvalue_pio_external_connection_export;
 	output	[23:0]	decayvalue_pio_external_connection_export;
 	input		hps_0_h2f_mpu_events_eventi;
@@ -86,5 +87,4 @@ module reverbFPGA_Qsys (
 	output	[23:0]	predelayvalue_pio_external_connection_export;
 	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
-	output		clksampling_clk;
 endmodule
