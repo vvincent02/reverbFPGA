@@ -33,6 +33,14 @@
          type = "int";
       }
    }
+   element audio_pll_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
    element clkSampling
    {
       datum _sortIndex
@@ -207,6 +215,11 @@
    internal="audio_controller.external_interface"
    type="conduit"
    dir="end" />
+ <interface
+   name="audio_pll_0_audio_clk"
+   internal="audio_pll_0.audio_clk"
+   type="clock"
+   dir="start" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
  <interface
    name="clksampling"
@@ -311,6 +324,17 @@
   <parameter name="audio_out" value="true" />
   <parameter name="avalon_bus_type" value="Streaming" />
   <parameter name="dw" value="24" />
+ </module>
+ <module
+   name="audio_pll_0"
+   kind="altera_up_avalon_audio_pll"
+   version="18.0"
+   enabled="1">
+  <parameter name="AUTO_DEVICE" value="5CSEMA5F31C6" />
+  <parameter name="AUTO_DEVICE_SPEEDGRADE" value="6" />
+  <parameter name="audio_clk_freq" value="16.9344" />
+  <parameter name="device_family" value="Cyclone V" />
+  <parameter name="gui_refclk" value="50.0" />
  </module>
  <module name="clkSampling" kind="clock_source" version="23.1" enabled="1">
   <parameter name="clockFrequency" value="48000" />
@@ -509,7 +533,7 @@
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SDIO_CCLK" value="100" />
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM0_SCLK_OUT" value="100" />
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM1_SCLK_OUT" value="100" />
-  <parameter name="GPIO_Enable">No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No</parameter>
+  <parameter name="GPIO_Enable">No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No</parameter>
   <parameter name="GP_Enable" value="false" />
   <parameter name="H2F_AXI_CLOCK_FREQ" value="50000000" />
   <parameter name="H2F_CTI_CLOCK_FREQ" value="100" />
@@ -523,8 +547,8 @@
   <parameter name="HHP_HPS_VERIFICATION" value="false" />
   <parameter name="HLGPI_Enable" value="false" />
   <parameter name="HPS_PROTOCOL" value="DDR3" />
-  <parameter name="I2C0_Mode" value="N/A" />
-  <parameter name="I2C0_PinMuxing" value="Unused" />
+  <parameter name="I2C0_Mode" value="I2C" />
+  <parameter name="I2C0_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="I2C1_Mode" value="N/A" />
   <parameter name="I2C1_PinMuxing" value="Unused" />
   <parameter name="I2C2_Mode" value="N/A" />
@@ -557,12 +581,12 @@
   <parameter name="MEM_DEVICE" value="MISSING_MODEL" />
   <parameter name="MEM_DLL_EN" value="true" />
   <parameter name="MEM_DQ_PER_DQS" value="8" />
-  <parameter name="MEM_DQ_WIDTH" value="8" />
+  <parameter name="MEM_DQ_WIDTH" value="32" />
   <parameter name="MEM_DRV_STR" value="RZQ/6" />
   <parameter name="MEM_FORMAT" value="DISCRETE" />
   <parameter name="MEM_GUARANTEED_WRITE_INIT" value="false" />
   <parameter name="MEM_IF_BOARD_BASE_DELAY" value="10" />
-  <parameter name="MEM_IF_DM_PINS_EN" value="false" />
+  <parameter name="MEM_IF_DM_PINS_EN" value="true" />
   <parameter name="MEM_IF_DQSN_EN" value="true" />
   <parameter name="MEM_IF_SIM_VALID_WINDOW" value="0" />
   <parameter name="MEM_INIT_EN" value="false" />
@@ -573,7 +597,7 @@
   <parameter name="MEM_NUMBER_OF_RANKS_PER_DIMM" value="1" />
   <parameter name="MEM_PD" value="DLL off" />
   <parameter name="MEM_RANK_MULTIPLICATION_FACTOR" value="1" />
-  <parameter name="MEM_ROW_ADDR_WIDTH" value="12" />
+  <parameter name="MEM_ROW_ADDR_WIDTH" value="15" />
   <parameter name="MEM_RTT_NOM" value="RZQ/4" />
   <parameter name="MEM_RTT_WR" value="Dynamic ODT off" />
   <parameter name="MEM_SRT" value="Normal" />
@@ -802,8 +826,8 @@
   <parameter name="TRACKING_WATCH_TEST" value="false" />
   <parameter name="TREFI" value="35100" />
   <parameter name="TRFC" value="350" />
-  <parameter name="UART0_Mode" value="N/A" />
-  <parameter name="UART0_PinMuxing" value="Unused" />
+  <parameter name="UART0_Mode" value="No Flow Control" />
+  <parameter name="UART0_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="UART1_Mode" value="N/A" />
   <parameter name="UART1_PinMuxing" value="Unused" />
   <parameter name="USB0_Mode" value="N/A" />
@@ -1088,10 +1112,20 @@
    start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
  <connection
+   kind="clock"
+   version="23.1"
+   start="clk_0.clk"
+   end="audio_pll_0.ref_clk" />
+ <connection
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
    end="clkSampling.clk_in_reset" />
+ <connection
+   kind="reset"
+   version="23.1"
+   start="clk_0.clk_reset"
+   end="audio_pll_0.ref_reset" />
  <connection
    kind="reset"
    version="23.1"

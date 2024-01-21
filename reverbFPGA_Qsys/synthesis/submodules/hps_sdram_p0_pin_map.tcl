@@ -1992,7 +1992,8 @@ proc hps_sdram_p0_get_ddr_pins { instname allpins } {
 		set dqsn_string ${instname}|p0|umemphy|uio_pads|dq_ddio\[$i\].ubidir_dq_dqs|${dqs_inst}obuf_os_bar_0|o
 		set dqsn_local_pins [ hps_sdram_p0_get_names_in_collection [ get_fanouts $dqsn_string ] ]
 
-		set dm_local_pins [list]
+		set dm_string ${instname}|p0|umemphy|uio_pads|dq_ddio\[$i\].ubidir_dq_dqs|${dqs_inst}extra_output_pad_gen\[0\].obuf_1|o
+		set dm_local_pins [ hps_sdram_p0_get_names_in_collection [ get_fanouts $dm_string ] ]
 
 		set dqs_in_clock(dqs_pin) [ lindex $dqs_local_pins 0 ]
 		set dqs_in_clock(dqs_shifted_pin) "${instname}|p0|umemphy|uio_pads|dq_ddio[$i].ubidir_dq_dqs|${dqs_inst}dqs_delay_chain|dqsbusout"
@@ -2034,7 +2035,7 @@ proc hps_sdram_p0_get_ddr_pins { instname allpins } {
 
 	set pins(dqs_pins) $dqs_pins
 	set pins(dqsn_pins) $dqsn_pins
-	set pins(dm_pins) ""
+	set pins(dm_pins) $dm_pins
 	set pins(q_groups) $q_groups
 	set pins(all_dq_pins) [ join [ join $q_groups ] ]
 	set pins(dqs_in_clocks) $dqs_in_clocks
@@ -2276,6 +2277,12 @@ proc hps_sdram_p0_verify_ddr_pins { pins_par } {
 		}
 	}
 
+	# Verify DM pins
+	set counted_dm_pins [ llength $pins(dm_pins) ]
+	if { $::GLOBAL_hps_sdram_p0_number_of_dm_pins != $counted_dm_pins } {
+		post_message -type critical_warning "Unexpected number of detected DM pins: $counted_dm_pins"
+		post_message -type critical_warning "   expected: $::GLOBAL_hps_sdram_p0_number_of_dm_pins"
+	}
 	# Verify Address/Command/BA pins
 	if { [ llength $pins(add_pins) ] == 0 } {
 		post_message -type critical_warning "Address pins of size 0"

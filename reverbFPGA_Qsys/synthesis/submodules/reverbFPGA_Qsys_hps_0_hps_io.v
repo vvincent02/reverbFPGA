@@ -7,7 +7,7 @@
 
 `timescale 1 ps / 1 ps
 module reverbFPGA_Qsys_hps_0_hps_io (
-		output wire [12:0] mem_a,                   // memory.mem_a
+		output wire [14:0] mem_a,                   // memory.mem_a
 		output wire [2:0]  mem_ba,                  //       .mem_ba
 		output wire        mem_ck,                  //       .mem_ck
 		output wire        mem_ck_n,                //       .mem_ck_n
@@ -17,12 +17,18 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		output wire        mem_cas_n,               //       .mem_cas_n
 		output wire        mem_we_n,                //       .mem_we_n
 		output wire        mem_reset_n,             //       .mem_reset_n
-		inout  wire [7:0]  mem_dq,                  //       .mem_dq
-		inout  wire        mem_dqs,                 //       .mem_dqs
-		inout  wire        mem_dqs_n,               //       .mem_dqs_n
+		inout  wire [31:0] mem_dq,                  //       .mem_dq
+		inout  wire [3:0]  mem_dqs,                 //       .mem_dqs
+		inout  wire [3:0]  mem_dqs_n,               //       .mem_dqs_n
 		output wire        mem_odt,                 //       .mem_odt
+		output wire [3:0]  mem_dm,                  //       .mem_dm
 		input  wire        oct_rzqin,               //       .oct_rzqin
-		inout  wire        hps_io_gpio_inst_GPIO48  // hps_io.hps_io_gpio_inst_GPIO48
+		input  wire        hps_io_uart0_inst_RX,    // hps_io.hps_io_uart0_inst_RX
+		output wire        hps_io_uart0_inst_TX,    //       .hps_io_uart0_inst_TX
+		inout  wire        hps_io_i2c0_inst_SDA,    //       .hps_io_i2c0_inst_SDA
+		inout  wire        hps_io_i2c0_inst_SCL,    //       .hps_io_i2c0_inst_SCL
+		inout  wire        hps_io_gpio_inst_GPIO48, //       .hps_io_gpio_inst_GPIO48
+		inout  wire        hps_io_gpio_inst_GPIO53  //       .hps_io_gpio_inst_GPIO53
 	);
 
 	reverbFPGA_Qsys_hps_0_hps_io_border border (
@@ -40,8 +46,14 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		.mem_dqs                 (mem_dqs),                 //       .mem_dqs
 		.mem_dqs_n               (mem_dqs_n),               //       .mem_dqs_n
 		.mem_odt                 (mem_odt),                 //       .mem_odt
+		.mem_dm                  (mem_dm),                  //       .mem_dm
 		.oct_rzqin               (oct_rzqin),               //       .oct_rzqin
-		.hps_io_gpio_inst_GPIO48 (hps_io_gpio_inst_GPIO48)  // hps_io.hps_io_gpio_inst_GPIO48
+		.hps_io_uart0_inst_RX    (hps_io_uart0_inst_RX),    // hps_io.hps_io_uart0_inst_RX
+		.hps_io_uart0_inst_TX    (hps_io_uart0_inst_TX),    //       .hps_io_uart0_inst_TX
+		.hps_io_i2c0_inst_SDA    (hps_io_i2c0_inst_SDA),    //       .hps_io_i2c0_inst_SDA
+		.hps_io_i2c0_inst_SCL    (hps_io_i2c0_inst_SCL),    //       .hps_io_i2c0_inst_SCL
+		.hps_io_gpio_inst_GPIO48 (hps_io_gpio_inst_GPIO48), //       .hps_io_gpio_inst_GPIO48
+		.hps_io_gpio_inst_GPIO53 (hps_io_gpio_inst_GPIO53)  //       .hps_io_gpio_inst_GPIO53
 	);
 
 endmodule

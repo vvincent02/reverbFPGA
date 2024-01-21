@@ -6,6 +6,8 @@ Progress: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
 Progress: Parameterizing module audio_config
 Progress: Adding audio_controller [altera_up_avalon_audio 18.0]
 Progress: Parameterizing module audio_controller
+Progress: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
+Progress: Parameterizing module audio_pll_0
 Progress: Adding clkSampling [clock_source 23.1]
 Progress: Parameterizing module clkSampling
 Progress: Adding clk_0 [clock_source 23.1]
@@ -41,8 +43,9 @@ Info: audio_config: Starting Generation of Audio and Video Config
 Info: audio_config: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_and_video_config "audio_config"
 Info: audio_controller: Starting Generation of Audio Controller
 Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
+Info: audio_pll_0: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_pll "audio_pll_0"
 Info: dampingValue_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
-Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9738_1287299960510552077.dir/0004_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9738_1287299960510552077.dir/0004_dampingValue_PIO_gen//reverbFPGA_Qsys_dampingValue_PIO_component_configuration.pl  --do_build_sim=0  ]
+Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9743_865305265550842738.dir/0004_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9743_865305265550842738.dir/0004_dampingValue_PIO_gen//reverbFPGA_Qsys_dampingValue_PIO_component_configuration.pl  --do_build_sim=0  ]
 Info: dampingValue_PIO: Done RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
 Info: dampingValue_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "dampingValue_PIO"
 Info: hps_0: "Running  for module: hps_0"
@@ -52,11 +55,11 @@ Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_
 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
 Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
 Info: paramType_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
-Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9738_1287299960510552077.dir/0005_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9738_1287299960510552077.dir/0005_paramType_PIO_gen//reverbFPGA_Qsys_paramType_PIO_component_configuration.pl  --do_build_sim=0  ]
+Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9743_865305265550842738.dir/0005_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9743_865305265550842738.dir/0005_paramType_PIO_gen//reverbFPGA_Qsys_paramType_PIO_component_configuration.pl  --do_build_sim=0  ]
 Info: paramType_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
 Info: paramType_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramType_PIO"
 Info: paramValueUpdate_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
-Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9738_1287299960510552077.dir/0006_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9738_1287299960510552077.dir/0006_paramValueUpdate_PIO_gen//reverbFPGA_Qsys_paramValueUpdate_PIO_component_configuration.pl  --do_build_sim=0  ]
+Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9743_865305265550842738.dir/0006_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9743_865305265550842738.dir/0006_paramValueUpdate_PIO_gen//reverbFPGA_Qsys_paramValueUpdate_PIO_component_configuration.pl  --do_build_sim=0  ]
 Info: paramValueUpdate_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
 Info: paramValueUpdate_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramValueUpdate_PIO"
 Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader
@@ -71,6 +74,8 @@ Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_0: "reverbFPGA_Qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
 Info: rst_controller: "reverbFPGA_Qsys" instantiated altera_reset_controller "rst_controller"
+Info: audio_pll: "audio_pll_0" instantiated altera_pll "audio_pll"
+Info: reset_from_locked: "audio_pll_0" instantiated altera_up_avalon_reset_from_locked_signal "reset_from_locked"
 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
 Info: altclkctrl_inst: "serial_flash_loader" instantiated altera_serial_flash_loader "altclkctrl_inst"
@@ -91,81 +96,10 @@ Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "r
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: Error during execution of "{C:/intelfpga_lite/23.1std/quartus/../nios2eds/Nios II Command Shell.bat} make all 2>> stderr.txt": child process exited abnormally
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: Execution of command "{C:/intelfpga_lite/23.1std/quartus/../nios2eds/Nios II Command Shell.bat} make all 2>> stderr.txt" failed
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: Command 'wsl' not found.  Please install with:
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: sudo apt install wsl
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: Command 'dos2unix' not found.  Please install with:
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: sudo apt install dos2unix
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: child process exited abnormally
-Error: border: Error during execution of script generate_hps_sdram.tcl: seq: add_fileset_file: No such file C:/Users/User/AppData/Local/Temp/alt9738_4192671347059313080.dir/0004_seq_gen/hps_AC_ROM.hex
-Error: border: Error during execution of script generate_hps_sdram.tcl: Generation stopped, 3 or more modules remaining
-Error: border: Execution of script generate_hps_sdram.tcl failed
-Error: border: 2024.01.16.07:52:06 Info:
-Error: border: ********************************************************************************************************************
-Error: border: 
-Error: border: Use qsys-generate for a simpler command-line interface for generating IP.
-Error: border: 
-Error: border: Run ip-generate with switch --remove-qsys-generate-warning to prevent this notice from appearing in subsequent runs.
-Error: border: 
-Error: border: ********************************************************************************************************************
-Error: border: 2024.01.16.07:52:15 Warning: Ignored parameter assignment device=5CSEMA5F31C6
-Error: border: 2024.01.16.07:52:15 Warning: Ignored parameter assignment extended_family_support=true
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram: 'Quick' simulation modes are NOT timing accurate. Some simulation memory models may issue warnings or errors
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram.seq: This module has no ports or interfaces
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram.p0: p0.scc must be exported, or connected to a matching conduit.
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram.as: as.afi_init_cal_req must be exported, or connected to a matching conduit.
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram.as: as.tracking must be exported, or connected to a matching conduit.
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram.c0: c0.status must be exported, or connected to a matching conduit.
-Error: border: 2024.01.16.07:52:22 Warning: hps_sdram.p0: p0.avl must be connected to an Avalon-MM master
-Error: border: 2024.01.16.07:52:22 Info: hps_sdram: Generating altera_mem_if_hps_emif "hps_sdram" for QUARTUS_SYNTH
-Error: border: 2024.01.16.07:52:27 Info: pll: "hps_sdram" instantiated altera_mem_if_hps_pll "pll"
-Error: border: 2024.01.16.07:52:27 Info: p0: Generating clock pair generator
-Error: border: 2024.01.16.07:52:29 Info: p0: Generating hps_sdram_p0_altdqdqs
-Error: border: 2024.01.16.07:52:44 Info: p0:
-Error: border: 2024.01.16.07:52:44 Info: p0: *****************************
-Error: border: 2024.01.16.07:52:44 Info: p0:
-Error: border: 2024.01.16.07:52:44 Info: p0: Remember to run the hps_sdram_p0_pin_assignments.tcl
-Error: border: 2024.01.16.07:52:44 Info: p0: script after running Synthesis and before Fitting.
-Error: border: 2024.01.16.07:52:44 Info: p0:
-Error: border: 2024.01.16.07:52:44 Info: p0: *****************************
-Error: border: 2024.01.16.07:52:44 Info: p0:
-Error: border: 2024.01.16.07:52:45 Info: p0: "hps_sdram" instantiated altera_mem_if_ddr3_hard_phy_core "p0"
-Error: border: 2024.01.16.07:52:46 Error: seq: Error during execution of "{C:/intelfpga_lite/23.1std/quartus/../nios2eds/Nios II Command Shell.bat} make all 2>> stderr.txt": child process exited abnormally
-Error: border: 2024.01.16.07:52:46 Error: seq: Execution of command "{C:/intelfpga_lite/23.1std/quartus/../nios2eds/Nios II Command Shell.bat} make all 2>> stderr.txt" failed
-Error: border: 2024.01.16.07:52:46 Error: seq: Command 'wsl' not found.  Please install with:
-Error: border: 2024.01.16.07:52:46 Error: seq: sudo apt install wsl
-Error: border: 2024.01.16.07:52:46 Error: seq: Command 'dos2unix' not found.  Please install with:
-Error: border: 2024.01.16.07:52:46 Error: seq: sudo apt install dos2unix
-Error: border: 2024.01.16.07:52:46 Error: seq: child process exited abnormally
-Error: border: 2024.01.16.07:52:46 Error: seq: add_fileset_file: No such file C:/Users/User/AppData/Local/Temp/alt9738_4192671347059313080.dir/0004_seq_gen/hps_AC_ROM.hex
-Error: border: while executing
-Error: border: "add_fileset_file $file_name [::alt_mem_if::util::hwtcl_utils::get_file_type $file_name 0] PATH $file_pathname"
-Error: border: ("foreach" body line 4)
-Error: border: invoked from within
-Error: border: "foreach file_pathname $return_files_sw {
-Error: border: 		_dprint 1 "Preparing to add $file_pathname"
-Error: border: 		set file_name [file tail $file_pathname]
-Error: border: 		add_fileset_file $..."
-Error: border: (procedure "generate_sw" line 18)
-Error: border: invoked from within
-Error: border: "generate_sw $name $fileset"
-Error: border: ("if" then script line 4)
-Error: border: invoked from within
-Error: border: "if {[string compare -nocase $fileset QUARTUS_SYNTH] == 0} {
-Error: border: 		set top_level_file "altera_mem_if_hhp_qseq_synth_top.v"
-Error: border: 		add_fileset_file $top_level_fi..."
-Error: border: (procedure "generate_files" line 4)
-Error: border: invoked from within
-Error: border: "generate_files $name QUARTUS_SYNTH"
-Error: border: (procedure "generate_synth" line 3)
-Error: border: invoked from within
-Error: border: "generate_synth altera_mem_if_hhp_qseq_synth_top"
-Error: border: 2024.01.16.07:52:46 Info: seq: "hps_sdram" instantiated altera_mem_if_hhp_ddr3_qseq "seq"
-Error: border: 2024.01.16.07:52:46 Error: Generation stopped, 3 or more modules remaining
-Error: border: 2024.01.16.07:52:46 Info: hps_sdram: Done "hps_sdram" with 7 modules, 33 files
 Info: border: "hps_io" instantiated altera_interface_generator "border"
-Error: Generation stopped, 2 or more modules remaining
-Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 29 modules, 95 files
-Error: qsys-generate failed with exit code 1: 74 Errors, 4 Warnings
+Info: altclkctrl_inst: Generating top-level entity reverbFPGA_Qsys_serial_flash_loader_altclkctrl_inst_altclkctrl_inst.
+Info: altclkctrl_inst: "altclkctrl_inst" instantiated altclkctrl "altclkctrl_inst"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 32 modules, 109 files
+Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

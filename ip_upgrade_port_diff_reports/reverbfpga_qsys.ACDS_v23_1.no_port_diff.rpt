@@ -1,0 +1,23 @@
+IP Ports Diff Report for reverbfpga_qsys
+Thu Jan 18 21:33:28 2024
+Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. IP Information
+
+
+
++----------------------------------------------------------------------+
+; IP Information                                                       ;
++----------------------+-----------------------------------------------+
+; IP Variation Name    ; reverbfpga_qsys                               ;
+; Prior Version        ; ACDS_v18.0                                    ;
+; New Version          ; ACDS_v23.1                                    ;
+; New File             ; reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.vhd ;
+; Has Port Differences ; No                                            ;
++----------------------+-----------------------------------------------+
+
+

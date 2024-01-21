@@ -49,6 +49,7 @@ module hps_sdram_p0_acv_hard_io_pads(
 	pll_dqs_ena_clk,
 	pll_addr_cmd_clk,
 	phy_mem_dq,
+	phy_mem_dm,
 	phy_mem_ck,
 	phy_mem_ck_n,
 	mem_dqs,
@@ -153,6 +154,7 @@ input pll_addr_cmd_clk;
 
 
 inout	[MEM_DQ_WIDTH-1:0]	phy_mem_dq;
+output	[MEM_DM_WIDTH-1:0]	phy_mem_dm;
 output	[MEM_CK_WIDTH-1:0]	phy_mem_ck;
 output	[MEM_CK_WIDTH-1:0]	phy_mem_ck_n;
 inout	[MEM_DQS_WIDTH-1:0]	mem_dqs;
@@ -286,6 +288,7 @@ wire	reset_n_core_clk = reset_n_afi_clk;
 				.read_write_data_io (phy_mem_dq[(DQDQS_DATA_WIDTH*(i+1)-1) : DQDQS_DATA_WIDTH*i]),
 				.read_data_out (ddio_phy_dqdin[((NATIVE_GROUP_SIZE*i+DQDQS_DATA_WIDTH)*4-1) : (NATIVE_GROUP_SIZE*i*4)]),
 				.capture_strobe_out(dqs_busout), 
+				.extra_write_data_in (phy_ddio_dmdout[(i + 1) * 4 - 1 : (i * 4)]),
 				.write_data_in (phy_ddio_dqdout[((NATIVE_GROUP_SIZE*i+DQDQS_DATA_WIDTH)*4-1) : (NATIVE_GROUP_SIZE*i*4)]),
 				.write_oe_in (phy_ddio_dqoe[((NATIVE_GROUP_SIZE*i+DQDQS_DATA_WIDTH)*2-1) : (NATIVE_GROUP_SIZE*i*2)]),
 				.strobe_io (mem_dqs[i]),
@@ -293,12 +296,14 @@ wire	reset_n_core_clk = reset_n_afi_clk;
 				.output_strobe_ena(phy_ddio_dqs_oe[(i + 1) * 2 - 1 : (i * 2)]),
 				.write_strobe(phy_ddio_dqsdout[(i + 1) * 4 - 1 : (i * 4)]),
 				.oct_ena_in(phy_ddio_dqslogic_oct[(i + 1) * 2 - 1 : (i * 2)]),
+				.extra_write_data_out (phy_mem_dm[i]),
 				.config_data_in (scc_data),
 				.config_dqs_ena (scc_dqs_ena[i]),
 				.config_io_ena (scc_dq_ena[(DQDQS_DATA_WIDTH*(i+1)-1) : DQDQS_DATA_WIDTH*i]),
 				.config_dqs_io_ena (scc_dqs_io_ena[i]),
 				.config_update (scc_upd),
 				.config_clock_in (scc_clk),
+				.config_extra_io_ena (scc_dm_ena[i]),
 				.lfifo_rdata_en(phy_ddio_dqslogic_incrdataen[(i + 1) * 2 - 1 : (i * 2)]),
 				.lfifo_rdata_en_full(phy_ddio_dqslogic_dqsena[(i + 1) * 2 - 1 : (i * 2)]),
 				.lfifo_rd_latency(phy_ddio_dqslogic_readlatency[(i + 1) * 5 - 1 : (i * 5)]),

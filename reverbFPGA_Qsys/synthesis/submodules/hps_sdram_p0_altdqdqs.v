@@ -32,12 +32,15 @@ module hps_sdram_p0_altdqdqs (
 	read_data_out,
 	capture_strobe_out,
 	write_data_in,
+	extra_write_data_in,
+	extra_write_data_out,
 	parallelterminationcontrol_in,
 	seriesterminationcontrol_in,
 	config_data_in,
 	config_update,
 	config_dqs_ena,
 	config_io_ena,
+	config_extra_io_ena,
 	config_dqs_io_ena,
 	config_clock_in,
 	lfifo_rdata_en,
@@ -73,12 +76,15 @@ input [2-1:0] oct_ena_in;
 output [2 * 2 * 8-1:0] read_data_out;
 output capture_strobe_out;
 input [2 * 2 * 8-1:0] write_data_in;
+input [2 * 2 * 1-1:0] extra_write_data_in;
+output [1-1:0] extra_write_data_out;
 input	[16-1:0] parallelterminationcontrol_in;
 input	[16-1:0] seriesterminationcontrol_in;
 input config_data_in;
 input config_update;
 input config_dqs_ena;
 input [8-1:0] config_io_ena;
+input [1-1:0] config_extra_io_ena;
 input config_dqs_io_ena;
 input config_clock_in;
 
@@ -115,12 +121,15 @@ parameter ALTERA_ALTDQ_DQS2_FAST_SIM_MODEL = "";
 		.read_data_out( read_data_out),
 		.capture_strobe_out( capture_strobe_out),
 		.write_data_in( write_data_in),
+		.extra_write_data_in( extra_write_data_in),
+		.extra_write_data_out( extra_write_data_out),
 		.parallelterminationcontrol_in( parallelterminationcontrol_in),
 		.seriesterminationcontrol_in( seriesterminationcontrol_in),
 		.config_data_in( config_data_in),
 		.config_update( config_update),
 		.config_dqs_ena( config_dqs_ena),
 		.config_io_ena( config_io_ena),
+		.config_extra_io_ena( config_extra_io_ena),
 		.config_dqs_io_ena( config_dqs_io_ena),
 		.config_clock_in( config_clock_in),
 		.lfifo_rdata_en(lfifo_rdata_en),
@@ -160,7 +169,7 @@ parameter ALTERA_ALTDQ_DQS2_FAST_SIM_MODEL = "";
 	defparam altdq_dqs2_inst.DIFFERENTIAL_OUTPUT_STROBE = "true";
 	defparam altdq_dqs2_inst.USE_BIDIR_STROBE = "true";
 	defparam altdq_dqs2_inst.REVERSE_READ_WORDS = "false";
-	defparam altdq_dqs2_inst.EXTRA_OUTPUT_WIDTH = 0;
+	defparam altdq_dqs2_inst.EXTRA_OUTPUT_WIDTH = 1;
 	defparam altdq_dqs2_inst.DYNAMIC_MODE = "dynamic";
 	defparam altdq_dqs2_inst.OCT_SERIES_TERM_CONTROL_WIDTH   = 16; 
 	defparam altdq_dqs2_inst.OCT_PARALLEL_TERM_CONTROL_WIDTH = 16; 

@@ -13,6 +13,7 @@ module reverbFPGA_Qsys (
 	audio_controller_external_interface_BCLK,
 	audio_controller_external_interface_DACDAT,
 	audio_controller_external_interface_DACLRCK,
+	audio_pll_0_audio_clk_clk,
 	clk_clk,
 	clksampling_clk,
 	dampingvalue_pio_external_connection_export,
@@ -21,7 +22,12 @@ module reverbFPGA_Qsys (
 	hps_0_h2f_mpu_events_evento,
 	hps_0_h2f_mpu_events_standbywfe,
 	hps_0_h2f_mpu_events_standbywfi,
+	hps_io_hps_io_uart0_inst_RX,
+	hps_io_hps_io_uart0_inst_TX,
+	hps_io_hps_io_i2c0_inst_SDA,
+	hps_io_hps_io_i2c0_inst_SCL,
 	hps_io_hps_io_gpio_inst_GPIO48,
+	hps_io_hps_io_gpio_inst_GPIO53,
 	memory_mem_a,
 	memory_mem_ba,
 	memory_mem_ck,
@@ -36,6 +42,7 @@ module reverbFPGA_Qsys (
 	memory_mem_dqs,
 	memory_mem_dqs_n,
 	memory_mem_odt,
+	memory_mem_dm,
 	memory_oct_rzqin,
 	mixvalue_pio_external_connection_export,
 	paramtype_pio_external_connection_export,
@@ -57,6 +64,7 @@ module reverbFPGA_Qsys (
 	input		audio_controller_external_interface_BCLK;
 	output		audio_controller_external_interface_DACDAT;
 	input		audio_controller_external_interface_DACLRCK;
+	output		audio_pll_0_audio_clk_clk;
 	input		clk_clk;
 	output		clksampling_clk;
 	output	[23:0]	dampingvalue_pio_external_connection_export;
@@ -65,8 +73,13 @@ module reverbFPGA_Qsys (
 	output		hps_0_h2f_mpu_events_evento;
 	output	[1:0]	hps_0_h2f_mpu_events_standbywfe;
 	output	[1:0]	hps_0_h2f_mpu_events_standbywfi;
+	input		hps_io_hps_io_uart0_inst_RX;
+	output		hps_io_hps_io_uart0_inst_TX;
+	inout		hps_io_hps_io_i2c0_inst_SDA;
+	inout		hps_io_hps_io_i2c0_inst_SCL;
 	inout		hps_io_hps_io_gpio_inst_GPIO48;
-	output	[12:0]	memory_mem_a;
+	inout		hps_io_hps_io_gpio_inst_GPIO53;
+	output	[14:0]	memory_mem_a;
 	output	[2:0]	memory_mem_ba;
 	output		memory_mem_ck;
 	output		memory_mem_ck_n;
@@ -76,10 +89,11 @@ module reverbFPGA_Qsys (
 	output		memory_mem_cas_n;
 	output		memory_mem_we_n;
 	output		memory_mem_reset_n;
-	inout	[7:0]	memory_mem_dq;
-	inout		memory_mem_dqs;
-	inout		memory_mem_dqs_n;
+	inout	[31:0]	memory_mem_dq;
+	inout	[3:0]	memory_mem_dqs;
+	inout	[3:0]	memory_mem_dqs_n;
 	output		memory_mem_odt;
+	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
 	output	[23:0]	mixvalue_pio_external_connection_export;
 	input	[3:0]	paramtype_pio_external_connection_export;

@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jan 8, 2024 3:16:15 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1704723375784</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>.\</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Jan 21, 2024 1:18:08 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1705839488893</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>..\..\..\..\..\..\..\</BspGeneratedLocation>
         <BspSettingsFile>C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\settings.bsp</BspSettingsFile>
         <HpsSettingsPath>..\..\hps_isw_handoff\reverbFPGA_Qsys_hps_0</HpsSettingsPath>
         <JdiFile>default</JdiFile>
@@ -266,7 +266,7 @@
                 <SettingName>spl.boot.FAT_SUPPORT</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable FAT partition support when booting from SDMMC.</Description>
@@ -314,7 +314,7 @@
                 <SettingName>spl.debug.DEBUG_MEMORY_WRITE</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable debug memory write support for debugging, useful when UART is not available.</Description>

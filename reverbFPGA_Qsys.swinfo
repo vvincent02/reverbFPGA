@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2023.12.28.14:09:32 -->
+ <!-- 2024.01.18.15:56:21 -->
  <name>reverbFPGA_Qsys</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
  <deviceFamily>Cyclone V</deviceFamily>
  <sopcSimulationEnabled>false</sopcSimulationEnabled>
+ <module>
+  <name>audio_config</name>
+  <version>18.0</version>
+  <className>altera_up_avalon_audio_and_video_config</className>
+  <clockConnection>
+   <moduleName>audio_config</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>audio_config.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>audio_config</path>
+ </module>
  <module>
   <name>audio_controller</name>
   <version>18.0</version>
@@ -18,6 +30,42 @@
    <frequency>50000000</frequency>
   </clockConnection>
   <path>audio_controller</path>
+ </module>
+ <module>
+  <name>audio_pll_0</name>
+  <version>18.0</version>
+  <className>altera_up_avalon_audio_pll</className>
+  <clockConnection>
+   <moduleName>audio_pll_0</moduleName>
+   <localSlaveName>ref_clk</localSlaveName>
+   <systemConnectionName>audio_pll_0.ref_clk</systemConnectionName>
+   <frequency>0</frequency>
+  </clockConnection>
+  <clockConnection>
+   <moduleName>audio_pll_0</moduleName>
+   <localSlaveName>audio_clk</localSlaveName>
+   <systemConnectionName>audio_pll_0.audio_clk</systemConnectionName>
+   <frequency>16934404</frequency>
+  </clockConnection>
+  <path>audio_pll_0</path>
+ </module>
+ <module>
+  <name>clkSampling</name>
+  <version>18.0</version>
+  <className>clock_source</className>
+  <clockConnection>
+   <moduleName>clkSampling</moduleName>
+   <localSlaveName>clk_in</localSlaveName>
+   <systemConnectionName>clkSampling.clk_in</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <clockConnection>
+   <moduleName>clkSampling</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>clkSampling.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>clkSampling</path>
  </module>
  <module>
   <name>clk_0</name>
@@ -464,13 +512,46 @@
     <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
+   <connectedDevice>
+    <moduleName>audio_config</moduleName>
+    <slaveDesc>audio_config</slaveDesc>
+    <slave>
+     <name>avalon_av_config_slave</name>
+     <version>18.0</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>audio_config.avalon_av_config_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>96</baseAddress>
+    <basePhysicalAddress>96</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
   </masterGroup>
-  <clockConnection>
-   <moduleName>hps_0</moduleName>
-   <localSlaveName>f2h_sdram0_clock</localSlaveName>
-   <systemConnectionName>hps_0.f2h_sdram0_clock</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
   <clockConnection>
    <moduleName>hps_0</moduleName>
    <localSlaveName>h2f_axi_clock</localSlaveName>
@@ -814,6 +895,45 @@
     </slave>
     <baseAddress>80</baseAddress>
     <basePhysicalAddress>80</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>audio_config</moduleName>
+    <slaveDesc>audio_config</slaveDesc>
+    <slave>
+     <name>avalon_av_config_slave</name>
+     <version>18.0</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>audio_config.avalon_av_config_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>96</baseAddress>
+    <basePhysicalAddress>96</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -1852,12 +1972,6 @@
    <systemConnectionName>hps_0_bridges.f2h_axi_clock</systemConnectionName>
    <frequency>0</frequency>
   </clockConnection>
-  <clockConnection>
-   <moduleName>hps_0_bridges</moduleName>
-   <localSlaveName>f2h_sdram0_clock</localSlaveName>
-   <systemConnectionName>hps_0_bridges.f2h_sdram0_clock</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
   <path>hps_0.bridges</path>
  </module>
  <module>
@@ -2237,6 +2351,45 @@
     </slave>
     <baseAddress>4280287312</baseAddress>
     <basePhysicalAddress>4280287312</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>audio_config</moduleName>
+    <slaveDesc>audio_config</slaveDesc>
+    <slave>
+     <name>avalon_av_config_slave</name>
+     <version>18.0</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>audio_config.avalon_av_config_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287328</baseAddress>
+    <basePhysicalAddress>4280287328</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3621,6 +3774,45 @@
     </slave>
     <baseAddress>4280287312</baseAddress>
     <basePhysicalAddress>4280287312</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>audio_config</moduleName>
+    <slaveDesc>audio_config</slaveDesc>
+    <slave>
+     <name>avalon_av_config_slave</name>
+     <version>18.0</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>false</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>false</value>
+     </assignment>
+     <systemSlaveName>audio_config.avalon_av_config_slave</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287328</baseAddress>
+    <basePhysicalAddress>4280287328</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -5123,7 +5315,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.status</name>
-   <value>disabled</value>
+   <value>okay</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -6751,5 +6943,11 @@
    <frequency>50000000</frequency>
   </clockConnection>
   <path>preDelayValue_PIO</path>
+ </module>
+ <module>
+  <name>serial_flash_loader</name>
+  <version>18.0</version>
+  <className>altera_serial_flash_loader</className>
+  <path>serial_flash_loader</path>
  </module>
 </SopcSystem>

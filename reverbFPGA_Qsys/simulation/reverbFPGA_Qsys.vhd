@@ -21,6 +21,7 @@ entity reverbFPGA_Qsys is
 		audio_controller_external_interface_BCLK          : in    std_logic                     := '0';             --                                            .BCLK
 		audio_controller_external_interface_DACDAT        : out   std_logic;                                        --                                            .DACDAT
 		audio_controller_external_interface_DACLRCK       : in    std_logic                     := '0';             --                                            .DACLRCK
+		audio_pll_0_audio_clk_clk                         : out   std_logic;                                        --                       audio_pll_0_audio_clk.clk
 		clk_clk                                           : in    std_logic                     := '0';             --                                         clk.clk
 		clksampling_clk                                   : out   std_logic;                                        --                                 clksampling.clk
 		dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    --        dampingvalue_pio_external_connection.export
@@ -29,7 +30,12 @@ entity reverbFPGA_Qsys is
 		hps_0_h2f_mpu_events_evento                       : out   std_logic;                                        --                                            .evento
 		hps_0_h2f_mpu_events_standbywfe                   : out   std_logic_vector(1 downto 0);                     --                                            .standbywfe
 		hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     --                                            .standbywfi
-		hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := '0';             --                                      hps_io.hps_io_gpio_inst_GPIO48
+		hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := '0';             --                                      hps_io.hps_io_uart0_inst_RX
+		hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        --                                            .hps_io_uart0_inst_TX
+		hps_io_hps_io_i2c0_inst_SDA                       : inout std_logic                     := '0';             --                                            .hps_io_i2c0_inst_SDA
+		hps_io_hps_io_i2c0_inst_SCL                       : inout std_logic                     := '0';             --                                            .hps_io_i2c0_inst_SCL
+		hps_io_hps_io_gpio_inst_GPIO00                    : inout std_logic                     := '0';             --                                            .hps_io_gpio_inst_GPIO00
+		hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := '0';             --                                            .hps_io_gpio_inst_GPIO48
 		memory_mem_a                                      : out   std_logic_vector(12 downto 0);                    --                                      memory.mem_a
 		memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     --                                            .mem_ba
 		memory_mem_ck                                     : out   std_logic;                                        --                                            .mem_ck
@@ -95,6 +101,15 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component reverbFPGA_Qsys_audio_controller;
 
+	component reverbFPGA_Qsys_audio_pll_0 is
+		port (
+			ref_clk_clk        : in  std_logic := 'X'; -- clk
+			ref_reset_reset    : in  std_logic := 'X'; -- reset
+			audio_clk_clk      : out std_logic;        -- clk
+			reset_source_reset : out std_logic         -- reset
+		);
+	end component reverbFPGA_Qsys_audio_pll_0;
+
 	component reverbFPGA_Qsys_dampingValue_PIO is
 		port (
 			clk        : in  std_logic                     := 'X';             -- clk
@@ -133,6 +148,11 @@ architecture rtl of reverbFPGA_Qsys is
 			mem_dqs_n               : inout std_logic                     := 'X';             -- mem_dqs_n
 			mem_odt                 : out   std_logic;                                        -- mem_odt
 			oct_rzqin               : in    std_logic                     := 'X';             -- oct_rzqin
+			hps_io_uart0_inst_RX    : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+			hps_io_uart0_inst_TX    : out   std_logic;                                        -- hps_io_uart0_inst_TX
+			hps_io_i2c0_inst_SDA    : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+			hps_io_i2c0_inst_SCL    : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
+			hps_io_gpio_inst_GPIO00 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
 			hps_io_gpio_inst_GPIO48 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 			h2f_rst_n               : out   std_logic;                                        -- reset_n
 			h2f_axi_clk             : in    std_logic                     := 'X';             -- clk
@@ -498,7 +518,7 @@ architecture rtl of reverbFPGA_Qsys is
 	signal rst_controller_reset_out_reset                                    : std_logic;                     -- rst_controller:reset_out -> [audio_config:reset, audio_controller:reset, mm_interconnect_0:audio_config_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                                : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 	signal hps_0_h2f_reset_reset                                             : std_logic;                     -- hps_0:h2f_rst_n -> hps_0_h2f_reset_reset:in
-	signal reset_reset_n_ports_inv                                           : std_logic;                     -- reset_reset_n:inv -> rst_controller:reset_in0
+	signal reset_reset_n_ports_inv                                           : std_logic;                     -- reset_reset_n:inv -> [audio_pll_0:ref_reset_reset, rst_controller:reset_in0]
 	signal mm_interconnect_0_predelayvalue_pio_s1_write_ports_inv            : std_logic;                     -- mm_interconnect_0_predelayvalue_pio_s1_write:inv -> preDelayValue_PIO:write_n
 	signal mm_interconnect_0_decayvalue_pio_s1_write_ports_inv               : std_logic;                     -- mm_interconnect_0_decayvalue_pio_s1_write:inv -> decayValue_PIO:write_n
 	signal mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_dampingvalue_pio_s1_write:inv -> dampingValue_PIO:write_n
@@ -544,6 +564,14 @@ begin
 			AUD_BCLK                     => audio_controller_external_interface_BCLK,           --                            .export
 			AUD_DACDAT                   => audio_controller_external_interface_DACDAT,         --                            .export
 			AUD_DACLRCK                  => audio_controller_external_interface_DACLRCK         --                            .export
+		);
+
+	audio_pll_0 : component reverbFPGA_Qsys_audio_pll_0
+		port map (
+			ref_clk_clk        => clk_clk,                   --      ref_clk.clk
+			ref_reset_reset    => reset_reset_n_ports_inv,   --    ref_reset.reset
+			audio_clk_clk      => audio_pll_0_audio_clk_clk, --    audio_clk.clk
+			reset_source_reset => open                       -- reset_source.reset
 		);
 
 	dampingvalue_pio : component reverbFPGA_Qsys_dampingValue_PIO
@@ -595,7 +623,12 @@ begin
 			mem_dqs_n               => memory_mem_dqs_n,                --                  .mem_dqs_n
 			mem_odt                 => memory_mem_odt,                  --                  .mem_odt
 			oct_rzqin               => memory_oct_rzqin,                --                  .oct_rzqin
-			hps_io_gpio_inst_GPIO48 => hps_io_hps_io_gpio_inst_GPIO48,  --            hps_io.hps_io_gpio_inst_GPIO48
+			hps_io_uart0_inst_RX    => hps_io_hps_io_uart0_inst_RX,     --            hps_io.hps_io_uart0_inst_RX
+			hps_io_uart0_inst_TX    => hps_io_hps_io_uart0_inst_TX,     --                  .hps_io_uart0_inst_TX
+			hps_io_i2c0_inst_SDA    => hps_io_hps_io_i2c0_inst_SDA,     --                  .hps_io_i2c0_inst_SDA
+			hps_io_i2c0_inst_SCL    => hps_io_hps_io_i2c0_inst_SCL,     --                  .hps_io_i2c0_inst_SCL
+			hps_io_gpio_inst_GPIO00 => hps_io_hps_io_gpio_inst_GPIO00,  --                  .hps_io_gpio_inst_GPIO00
+			hps_io_gpio_inst_GPIO48 => hps_io_hps_io_gpio_inst_GPIO48,  --                  .hps_io_gpio_inst_GPIO48
 			h2f_rst_n               => hps_0_h2f_reset_reset,           --         h2f_reset.reset_n
 			h2f_axi_clk             => clk_clk,                         --     h2f_axi_clock.clk
 			h2f_AWID                => open,                            --    h2f_axi_master.awid

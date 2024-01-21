@@ -15,24 +15,26 @@ PORT(
 	AUD_ADCDAT : IN std_logic;
 	AUD_ADCLRCK : IN std_logic;
 	AUD_BCLK : IN std_logic;
+	AUD_XCK : OUT std_logic;
 	AUD_DACDAT : OUT std_logic;
 	AUD_DACLRCK : IN  std_logic;
 	
 	-- signaux d'interface avec la mémoire DDR3 du HPS
-	HPS_DDR3_A : OUT std_logic_vector(12 downto 0); 
+	HPS_DDR3_ADDR : OUT std_logic_vector(14 downto 0); 
 	HPS_DDR3_BA : OUT std_logic_vector(2 downto 0);
-	HPS_DDR3_CK_p : OUT std_logic;
-	HPS_DDR3_CK_n : OUT std_logic;
+	HPS_DDR3_CK_P : OUT std_logic;
+	HPS_DDR3_CK_N : OUT std_logic;
 	HPS_DDR3_CKE : OUT std_logic;
-	HPS_DDR3_CS_n : OUT std_logic;
-	HPS_DDR3_RAS_n : OUT std_logic;
-	HPS_DDR3_CAS_n : OUT std_logic;
-	HPS_DDR3_WE_n : OUT std_logic;
-	HPS_DDR3_RESET_n : OUT std_logic;
-	HPS_DDR3_DQ : INOUT std_logic_vector(7 downto 0);
-	HPS_DDR3_DQS_p : INOUT std_logic;
-	HPS_DDR3_DQS_n : INOUT std_logic;
+	HPS_DDR3_CS_N : OUT std_logic;
+	HPS_DDR3_RAS_N : OUT std_logic;
+	HPS_DDR3_CAS_N : OUT std_logic;
+	HPS_DDR3_WE_N : OUT std_logic;
+	HPS_DDR3_RESET_N : OUT std_logic;
+	HPS_DDR3_DQ : INOUT std_logic_vector(31 downto 0);
+	HPS_DDR3_DQS_P : INOUT std_logic_vector(3 downto 0);
+	HPS_DDR3_DQS_N : INOUT std_logic_vector(3 downto 0);
 	HPS_DDR3_ODT : OUT std_logic;
+	HPS_DDR3_DM : OUT std_logic_vector(3 downto 0);
 	HPS_DDR3_RZQ : IN std_logic;
 	
 	HPS_eventI : IN std_logic;
@@ -42,7 +44,13 @@ PORT(
 	
 	FPGA_I2C_SDAT : INOUT std_logic;
 	FPGA_I2C_SCLK : OUT std_logic;
-	HPS_I2C_CONTROL : INOUT std_logic
+	
+	HPS_I2C1_SDAT : INOUT std_logic;
+	HPS_I2C1_SCLK : INOUT std_logic;
+	HPS_I2C_CONTROL : INOUT std_logic;
+	HPS_UART_RX : IN std_logic;
+	HPS_UART_TX : OUT std_logic;
+	HPS_LED : INOUT std_logic
 );
 END reverbFPGA;
 
@@ -86,7 +94,7 @@ port (
 	clk_clk                                           : in    std_logic                     := 'X';             -- clk
 	dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
 	decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
-	memory_mem_a                                      : out   std_logic_vector(12 downto 0);                    -- mem_a
+	memory_mem_a                                      : out   std_logic_vector(14 downto 0);                    -- mem_a
 	memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     -- mem_ba
 	memory_mem_ck                                     : out   std_logic;                                        -- mem_ck
 	memory_mem_ck_n                                   : out   std_logic;                                        -- mem_ck_n
@@ -96,10 +104,11 @@ port (
 	memory_mem_cas_n                                  : out   std_logic;                                        -- mem_cas_n
 	memory_mem_we_n                                   : out   std_logic;                                        -- mem_we_n
 	memory_mem_reset_n                                : out   std_logic;                                        -- mem_reset_n
-	memory_mem_dq                                     : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dq
-	memory_mem_dqs                                    : inout std_logic                     := 'X';             -- mem_dqs
-	memory_mem_dqs_n                                  : inout std_logic                     := 'X';             -- mem_dqs_n
+	memory_mem_dq                                     : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
+	memory_mem_dqs                                    : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs
+	memory_mem_dqs_n                                  : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
 	memory_mem_odt                                    : out   std_logic;                                        -- mem_odt
+	memory_mem_dm                                     : out   std_logic_vector(3 downto 0);                     -- mem_dm
 	memory_oct_rzqin                                  : in    std_logic                     := 'X';             -- oct_rzqin
 	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
 	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
@@ -127,10 +136,16 @@ port (
 	
 	audio_config_external_interface_SDAT              : inout std_logic                     := 'X';             -- SDAT
    audio_config_external_interface_SCLK              : out   std_logic;                                         -- SCLK
+	
+	hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+	hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
+	hps_io_hps_io_i2c0_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+	hps_io_hps_io_i2c0_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
+	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
+   hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 
-	hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
-
-	clksampling_clk                                   : out   std_logic                                         -- clk
+	clksampling_clk                                   : out   std_logic;                                         -- clk
+	audio_pll_0_audio_clk_clk                         : out   std_logic                                         -- clk
 );
 end component reverbFPGA_Qsys;
 
@@ -158,7 +173,7 @@ port map (
 	audio_controller_external_interface_DACDAT        => AUD_DACDAT,        --                                            .DACDAT
 	audio_controller_external_interface_DACLRCK       => AUD_DACLRCK,	--                                            .DACLRCK
 	
-	memory_mem_a                                      => HPS_DDR3_A,                                      --                                      memory.mem_a
+	memory_mem_a                                      => HPS_DDR3_ADDR,                                      --                                      memory.mem_a
 	memory_mem_ba                                     => HPS_DDR3_BA,                                     --                                            .mem_ba
 	memory_mem_ck                                     => HPS_DDR3_CK_p,                                     --                                            .mem_ck
 	memory_mem_ck_n                                   => HPS_DDR3_CK_n,                                   --                                            .mem_ck_n
@@ -172,6 +187,7 @@ port map (
 	memory_mem_dqs                                    => HPS_DDR3_DQS_p,                                    --                                            .mem_dqs
 	memory_mem_dqs_n                                  => HPS_DDR3_DQS_n,                                  --                                            .mem_dqs_n
 	memory_mem_odt                                    => HPS_DDR3_ODT,                                    --                                            .mem_odt
+	memory_mem_dm                                     => HPS_DDR3_DM,                                     --                                            .mem_dm
 	memory_oct_rzqin                                  => HPS_DDR3_RZQ,
 
 	hps_0_h2f_mpu_events_eventi                       => open,                       --                        hps_0_h2f_mpu_events.eventi
@@ -183,10 +199,17 @@ port map (
 	
 	audio_config_external_interface_SDAT              => FPGA_I2C_SDAT,              --             audio_config_external_interface.SDAT
    audio_config_external_interface_SCLK              => FPGA_I2C_SCLK,               --                                            .SCLK
+	
+	hps_io_hps_io_uart0_inst_RX                       => HPS_UART_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
+	hps_io_hps_io_uart0_inst_TX                       => HPS_UART_TX,                       --                                            .hps_io_uart0_inst_TX
+	hps_io_hps_io_i2c0_inst_SDA                       => HPS_I2C1_SDAT,                       --                                            .hps_io_i2c0_inst_SDA
+	hps_io_hps_io_i2c0_inst_SCL                       => HPS_I2C1_SCLK,                       --                                            .hps_io_i2c0_inst_SCL
+	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
+   hps_io_hps_io_gpio_inst_GPIO48                    => HPS_I2C_CONTROL,                    --                                            .hps_io_gpio_inst_GPIO48
+	
+	clksampling_clk                                   => samplingClk,                                    --                                 clksampling.clk
 
-	hps_io_hps_io_gpio_inst_GPIO48                    => HPS_I2C_CONTROL,                    --                                      hps_io.hps_io_gpio_inst_GPIO48
-
-	clksampling_clk                                   => samplingClk                                    --                                 clksampling.clk
+	audio_pll_0_audio_clk_clk                         => AUD_XCK                          --                       audio_pll_0_audio_clk.clk
 );
 
 -- machine d'état permettant l'interfaçage entre les données du controleur audio et celle traitées en dur dans le FPGA
@@ -253,6 +276,8 @@ lateReverbComponent : entity work.lateReverb(archi)
 	port map(clk50M => CLOCK_50, samplingClk => samplingClk, rst => rst, dataIN => resize(signed(dataIN_stable), 41), dataOUT => dataOUT_extended, dampingValue => "10000000000000000000000000000000000000000", decayValue => "10000000000000000000000000000000000000000", g => "10000000000000000000000000000000000000000");  
 
 --dataOUT <= dataIN_stable when (samplingClk'EVENT and samplingClk='1');
-dataOUT <= std_logic_vector(dataOUT_extended(40 downto 17));
+--dataOUT <= std_logic_vector(dataOUT_extended(40 downto 17));
+
+dataOUT <= (others => '0');
 
 END archi;

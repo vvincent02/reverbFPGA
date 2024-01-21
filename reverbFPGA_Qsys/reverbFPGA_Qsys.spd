@@ -216,6 +216,14 @@
    type="SYSTEM_VERILOG"
    library="fpga_interfaces" />
  <file
+   path="simulation/submodules/altera_up_avalon_reset_from_locked_signal.v"
+   type="VERILOG"
+   library="reset_from_locked" />
+ <file
+   path="simulation/submodules/reverbFPGA_Qsys_audio_pll_0_audio_pll.vho"
+   type="VHDL"
+   library="audio_pll" />
+ <file
    path="simulation/submodules/altera_reset_controller.v"
    type="VERILOG"
    library="rst_controller" />
@@ -251,6 +259,10 @@
    path="simulation/submodules/reverbFPGA_Qsys_dampingValue_PIO.vhd"
    type="VHDL"
    library="dampingValue_PIO" />
+ <file
+   path="simulation/submodules/reverbFPGA_Qsys_audio_pll_0.vhd"
+   type="VHDL"
+   library="audio_pll_0" />
  <file path="simulation/reverbFPGA_Qsys.vhd" type="VHDL" />
  <topLevel name="reverbFPGA_Qsys" />
  <deviceFamily name="cyclonev" />

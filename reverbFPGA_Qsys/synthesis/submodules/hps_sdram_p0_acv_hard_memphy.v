@@ -109,6 +109,7 @@ module hps_sdram_p0_acv_hard_memphy (
 	mem_cas_n,
 	mem_reset_n,
 	mem_dq,
+	mem_dm,
 	mem_ck,
 	mem_ck_n,
 	mem_dqs,
@@ -329,6 +330,7 @@ output  [MEM_CONTROL_WIDTH-1:0]      mem_ras_n;
 output  [MEM_CONTROL_WIDTH-1:0]      mem_cas_n;
 output                               mem_reset_n;
 inout   [MEM_DQ_WIDTH-1:0]           mem_dq;
+output  [MEM_DM_WIDTH-1:0]           mem_dm;
 output  [MEM_CK_WIDTH-1:0]           mem_ck;
 output  [MEM_CK_WIDTH-1:0]           mem_ck_n;
 inout   [MEM_DQS_WIDTH-1:0]          mem_dqs;
@@ -745,6 +747,7 @@ assign afi_reset_n = reset_n_afi_clk;
 		.pll_dqs_ena_clk                   (pll_dqs_ena_clk),
 		.pll_addr_cmd_clk                  (adc_clk_cps),
 		.phy_mem_dq                        (mem_dq),
+		.phy_mem_dm                        (mem_dm),
 		.phy_mem_ck                        (mem_ck),
 		.phy_mem_ck_n                      (mem_ck_n),
 		.mem_dqs                           (mem_dqs),

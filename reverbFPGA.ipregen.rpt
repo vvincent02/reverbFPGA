@@ -1,5 +1,5 @@
 IP Upgrade report for reverbFPGA
-Mon Jan 15 21:45:04 2024
+Thu Jan 18 21:33:27 2024
 Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
@@ -8,7 +8,7 @@ Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 ---------------------
   1. Legal Notice
   2. IP Upgrade Summary
-  3. Failed Upgrade IP Components
+  3. Successfully Upgraded IP Components
   4. IP Upgrade Messages
 
 
@@ -36,7 +36,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------+
 ; IP Upgrade Summary                                                            ;
 +------------------------------+------------------------------------------------+
-; IP Components Upgrade Status ; Passed - Mon Jan 15 21:45:04 2024              ;
+; IP Components Upgrade Status ; Passed - Thu Jan 18 21:33:27 2024              ;
 ; Quartus Prime Version        ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
 ; Revision Name                ; reverbFPGA                                     ;
 ; Top-level Entity Name        ; reverbFPGA                                     ;
@@ -44,13 +44,13 @@ https://fpgasoftware.intel.com/eula.
 +------------------------------+------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Failed Upgrade IP Components                                                                                                                                                                        ;
-+-----------------+----------------+---------+-----------------------------------------------+----------------------+-----------------+---------------------------------------------------------------+
-; Entity Name     ; Component Name ; Version ; Original Source File                          ; Generation File Path ; New Source File ; Message                                                       ;
-+-----------------+----------------+---------+-----------------------------------------------+----------------------+-----------------+---------------------------------------------------------------+
-; reverbFPGA_Qsys ; Qsys           ; 18.0    ; reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.qip ; reverbFPGA_Qsys.qsys ;                 ; Error upgrading Platform Designer file "reverbFPGA_Qsys.qsys" ;
-+-----------------+----------------+---------+-----------------------------------------------+----------------------+-----------------+---------------------------------------------------------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Successfully Upgraded IP Components                                                                                                                                         ;
++-----------------+----------------+---------+-----------------------------------------------+----------------------+-----------------------------------------------+---------+
+; Entity Name     ; Component Name ; Version ; Original Source File                          ; Generation File Path ; New Source File                               ; Message ;
++-----------------+----------------+---------+-----------------------------------------------+----------------------+-----------------------------------------------+---------+
+; reverbFPGA_Qsys ; Qsys           ; 18.0    ; reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.qip ; reverbFPGA_Qsys.qsys ; reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.qip ;         ;
++-----------------+----------------+---------+-----------------------------------------------+----------------------+-----------------------------------------------+---------+
 
 
 +---------------------+
@@ -59,335 +59,284 @@ https://fpgasoftware.intel.com/eula.
 Info (11902): Backing up file "reverbFPGA_Qsys.qsys" to "reverbFPGA_Qsys.BAK.qsys"
 Info (11902): Backing up file "reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.vhd" to "reverbFPGA_Qsys.BAK.vhd"
 Info (11837): Started upgrading IP component Qsys with file "reverbFPGA_Qsys.qsys"
-Info: 2024.01.15.21:39:49 Info: Starting to upgrade the IP cores in the Platform Designer system
-Info: 2024.01.15.21:39:49 Info: Finished upgrading the ip cores
-Info: 2024.01.15.21:40:29 Info: Saving generation log to C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys
-Info: 2024.01.15.21:40:29 Info: Starting: Create simulation model
-Info: 2024.01.15.21:40:29 Info: qsys-generate C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys.qsys --simulation=VHDL --allow-mixed-language-simulation --output-directory=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\simulation --family="Cyclone V" --part=5CSEMA5F31C6
-Info: 2024.01.15.21:40:29 Info: Loading reverbFPGA
-Info: 2024.01.15.21:40:31 Info: Reading input file
-Info: 2024.01.15.21:40:31 Info: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module audio_config
-Info: 2024.01.15.21:40:31 Info: Adding audio_controller [altera_up_avalon_audio 18.0]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module audio_controller
-Info: 2024.01.15.21:40:31 Info: Adding clkSampling [clock_source 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module clkSampling
-Info: 2024.01.15.21:40:31 Info: Adding clk_0 [clock_source 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module clk_0
-Info: 2024.01.15.21:40:31 Info: Adding dampingValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module dampingValue_PIO
-Info: 2024.01.15.21:40:31 Info: Adding decayValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module decayValue_PIO
-Info: 2024.01.15.21:40:31 Info: Adding hps_0 [altera_hps 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module hps_0
-Info: 2024.01.15.21:40:31 Info: Adding mixValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module mixValue_PIO
-Info: 2024.01.15.21:40:31 Info: Adding paramType_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module paramType_PIO
-Info: 2024.01.15.21:40:31 Info: Adding paramValueUpdate_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module paramValueUpdate_PIO
-Info: 2024.01.15.21:40:31 Info: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module preDelayValue_PIO
-Info: 2024.01.15.21:40:31 Info: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
-Info: 2024.01.15.21:40:31 Info: Parameterizing module serial_flash_loader
-Info: 2024.01.15.21:40:31 Info: Building connections
-Info: 2024.01.15.21:40:31 Info: Parameterizing connections
-Info: 2024.01.15.21:40:31 Info: Validating
-Info: 2024.01.15.21:40:44 Info: Done reading input file
-Info: 2024.01.15.21:40:51 Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
-Info: 2024.01.15.21:40:51 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: 2024.01.15.21:40:51 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: 2024.01.15.21:40:51 Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: 2024.01.15.21:40:51 Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: 2024.01.15.21:40:54 Info: reverbFPGA_Qsys: Generating reverbFPGA_Qsys "reverbFPGA_Qsys" for SIM_VHDL
-Info: 2024.01.15.21:41:21 Info: audio_config: Starting Generation of Audio and Video Config
-Warning: 2024.01.15.21:41:21 Warning: audio_config: No files generated for fileset SIM_VHDL
-Info: 2024.01.15.21:41:21 Info: audio_config: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_and_video_config "audio_config"
-Info: 2024.01.15.21:41:21 Info: audio_controller: Starting Generation of Audio Controller
-Warning: 2024.01.15.21:41:21 Warning: audio_controller: No files generated for fileset SIM_VHDL
-Info: 2024.01.15.21:41:21 Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
-Info: 2024.01.15.21:41:21 Info: dampingValue_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
-Info: 2024.01.15.21:41:21 Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0004_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --vhdl --config=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0004_dampingValue_PIO_gen//reverbFPGA_Qsys_dampingValue_PIO_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0004_dampingValue_PIO_gen
-Info: 2024.01.15.21:41:22 Info: dampingValue_PIO: Done RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
-Info: 2024.01.15.21:41:22 Info: dampingValue_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "dampingValue_PIO"
-Info: 2024.01.15.21:41:22 Info: hps_0: "Running  for module: hps_0"
-Info: 2024.01.15.21:41:23 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
-Info: 2024.01.15.21:41:23 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: 2024.01.15.21:41:23 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: 2024.01.15.21:41:31 Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
-Info: 2024.01.15.21:41:31 Info: paramType_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
-Info: 2024.01.15.21:41:31 Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0005_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --vhdl --config=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0005_paramType_PIO_gen//reverbFPGA_Qsys_paramType_PIO_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0005_paramType_PIO_gen
-Info: 2024.01.15.21:41:32 Info: paramType_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
-Info: 2024.01.15.21:41:32 Info: paramType_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramType_PIO"
-Info: 2024.01.15.21:41:32 Info: paramValueUpdate_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
-Info: 2024.01.15.21:41:32 Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0006_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --vhdl --config=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0006_paramValueUpdate_PIO_gen//reverbFPGA_Qsys_paramValueUpdate_PIO_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0006_paramValueUpdate_PIO_gen
-Info: 2024.01.15.21:41:32 Info: paramValueUpdate_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
-Info: 2024.01.15.21:41:32 Info: paramValueUpdate_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramValueUpdate_PIO"
-Info: 2024.01.15.21:41:32 Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader
-Info: 2024.01.15.21:41:32 Info: altclkctrl_inst: "Generating: altclkctrl_inst"
-Info: 2024.01.15.21:41:32 Info: serial_flash_loader: "reverbFPGA_Qsys" instantiated altera_serial_flash_loader "serial_flash_loader"
-Info: 2024.01.15.21:41:45 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:41:46 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:41:47 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:41:49 Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:41:50 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:41:51 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:41:53 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:42:05 Info: mm_interconnect_0: "reverbFPGA_Qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
-Info: 2024.01.15.21:42:05 Info: rst_controller: "reverbFPGA_Qsys" instantiated altera_reset_controller "rst_controller"
-Info: 2024.01.15.21:42:06 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
-Info: 2024.01.15.21:42:08 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
-Info: 2024.01.15.21:42:08 Info: altclkctrl_inst: "serial_flash_loader" instantiated altera_serial_flash_loader "altclkctrl_inst"
-Info: 2024.01.15.21:42:08 Info: audio_config_avalon_av_config_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "audio_config_avalon_av_config_slave_translator"
-Info: 2024.01.15.21:42:08 Info: hps_0_h2f_lw_axi_master_agent: "mm_interconnect_0" instantiated altera_merlin_axi_master_ni "hps_0_h2f_lw_axi_master_agent"
-Info: 2024.01.15.21:42:08 Info: audio_config_avalon_av_config_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "audio_config_avalon_av_config_slave_agent"
-Info: 2024.01.15.21:42:08 Info: audio_config_avalon_av_config_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "audio_config_avalon_av_config_slave_agent_rsp_fifo"
-Info: 2024.01.15.21:42:08 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
-Info: 2024.01.15.21:42:08 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
-Info: 2024.01.15.21:42:08 Info: hps_0_h2f_lw_axi_master_wr_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "hps_0_h2f_lw_axi_master_wr_limiter"
-Info: 2024.01.15.21:42:08 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:08 Info: audio_config_avalon_av_config_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "audio_config_avalon_av_config_slave_burst_adapter"
-Info: 2024.01.15.21:42:08 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:08 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:08 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
-Info: 2024.01.15.21:42:08 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
-Info: 2024.01.15.21:42:08 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
-Info: 2024.01.15.21:42:08 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
-Info: 2024.01.15.21:42:09 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
-Info: 2024.01.15.21:42:11 Info: border: "hps_io" instantiated altera_interface_generator "border"
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
-Info: 2024.01.15.21:42:11 Info: altclkctrl_inst: Generating top-level entity reverbFPGA_Qsys_serial_flash_loader_altclkctrl_inst_altclkctrl_inst.
-Info: 2024.01.15.21:42:11 Info: altclkctrl_inst: "altclkctrl_inst" instantiated altclkctrl "altclkctrl_inst"
-Info: 2024.01.15.21:42:11 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
-Info: 2024.01.15.21:42:11 Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 29 modules, 55 files
-Info: 2024.01.15.21:42:12 Info: qsys-generate succeeded.
-Info: 2024.01.15.21:42:12 Info: Finished: Create simulation model
-Info: 2024.01.15.21:42:12 Info: Starting: Create Modelsim Project.
-Info: 2024.01.15.21:42:12 Info: sim-script-gen --spd=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\reverbFPGA_Qsys.spd --output-directory=C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
-Info: 2024.01.15.21:42:12 Info: Doing: ip-make-simscript --spd=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\reverbFPGA_Qsys.spd --output-directory=C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
-Info: 2024.01.15.21:42:13 Info: Generating the following file(s) for RIVIERA simulator in C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
-Info: 2024.01.15.21:42:13 Info:     aldec
-Info: 2024.01.15.21:42:13 Info: Generating the following file(s) for MODELSIM simulator in C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
-Info: 2024.01.15.21:42:13 Info:     mentor
-Info: 2024.01.15.21:42:13 Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
-Info: 2024.01.15.21:42:13 Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
-Info: 2024.01.15.21:42:13 Info: Finished: Create Modelsim Project.
-Info: 2024.01.15.21:42:13 Info: Starting: Create block symbol file (.bsf)
-Info: 2024.01.15.21:42:13 Info: qsys-generate C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys.qsys --block-symbol-file --output-directory=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys --family="Cyclone V" --part=5CSEMA5F31C6
-Info: 2024.01.15.21:42:13 Info: Loading reverbFPGA
-Info: 2024.01.15.21:42:15 Info: Reading input file
-Info: 2024.01.15.21:42:15 Info: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module audio_config
-Info: 2024.01.15.21:42:15 Info: Adding audio_controller [altera_up_avalon_audio 18.0]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module audio_controller
-Info: 2024.01.15.21:42:15 Info: Adding clkSampling [clock_source 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module clkSampling
-Info: 2024.01.15.21:42:15 Info: Adding clk_0 [clock_source 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module clk_0
-Info: 2024.01.15.21:42:15 Info: Adding dampingValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module dampingValue_PIO
-Info: 2024.01.15.21:42:15 Info: Adding decayValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module decayValue_PIO
-Info: 2024.01.15.21:42:15 Info: Adding hps_0 [altera_hps 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module hps_0
-Info: 2024.01.15.21:42:15 Info: Adding mixValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module mixValue_PIO
-Info: 2024.01.15.21:42:15 Info: Adding paramType_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module paramType_PIO
-Info: 2024.01.15.21:42:15 Info: Adding paramValueUpdate_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module paramValueUpdate_PIO
-Info: 2024.01.15.21:42:15 Info: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module preDelayValue_PIO
-Info: 2024.01.15.21:42:15 Info: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
-Info: 2024.01.15.21:42:15 Info: Parameterizing module serial_flash_loader
-Info: 2024.01.15.21:42:15 Info: Building connections
-Info: 2024.01.15.21:42:15 Info: Parameterizing connections
-Info: 2024.01.15.21:42:15 Info: Validating
-Info: 2024.01.15.21:42:27 Info: Done reading input file
-Info: 2024.01.15.21:42:33 Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
-Info: 2024.01.15.21:42:33 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: 2024.01.15.21:42:33 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: 2024.01.15.21:42:33 Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: 2024.01.15.21:42:33 Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: 2024.01.15.21:42:35 Info: qsys-generate succeeded.
-Info: 2024.01.15.21:42:35 Info: Finished: Create block symbol file (.bsf)
-Info: 2024.01.15.21:42:35 Info:
-Info: 2024.01.15.21:42:35 Info: Starting: Create HDL design files for synthesis
-Info: 2024.01.15.21:42:35 Info: qsys-generate C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys.qsys --synthesis=VHDL --output-directory=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\synthesis --family="Cyclone V" --part=5CSEMA5F31C6
-Info: 2024.01.15.21:42:35 Info: Loading reverbFPGA
-Info: 2024.01.15.21:42:37 Info: Reading input file
-Info: 2024.01.15.21:42:37 Info: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module audio_config
-Info: 2024.01.15.21:42:37 Info: Adding audio_controller [altera_up_avalon_audio 18.0]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module audio_controller
-Info: 2024.01.15.21:42:37 Info: Adding clkSampling [clock_source 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module clkSampling
-Info: 2024.01.15.21:42:37 Info: Adding clk_0 [clock_source 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module clk_0
-Info: 2024.01.15.21:42:37 Info: Adding dampingValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module dampingValue_PIO
-Info: 2024.01.15.21:42:37 Info: Adding decayValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module decayValue_PIO
-Info: 2024.01.15.21:42:37 Info: Adding hps_0 [altera_hps 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module hps_0
-Info: 2024.01.15.21:42:37 Info: Adding mixValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module mixValue_PIO
-Info: 2024.01.15.21:42:37 Info: Adding paramType_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module paramType_PIO
-Info: 2024.01.15.21:42:37 Info: Adding paramValueUpdate_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module paramValueUpdate_PIO
-Info: 2024.01.15.21:42:37 Info: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module preDelayValue_PIO
-Info: 2024.01.15.21:42:37 Info: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
-Info: 2024.01.15.21:42:37 Info: Parameterizing module serial_flash_loader
-Info: 2024.01.15.21:42:37 Info: Building connections
-Info: 2024.01.15.21:42:37 Info: Parameterizing connections
-Info: 2024.01.15.21:42:37 Info: Validating
-Info: 2024.01.15.21:42:49 Info: Done reading input file
-Info: 2024.01.15.21:42:55 Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
-Info: 2024.01.15.21:42:55 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: 2024.01.15.21:42:55 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: 2024.01.15.21:42:55 Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: 2024.01.15.21:42:55 Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: 2024.01.15.21:42:59 Info: reverbFPGA_Qsys: Generating reverbFPGA_Qsys "reverbFPGA_Qsys" for QUARTUS_SYNTH
-Info: 2024.01.15.21:43:20 Info: audio_config: Starting Generation of Audio and Video Config
-Info: 2024.01.15.21:43:20 Info: audio_config: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_and_video_config "audio_config"
-Info: 2024.01.15.21:43:20 Info: audio_controller: Starting Generation of Audio Controller
-Info: 2024.01.15.21:43:20 Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
-Info: 2024.01.15.21:43:20 Info: dampingValue_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
-Info: 2024.01.15.21:43:20 Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0028_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0028_dampingValue_PIO_gen/
-Info: 2024.01.15.21:43:20 Info: dampingValue_PIO: Done RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
-Info: 2024.01.15.21:43:20 Info: dampingValue_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "dampingValue_PIO"
-Info: 2024.01.15.21:43:20 Info: hps_0: "Running  for module: hps_0"
-Info: 2024.01.15.21:43:21 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
-Info: 2024.01.15.21:43:22 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
-Warning: 2024.01.15.21:43:22 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: 2024.01.15.21:43:29 Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
-Info: 2024.01.15.21:43:29 Info: paramType_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
-Info: 2024.01.15.21:43:29 Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0029_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0029_paramType_PIO_gen/
-Info: 2024.01.15.21:43:29 Info: paramType_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
-Info: 2024.01.15.21:43:29 Info: paramType_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramType_PIO"
-Info: 2024.01.15.21:43:29 Info: paramValueUpdate_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
-Info: 2024.01.15.21:43:29 Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0030_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9737_1215927788405303960.dir/0030_paramValueUpdate_PIO_gen/
-Info: 2024.01.15.21:43:30 Info: paramValueUpdate_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
-Info: 2024.01.15.21:43:30 Info: paramValueUpdate_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramValueUpdate_PIO"
-Info: 2024.01.15.21:43:30 Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader
-Info: 2024.01.15.21:43:30 Info: altclkctrl_inst: "Generating: altclkctrl_inst"
-Info: 2024.01.15.21:43:30 Info: serial_flash_loader: "reverbFPGA_Qsys" instantiated altera_serial_flash_loader "serial_flash_loader"
-Info: 2024.01.15.21:43:42 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:43:43 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:43:45 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:43:46 Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:43:47 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:43:49 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:43:50 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
-Info: 2024.01.15.21:44:01 Info: mm_interconnect_0: "reverbFPGA_Qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
-Info: 2024.01.15.21:44:01 Info: rst_controller: "reverbFPGA_Qsys" instantiated altera_reset_controller "rst_controller"
-Info: 2024.01.15.21:44:01 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
-Info: 2024.01.15.21:44:04 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
-Info: 2024.01.15.21:44:04 Info: altclkctrl_inst: "serial_flash_loader" instantiated altera_serial_flash_loader "altclkctrl_inst"
-Info: 2024.01.15.21:44:04 Info: audio_config_avalon_av_config_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "audio_config_avalon_av_config_slave_translator"
-Info: 2024.01.15.21:44:04 Info: hps_0_h2f_lw_axi_master_agent: "mm_interconnect_0" instantiated altera_merlin_axi_master_ni "hps_0_h2f_lw_axi_master_agent"
-Info: 2024.01.15.21:44:04 Info: audio_config_avalon_av_config_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "audio_config_avalon_av_config_slave_agent"
-Info: 2024.01.15.21:44:04 Info: audio_config_avalon_av_config_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "audio_config_avalon_av_config_slave_agent_rsp_fifo"
-Info: 2024.01.15.21:44:04 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
-Info: 2024.01.15.21:44:04 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
-Info: 2024.01.15.21:44:04 Info: hps_0_h2f_lw_axi_master_wr_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "hps_0_h2f_lw_axi_master_wr_limiter"
-Info: 2024.01.15.21:44:04 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
-Info: 2024.01.15.21:44:04 Info: audio_config_avalon_av_config_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "audio_config_avalon_av_config_slave_burst_adapter"
-Info: 2024.01.15.21:44:04 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
-Info: 2024.01.15.21:44:04 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
-Info: 2024.01.15.21:44:04 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
-Info: 2024.01.15.21:44:04 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
-Info: 2024.01.15.21:44:04 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
-Info: 2024.01.15.21:44:04 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
-Info: 2024.01.15.21:44:04 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
-Info: 2024.01.15.21:44:06 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
-Error: 2024.01.15.21:44:47 Error: border: Error during execution of script generate_hps_sdram.tcl: seq: Nios II Command Shell.bat requires Windows Subsystem for Linux (WSL) to run.
-Error: 2024.01.15.21:44:47 Error: border: Error during execution of script generate_hps_sdram.tcl: seq: Please install WSL and try again.
-Error: 2024.01.15.21:44:47 Error: border: Error during execution of script generate_hps_sdram.tcl: seq: child process exited abnormally
-Error: 2024.01.15.21:44:47 Error: border: Error during execution of script generate_hps_sdram.tcl: seq: add_fileset_file: No such file C:/Users/User/AppData/Local/Temp/alt9737_3455669866662742500.dir/0004_seq_gen
-Error: 2024.01.15.21:44:47 Error: border: Error during execution of script generate_hps_sdram.tcl: Generation stopped, 3 or more modules remaining
-Error: 2024.01.15.21:44:47 Error: border: Execution of script generate_hps_sdram.tcl failed
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:09 Info:
-Error: 2024.01.15.21:44:47 Error: border: ********************************************************************************************************************
-Error: 2024.01.15.21:44:47 Error: border:
-Error: 2024.01.15.21:44:47 Error: border: Use qsys-generate for a simpler command-line interface for generating IP.
-Error: 2024.01.15.21:44:47 Error: border:
-Error: 2024.01.15.21:44:47 Error: border: Run ip-generate with switch --remove-qsys-generate-warning to prevent this notice from appearing in subsequent runs.
-Error: 2024.01.15.21:44:47 Error: border:
-Error: 2024.01.15.21:44:47 Error: border: ********************************************************************************************************************
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:17 Warning: Ignored parameter assignment device=5CSEMA5F31C6
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:17 Warning: Ignored parameter assignment extended_family_support=true
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram: 'Quick' simulation modes are NOT timing accurate. Some simulation memory models may issue warnings or errors
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram.seq: This module has no ports or interfaces
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram.p0: p0.scc must be exported, or connected to a matching conduit.
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram.as: as.afi_init_cal_req must be exported, or connected to a matching conduit.
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram.as: as.tracking must be exported, or connected to a matching conduit.
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram.c0: c0.status must be exported, or connected to a matching conduit.
-Warning: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Warning: hps_sdram.p0: p0.avl must be connected to an Avalon-MM master
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:26 Info: hps_sdram: Generating altera_mem_if_hps_emif "hps_sdram" for QUARTUS_SYNTH
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:31 Info: pll: "hps_sdram" instantiated altera_mem_if_hps_pll "pll"
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:31 Info: p0: Generating clock pair generator
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:33 Info: p0: Generating hps_sdram_p0_altdqdqs
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0:
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0: *****************************
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0:
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0: Remember to run the hps_sdram_p0_pin_assignments.tcl
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0: script after running Synthesis and before Fitting.
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0:
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0: *****************************
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0:
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:46 Info: p0: "hps_sdram" instantiated altera_mem_if_ddr3_hard_phy_core "p0"
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Error: seq: Nios II Command Shell.bat requires Windows Subsystem for Linux (WSL) to run.
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Error: seq: Please install WSL and try again.
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Error: seq: child process exited abnormally
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Error: seq: add_fileset_file: No such file C:/Users/User/AppData/Local/Temp/alt9737_3455669866662742500.dir/0004_seq_gen
-Error: 2024.01.15.21:44:47 Error: border: while executing
-Error: 2024.01.15.21:44:47 Error: border: "add_fileset_file $file_name [::alt_mem_if::util::hwtcl_utils::get_file_type $file_name 0] PATH $file_pathname"
-Error: 2024.01.15.21:44:47 Error: border: ("foreach" body line 4)
-Error: 2024.01.15.21:44:47 Error: border: invoked from within
-Error: 2024.01.15.21:44:47 Error: border: "foreach file_pathname $return_files_sw {
-Error: 2024.01.15.21:44:47 Error: border:         _dprint 1 "Preparing to add $file_pathname"
-Error: 2024.01.15.21:44:47 Error: border:         set file_name [file tail $file_pathname]
-Error: 2024.01.15.21:44:47 Error: border:         add_fileset_file $..."
-Error: 2024.01.15.21:44:47 Error: border: (procedure "generate_sw" line 18)
-Error: 2024.01.15.21:44:47 Error: border: invoked from within
-Error: 2024.01.15.21:44:47 Error: border: "generate_sw $name $fileset"
-Error: 2024.01.15.21:44:47 Error: border: ("if" then script line 4)
-Error: 2024.01.15.21:44:47 Error: border: invoked from within
-Error: 2024.01.15.21:44:47 Error: border: "if {[string compare -nocase $fileset QUARTUS_SYNTH] == 0} {
-Error: 2024.01.15.21:44:47 Error: border:         set top_level_file "altera_mem_if_hhp_qseq_synth_top.v"
-Error: 2024.01.15.21:44:47 Error: border:         add_fileset_file $top_level_fi..."
-Error: 2024.01.15.21:44:47 Error: border: (procedure "generate_files" line 4)
-Error: 2024.01.15.21:44:47 Error: border: invoked from within
-Error: 2024.01.15.21:44:47 Error: border: "generate_files $name QUARTUS_SYNTH"
-Error: 2024.01.15.21:44:47 Error: border: (procedure "generate_synth" line 3)
-Error: 2024.01.15.21:44:47 Error: border: invoked from within
-Error: 2024.01.15.21:44:47 Error: border: "generate_synth altera_mem_if_hhp_qseq_synth_top"
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Info: seq: "hps_sdram" instantiated altera_mem_if_hhp_ddr3_qseq "seq"
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Error: Generation stopped, 3 or more modules remaining
-Error: 2024.01.15.21:44:47 Error: border: 2024.01.15.21:44:47 Info: hps_sdram: Done "hps_sdram" with 7 modules, 33 files
-Info: 2024.01.15.21:44:47 Info: border: "hps_io" instantiated altera_interface_generator "border"
-Error: 2024.01.15.21:44:47 Error: Generation stopped, 2 or more modules remaining
-Info: 2024.01.15.21:44:47 Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 29 modules, 95 files
-Error: 2024.01.15.21:44:49 Error: qsys-generate failed with exit code 1: 70 Errors, 4 Warnings
-Info: 2024.01.15.21:44:49 Info: Finished: Create HDL design files for synthesis
-Info (11904): Restoring file "reverbFPGA_Qsys.BAK.qsys" to "reverbFPGA_Qsys.qsys"
-Error (14923): Error upgrading Platform Designer file "reverbFPGA_Qsys.qsys"
-Error (11890): Unable to automatically upgrade Platform Designer component. Please manually upgrade "reverbFPGA_Qsys.qsys" in Platform Designer
-Error (23031): Evaluation of Tcl script c:/intelfpga_lite/23.1std/quartus/common/tcl/internal/ip_regen/ip_regen.tcl unsuccessful
-Error: Quartus Prime Shell was unsuccessful. 65 errors, 21 warnings
-    Error: Peak virtual memory: 4874 megabytes
-    Error: Processing ended: Mon Jan 15 21:45:19 2024
-    Error: Elapsed time: 00:06:35
-    Error: Total CPU time (on all processors): 00:08:24
+Info: 2024.01.18.21:27:39 Info: Starting to upgrade the IP cores in the Platform Designer system
+Info: 2024.01.18.21:27:39 Info: Finished upgrading the ip cores
+Info: 2024.01.18.21:28:23 Info: Saving generation log to C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys
+Info: 2024.01.18.21:28:23 Info: Starting: Create simulation model
+Info: 2024.01.18.21:28:23 Info: qsys-generate C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys.qsys --simulation=VHDL --allow-mixed-language-simulation --output-directory=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\simulation --family="Cyclone V" --part=5CSEMA5F31C6
+Info: 2024.01.18.21:28:24 Info: Loading reverbFPGA
+Info: 2024.01.18.21:28:25 Info: Reading input file
+Info: 2024.01.18.21:28:25 Info: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module audio_config
+Info: 2024.01.18.21:28:25 Info: Adding audio_controller [altera_up_avalon_audio 18.0]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module audio_controller
+Info: 2024.01.18.21:28:25 Info: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module audio_pll_0
+Info: 2024.01.18.21:28:25 Info: Adding clkSampling [clock_source 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module clkSampling
+Info: 2024.01.18.21:28:25 Info: Adding clk_0 [clock_source 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module clk_0
+Info: 2024.01.18.21:28:25 Info: Adding dampingValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module dampingValue_PIO
+Info: 2024.01.18.21:28:25 Info: Adding decayValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module decayValue_PIO
+Info: 2024.01.18.21:28:25 Info: Adding hps_0 [altera_hps 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module hps_0
+Info: 2024.01.18.21:28:25 Info: Adding mixValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module mixValue_PIO
+Info: 2024.01.18.21:28:25 Info: Adding paramType_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module paramType_PIO
+Info: 2024.01.18.21:28:25 Info: Adding paramValueUpdate_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module paramValueUpdate_PIO
+Info: 2024.01.18.21:28:25 Info: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module preDelayValue_PIO
+Info: 2024.01.18.21:28:25 Info: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
+Info: 2024.01.18.21:28:25 Info: Parameterizing module serial_flash_loader
+Info: 2024.01.18.21:28:25 Info: Building connections
+Info: 2024.01.18.21:28:25 Info: Parameterizing connections
+Info: 2024.01.18.21:28:25 Info: Validating
+Info: 2024.01.18.21:28:39 Info: Done reading input file
+Info: 2024.01.18.21:28:47 Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: 2024.01.18.21:28:47 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: 2024.01.18.21:28:47 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: 2024.01.18.21:28:47 Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: 2024.01.18.21:28:47 Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: 2024.01.18.21:28:50 Info: reverbFPGA_Qsys: Generating reverbFPGA_Qsys "reverbFPGA_Qsys" for SIM_VHDL
+Info: 2024.01.18.21:29:18 Info: audio_config: Starting Generation of Audio and Video Config
+Warning: 2024.01.18.21:29:18 Warning: audio_config: No files generated for fileset SIM_VHDL
+Info: 2024.01.18.21:29:18 Info: audio_config: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_and_video_config "audio_config"
+Info: 2024.01.18.21:29:18 Info: audio_controller: Starting Generation of Audio Controller
+Warning: 2024.01.18.21:29:18 Warning: audio_controller: No files generated for fileset SIM_VHDL
+Info: 2024.01.18.21:29:18 Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
+Info: 2024.01.18.21:29:21 Info: audio_pll_0: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_pll "audio_pll_0"
+Info: 2024.01.18.21:29:21 Info: dampingValue_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
+Info: 2024.01.18.21:29:21 Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0004_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --vhdl --config=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0004_dampingValue_PIO_gen//reverbFPGA_Qsys_dampingValue_PIO_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0004_dampingValue_PIO_gen
+Info: 2024.01.18.21:29:22 Info: dampingValue_PIO: Done RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
+Info: 2024.01.18.21:29:22 Info: dampingValue_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "dampingValue_PIO"
+Info: 2024.01.18.21:29:22 Info: hps_0: "Running  for module: hps_0"
+Info: 2024.01.18.21:29:23 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: 2024.01.18.21:29:24 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: 2024.01.18.21:29:24 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: 2024.01.18.21:29:31 Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
+Info: 2024.01.18.21:29:31 Info: paramType_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
+Info: 2024.01.18.21:29:31 Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0005_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --vhdl --config=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0005_paramType_PIO_gen//reverbFPGA_Qsys_paramType_PIO_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0005_paramType_PIO_gen
+Info: 2024.01.18.21:29:31 Info: paramType_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
+Info: 2024.01.18.21:29:31 Info: paramType_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramType_PIO"
+Info: 2024.01.18.21:29:31 Info: paramValueUpdate_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
+Info: 2024.01.18.21:29:31 Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0006_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --vhdl --config=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0006_paramValueUpdate_PIO_gen//reverbFPGA_Qsys_paramValueUpdate_PIO_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0006_paramValueUpdate_PIO_gen
+Info: 2024.01.18.21:29:31 Info: paramValueUpdate_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
+Info: 2024.01.18.21:29:31 Info: paramValueUpdate_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramValueUpdate_PIO"
+Info: 2024.01.18.21:29:31 Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader
+Info: 2024.01.18.21:29:31 Info: altclkctrl_inst: "Generating: altclkctrl_inst"
+Info: 2024.01.18.21:29:31 Info: serial_flash_loader: "reverbFPGA_Qsys" instantiated altera_serial_flash_loader "serial_flash_loader"
+Info: 2024.01.18.21:29:43 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:29:45 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:29:46 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:29:47 Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:29:48 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:29:50 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:29:51 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:30:02 Info: mm_interconnect_0: "reverbFPGA_Qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: 2024.01.18.21:30:02 Info: rst_controller: "reverbFPGA_Qsys" instantiated altera_reset_controller "rst_controller"
+Info: 2024.01.18.21:30:02 Info: audio_pll: Generating simgen model
+Info: 2024.01.18.21:30:26 Info: audio_pll: Simgen was successful
+Info: 2024.01.18.21:30:26 Info: audio_pll: "audio_pll_0" instantiated altera_pll "audio_pll"
+Info: 2024.01.18.21:30:26 Info: reset_from_locked: "audio_pll_0" instantiated altera_up_avalon_reset_from_locked_signal "reset_from_locked"
+Info: 2024.01.18.21:30:27 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
+Info: 2024.01.18.21:30:31 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
+Info: 2024.01.18.21:30:31 Info: altclkctrl_inst: "serial_flash_loader" instantiated altera_serial_flash_loader "altclkctrl_inst"
+Info: 2024.01.18.21:30:31 Info: audio_config_avalon_av_config_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "audio_config_avalon_av_config_slave_translator"
+Info: 2024.01.18.21:30:31 Info: hps_0_h2f_lw_axi_master_agent: "mm_interconnect_0" instantiated altera_merlin_axi_master_ni "hps_0_h2f_lw_axi_master_agent"
+Info: 2024.01.18.21:30:31 Info: audio_config_avalon_av_config_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "audio_config_avalon_av_config_slave_agent"
+Info: 2024.01.18.21:30:31 Info: audio_config_avalon_av_config_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "audio_config_avalon_av_config_slave_agent_rsp_fifo"
+Info: 2024.01.18.21:30:31 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: 2024.01.18.21:30:31 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: 2024.01.18.21:30:31 Info: hps_0_h2f_lw_axi_master_wr_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "hps_0_h2f_lw_axi_master_wr_limiter"
+Info: 2024.01.18.21:30:31 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:31 Info: audio_config_avalon_av_config_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "audio_config_avalon_av_config_slave_burst_adapter"
+Info: 2024.01.18.21:30:31 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:31 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:31 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2024.01.18.21:30:31 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2024.01.18.21:30:31 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2024.01.18.21:30:31 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2024.01.18.21:30:31 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:33 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: 2024.01.18.21:30:33 Info: border: "hps_io" instantiated altera_interface_generator "border"
+Info: 2024.01.18.21:30:33 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:33 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:33 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:34 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:34 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:34 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:34 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation/submodules
+Info: 2024.01.18.21:30:34 Info: altclkctrl_inst: Generating top-level entity reverbFPGA_Qsys_serial_flash_loader_altclkctrl_inst_altclkctrl_inst.
+Info: 2024.01.18.21:30:34 Info: altclkctrl_inst: "altclkctrl_inst" instantiated altclkctrl "altclkctrl_inst"
+Info: 2024.01.18.21:30:34 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: 2024.01.18.21:30:34 Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 32 modules, 58 files
+Info: 2024.01.18.21:30:34 Info: qsys-generate succeeded.
+Info: 2024.01.18.21:30:34 Info: Finished: Create simulation model
+Info: 2024.01.18.21:30:34 Info: Starting: Create Modelsim Project.
+Info: 2024.01.18.21:30:34 Info: sim-script-gen --spd=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\reverbFPGA_Qsys.spd --output-directory=C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
+Info: 2024.01.18.21:30:34 Info: Doing: ip-make-simscript --spd=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\reverbFPGA_Qsys.spd --output-directory=C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
+Info: 2024.01.18.21:30:36 Info: Generating the following file(s) for MODELSIM simulator in C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
+Info: 2024.01.18.21:30:36 Info:     mentor
+Info: 2024.01.18.21:30:36 Info: Generating the following file(s) for RIVIERA simulator in C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
+Info: 2024.01.18.21:30:36 Info:     aldec
+Info: 2024.01.18.21:30:36 Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/simulation
+Info: 2024.01.18.21:30:36 Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: 2024.01.18.21:30:36 Info: Finished: Create Modelsim Project.
+Info: 2024.01.18.21:30:36 Info: Starting: Create block symbol file (.bsf)
+Info: 2024.01.18.21:30:36 Info: qsys-generate C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys.qsys --block-symbol-file --output-directory=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys --family="Cyclone V" --part=5CSEMA5F31C6
+Info: 2024.01.18.21:30:36 Info: Loading reverbFPGA
+Info: 2024.01.18.21:30:37 Info: Reading input file
+Info: 2024.01.18.21:30:37 Info: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module audio_config
+Info: 2024.01.18.21:30:37 Info: Adding audio_controller [altera_up_avalon_audio 18.0]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module audio_controller
+Info: 2024.01.18.21:30:37 Info: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module audio_pll_0
+Info: 2024.01.18.21:30:37 Info: Adding clkSampling [clock_source 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module clkSampling
+Info: 2024.01.18.21:30:37 Info: Adding clk_0 [clock_source 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module clk_0
+Info: 2024.01.18.21:30:37 Info: Adding dampingValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module dampingValue_PIO
+Info: 2024.01.18.21:30:37 Info: Adding decayValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module decayValue_PIO
+Info: 2024.01.18.21:30:37 Info: Adding hps_0 [altera_hps 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module hps_0
+Info: 2024.01.18.21:30:37 Info: Adding mixValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module mixValue_PIO
+Info: 2024.01.18.21:30:37 Info: Adding paramType_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module paramType_PIO
+Info: 2024.01.18.21:30:37 Info: Adding paramValueUpdate_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module paramValueUpdate_PIO
+Info: 2024.01.18.21:30:37 Info: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module preDelayValue_PIO
+Info: 2024.01.18.21:30:37 Info: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
+Info: 2024.01.18.21:30:37 Info: Parameterizing module serial_flash_loader
+Info: 2024.01.18.21:30:37 Info: Building connections
+Info: 2024.01.18.21:30:37 Info: Parameterizing connections
+Info: 2024.01.18.21:30:37 Info: Validating
+Info: 2024.01.18.21:30:50 Info: Done reading input file
+Info: 2024.01.18.21:30:58 Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: 2024.01.18.21:30:58 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: 2024.01.18.21:30:58 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: 2024.01.18.21:30:58 Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: 2024.01.18.21:30:58 Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: 2024.01.18.21:30:59 Info: qsys-generate succeeded.
+Info: 2024.01.18.21:30:59 Info: Finished: Create block symbol file (.bsf)
+Info: 2024.01.18.21:30:59 Info:
+Info: 2024.01.18.21:30:59 Info: Starting: Create HDL design files for synthesis
+Info: 2024.01.18.21:30:59 Info: qsys-generate C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys.qsys --synthesis=VHDL --output-directory=C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\reverbFPGA_Qsys\synthesis --family="Cyclone V" --part=5CSEMA5F31C6
+Info: 2024.01.18.21:30:59 Info: Loading reverbFPGA
+Info: 2024.01.18.21:31:00 Info: Reading input file
+Info: 2024.01.18.21:31:00 Info: Adding audio_config [altera_up_avalon_audio_and_video_config 18.0]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module audio_config
+Info: 2024.01.18.21:31:00 Info: Adding audio_controller [altera_up_avalon_audio 18.0]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module audio_controller
+Info: 2024.01.18.21:31:00 Info: Adding audio_pll_0 [altera_up_avalon_audio_pll 18.0]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module audio_pll_0
+Info: 2024.01.18.21:31:00 Info: Adding clkSampling [clock_source 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module clkSampling
+Info: 2024.01.18.21:31:00 Info: Adding clk_0 [clock_source 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module clk_0
+Info: 2024.01.18.21:31:00 Info: Adding dampingValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module dampingValue_PIO
+Info: 2024.01.18.21:31:00 Info: Adding decayValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module decayValue_PIO
+Info: 2024.01.18.21:31:00 Info: Adding hps_0 [altera_hps 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module hps_0
+Info: 2024.01.18.21:31:00 Info: Adding mixValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module mixValue_PIO
+Info: 2024.01.18.21:31:00 Info: Adding paramType_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module paramType_PIO
+Info: 2024.01.18.21:31:00 Info: Adding paramValueUpdate_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module paramValueUpdate_PIO
+Info: 2024.01.18.21:31:00 Info: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module preDelayValue_PIO
+Info: 2024.01.18.21:31:00 Info: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
+Info: 2024.01.18.21:31:00 Info: Parameterizing module serial_flash_loader
+Info: 2024.01.18.21:31:00 Info: Building connections
+Info: 2024.01.18.21:31:00 Info: Parameterizing connections
+Info: 2024.01.18.21:31:00 Info: Validating
+Info: 2024.01.18.21:31:13 Info: Done reading input file
+Info: 2024.01.18.21:31:20 Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: 2024.01.18.21:31:20 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: 2024.01.18.21:31:20 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: 2024.01.18.21:31:20 Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: 2024.01.18.21:31:20 Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: 2024.01.18.21:31:24 Info: reverbFPGA_Qsys: Generating reverbFPGA_Qsys "reverbFPGA_Qsys" for QUARTUS_SYNTH
+Info: 2024.01.18.21:31:45 Info: audio_config: Starting Generation of Audio and Video Config
+Info: 2024.01.18.21:31:45 Info: audio_config: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_and_video_config "audio_config"
+Info: 2024.01.18.21:31:45 Info: audio_controller: Starting Generation of Audio Controller
+Info: 2024.01.18.21:31:45 Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
+Info: 2024.01.18.21:31:48 Info: audio_pll_0: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_pll "audio_pll_0"
+Info: 2024.01.18.21:31:48 Info: dampingValue_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
+Info: 2024.01.18.21:31:48 Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0030_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0030_dampingValue_PIO_gen/
+Info: 2024.01.18.21:31:49 Info: dampingValue_PIO: Done RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
+Info: 2024.01.18.21:31:49 Info: dampingValue_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "dampingValue_PIO"
+Info: 2024.01.18.21:31:49 Info: hps_0: "Running  for module: hps_0"
+Info: 2024.01.18.21:31:50 Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: 2024.01.18.21:31:50 Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: 2024.01.18.21:31:50 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: 2024.01.18.21:31:57 Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
+Info: 2024.01.18.21:31:57 Info: paramType_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
+Info: 2024.01.18.21:31:57 Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0031_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0031_paramType_PIO_gen/
+Info: 2024.01.18.21:31:57 Info: paramType_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
+Info: 2024.01.18.21:31:57 Info: paramType_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramType_PIO"
+Info: 2024.01.18.21:31:57 Info: paramValueUpdate_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
+Info: 2024.01.18.21:31:57 Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0032_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9740_5702419638234278126.dir/0032_paramValueUpdate_PIO_gen/
+Info: 2024.01.18.21:31:57 Info: paramValueUpdate_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
+Info: 2024.01.18.21:31:57 Info: paramValueUpdate_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramValueUpdate_PIO"
+Info: 2024.01.18.21:31:57 Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader
+Info: 2024.01.18.21:31:57 Info: altclkctrl_inst: "Generating: altclkctrl_inst"
+Info: 2024.01.18.21:31:57 Info: serial_flash_loader: "reverbFPGA_Qsys" instantiated altera_serial_flash_loader "serial_flash_loader"
+Info: 2024.01.18.21:32:09 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:10 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:12 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:13 Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:14 Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:15 Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:16 Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: 2024.01.18.21:32:27 Info: mm_interconnect_0: "reverbFPGA_Qsys" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: 2024.01.18.21:32:27 Info: rst_controller: "reverbFPGA_Qsys" instantiated altera_reset_controller "rst_controller"
+Info: 2024.01.18.21:32:27 Info: audio_pll: "audio_pll_0" instantiated altera_pll "audio_pll"
+Info: 2024.01.18.21:32:27 Info: reset_from_locked: "audio_pll_0" instantiated altera_up_avalon_reset_from_locked_signal "reset_from_locked"
+Info: 2024.01.18.21:32:27 Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
+Info: 2024.01.18.21:32:29 Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
+Info: 2024.01.18.21:32:29 Info: altclkctrl_inst: "serial_flash_loader" instantiated altera_serial_flash_loader "altclkctrl_inst"
+Info: 2024.01.18.21:32:29 Info: audio_config_avalon_av_config_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "audio_config_avalon_av_config_slave_translator"
+Info: 2024.01.18.21:32:29 Info: hps_0_h2f_lw_axi_master_agent: "mm_interconnect_0" instantiated altera_merlin_axi_master_ni "hps_0_h2f_lw_axi_master_agent"
+Info: 2024.01.18.21:32:29 Info: audio_config_avalon_av_config_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "audio_config_avalon_av_config_slave_agent"
+Info: 2024.01.18.21:32:29 Info: audio_config_avalon_av_config_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "audio_config_avalon_av_config_slave_agent_rsp_fifo"
+Info: 2024.01.18.21:32:29 Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: 2024.01.18.21:32:29 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: 2024.01.18.21:32:29 Info: hps_0_h2f_lw_axi_master_wr_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "hps_0_h2f_lw_axi_master_wr_limiter"
+Info: 2024.01.18.21:32:29 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
+Info: 2024.01.18.21:32:29 Info: audio_config_avalon_av_config_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "audio_config_avalon_av_config_slave_burst_adapter"
+Info: 2024.01.18.21:32:29 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
+Info: 2024.01.18.21:32:29 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
+Info: 2024.01.18.21:32:30 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: 2024.01.18.21:32:30 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: 2024.01.18.21:32:30 Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: 2024.01.18.21:32:30 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: 2024.01.18.21:32:30 Info: Reusing file C:/Users/User/Documents/Projet_reverb_FPGA/reverbFPGA/reverbFPGA_Qsys/synthesis/submodules
+Info: 2024.01.18.21:32:32 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: 2024.01.18.21:33:11 Info: border: "hps_io" instantiated altera_interface_generator "border"
+Info: 2024.01.18.21:33:11 Info: altclkctrl_inst: Generating top-level entity reverbFPGA_Qsys_serial_flash_loader_altclkctrl_inst_altclkctrl_inst.
+Info: 2024.01.18.21:33:11 Info: altclkctrl_inst: "altclkctrl_inst" instantiated altclkctrl "altclkctrl_inst"
+Info: 2024.01.18.21:33:11 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: 2024.01.18.21:33:11 Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 32 modules, 109 files
+Info: 2024.01.18.21:33:12 Info: qsys-generate succeeded.
+Info: 2024.01.18.21:33:12 Info: Finished: Create HDL design files for synthesis
+Info (11131): Completed upgrading IP component Qsys with file "reverbFPGA_Qsys.qsys"
+Info (23030): Evaluation of Tcl script c:/intelfpga_lite/23.1std/quartus/common/tcl/internal/ip_regen/ip_regen.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 12 warnings
+    Info: Peak virtual memory: 4881 megabytes
+    Info: Processing ended: Thu Jan 18 21:33:43 2024
+    Info: Elapsed time: 00:07:07
+    Info: Total CPU time (on all processors): 00:08:25
 
 

@@ -1,15 +1,16 @@
-# system info reverbFPGA_Qsys on 2024.01.15.21:42:11
+# system info reverbFPGA_Qsys on 2024.01.18.21:30:34
 system_info:
 name,value
 DEVICE,5CSEMA5F31C6
 DEVICE_FAMILY,Cyclone V
-GENERATION_ID,1705351251
+GENERATION_ID,1705609727
 #
 #
-# Files generated for reverbFPGA_Qsys on 2024.01.15.21:42:11
+# Files generated for reverbFPGA_Qsys on 2024.01.18.21:30:34
 files:
 filepath,kind,attributes,module,is_top
 simulation/reverbFPGA_Qsys.vhd,VHDL,,reverbFPGA_Qsys,true
+simulation/submodules/reverbFPGA_Qsys_audio_pll_0.vhd,VHDL,,reverbFPGA_Qsys_audio_pll_0,false
 simulation/submodules/reverbFPGA_Qsys_dampingValue_PIO.vhd,VHDL,,reverbFPGA_Qsys_dampingValue_PIO,false
 simulation/submodules/reverbFPGA_Qsys_hps_0.v,VERILOG,,reverbFPGA_Qsys_hps_0,false
 simulation/submodules/reverbFPGA_Qsys_paramType_PIO.vhd,VHDL,,reverbFPGA_Qsys_paramType_PIO,false
@@ -19,6 +20,8 @@ simulation/submodules/reverbFPGA_Qsys_mm_interconnect_0.v,VERILOG,,reverbFPGA_Qs
 simulation/submodules/altera_reset_controller.v,VERILOG,,altera_reset_controller,false
 simulation/submodules/altera_reset_synchronizer.v,VERILOG,,altera_reset_controller,false
 simulation/submodules/altera_reset_controller.sdc,SDC,,altera_reset_controller,false
+simulation/submodules/reverbFPGA_Qsys_audio_pll_0_audio_pll.vho,VHDL,,reverbFPGA_Qsys_audio_pll_0_audio_pll,false
+simulation/submodules/altera_up_avalon_reset_from_locked_signal.v,VERILOG,,altera_up_avalon_reset_from_locked_signal,false
 simulation/submodules/verbosity_pkg.sv,SYSTEM_VERILOG, COMMON_SYSTEMVERILOG_PACKAGE=avalon_vip_verbosity_pkg,reverbFPGA_Qsys_hps_0_fpga_interfaces,false
 simulation/submodules/avalon_utilities_pkg.sv,SYSTEM_VERILOG, COMMON_SYSTEMVERILOG_PACKAGE=avalon_vip_avalon_utilities_pkg,reverbFPGA_Qsys_hps_0_fpga_interfaces,false
 simulation/submodules/avalon_mm_pkg.sv,SYSTEM_VERILOG, COMMON_SYSTEMVERILOG_PACKAGE=avalon_vip_avalon_mm_pkg,reverbFPGA_Qsys_hps_0_fpga_interfaces,false
@@ -81,6 +84,9 @@ instances:
 instancePath,module
 reverbFPGA_Qsys.audio_config,reverbFPGA_Qsys_audio_config
 reverbFPGA_Qsys.audio_controller,reverbFPGA_Qsys_audio_controller
+reverbFPGA_Qsys.audio_pll_0,reverbFPGA_Qsys_audio_pll_0
+reverbFPGA_Qsys.audio_pll_0.audio_pll,reverbFPGA_Qsys_audio_pll_0_audio_pll
+reverbFPGA_Qsys.audio_pll_0.reset_from_locked,altera_up_avalon_reset_from_locked_signal
 reverbFPGA_Qsys.dampingValue_PIO,reverbFPGA_Qsys_dampingValue_PIO
 reverbFPGA_Qsys.decayValue_PIO,reverbFPGA_Qsys_dampingValue_PIO
 reverbFPGA_Qsys.mixValue_PIO,reverbFPGA_Qsys_dampingValue_PIO

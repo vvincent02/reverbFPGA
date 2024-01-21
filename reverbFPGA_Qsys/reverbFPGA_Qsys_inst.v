@@ -12,6 +12,7 @@
 		.audio_controller_external_interface_BCLK          (<connected-to-audio_controller_external_interface_BCLK>),          //                                            .BCLK
 		.audio_controller_external_interface_DACDAT        (<connected-to-audio_controller_external_interface_DACDAT>),        //                                            .DACDAT
 		.audio_controller_external_interface_DACLRCK       (<connected-to-audio_controller_external_interface_DACLRCK>),       //                                            .DACLRCK
+		.audio_pll_0_audio_clk_clk                         (<connected-to-audio_pll_0_audio_clk_clk>),                         //                       audio_pll_0_audio_clk.clk
 		.clk_clk                                           (<connected-to-clk_clk>),                                           //                                         clk.clk
 		.clksampling_clk                                   (<connected-to-clksampling_clk>),                                   //                                 clksampling.clk
 		.dampingvalue_pio_external_connection_export       (<connected-to-dampingvalue_pio_external_connection_export>),       //        dampingvalue_pio_external_connection.export
@@ -20,7 +21,12 @@
 		.hps_0_h2f_mpu_events_evento                       (<connected-to-hps_0_h2f_mpu_events_evento>),                       //                                            .evento
 		.hps_0_h2f_mpu_events_standbywfe                   (<connected-to-hps_0_h2f_mpu_events_standbywfe>),                   //                                            .standbywfe
 		.hps_0_h2f_mpu_events_standbywfi                   (<connected-to-hps_0_h2f_mpu_events_standbywfi>),                   //                                            .standbywfi
-		.hps_io_hps_io_gpio_inst_GPIO48                    (<connected-to-hps_io_hps_io_gpio_inst_GPIO48>),                    //                                      hps_io.hps_io_gpio_inst_GPIO48
+		.hps_io_hps_io_uart0_inst_RX                       (<connected-to-hps_io_hps_io_uart0_inst_RX>),                       //                                      hps_io.hps_io_uart0_inst_RX
+		.hps_io_hps_io_uart0_inst_TX                       (<connected-to-hps_io_hps_io_uart0_inst_TX>),                       //                                            .hps_io_uart0_inst_TX
+		.hps_io_hps_io_i2c0_inst_SDA                       (<connected-to-hps_io_hps_io_i2c0_inst_SDA>),                       //                                            .hps_io_i2c0_inst_SDA
+		.hps_io_hps_io_i2c0_inst_SCL                       (<connected-to-hps_io_hps_io_i2c0_inst_SCL>),                       //                                            .hps_io_i2c0_inst_SCL
+		.hps_io_hps_io_gpio_inst_GPIO48                    (<connected-to-hps_io_hps_io_gpio_inst_GPIO48>),                    //                                            .hps_io_gpio_inst_GPIO48
+		.hps_io_hps_io_gpio_inst_GPIO53                    (<connected-to-hps_io_hps_io_gpio_inst_GPIO53>),                    //                                            .hps_io_gpio_inst_GPIO53
 		.memory_mem_a                                      (<connected-to-memory_mem_a>),                                      //                                      memory.mem_a
 		.memory_mem_ba                                     (<connected-to-memory_mem_ba>),                                     //                                            .mem_ba
 		.memory_mem_ck                                     (<connected-to-memory_mem_ck>),                                     //                                            .mem_ck
@@ -35,6 +41,7 @@
 		.memory_mem_dqs                                    (<connected-to-memory_mem_dqs>),                                    //                                            .mem_dqs
 		.memory_mem_dqs_n                                  (<connected-to-memory_mem_dqs_n>),                                  //                                            .mem_dqs_n
 		.memory_mem_odt                                    (<connected-to-memory_mem_odt>),                                    //                                            .mem_odt
+		.memory_mem_dm                                     (<connected-to-memory_mem_dm>),                                     //                                            .mem_dm
 		.memory_oct_rzqin                                  (<connected-to-memory_oct_rzqin>),                                  //                                            .oct_rzqin
 		.mixvalue_pio_external_connection_export           (<connected-to-mixvalue_pio_external_connection_export>),           //            mixvalue_pio_external_connection.export
 		.paramtype_pio_external_connection_export          (<connected-to-paramtype_pio_external_connection_export>),          //           paramtype_pio_external_connection.export

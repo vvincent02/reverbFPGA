@@ -10,19 +10,20 @@ module hps_sdram (
 		input  wire        pll_ref_clk,    //  pll_ref_clk.clk
 		input  wire        global_reset_n, // global_reset.reset_n
 		input  wire        soft_reset_n,   //   soft_reset.reset_n
-		output wire [12:0] mem_a,          //       memory.mem_a
+		output wire [14:0] mem_a,          //       memory.mem_a
 		output wire [2:0]  mem_ba,         //             .mem_ba
 		output wire [0:0]  mem_ck,         //             .mem_ck
 		output wire [0:0]  mem_ck_n,       //             .mem_ck_n
 		output wire [0:0]  mem_cke,        //             .mem_cke
 		output wire [0:0]  mem_cs_n,       //             .mem_cs_n
+		output wire [3:0]  mem_dm,         //             .mem_dm
 		output wire [0:0]  mem_ras_n,      //             .mem_ras_n
 		output wire [0:0]  mem_cas_n,      //             .mem_cas_n
 		output wire [0:0]  mem_we_n,       //             .mem_we_n
 		output wire        mem_reset_n,    //             .mem_reset_n
-		inout  wire [7:0]  mem_dq,         //             .mem_dq
-		inout  wire [0:0]  mem_dqs,        //             .mem_dqs
-		inout  wire [0:0]  mem_dqs_n,      //             .mem_dqs_n
+		inout  wire [31:0] mem_dq,         //             .mem_dq
+		inout  wire [3:0]  mem_dqs,        //             .mem_dqs
+		inout  wire [3:0]  mem_dqs_n,      //             .mem_dqs_n
 		output wire [0:0]  mem_odt,        //             .mem_odt
 		input  wire        oct_rzqin       //          oct.rzqin
 	);
@@ -186,6 +187,7 @@ module hps_sdram (
 		.mem_ck_n                   (mem_ck_n),                                                                                                                                                                                  //                    .mem_ck_n
 		.mem_cke                    (mem_cke),                                                                                                                                                                                   //                    .mem_cke
 		.mem_cs_n                   (mem_cs_n),                                                                                                                                                                                  //                    .mem_cs_n
+		.mem_dm                     (mem_dm),                                                                                                                                                                                    //                    .mem_dm
 		.mem_ras_n                  (mem_ras_n),                                                                                                                                                                                 //                    .mem_ras_n
 		.mem_cas_n                  (mem_cas_n),                                                                                                                                                                                 //                    .mem_cas_n
 		.mem_we_n                   (mem_we_n),                                                                                                                                                                                  //                    .mem_we_n
@@ -228,23 +230,23 @@ module hps_sdram (
 	);
 
 	altera_mem_if_hhp_qseq_synth_top #(
-		.MEM_IF_DM_WIDTH  (1),
-		.MEM_IF_DQS_WIDTH (1),
+		.MEM_IF_DM_WIDTH  (4),
+		.MEM_IF_DQS_WIDTH (4),
 		.MEM_IF_CS_WIDTH  (1),
-		.MEM_IF_DQ_WIDTH  (8)
+		.MEM_IF_DQ_WIDTH  (32)
 	) seq (
 	);
 
 	altera_mem_if_hard_memory_controller_top_cyclonev #(
-		.MEM_IF_DQS_WIDTH                        (1),
+		.MEM_IF_DQS_WIDTH                        (4),
 		.MEM_IF_CS_WIDTH                         (1),
 		.MEM_IF_CHIP_BITS                        (1),
 		.MEM_IF_CLK_PAIR_COUNT                   (1),
 		.CSR_ADDR_WIDTH                          (10),
 		.CSR_DATA_WIDTH                          (8),
 		.CSR_BE_WIDTH                            (1),
-		.AVL_ADDR_WIDTH                          (22),
-		.AVL_DATA_WIDTH                          (16),
+		.AVL_ADDR_WIDTH                          (25),
+		.AVL_DATA_WIDTH                          (64),
 		.AVL_SIZE_WIDTH                          (3),
 		.AVL_DATA_WIDTH_PORT_0                   (1),
 		.AVL_ADDR_WIDTH_PORT_0                   (1),
@@ -299,7 +301,7 @@ module hps_sdram (
 		.ENUM_AUTO_PCH_ENABLE_5                  ("DISABLED"),
 		.ENUM_CAL_REQ                            ("DISABLED"),
 		.ENUM_CFG_BURST_LENGTH                   ("BL_8"),
-		.ENUM_CFG_INTERFACE_WIDTH                ("DWIDTH_8"),
+		.ENUM_CFG_INTERFACE_WIDTH                ("DWIDTH_32"),
 		.ENUM_CFG_SELF_RFSH_EXIT_CYCLES          ("SELF_RFSH_EXIT_CYCLES_512"),
 		.ENUM_CFG_STARVE_LIMIT                   ("STARVE_LIMIT_10"),
 		.ENUM_CFG_TYPE                           ("DDR3"),
@@ -345,7 +347,7 @@ module hps_sdram (
 		.ENUM_CTL_ECC_RMW_ENABLED                ("CTL_ECC_RMW_DISABLED"),
 		.ENUM_CTL_REGDIMM_ENABLED                ("REGDIMM_DISABLED"),
 		.ENUM_CTL_USR_REFRESH                    ("CTL_USR_REFRESH_DISABLED"),
-		.ENUM_CTRL_WIDTH                         ("DATA_WIDTH_16_BIT"),
+		.ENUM_CTRL_WIDTH                         ("DATA_WIDTH_64_BIT"),
 		.ENUM_DELAY_BONDING                      ("BONDING_LATENCY_0"),
 		.ENUM_DFX_BYPASS_ENABLE                  ("DFX_BYPASS_DISABLED"),
 		.ENUM_DISABLE_MERGING                    ("MERGING_ENABLED"),
@@ -379,10 +381,10 @@ module hps_sdram (
 		.ENUM_MEM_IF_CS_PER_RANK                 ("MEM_IF_CS_PER_RANK_1"),
 		.ENUM_MEM_IF_CS_WIDTH                    ("MEM_IF_CS_WIDTH_1"),
 		.ENUM_MEM_IF_DQ_PER_CHIP                 ("MEM_IF_DQ_PER_CHIP_8"),
-		.ENUM_MEM_IF_DQS_WIDTH                   ("DQS_WIDTH_1"),
-		.ENUM_MEM_IF_DWIDTH                      ("MEM_IF_DWIDTH_8"),
+		.ENUM_MEM_IF_DQS_WIDTH                   ("DQS_WIDTH_4"),
+		.ENUM_MEM_IF_DWIDTH                      ("MEM_IF_DWIDTH_32"),
 		.ENUM_MEM_IF_MEMTYPE                     ("DDR3_SDRAM"),
-		.ENUM_MEM_IF_ROWADDR_WIDTH               ("ADDR_WIDTH_12"),
+		.ENUM_MEM_IF_ROWADDR_WIDTH               ("ADDR_WIDTH_15"),
 		.ENUM_MEM_IF_SPEEDBIN                    ("DDR3_800_5_5_5"),
 		.ENUM_MEM_IF_TCCD                        ("TCCD_4"),
 		.ENUM_MEM_IF_TCL                         ("TCL_7"),
@@ -610,14 +612,14 @@ module hps_sdram (
 		.ENUM_ENABLE_BURST_INTERRUPT             ("DISABLED"),
 		.ENUM_ENABLE_BURST_TERMINATE             ("DISABLED"),
 		.AFI_RATE_RATIO                          (1),
-		.AFI_ADDR_WIDTH                          (13),
+		.AFI_ADDR_WIDTH                          (15),
 		.AFI_BANKADDR_WIDTH                      (3),
 		.AFI_CONTROL_WIDTH                       (1),
 		.AFI_CS_WIDTH                            (1),
-		.AFI_DM_WIDTH                            (2),
-		.AFI_DQ_WIDTH                            (16),
+		.AFI_DM_WIDTH                            (8),
+		.AFI_DQ_WIDTH                            (64),
 		.AFI_ODT_WIDTH                           (1),
-		.AFI_WRITE_DQS_WIDTH                     (1),
+		.AFI_WRITE_DQS_WIDTH                     (4),
 		.AFI_RLAT_WIDTH                          (6),
 		.AFI_WLAT_WIDTH                          (6),
 		.HARD_PHY                                (1)

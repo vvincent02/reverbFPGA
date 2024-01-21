@@ -117,6 +117,7 @@ module hps_sdram_p0 (
 	mem_ck_n,
 	mem_cke,
 	mem_cs_n,
+	mem_dm,
 	mem_ras_n,
 	mem_cas_n,
 	mem_we_n,
@@ -163,17 +164,17 @@ parameter OCT_TERM_CONTROL_WIDTH   = 16;
 
 // PHY-Memory Interface
 // Memory device specific parameters, they are set according to the memory spec.
-parameter MEM_IF_ADDR_WIDTH			= 13;
+parameter MEM_IF_ADDR_WIDTH			= 15;
 parameter MEM_IF_BANKADDR_WIDTH     = 3;
 parameter MEM_IF_CK_WIDTH			= 1;
 parameter MEM_IF_CLK_EN_WIDTH		= 1;
 parameter MEM_IF_CS_WIDTH			= 1;
-parameter MEM_IF_DM_WIDTH         	= 1;
+parameter MEM_IF_DM_WIDTH         	= 4;
 parameter MEM_IF_CONTROL_WIDTH    	= 1; 
-parameter MEM_IF_DQ_WIDTH         	= 8;
-parameter MEM_IF_DQS_WIDTH         	= 1;
-parameter MEM_IF_READ_DQS_WIDTH    	= 1;
-parameter MEM_IF_WRITE_DQS_WIDTH   	= 1;
+parameter MEM_IF_DQ_WIDTH         	= 32;
+parameter MEM_IF_DQS_WIDTH         	= 4;
+parameter MEM_IF_READ_DQS_WIDTH    	= 4;
+parameter MEM_IF_WRITE_DQS_WIDTH   	= 4;
 parameter MEM_IF_ODT_WIDTH         	= 1;
 
 
@@ -203,8 +204,8 @@ parameter CALIB_REG_WIDTH = 8;
 parameter TB_PROTOCOL       = "DDR3";
 parameter TB_MEM_CLK_FREQ   = "300.0";
 parameter TB_RATE           = "FULL";
-parameter TB_MEM_DQ_WIDTH   = "8";
-parameter TB_MEM_DQS_WIDTH  = "1";
+parameter TB_MEM_DQ_WIDTH   = "32";
+parameter TB_MEM_DQS_WIDTH  = "4";
 parameter TB_PLL_DLL_MASTER = "true";
 
 parameter FAST_SIM_CALIBRATION = "false";
@@ -361,6 +362,7 @@ output  [MEM_IF_CK_WIDTH-1:0]         mem_ck;       // differential address and 
 output  [MEM_IF_CK_WIDTH-1:0]         mem_ck_n;
 output  [MEM_IF_CLK_EN_WIDTH-1:0]     mem_cke;      // clock enable
 output  [MEM_IF_CS_WIDTH-1:0]         mem_cs_n;     // chip select
+output  [MEM_IF_DM_WIDTH-1:0]         mem_dm;       // data mask
 output  [MEM_IF_CONTROL_WIDTH-1:0]    mem_ras_n;		
 output  [MEM_IF_CONTROL_WIDTH-1:0]    mem_cas_n;		
 output  [MEM_IF_CONTROL_WIDTH-1:0]    mem_we_n;		
@@ -531,6 +533,7 @@ hps_sdram_p0_acv_hard_memphy #(
 	.mem_ck_n(mem_ck_n),
 	.mem_cke(mem_cke),
 	.mem_cs_n(mem_cs_n),
+	.mem_dm(mem_dm),
 	.mem_ras_n(mem_ras_n),
 	.mem_cas_n(mem_cas_n),
 	.mem_we_n(mem_we_n),

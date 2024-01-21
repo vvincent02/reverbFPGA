@@ -22,7 +22,12 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		inout  wire        mem_dqs_n,               //       .mem_dqs_n
 		output wire        mem_odt,                 //       .mem_odt
 		input  wire        oct_rzqin,               //       .oct_rzqin
-		inout  wire        hps_io_gpio_inst_GPIO48  // hps_io.hps_io_gpio_inst_GPIO48
+		input  wire        hps_io_uart0_inst_RX,    // hps_io.hps_io_uart0_inst_RX
+		output wire        hps_io_uart0_inst_TX,    //       .hps_io_uart0_inst_TX
+		inout  wire        hps_io_i2c0_inst_SDA,    //       .hps_io_i2c0_inst_SDA
+		inout  wire        hps_io_i2c0_inst_SCL,    //       .hps_io_i2c0_inst_SCL
+		inout  wire        hps_io_gpio_inst_GPIO00, //       .hps_io_gpio_inst_GPIO00
+		inout  wire        hps_io_gpio_inst_GPIO48  //       .hps_io_gpio_inst_GPIO48
 	);
 
 	reverbFPGA_Qsys_hps_0_hps_io_border border (
@@ -41,7 +46,12 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		.mem_dqs_n               (mem_dqs_n),               //       .mem_dqs_n
 		.mem_odt                 (mem_odt),                 //       .mem_odt
 		.oct_rzqin               (oct_rzqin),               //       .oct_rzqin
-		.hps_io_gpio_inst_GPIO48 (hps_io_gpio_inst_GPIO48)  // hps_io.hps_io_gpio_inst_GPIO48
+		.hps_io_uart0_inst_RX    (hps_io_uart0_inst_RX),    // hps_io.hps_io_uart0_inst_RX
+		.hps_io_uart0_inst_TX    (hps_io_uart0_inst_TX),    //       .hps_io_uart0_inst_TX
+		.hps_io_i2c0_inst_SDA    (hps_io_i2c0_inst_SDA),    //       .hps_io_i2c0_inst_SDA
+		.hps_io_i2c0_inst_SCL    (hps_io_i2c0_inst_SCL),    //       .hps_io_i2c0_inst_SCL
+		.hps_io_gpio_inst_GPIO00 (hps_io_gpio_inst_GPIO00), //       .hps_io_gpio_inst_GPIO00
+		.hps_io_gpio_inst_GPIO48 (hps_io_gpio_inst_GPIO48)  //       .hps_io_gpio_inst_GPIO48
 	);
 
 endmodule

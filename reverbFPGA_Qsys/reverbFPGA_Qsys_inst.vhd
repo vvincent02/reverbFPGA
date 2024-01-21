@@ -13,6 +13,7 @@
 			audio_controller_external_interface_BCLK          : in    std_logic                     := 'X';             -- BCLK
 			audio_controller_external_interface_DACDAT        : out   std_logic;                                        -- DACDAT
 			audio_controller_external_interface_DACLRCK       : in    std_logic                     := 'X';             -- DACLRCK
+			audio_pll_0_audio_clk_clk                         : out   std_logic;                                        -- clk
 			clk_clk                                           : in    std_logic                     := 'X';             -- clk
 			clksampling_clk                                   : out   std_logic;                                        -- clk
 			dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
@@ -21,8 +22,13 @@
 			hps_0_h2f_mpu_events_evento                       : out   std_logic;                                        -- evento
 			hps_0_h2f_mpu_events_standbywfe                   : out   std_logic_vector(1 downto 0);                     -- standbywfe
 			hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     -- standbywfi
+			hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+			hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
+			hps_io_hps_io_i2c0_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+			hps_io_hps_io_i2c0_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
-			memory_mem_a                                      : out   std_logic_vector(12 downto 0);                    -- mem_a
+			hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
+			memory_mem_a                                      : out   std_logic_vector(14 downto 0);                    -- mem_a
 			memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     -- mem_ba
 			memory_mem_ck                                     : out   std_logic;                                        -- mem_ck
 			memory_mem_ck_n                                   : out   std_logic;                                        -- mem_ck_n
@@ -32,10 +38,11 @@
 			memory_mem_cas_n                                  : out   std_logic;                                        -- mem_cas_n
 			memory_mem_we_n                                   : out   std_logic;                                        -- mem_we_n
 			memory_mem_reset_n                                : out   std_logic;                                        -- mem_reset_n
-			memory_mem_dq                                     : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dq
-			memory_mem_dqs                                    : inout std_logic                     := 'X';             -- mem_dqs
-			memory_mem_dqs_n                                  : inout std_logic                     := 'X';             -- mem_dqs_n
+			memory_mem_dq                                     : inout std_logic_vector(31 downto 0) := (others => 'X'); -- mem_dq
+			memory_mem_dqs                                    : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs
+			memory_mem_dqs_n                                  : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- mem_dqs_n
 			memory_mem_odt                                    : out   std_logic;                                        -- mem_odt
+			memory_mem_dm                                     : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                                  : in    std_logic                     := 'X';             -- oct_rzqin
 			mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
 			paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
@@ -61,6 +68,7 @@
 			audio_controller_external_interface_BCLK          => CONNECTED_TO_audio_controller_external_interface_BCLK,          --                                            .BCLK
 			audio_controller_external_interface_DACDAT        => CONNECTED_TO_audio_controller_external_interface_DACDAT,        --                                            .DACDAT
 			audio_controller_external_interface_DACLRCK       => CONNECTED_TO_audio_controller_external_interface_DACLRCK,       --                                            .DACLRCK
+			audio_pll_0_audio_clk_clk                         => CONNECTED_TO_audio_pll_0_audio_clk_clk,                         --                       audio_pll_0_audio_clk.clk
 			clk_clk                                           => CONNECTED_TO_clk_clk,                                           --                                         clk.clk
 			clksampling_clk                                   => CONNECTED_TO_clksampling_clk,                                   --                                 clksampling.clk
 			dampingvalue_pio_external_connection_export       => CONNECTED_TO_dampingvalue_pio_external_connection_export,       --        dampingvalue_pio_external_connection.export
@@ -69,7 +77,12 @@
 			hps_0_h2f_mpu_events_evento                       => CONNECTED_TO_hps_0_h2f_mpu_events_evento,                       --                                            .evento
 			hps_0_h2f_mpu_events_standbywfe                   => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfe,                   --                                            .standbywfe
 			hps_0_h2f_mpu_events_standbywfi                   => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfi,                   --                                            .standbywfi
-			hps_io_hps_io_gpio_inst_GPIO48                    => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO48,                    --                                      hps_io.hps_io_gpio_inst_GPIO48
+			hps_io_hps_io_uart0_inst_RX                       => CONNECTED_TO_hps_io_hps_io_uart0_inst_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
+			hps_io_hps_io_uart0_inst_TX                       => CONNECTED_TO_hps_io_hps_io_uart0_inst_TX,                       --                                            .hps_io_uart0_inst_TX
+			hps_io_hps_io_i2c0_inst_SDA                       => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SDA,                       --                                            .hps_io_i2c0_inst_SDA
+			hps_io_hps_io_i2c0_inst_SCL                       => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SCL,                       --                                            .hps_io_i2c0_inst_SCL
+			hps_io_hps_io_gpio_inst_GPIO48                    => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO48,                    --                                            .hps_io_gpio_inst_GPIO48
+			hps_io_hps_io_gpio_inst_GPIO53                    => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO53,                    --                                            .hps_io_gpio_inst_GPIO53
 			memory_mem_a                                      => CONNECTED_TO_memory_mem_a,                                      --                                      memory.mem_a
 			memory_mem_ba                                     => CONNECTED_TO_memory_mem_ba,                                     --                                            .mem_ba
 			memory_mem_ck                                     => CONNECTED_TO_memory_mem_ck,                                     --                                            .mem_ck
@@ -84,6 +97,7 @@
 			memory_mem_dqs                                    => CONNECTED_TO_memory_mem_dqs,                                    --                                            .mem_dqs
 			memory_mem_dqs_n                                  => CONNECTED_TO_memory_mem_dqs_n,                                  --                                            .mem_dqs_n
 			memory_mem_odt                                    => CONNECTED_TO_memory_mem_odt,                                    --                                            .mem_odt
+			memory_mem_dm                                     => CONNECTED_TO_memory_mem_dm,                                     --                                            .mem_dm
 			memory_oct_rzqin                                  => CONNECTED_TO_memory_oct_rzqin,                                  --                                            .oct_rzqin
 			mixvalue_pio_external_connection_export           => CONNECTED_TO_mixvalue_pio_external_connection_export,           --            mixvalue_pio_external_connection.export
 			paramtype_pio_external_connection_export          => CONNECTED_TO_paramtype_pio_external_connection_export,          --           paramtype_pio_external_connection.export

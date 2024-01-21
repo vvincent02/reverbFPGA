@@ -94,7 +94,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 23.1 991 win32 2024.01.15.21:42:13
+# ACDS 23.1 991 win32 2024.01.18.21:30:36
 
 # ----------------------------------------
 # Initialize variables
@@ -220,6 +220,10 @@ ensure_lib                                                    ./libraries/hps_io
 vmap       hps_io                                             ./libraries/hps_io/                                            
 ensure_lib                                                    ./libraries/fpga_interfaces/                                   
 vmap       fpga_interfaces                                    ./libraries/fpga_interfaces/                                   
+ensure_lib                                                    ./libraries/reset_from_locked/                                 
+vmap       reset_from_locked                                  ./libraries/reset_from_locked/                                 
+ensure_lib                                                    ./libraries/audio_pll/                                         
+vmap       audio_pll                                          ./libraries/audio_pll/                                         
 ensure_lib                                                    ./libraries/rst_controller/                                    
 vmap       rst_controller                                     ./libraries/rst_controller/                                    
 ensure_lib                                                    ./libraries/mm_interconnect_0/                                 
@@ -234,6 +238,8 @@ ensure_lib                                                    ./libraries/hps_0/
 vmap       hps_0                                              ./libraries/hps_0/                                             
 ensure_lib                                                    ./libraries/dampingValue_PIO/                                  
 vmap       dampingValue_PIO                                   ./libraries/dampingValue_PIO/                                  
+ensure_lib                                                    ./libraries/audio_pll_0/                                       
+vmap       audio_pll_0                                        ./libraries/audio_pll_0/                                       
 
 # ----------------------------------------
 # Compile device library files
@@ -332,6 +338,8 @@ alias com {
   eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/altera_avalon_reset_source.sv"                                           -L altera_common_sv_packages -work fpga_interfaces                                   
   eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_hps_0_fpga_interfaces_h2f_mpu_events.sv"                 -L altera_common_sv_packages -work fpga_interfaces                                   
   eval  vlog -sv $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_hps_0_fpga_interfaces.sv"                                -L altera_common_sv_packages -work fpga_interfaces                                   
+  eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/submodules/altera_up_avalon_reset_from_locked_signal.v"                                                          -work reset_from_locked                                 
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_audio_pll_0_audio_pll.vho"                                                            -work audio_pll                                         
   eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/submodules/altera_reset_controller.v"                                                                            -work rst_controller                                    
   eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/submodules/altera_reset_synchronizer.v"                                                                          -work rst_controller                                    
   eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_mm_interconnect_0.v"                                                                  -work mm_interconnect_0                                 
@@ -340,6 +348,7 @@ alias com {
   eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_paramType_PIO.vhd"                                                                    -work paramType_PIO                                     
   eval  vlog $USER_DEFINED_VERILOG_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS     "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_hps_0.v"                                                                              -work hps_0                                             
   eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_dampingValue_PIO.vhd"                                                                 -work dampingValue_PIO                                  
+  eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/submodules/reverbFPGA_Qsys_audio_pll_0.vhd"                                                                      -work audio_pll_0                                       
   eval  vcom $USER_DEFINED_VHDL_COMPILE_OPTIONS $USER_DEFINED_COMPILE_OPTIONS        "$QSYS_SIMDIR/reverbFPGA_Qsys.vhd"                                                                                                                                                     
 }
 
@@ -347,14 +356,14 @@ alias com {
 # Elaborate top level design
 alias elab {
   echo "\[exec\] elab"
-  eval vsim -t ps $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L error_adapter_0 -L altclkctrl_inst -L border -L avalon_st_adapter -L rsp_mux -L rsp_demux -L cmd_mux -L cmd_demux -L audio_config_avalon_av_config_slave_burst_adapter -L hps_0_h2f_lw_axi_master_wr_limiter -L router_002 -L router -L audio_config_avalon_av_config_slave_agent_rsp_fifo -L audio_config_avalon_av_config_slave_agent -L hps_0_h2f_lw_axi_master_agent -L audio_config_avalon_av_config_slave_translator -L hps_io -L fpga_interfaces -L rst_controller -L mm_interconnect_0 -L serial_flash_loader -L paramValueUpdate_PIO -L paramType_PIO -L hps_0 -L dampingValue_PIO -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L cyclonev_hssi $TOP_LEVEL_NAME
+  eval vsim -t ps $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L error_adapter_0 -L altclkctrl_inst -L border -L avalon_st_adapter -L rsp_mux -L rsp_demux -L cmd_mux -L cmd_demux -L audio_config_avalon_av_config_slave_burst_adapter -L hps_0_h2f_lw_axi_master_wr_limiter -L router_002 -L router -L audio_config_avalon_av_config_slave_agent_rsp_fifo -L audio_config_avalon_av_config_slave_agent -L hps_0_h2f_lw_axi_master_agent -L audio_config_avalon_av_config_slave_translator -L hps_io -L fpga_interfaces -L reset_from_locked -L audio_pll -L rst_controller -L mm_interconnect_0 -L serial_flash_loader -L paramValueUpdate_PIO -L paramType_PIO -L hps_0 -L dampingValue_PIO -L audio_pll_0 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L cyclonev_hssi $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------
 # Elaborate the top level design with -voptargs=+acc option
 alias elab_debug {
   echo "\[exec\] elab_debug"
-  eval vsim -voptargs=+acc -t ps $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L error_adapter_0 -L altclkctrl_inst -L border -L avalon_st_adapter -L rsp_mux -L rsp_demux -L cmd_mux -L cmd_demux -L audio_config_avalon_av_config_slave_burst_adapter -L hps_0_h2f_lw_axi_master_wr_limiter -L router_002 -L router -L audio_config_avalon_av_config_slave_agent_rsp_fifo -L audio_config_avalon_av_config_slave_agent -L hps_0_h2f_lw_axi_master_agent -L audio_config_avalon_av_config_slave_translator -L hps_io -L fpga_interfaces -L rst_controller -L mm_interconnect_0 -L serial_flash_loader -L paramValueUpdate_PIO -L paramType_PIO -L hps_0 -L dampingValue_PIO -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L cyclonev_hssi $TOP_LEVEL_NAME
+  eval vsim -voptargs=+acc -t ps $ELAB_OPTIONS $USER_DEFINED_ELAB_OPTIONS -L work -L work_lib -L altera_common_sv_packages -L error_adapter_0 -L altclkctrl_inst -L border -L avalon_st_adapter -L rsp_mux -L rsp_demux -L cmd_mux -L cmd_demux -L audio_config_avalon_av_config_slave_burst_adapter -L hps_0_h2f_lw_axi_master_wr_limiter -L router_002 -L router -L audio_config_avalon_av_config_slave_agent_rsp_fifo -L audio_config_avalon_av_config_slave_agent -L hps_0_h2f_lw_axi_master_agent -L audio_config_avalon_av_config_slave_translator -L hps_io -L fpga_interfaces -L reset_from_locked -L audio_pll -L rst_controller -L mm_interconnect_0 -L serial_flash_loader -L paramValueUpdate_PIO -L paramType_PIO -L hps_0 -L dampingValue_PIO -L audio_pll_0 -L altera_ver -L lpm_ver -L sgate_ver -L altera_mf_ver -L altera_lnsim_ver -L cyclonev_ver -L cyclonev_hssi_ver -L cyclonev_pcie_hip_ver -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L cyclonev_hssi $TOP_LEVEL_NAME
 }
 
 # ----------------------------------------
