@@ -792,11 +792,11 @@
  * boot device which stored the subsequent boot image (U-Boot).
  */
 /* enabled program the FPGA */
-#define CONFIG_SPL_FPGA_LOAD
+#undef CONFIG_SPL_FPGA_LOAD
 /* location of FPGA RBF image within QSPI */
 #define CONFIG_SPL_FPGA_QSPI_ADDR	(0x800000)
 /* RBF file name if its located within SD card */
-#define CONFIG_SPL_FPGA_FAT_NAME	"reverbFPGA.rbf"
+#define CONFIG_SPL_FPGA_FAT_NAME	"fpga.rbf"
 
 /* ensure FAT is defined if CONFIG_SPL_FPGA_LOAD is defined */
 #ifdef CONFIG_SPL_FPGA_LOAD

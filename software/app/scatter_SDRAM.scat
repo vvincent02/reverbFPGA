@@ -1,10 +1,10 @@
-SDRAM 0x01000000 0x01000000
+SDRAM 0x02000000 0x02000000
 {
     APP_CODE +0
     {
         * (+RO, +RW, +ZI)
     }
 
-    ARM_LIB_STACKHEAP  0x01800000 EMPTY 0x00800000 ; Application heap and stack
+    ARM_LIB_STACKHEAP  0x03000000 EMPTY 0x01000000 ; Application heap and stack
     { }
 }

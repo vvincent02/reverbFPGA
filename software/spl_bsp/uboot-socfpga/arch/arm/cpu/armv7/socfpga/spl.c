@@ -233,14 +233,12 @@ void spl_program_fpga_sd_fat(void)
 #endif
 
 	/* do memory padding as data in SDRAM */
-#if (CONFIG_HPS_SDR_CTRLCFG_CTRLCFG_ECCEN == 1)
 	filesize = file_fat_read(CONFIG_SPL_FPGA_FAT_NAME, NULL, 0);
 	if (filesize != -1) {
 		memset((unsigned char *)((temp_sdram + filesize)
 			& ~(CONFIG_SPL_SDRAM_ECC_PADDING - 1)),
 			0, CONFIG_SPL_SDRAM_ECC_PADDING);
 	}
-#endif
 
 #ifdef CONFIG_HW_WATCHDOG
 	WATCHDOG_RESET();

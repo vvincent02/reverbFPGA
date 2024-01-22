@@ -37,7 +37,7 @@
 #define CONFIG_HPS_NAND (0)
 #define CONFIG_HPS_SDMMC (0)
 #define CONFIG_HPS_QSPI (0)
-#define CONFIG_HPS_UART0 (0)
+#define CONFIG_HPS_UART0 (1)
 #define CONFIG_HPS_UART1 (0)
 #define CONFIG_HPS_TRACE (0)
 #define CONFIG_HPS_I2C0 (1)
@@ -58,10 +58,10 @@
 #define CONFIG_HPS_QSPI_CS1 (0)
 #define CONFIG_HPS_QSPI_CS0 (0)
 
-#define CONFIG_HPS_UART0_TX (0)
+#define CONFIG_HPS_UART0_TX (1)
 #define CONFIG_HPS_UART0_CTS (0)
 #define CONFIG_HPS_UART0_RTS (0)
-#define CONFIG_HPS_UART0_RX (0)
+#define CONFIG_HPS_UART0_RX (1)
 
 #define CONFIG_HPS_UART1_TX (0)
 #define CONFIG_HPS_UART1_CTS (0)

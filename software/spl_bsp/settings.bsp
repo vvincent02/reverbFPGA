@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
-        <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Jan 21, 2024 1:18:08 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1705839488893</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>..\..\..\..\..\..\..\</BspGeneratedLocation>
+        <BspVersion>1.0</BspVersion>
+        <BspGeneratedTimeStamp>Jan 22, 2024 3:33:20 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1705934000774</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\settings.bsp</BspSettingsFile>
         <HpsSettingsPath>..\..\hps_isw_handoff\reverbFPGA_Qsys_hps_0</HpsSettingsPath>
         <JdiFile>default</JdiFile>
@@ -302,7 +302,7 @@
                 <SettingName>spl.boot.WATCHDOG_ENABLE</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable watchdog during Preloader execution phase. Watchdog state remains after Preloader exits.</Description>
@@ -314,7 +314,7 @@
                 <SettingName>spl.debug.DEBUG_MEMORY_WRITE</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable debug memory write support for debugging, useful when UART is not available.</Description>
@@ -494,7 +494,7 @@
                 <SettingName>spl.boot.SDRAM_SCRUBBING</SettingName>
                 <Identifier>none</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Scrub SDRAM to initialize the ECC bits</Description>

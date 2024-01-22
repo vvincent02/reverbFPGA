@@ -54,7 +54,7 @@
 #endif
 
 /* Enable FAT partition support when booting from SDMMC. */
-#define CONFIG_PRELOADER_FAT_SUPPORT		(1)
+#define CONFIG_PRELOADER_FAT_SUPPORT		(0)
 
 /*
  * When FAT partition support is enabled, this specifies the
@@ -73,7 +73,7 @@
  * Handoff files must provide user option whether to
  * enable watchdog during preloader execution phase
  */
-#define CONFIG_PRELOADER_WATCHDOG_ENABLE	(1)
+#define CONFIG_PRELOADER_WATCHDOG_ENABLE	(0)
 
 /*
  * Handoff files must provide user option whether to enable
@@ -147,7 +147,7 @@
 /*
  * To configure whether to scrub the SDRAM to initialize the ECC bits
  */
-#define CONFIG_PRELOADER_SDRAM_SCRUBBING    (1)
+#define CONFIG_PRELOADER_SDRAM_SCRUBBING    (0)
 
 /* To configure whether to scrub the SDRAM to initialize the ECC bits */
 #if (CONFIG_PRELOADER_SDRAM_SCRUBBING == 1)
