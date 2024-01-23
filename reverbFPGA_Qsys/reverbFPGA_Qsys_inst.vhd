@@ -1,7 +1,5 @@
 	component reverbFPGA_Qsys is
 		port (
-			audio_config_external_interface_SDAT              : inout std_logic                     := 'X';             -- SDAT
-			audio_config_external_interface_SCLK              : out   std_logic;                                        -- SCLK
 			audio_controller_avalon_left_channel_sink_data    : in    std_logic_vector(23 downto 0) := (others => 'X'); -- data
 			audio_controller_avalon_left_channel_sink_valid   : in    std_logic                     := 'X';             -- valid
 			audio_controller_avalon_left_channel_sink_ready   : out   std_logic;                                        -- ready
@@ -16,6 +14,7 @@
 			audio_pll_0_audio_clk_clk                         : out   std_logic;                                        -- clk
 			clk_clk                                           : in    std_logic                     := 'X';             -- clk
 			clksampling_clk                                   : out   std_logic;                                        -- clk
+			clkst_clk                                         : out   std_logic;                                        -- clk
 			dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
 			decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
 			hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := 'X';             -- eventi
@@ -24,8 +23,8 @@
 			hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     -- standbywfi
 			hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
 			hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
-			hps_io_hps_io_i2c0_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
-			hps_io_hps_io_i2c0_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
+			hps_io_hps_io_i2c1_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
+			hps_io_hps_io_i2c1_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
 			memory_mem_a                                      : out   std_logic_vector(14 downto 0);                    -- mem_a
@@ -55,8 +54,6 @@
 
 	u0 : component reverbFPGA_Qsys
 		port map (
-			audio_config_external_interface_SDAT              => CONNECTED_TO_audio_config_external_interface_SDAT,              --             audio_config_external_interface.SDAT
-			audio_config_external_interface_SCLK              => CONNECTED_TO_audio_config_external_interface_SCLK,              --                                            .SCLK
 			audio_controller_avalon_left_channel_sink_data    => CONNECTED_TO_audio_controller_avalon_left_channel_sink_data,    --   audio_controller_avalon_left_channel_sink.data
 			audio_controller_avalon_left_channel_sink_valid   => CONNECTED_TO_audio_controller_avalon_left_channel_sink_valid,   --                                            .valid
 			audio_controller_avalon_left_channel_sink_ready   => CONNECTED_TO_audio_controller_avalon_left_channel_sink_ready,   --                                            .ready
@@ -71,6 +68,7 @@
 			audio_pll_0_audio_clk_clk                         => CONNECTED_TO_audio_pll_0_audio_clk_clk,                         --                       audio_pll_0_audio_clk.clk
 			clk_clk                                           => CONNECTED_TO_clk_clk,                                           --                                         clk.clk
 			clksampling_clk                                   => CONNECTED_TO_clksampling_clk,                                   --                                 clksampling.clk
+			clkst_clk                                         => CONNECTED_TO_clkst_clk,                                         --                                       clkst.clk
 			dampingvalue_pio_external_connection_export       => CONNECTED_TO_dampingvalue_pio_external_connection_export,       --        dampingvalue_pio_external_connection.export
 			decayvalue_pio_external_connection_export         => CONNECTED_TO_decayvalue_pio_external_connection_export,         --          decayvalue_pio_external_connection.export
 			hps_0_h2f_mpu_events_eventi                       => CONNECTED_TO_hps_0_h2f_mpu_events_eventi,                       --                        hps_0_h2f_mpu_events.eventi
@@ -79,8 +77,8 @@
 			hps_0_h2f_mpu_events_standbywfi                   => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfi,                   --                                            .standbywfi
 			hps_io_hps_io_uart0_inst_RX                       => CONNECTED_TO_hps_io_hps_io_uart0_inst_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
 			hps_io_hps_io_uart0_inst_TX                       => CONNECTED_TO_hps_io_hps_io_uart0_inst_TX,                       --                                            .hps_io_uart0_inst_TX
-			hps_io_hps_io_i2c0_inst_SDA                       => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SDA,                       --                                            .hps_io_i2c0_inst_SDA
-			hps_io_hps_io_i2c0_inst_SCL                       => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SCL,                       --                                            .hps_io_i2c0_inst_SCL
+			hps_io_hps_io_i2c1_inst_SDA                       => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SDA,                       --                                            .hps_io_i2c1_inst_SDA
+			hps_io_hps_io_i2c1_inst_SCL                       => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SCL,                       --                                            .hps_io_i2c1_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                    => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO48,                    --                                            .hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                    => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO53,                    --                                            .hps_io_gpio_inst_GPIO53
 			memory_mem_a                                      => CONNECTED_TO_memory_mem_a,                                      --                                      memory.mem_a

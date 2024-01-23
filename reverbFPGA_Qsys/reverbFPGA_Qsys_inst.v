@@ -1,6 +1,4 @@
 	reverbFPGA_Qsys u0 (
-		.audio_config_external_interface_SDAT              (<connected-to-audio_config_external_interface_SDAT>),              //             audio_config_external_interface.SDAT
-		.audio_config_external_interface_SCLK              (<connected-to-audio_config_external_interface_SCLK>),              //                                            .SCLK
 		.audio_controller_avalon_left_channel_sink_data    (<connected-to-audio_controller_avalon_left_channel_sink_data>),    //   audio_controller_avalon_left_channel_sink.data
 		.audio_controller_avalon_left_channel_sink_valid   (<connected-to-audio_controller_avalon_left_channel_sink_valid>),   //                                            .valid
 		.audio_controller_avalon_left_channel_sink_ready   (<connected-to-audio_controller_avalon_left_channel_sink_ready>),   //                                            .ready
@@ -15,6 +13,7 @@
 		.audio_pll_0_audio_clk_clk                         (<connected-to-audio_pll_0_audio_clk_clk>),                         //                       audio_pll_0_audio_clk.clk
 		.clk_clk                                           (<connected-to-clk_clk>),                                           //                                         clk.clk
 		.clksampling_clk                                   (<connected-to-clksampling_clk>),                                   //                                 clksampling.clk
+		.clkst_clk                                         (<connected-to-clkst_clk>),                                         //                                       clkst.clk
 		.dampingvalue_pio_external_connection_export       (<connected-to-dampingvalue_pio_external_connection_export>),       //        dampingvalue_pio_external_connection.export
 		.decayvalue_pio_external_connection_export         (<connected-to-decayvalue_pio_external_connection_export>),         //          decayvalue_pio_external_connection.export
 		.hps_0_h2f_mpu_events_eventi                       (<connected-to-hps_0_h2f_mpu_events_eventi>),                       //                        hps_0_h2f_mpu_events.eventi
@@ -23,8 +22,8 @@
 		.hps_0_h2f_mpu_events_standbywfi                   (<connected-to-hps_0_h2f_mpu_events_standbywfi>),                   //                                            .standbywfi
 		.hps_io_hps_io_uart0_inst_RX                       (<connected-to-hps_io_hps_io_uart0_inst_RX>),                       //                                      hps_io.hps_io_uart0_inst_RX
 		.hps_io_hps_io_uart0_inst_TX                       (<connected-to-hps_io_hps_io_uart0_inst_TX>),                       //                                            .hps_io_uart0_inst_TX
-		.hps_io_hps_io_i2c0_inst_SDA                       (<connected-to-hps_io_hps_io_i2c0_inst_SDA>),                       //                                            .hps_io_i2c0_inst_SDA
-		.hps_io_hps_io_i2c0_inst_SCL                       (<connected-to-hps_io_hps_io_i2c0_inst_SCL>),                       //                                            .hps_io_i2c0_inst_SCL
+		.hps_io_hps_io_i2c1_inst_SDA                       (<connected-to-hps_io_hps_io_i2c1_inst_SDA>),                       //                                            .hps_io_i2c1_inst_SDA
+		.hps_io_hps_io_i2c1_inst_SCL                       (<connected-to-hps_io_hps_io_i2c1_inst_SCL>),                       //                                            .hps_io_i2c1_inst_SCL
 		.hps_io_hps_io_gpio_inst_GPIO48                    (<connected-to-hps_io_hps_io_gpio_inst_GPIO48>),                    //                                            .hps_io_gpio_inst_GPIO48
 		.hps_io_hps_io_gpio_inst_GPIO53                    (<connected-to-hps_io_hps_io_gpio_inst_GPIO53>),                    //                                            .hps_io_gpio_inst_GPIO53
 		.memory_mem_a                                      (<connected-to-memory_mem_a>),                                      //                                      memory.mem_a

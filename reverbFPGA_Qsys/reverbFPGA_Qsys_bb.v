@@ -1,7 +1,5 @@
 
 module reverbFPGA_Qsys (
-	audio_config_external_interface_SDAT,
-	audio_config_external_interface_SCLK,
 	audio_controller_avalon_left_channel_sink_data,
 	audio_controller_avalon_left_channel_sink_valid,
 	audio_controller_avalon_left_channel_sink_ready,
@@ -16,6 +14,7 @@ module reverbFPGA_Qsys (
 	audio_pll_0_audio_clk_clk,
 	clk_clk,
 	clksampling_clk,
+	clkst_clk,
 	dampingvalue_pio_external_connection_export,
 	decayvalue_pio_external_connection_export,
 	hps_0_h2f_mpu_events_eventi,
@@ -24,8 +23,8 @@ module reverbFPGA_Qsys (
 	hps_0_h2f_mpu_events_standbywfi,
 	hps_io_hps_io_uart0_inst_RX,
 	hps_io_hps_io_uart0_inst_TX,
-	hps_io_hps_io_i2c0_inst_SDA,
-	hps_io_hps_io_i2c0_inst_SCL,
+	hps_io_hps_io_i2c1_inst_SDA,
+	hps_io_hps_io_i2c1_inst_SCL,
 	hps_io_hps_io_gpio_inst_GPIO48,
 	hps_io_hps_io_gpio_inst_GPIO53,
 	memory_mem_a,
@@ -51,8 +50,6 @@ module reverbFPGA_Qsys (
 	reset_reset_n,
 	serial_flash_loader_0_noe_in_noe);	
 
-	inout		audio_config_external_interface_SDAT;
-	output		audio_config_external_interface_SCLK;
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
 	input		audio_controller_avalon_left_channel_sink_valid;
 	output		audio_controller_avalon_left_channel_sink_ready;
@@ -67,6 +64,7 @@ module reverbFPGA_Qsys (
 	output		audio_pll_0_audio_clk_clk;
 	input		clk_clk;
 	output		clksampling_clk;
+	output		clkst_clk;
 	output	[23:0]	dampingvalue_pio_external_connection_export;
 	output	[23:0]	decayvalue_pio_external_connection_export;
 	input		hps_0_h2f_mpu_events_eventi;
@@ -75,8 +73,8 @@ module reverbFPGA_Qsys (
 	output	[1:0]	hps_0_h2f_mpu_events_standbywfi;
 	input		hps_io_hps_io_uart0_inst_RX;
 	output		hps_io_hps_io_uart0_inst_TX;
-	inout		hps_io_hps_io_i2c0_inst_SDA;
-	inout		hps_io_hps_io_i2c0_inst_SCL;
+	inout		hps_io_hps_io_i2c1_inst_SDA;
+	inout		hps_io_hps_io_i2c1_inst_SCL;
 	inout		hps_io_hps_io_gpio_inst_GPIO48;
 	inout		hps_io_hps_io_gpio_inst_GPIO53;
 	output	[14:0]	memory_mem_a;

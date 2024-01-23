@@ -42,15 +42,14 @@ PORT(
 	HPS_standbywfe : OUT std_logic_vector(1 downto 0);
 	HPS_standbywfi : OUT std_logic_vector(1 downto 0);
 	
-	FPGA_I2C_SDAT : INOUT std_logic;
-	FPGA_I2C_SCLK : OUT std_logic;
-	
 	HPS_I2C1_SDAT : INOUT std_logic;
 	HPS_I2C1_SCLK : INOUT std_logic;
 	HPS_I2C_CONTROL : INOUT std_logic;
 	HPS_UART_RX : IN std_logic;
 	HPS_UART_TX : OUT std_logic;
-	HPS_LED : INOUT std_logic
+	HPS_LED : INOUT std_logic;
+	
+	clkST : OUT std_logic
 );
 END reverbFPGA;
 
@@ -134,18 +133,17 @@ port (
 	
 	serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X';              -- noe
 	
-	audio_config_external_interface_SDAT              : inout std_logic                     := 'X';             -- SDAT
-   audio_config_external_interface_SCLK              : out   std_logic;                                         -- SCLK
-	
 	hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
 	hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
-	hps_io_hps_io_i2c0_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
-	hps_io_hps_io_i2c0_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
+	hps_io_hps_io_i2c1_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+	hps_io_hps_io_i2c1_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 
 	clksampling_clk                                   : out   std_logic;                                         -- clk
-	audio_pll_0_audio_clk_clk                         : out   std_logic                                         -- clk
+	audio_pll_0_audio_clk_clk                         : out   std_logic;                                         -- clk
+	
+	clkst_clk                                         : out   std_logic                                         -- clk
 );
 end component reverbFPGA_Qsys;
 
@@ -197,87 +195,86 @@ port map (
 	
 	serial_flash_loader_0_noe_in_noe => '0',
 	
-	audio_config_external_interface_SDAT              => FPGA_I2C_SDAT,              --             audio_config_external_interface.SDAT
-   audio_config_external_interface_SCLK              => FPGA_I2C_SCLK,               --                                            .SCLK
-	
 	hps_io_hps_io_uart0_inst_RX                       => HPS_UART_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
 	hps_io_hps_io_uart0_inst_TX                       => HPS_UART_TX,                       --                                            .hps_io_uart0_inst_TX
-	hps_io_hps_io_i2c0_inst_SDA                       => HPS_I2C1_SDAT,                       --                                            .hps_io_i2c0_inst_SDA
-	hps_io_hps_io_i2c0_inst_SCL                       => HPS_I2C1_SCLK,                       --                                            .hps_io_i2c0_inst_SCL
+	hps_io_hps_io_i2c1_inst_SDA                       => HPS_I2C1_SDAT,                       --                                            .hps_io_i2c0_inst_SDA
+	hps_io_hps_io_i2c1_inst_SCL                       => HPS_I2C1_SCLK,                       --                                            .hps_io_i2c0_inst_SCL
 	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    => HPS_I2C_CONTROL,                    --                                            .hps_io_gpio_inst_GPIO48
 	
 	clksampling_clk                                   => samplingClk,                                    --                                 clksampling.clk
 
-	audio_pll_0_audio_clk_clk                         => AUD_XCK                          --                       audio_pll_0_audio_clk.clk
+	audio_pll_0_audio_clk_clk                         => AUD_XCK,                          --                       audio_pll_0_audio_clk.clk
+
+	clkst_clk                                         => clkST                                          --                                       clkst.clk
 );
 
--- machine d'état permettant l'interfaçage entre les données du controleur audio et celle traitées en dur dans le FPGA
--- + gestion de la métastabilité (passage de CLOCK50 à samplingClk)
-interface : process(CLOCK_50, rst)
-begin
-	if(CLOCK_50'EVENT and CLOCK_50='1') then
-		if(rst = '0') then -- reset synchrone
-			interfaceState <= idle;
-		else
-			case interfaceState is 
-				when idle =>
-					audioIN_ready <= '0';
-					audioOUT_valid <= '0';
-					if(audioIN_valid = '1') then
-						interfaceState <= transfer;
-					end if;
-				when transfer =>
-					dataIN <= audioIN_data;
-					audioIN_ready <= '1';
-					
-					audioOUT_data <= dataOUT_stable;
-					audioOUT_valid <= '1';
-					
-					if(audioOUT_ready = '1') then
-						interfaceState <= idle;
-					end if;
-			end case;
-		end if;
-	end if;
-end process;
-
--- disponibilité des données d'entrées sous le cadencement de l'horloge d'échantillonnage
-dataIN_crossingClk : process(samplingClk, rst)
-begin
-	if(samplingClk'EVENT and samplingClk = '1') then
-		if(rst = '0') then
-			dataIN_toSampleRate <= (others => '0');
-			dataIN_stable <= (others => '0');
-		else 
-			dataIN_toSampleRate <= dataIN;
-			dataIN_stable <= dataIN_toSampleRate;
-		end if;
-	end if;
-end process; 
-
--- disponibilité des données de sortie sous le cadencement de l'horloge d'échantillonnage
-dataOUT_crossingClk : process(CLOCK_50, rst)
-begin
-	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
-		if(rst = '0') then
-			dataOUT_to50MRate <= (others => '0');
-			dataOUT_stable <= (others => '0');
-		else 
-			dataOUT_to50MRate <= dataOUT;
-			dataOUT_stable <= dataOUT_to50MRate;
-		end if;
-	end if;
-end process;
-
-
-lateReverbComponent : entity work.lateReverb(archi)
-	generic map(41)
-	port map(clk50M => CLOCK_50, samplingClk => samplingClk, rst => rst, dataIN => resize(signed(dataIN_stable), 41), dataOUT => dataOUT_extended, dampingValue => "10000000000000000000000000000000000000000", decayValue => "10000000000000000000000000000000000000000", g => "10000000000000000000000000000000000000000");  
-
---dataOUT <= dataIN_stable when (samplingClk'EVENT and samplingClk='1');
-dataOUT <= std_logic_vector(dataOUT_extended(40 downto 17));
-
---dataOUT <= (others => '0');
-
+---- machine d'état permettant l'interfaçage entre les données du controleur audio et celle traitées en dur dans le FPGA
+---- + gestion de la métastabilité (passage de CLOCK50 à samplingClk)
+--interface : process(CLOCK_50, rst)
+--begin
+--	if(CLOCK_50'EVENT and CLOCK_50='1') then
+--		if(rst = '0') then -- reset synchrone
+--			interfaceState <= idle;
+--		else
+--			case interfaceState is 
+--				when idle =>
+--					audioIN_ready <= '0';
+--					audioOUT_valid <= '0';
+--					if(audioIN_valid = '1') then
+--						interfaceState <= transfer;
+--					end if;
+--				when transfer =>
+--					dataIN <= audioIN_data;
+--					audioIN_ready <= '1';
+--					
+--					audioOUT_data <= dataOUT_stable;
+--					audioOUT_valid <= '1';
+--					
+--					if(audioOUT_ready = '1') then
+--						interfaceState <= idle;
+--					end if;
+--			end case;
+--		end if;
+--	end if;
+--end process;
+--
+---- disponibilité des données d'entrées sous le cadencement de l'horloge d'échantillonnage
+--dataIN_crossingClk : process(samplingClk, rst)
+--begin
+--	if(samplingClk'EVENT and samplingClk = '1') then
+--		if(rst = '0') then
+--			dataIN_toSampleRate <= (others => '0');
+--			dataIN_stable <= (others => '0');
+--		else 
+--			dataIN_toSampleRate <= dataIN;
+--			dataIN_stable <= dataIN_toSampleRate;
+--		end if;
+--	end if;
+--end process; 
+--
+---- disponibilité des données de sortie sous le cadencement de l'horloge d'échantillonnage
+--dataOUT_crossingClk : process(CLOCK_50, rst)
+--begin
+--	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
+--		if(rst = '0') then
+--			dataOUT_to50MRate <= (others => '0');
+--			dataOUT_stable <= (others => '0');
+--		else 
+--			dataOUT_to50MRate <= dataOUT;
+--			dataOUT_stable <= dataOUT_to50MRate;
+--		end if;
+--	end if;
+--end process;
+--
+--
+--lateReverbComponent : entity work.lateReverb(archi)
+--	generic map(41)
+--	port map(clk50M => CLOCK_50, samplingClk => samplingClk, rst => rst, dataIN => resize(signed(dataIN_stable), 41), dataOUT => dataOUT_extended, dampingValue => "10000000000000000000000000000000000000000", decayValue => "10000000000000000000000000000000000000000", g => "10000000000000000000000000000000000000000");  
+--
+----dataOUT <= dataIN_stable when (samplingClk'EVENT and samplingClk='1');
+--dataOUT <= std_logic_vector(dataOUT_extended(40 downto 17));
+--
+----dataOUT <= (others => '0');
+--
 END archi;
