@@ -47,9 +47,7 @@ PORT(
 	HPS_I2C_CONTROL : INOUT std_logic;
 	HPS_UART_RX : IN std_logic;
 	HPS_UART_TX : OUT std_logic;
-	HPS_LED : INOUT std_logic;
-	
-	clkST : OUT std_logic
+	HPS_LED : INOUT std_logic
 );
 END reverbFPGA;
 
@@ -141,9 +139,7 @@ port (
    hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 
 	clksampling_clk                                   : out   std_logic;                                         -- clk
-	audio_pll_0_audio_clk_clk                         : out   std_logic;                                         -- clk
-	
-	clkst_clk                                         : out   std_logic                                         -- clk
+	audio_pll_0_audio_clk_clk                         : out   std_logic                                         -- clk
 );
 end component reverbFPGA_Qsys;
 
@@ -204,40 +200,40 @@ port map (
 	
 	clksampling_clk                                   => samplingClk,                                    --                                 clksampling.clk
 
-	audio_pll_0_audio_clk_clk                         => AUD_XCK,                          --                       audio_pll_0_audio_clk.clk
-
-	clkst_clk                                         => clkST                                          --                                       clkst.clk
+	audio_pll_0_audio_clk_clk                         => AUD_XCK                          --                       audio_pll_0_audio_clk.clk
 );
 
----- machine d'état permettant l'interfaçage entre les données du controleur audio et celle traitées en dur dans le FPGA
----- + gestion de la métastabilité (passage de CLOCK50 à samplingClk)
---interface : process(CLOCK_50, rst)
---begin
---	if(CLOCK_50'EVENT and CLOCK_50='1') then
---		if(rst = '0') then -- reset synchrone
---			interfaceState <= idle;
---		else
---			case interfaceState is 
---				when idle =>
---					audioIN_ready <= '0';
---					audioOUT_valid <= '0';
---					if(audioIN_valid = '1') then
---						interfaceState <= transfer;
---					end if;
---				when transfer =>
---					dataIN <= audioIN_data;
---					audioIN_ready <= '1';
---					
---					audioOUT_data <= dataOUT_stable;
---					audioOUT_valid <= '1';
---					
---					if(audioOUT_ready = '1') then
---						interfaceState <= idle;
---					end if;
---			end case;
---		end if;
---	end if;
---end process;
+-- machine d'état permettant l'interfaçage entre les données du controleur audio et celles traitées en dur dans le FPGA
+-- + gestion de la métastabilité (passage de CLOCK50 à samplingClk)
+interface : process(CLOCK_50, rst)
+begin
+	if(CLOCK_50'EVENT and CLOCK_50='1') then
+		if(rst = '0') then -- reset synchrone
+			interfaceState <= idle;
+		else
+			case interfaceState is 
+				when idle =>
+					audioIN_ready <= '0';
+					audioOUT_valid <= '0';
+					if(audioIN_valid = '1') then
+						interfaceState <= transfer;
+					end if;
+				when transfer =>
+					dataIN <= audioIN_data;
+					audioIN_ready <= '1';
+					
+					audioOUT_data <= dataOUT_stable;
+					audioOUT_valid <= '1';
+					
+					if(audioOUT_ready = '1') then
+						interfaceState <= idle;
+					end if;
+			end case;
+		end if;
+	end if;
+end process;
+
+dataOUT_stable <= dataIN;
 --
 ---- disponibilité des données d'entrées sous le cadencement de l'horloge d'échantillonnage
 --dataIN_crossingClk : process(samplingClk, rst)

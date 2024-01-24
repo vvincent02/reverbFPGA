@@ -10,10 +10,8 @@
 		.audio_controller_external_interface_BCLK          (<connected-to-audio_controller_external_interface_BCLK>),          //                                            .BCLK
 		.audio_controller_external_interface_DACDAT        (<connected-to-audio_controller_external_interface_DACDAT>),        //                                            .DACDAT
 		.audio_controller_external_interface_DACLRCK       (<connected-to-audio_controller_external_interface_DACLRCK>),       //                                            .DACLRCK
-		.audio_pll_0_audio_clk_clk                         (<connected-to-audio_pll_0_audio_clk_clk>),                         //                       audio_pll_0_audio_clk.clk
 		.clk_clk                                           (<connected-to-clk_clk>),                                           //                                         clk.clk
 		.clksampling_clk                                   (<connected-to-clksampling_clk>),                                   //                                 clksampling.clk
-		.clkst_clk                                         (<connected-to-clkst_clk>),                                         //                                       clkst.clk
 		.dampingvalue_pio_external_connection_export       (<connected-to-dampingvalue_pio_external_connection_export>),       //        dampingvalue_pio_external_connection.export
 		.decayvalue_pio_external_connection_export         (<connected-to-decayvalue_pio_external_connection_export>),         //          decayvalue_pio_external_connection.export
 		.hps_0_h2f_mpu_events_eventi                       (<connected-to-hps_0_h2f_mpu_events_eventi>),                       //                        hps_0_h2f_mpu_events.eventi
@@ -47,6 +45,7 @@
 		.paramvalueupdate_pio_external_connection_export   (<connected-to-paramvalueupdate_pio_external_connection_export>),   //    paramvalueupdate_pio_external_connection.export
 		.predelayvalue_pio_external_connection_export      (<connected-to-predelayvalue_pio_external_connection_export>),      //       predelayvalue_pio_external_connection.export
 		.reset_reset_n                                     (<connected-to-reset_reset_n>),                                     //                                       reset.reset_n
-		.serial_flash_loader_0_noe_in_noe                  (<connected-to-serial_flash_loader_0_noe_in_noe>)                   //                serial_flash_loader_0_noe_in.noe
+		.serial_flash_loader_0_noe_in_noe                  (<connected-to-serial_flash_loader_0_noe_in_noe>),                  //                serial_flash_loader_0_noe_in.noe
+		.audio_pll_0_audio_clk_clk                         (<connected-to-audio_pll_0_audio_clk_clk>)                          //                       audio_pll_0_audio_clk.clk
 	);
 

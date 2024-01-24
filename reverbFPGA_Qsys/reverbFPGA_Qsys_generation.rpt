@@ -10,8 +10,6 @@ Progress: Adding clkSampling [clock_source 23.1]
 Progress: Parameterizing module clkSampling
 Progress: Adding clk_0 [clock_source 23.1]
 Progress: Parameterizing module clk_0
-Progress: Adding clk_signaltap [clock_source 23.1]
-Progress: Parameterizing module clk_signaltap
 Progress: Adding dampingValue_PIO [altera_avalon_pio 23.1]
 Progress: Parameterizing module dampingValue_PIO
 Progress: Adding decayValue_PIO [altera_avalon_pio 23.1]
@@ -28,6 +26,8 @@ Progress: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
 Progress: Parameterizing module preDelayValue_PIO
 Progress: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
 Progress: Parameterizing module serial_flash_loader
+Progress: Adding st_pipeline_stage_0 [altera_avalon_st_pipeline_stage 23.1]
+Progress: Parameterizing module st_pipeline_stage_0
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -43,7 +43,7 @@ Info: audio_controller: Starting Generation of Audio Controller
 Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
 Info: audio_pll_0: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_pll "audio_pll_0"
 Info: dampingValue_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
-Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9745_7722855722932609556.dir/0003_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9745_7722855722932609556.dir/0003_dampingValue_PIO_gen//reverbFPGA_Qsys_dampingValue_PIO_component_configuration.pl  --do_build_sim=0  ]
+Info: dampingValue_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_dampingValue_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9746_2145646746396069133.dir/0003_dampingValue_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9746_2145646746396069133.dir/0003_dampingValue_PIO_gen//reverbFPGA_Qsys_dampingValue_PIO_component_configuration.pl  --do_build_sim=0  ]
 Info: dampingValue_PIO: Done RTL generation for module 'reverbFPGA_Qsys_dampingValue_PIO'
 Info: dampingValue_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "dampingValue_PIO"
 Info: hps_0: "Running  for module: hps_0"
@@ -53,11 +53,11 @@ Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_
 Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
 Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
 Info: paramType_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
-Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9745_7722855722932609556.dir/0004_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9745_7722855722932609556.dir/0004_paramType_PIO_gen//reverbFPGA_Qsys_paramType_PIO_component_configuration.pl  --do_build_sim=0  ]
+Info: paramType_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramType_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9746_2145646746396069133.dir/0004_paramType_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9746_2145646746396069133.dir/0004_paramType_PIO_gen//reverbFPGA_Qsys_paramType_PIO_component_configuration.pl  --do_build_sim=0  ]
 Info: paramType_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramType_PIO'
 Info: paramType_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramType_PIO"
 Info: paramValueUpdate_PIO: Starting RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
-Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9745_7722855722932609556.dir/0005_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9745_7722855722932609556.dir/0005_paramValueUpdate_PIO_gen//reverbFPGA_Qsys_paramValueUpdate_PIO_component_configuration.pl  --do_build_sim=0  ]
+Info: paramValueUpdate_PIO:   Generation command is [exec C:/intelfpga_lite/23.1std/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga_lite/23.1std/quartus/bin64/perl/lib -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin/europa -I C:/intelfpga_lite/23.1std/quartus/sopc_builder/bin -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga_lite/23.1std/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=reverbFPGA_Qsys_paramValueUpdate_PIO --dir=C:/Users/User/AppData/Local/Temp/alt9746_2145646746396069133.dir/0005_paramValueUpdate_PIO_gen/ --quartus_dir=C:/intelfpga_lite/23.1std/quartus --verilog --config=C:/Users/User/AppData/Local/Temp/alt9746_2145646746396069133.dir/0005_paramValueUpdate_PIO_gen//reverbFPGA_Qsys_paramValueUpdate_PIO_component_configuration.pl  --do_build_sim=0  ]
 Info: paramValueUpdate_PIO: Done RTL generation for module 'reverbFPGA_Qsys_paramValueUpdate_PIO'
 Info: paramValueUpdate_PIO: "reverbFPGA_Qsys" instantiated altera_avalon_pio "paramValueUpdate_PIO"
 Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader

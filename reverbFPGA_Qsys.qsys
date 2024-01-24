@@ -46,19 +46,6 @@
          type = "int";
       }
    }
-   element clk_signaltap
-   {
-      datum _sortIndex
-      {
-         value = "12";
-         type = "int";
-      }
-      datum sopceditor_expanded
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
    element dampingValue_PIO
    {
       datum _sortIndex
@@ -176,6 +163,14 @@
          type = "boolean";
       }
    }
+   element st_pipeline_stage_0
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -223,7 +218,6 @@
    internal="clkSampling.clk"
    type="clock"
    dir="start" />
- <interface name="clkst" internal="clk_signaltap.clk" type="clock" dir="start" />
  <interface
    name="dampingvalue_pio_external_connection"
    internal="dampingValue_PIO.external_connection"
@@ -314,7 +308,7 @@
  </module>
  <module name="clkSampling" kind="clock_source" version="23.1" enabled="1">
   <parameter name="clockFrequency" value="48000" />
-  <parameter name="clockFrequencyKnown" value="false" />
+  <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="50000000" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
@@ -322,12 +316,6 @@
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="0" />
-  <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
- <module name="clk_signaltap" kind="clock_source" version="23.1" enabled="1">
-  <parameter name="clockFrequency" value="1000000" />
-  <parameter name="clockFrequencyKnown" value="true" />
-  <parameter name="inputClockFrequency" value="50000000" />
   <parameter name="resetSynchronousEdges" value="NONE" />
  </module>
  <module
@@ -977,6 +965,20 @@
   <parameter name="INTENDED_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="gui_shared_access" value="false" />
  </module>
+ <module
+   name="st_pipeline_stage_0"
+   kind="altera_avalon_st_pipeline_stage"
+   version="23.1"
+   enabled="0">
+  <parameter name="BITS_PER_SYMBOL" value="8" />
+  <parameter name="CHANNEL_WIDTH" value="0" />
+  <parameter name="ERROR_WIDTH" value="0" />
+  <parameter name="MAX_CHANNEL" value="0" />
+  <parameter name="PIPELINE_READY" value="1" />
+  <parameter name="SYMBOLS_PER_BEAT" value="3" />
+  <parameter name="USE_EMPTY" value="0" />
+  <parameter name="USE_PACKETS" value="0" />
+ </module>
  <connection
    kind="avalon"
    version="23.1"
@@ -1072,7 +1074,7 @@
    kind="clock"
    version="23.1"
    start="clk_0.clk"
-   end="clk_signaltap.clk_in" />
+   end="st_pipeline_stage_0.cr0" />
  <connection
    kind="clock"
    version="23.1"
@@ -1102,7 +1104,7 @@
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
-   end="clk_signaltap.clk_in_reset" />
+   end="st_pipeline_stage_0.cr0_reset" />
  <connection
    kind="reset"
    version="23.1"

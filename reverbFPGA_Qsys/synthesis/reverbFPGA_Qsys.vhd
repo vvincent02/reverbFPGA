@@ -22,7 +22,6 @@ entity reverbFPGA_Qsys is
 		audio_pll_0_audio_clk_clk                         : out   std_logic;                                        --                       audio_pll_0_audio_clk.clk
 		clk_clk                                           : in    std_logic                     := '0';             --                                         clk.clk
 		clksampling_clk                                   : out   std_logic;                                        --                                 clksampling.clk
-		clkst_clk                                         : out   std_logic;                                        --                                       clkst.clk
 		dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    --        dampingvalue_pio_external_connection.export
 		decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    --          decayvalue_pio_external_connection.export
 		hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := '0';             --                        hps_0_h2f_mpu_events.eventi
@@ -968,7 +967,5 @@ begin
 	hps_0_h2f_reset_reset_ports_inv <= not hps_0_h2f_reset_reset;
 
 	clksampling_clk <= clk_clk;
-
-	clkst_clk <= clk_clk;
 
 end architecture rtl; -- of reverbFPGA_Qsys
