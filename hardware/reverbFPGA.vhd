@@ -79,24 +79,14 @@ signal audioR_OUT_ready : std_logic;
 signal audioR_OUT_valid : std_logic;
 signal audioR_OUT_data : std_logic_vector(23 downto 0);
 
-
 -- signaux interfaçe controleur audio / traitement reverb
 type interfaceState_type is (idle, transferData, endTransfer);
 signal interfaceStateL : interfaceState_type;
 signal interfaceStateR : interfaceState_type;
-signal dataL_IN : std_logic_vector(23 downto 0); -- sortie de l'interfaçe
-signal dataL_IN_toSampleRate : std_logic_vector(23 downto 0); -- sortie bascule D (cadencé sur sampleClk) avec pour entrée dataL_IN 
-signal dataL_IN_stable : std_logic_vector(23 downto 0); -- sortie seconde bascule D (cadencé sur sampleClk) pour éviter la métastabilité / entrée traitement reverb
-signal dataL_OUT : std_logic_vector(23 downto 0); -- sortie traitement reverb
-signal dataL_OUT_to50MRate : std_logic_vector(23 downto 0); -- sortie bascule D (cadencé sur clk50MHz)
-signal dataL_OUT_stable : std_logic_vector(23 downto 0); -- sortie seconde bascule D / entrée interfaçe
-signal dataR_IN : std_logic_vector(23 downto 0); -- sortie de l'interfaçe
-signal dataR_IN_toSampleRate : std_logic_vector(23 downto 0); -- sortie bascule D (cadencé sur sampleClk) avec pour entrée dataL_IN 
-signal dataR_IN_stable : std_logic_vector(23 downto 0); -- sortie seconde bascule D (cadencé sur sampleClk) pour éviter la métastabilité / entrée traitement reverb
-signal dataR_OUT : std_logic_vector(23 downto 0); -- sortie traitement reverb
-signal dataR_OUT_to50MRate : std_logic_vector(23 downto 0); -- sortie bascule D (cadencé sur clk50MHz)
-signal dataR_OUT_stable : std_logic_vector(23 downto 0); -- sortie seconde bascule D / entrée interfaçe
-
+signal dataL_IN_sampleRate : std_logic_vector(23 downto 0);
+signal dataL_OUT_sampleRate : std_logic_vector(23 downto 0);
+signal dataR_IN_sampleRate : std_logic_vector(23 downto 0);
+signal dataR_OUT_sampleRate : std_logic_vector(23 downto 0);
 
 -- signal de sortie avant remise à l'échelle sur 24 bits signés
 signal dataL_OUT_extended : signed(40 downto 0);
@@ -242,8 +232,8 @@ interfaceL : entity work.interface_AVST_proc(archi)
 				audio_OUT_ready => audioL_OUT_ready, 
 				audio_OUT_valid => audioL_OUT_valid,
 				audio_OUT_data => audioL_OUT_data,
-				data_IN => dataL_IN,
-				data_OUT_stable => dataL_OUT_stable);
+				data_IN_sampleRate => dataL_IN_sampleRate,
+				data_OUT_sampleRate => dataL_OUT_sampleRate);
 				
 interfaceR : entity work.interface_AVST_proc(archi)
 	generic map(24)
@@ -254,40 +244,23 @@ interfaceR : entity work.interface_AVST_proc(archi)
 				audio_OUT_ready => audioR_OUT_ready, 
 				audio_OUT_valid => audioR_OUT_valid,
 				audio_OUT_data => audioR_OUT_data,
-				data_IN => dataR_IN,
-				data_OUT_stable => dataR_OUT_stable);
+				data_IN_sampleRate => dataR_IN_sampleRate,
+				data_OUT_sampleRate => dataR_OUT_sampleRate);
 
---dataR_OUT_stable <= dataR_OUT;
-
----- disponibilité des données d'entrées sous le cadencement de l'horloge d'échantillonnage
---dataL_IN_crossingClk : process(samplingClk, rst)
---begin
---	if(samplingClk'EVENT and samplingClk = '1') then
---		if(rst = '0') then
---			dataL_IN_toSampleRate <= (others => '0');
---			dataL_IN_stable <= (others => '0');
---		else 
---			dataL_IN_toSampleRate <= dataL_IN;
---			dataL_IN_stable <= dataL_IN_toSampleRate;
---		end if;
---	end if;
---end process; 
---
----- disponibilité des données de sortie sous le cadencement de l'horloge d'échantillonnage
---dataL_OUT_crossingClk : process(CLOCK_50, rst)
---begin
---	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
---		if(rst = '0') then
---			dataL_OUT_to50MRate <= (others => '0');
---			dataL_OUT_stable <= (others => '0');
---		else 
---			dataL_OUT_to50MRate <= dataL_OUT;
---			dataL_OUT_stable <= dataL_OUT_to50MRate;
---		end if;
---	end if;
---end process;
-
-
+-- bridge IN -> OUT over samplingClk (L+R channel)
+bridge : process(samplingClk, rst)
+begin
+	if(samplingClk'EVENT and samplingClk = '1') then
+		if(rst = '0') then
+			dataL_OUT_sampleRate <= (others => '0');
+			dataR_OUT_sampleRate <= (others => '0');
+		else 
+			dataL_OUT_sampleRate <= dataL_IN_sampleRate;
+			dataR_OUT_sampleRate <= dataR_IN_sampleRate;
+		end if;
+	end if;
+end process;
+				
 --lateReverbComponent : entity work.lateReverb(archi)
 --	generic map(41)
 --	port map(clk50M => CLOCK_50, samplingClk => samplingClk, rst => rst, dataL_IN => resize(signed(dataL_IN_stable), 41), dataL_OUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000000000000000", decayValue => "10000000000000000000000000000000000000000", g => "10000000000000000000000000000000000000000");  
