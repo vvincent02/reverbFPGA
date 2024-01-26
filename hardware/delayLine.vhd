@@ -43,11 +43,11 @@ RAM_module : entity work.RAM(rtl)
 	generic map(data_width => dataSize, nbr_blocks => N)
 	port map(clk => clk50M, rst => rst, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
 
--- lancement décalage de N échantillons	
+-- lancement décalage de N échantillons
 process(samplingClk, rst)
 begin
 	if(samplingClk'EVENT and samplingClk='1') then
-		if(rst='0') then -- reset synchrone
+		if(rst='0') then
 			launchShift <= '0';
 		else 
 			dataOUT <= dataOUT_pre;
@@ -58,9 +58,6 @@ end process;
 
 -- décalage de N échantillons et mise à jour de la valeur de sortie 
 process(clk50M, rst)
-
-variable sampleIndex : integer range 0 to N-1;
-
 begin
 	if(clk50M'EVENT and clk50M='1') then
 		if(rst='0') then
@@ -81,28 +78,30 @@ begin
 					if(launchShift_stable = '1') then
 						shiftState <= pull;
 						
+						launchShift <= '0';
+						launchShift_metastable <= '0';
 						launchShift_stable <= '0';
 					end if;
 				-- on récupère la donnée en fin de file (i.e l'entrée décalée)
 				when pull =>
 					dataOUT_pre <= signed(rd_data);
 				
-					wr_addr <= N-1;
 					rd_addr <= N-2;
-					we <= '1';
+					wr_addr <= N-1;
 				-- décalage de la file
 				when shift =>
 					wr_data <= rd_data;
+					we <= '1';
 					
 					if(rd_addr = 0) then
 						shiftState <= push;
-						wr_addr <= 0;
 					else 
 						wr_addr <= wr_addr-1;
 						rd_addr <= rd_addr-1;
 					end if;
 				-- ajout de la dernière valeur au début de la file
 				when push =>
+					wr_addr <= 0;
 					wr_data <= std_logic_vector(dataIN);
 				
 					shiftState <= idle;

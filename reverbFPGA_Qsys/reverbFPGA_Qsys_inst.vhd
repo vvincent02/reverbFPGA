@@ -6,6 +6,12 @@
 			audio_controller_avalon_left_channel_source_ready  : in    std_logic                     := 'X';             -- ready
 			audio_controller_avalon_left_channel_source_data   : out   std_logic_vector(23 downto 0);                    -- data
 			audio_controller_avalon_left_channel_source_valid  : out   std_logic;                                        -- valid
+			audio_controller_avalon_right_channel_sink_data    : in    std_logic_vector(23 downto 0) := (others => 'X'); -- data
+			audio_controller_avalon_right_channel_sink_valid   : in    std_logic                     := 'X';             -- valid
+			audio_controller_avalon_right_channel_sink_ready   : out   std_logic;                                        -- ready
+			audio_controller_avalon_right_channel_source_ready : in    std_logic                     := 'X';             -- ready
+			audio_controller_avalon_right_channel_source_data  : out   std_logic_vector(23 downto 0);                    -- data
+			audio_controller_avalon_right_channel_source_valid : out   std_logic;                                        -- valid
 			audio_controller_external_interface_ADCDAT         : in    std_logic                     := 'X';             -- ADCDAT
 			audio_controller_external_interface_ADCLRCK        : in    std_logic                     := 'X';             -- ADCLRCK
 			audio_controller_external_interface_BCLK           : in    std_logic                     := 'X';             -- BCLK
@@ -13,7 +19,6 @@
 			audio_controller_external_interface_DACLRCK        : in    std_logic                     := 'X';             -- DACLRCK
 			audio_pll_0_audio_clk_clk                          : out   std_logic;                                        -- clk
 			clk_clk                                            : in    std_logic                     := 'X';             -- clk
-			clksampling_clk                                    : out   std_logic;                                        -- clk
 			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
 			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
 			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe
@@ -41,13 +46,7 @@
 			memory_mem_dm                                      : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                                   : in    std_logic                     := 'X';             -- oct_rzqin
 			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
-			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X';             -- noe
-			audio_controller_avalon_right_channel_sink_data    : in    std_logic_vector(23 downto 0) := (others => 'X'); -- data
-			audio_controller_avalon_right_channel_sink_valid   : in    std_logic                     := 'X';             -- valid
-			audio_controller_avalon_right_channel_sink_ready   : out   std_logic;                                        -- ready
-			audio_controller_avalon_right_channel_source_ready : in    std_logic                     := 'X';             -- ready
-			audio_controller_avalon_right_channel_source_data  : out   std_logic_vector(23 downto 0);                    -- data
-			audio_controller_avalon_right_channel_source_valid : out   std_logic                                         -- valid
+			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X'              -- noe
 		);
 	end component reverbFPGA_Qsys;
 
@@ -59,6 +58,12 @@
 			audio_controller_avalon_left_channel_source_ready  => CONNECTED_TO_audio_controller_avalon_left_channel_source_ready,  --  audio_controller_avalon_left_channel_source.ready
 			audio_controller_avalon_left_channel_source_data   => CONNECTED_TO_audio_controller_avalon_left_channel_source_data,   --                                             .data
 			audio_controller_avalon_left_channel_source_valid  => CONNECTED_TO_audio_controller_avalon_left_channel_source_valid,  --                                             .valid
+			audio_controller_avalon_right_channel_sink_data    => CONNECTED_TO_audio_controller_avalon_right_channel_sink_data,    --   audio_controller_avalon_right_channel_sink.data
+			audio_controller_avalon_right_channel_sink_valid   => CONNECTED_TO_audio_controller_avalon_right_channel_sink_valid,   --                                             .valid
+			audio_controller_avalon_right_channel_sink_ready   => CONNECTED_TO_audio_controller_avalon_right_channel_sink_ready,   --                                             .ready
+			audio_controller_avalon_right_channel_source_ready => CONNECTED_TO_audio_controller_avalon_right_channel_source_ready, -- audio_controller_avalon_right_channel_source.ready
+			audio_controller_avalon_right_channel_source_data  => CONNECTED_TO_audio_controller_avalon_right_channel_source_data,  --                                             .data
+			audio_controller_avalon_right_channel_source_valid => CONNECTED_TO_audio_controller_avalon_right_channel_source_valid, --                                             .valid
 			audio_controller_external_interface_ADCDAT         => CONNECTED_TO_audio_controller_external_interface_ADCDAT,         --          audio_controller_external_interface.ADCDAT
 			audio_controller_external_interface_ADCLRCK        => CONNECTED_TO_audio_controller_external_interface_ADCLRCK,        --                                             .ADCLRCK
 			audio_controller_external_interface_BCLK           => CONNECTED_TO_audio_controller_external_interface_BCLK,           --                                             .BCLK
@@ -66,7 +71,6 @@
 			audio_controller_external_interface_DACLRCK        => CONNECTED_TO_audio_controller_external_interface_DACLRCK,        --                                             .DACLRCK
 			audio_pll_0_audio_clk_clk                          => CONNECTED_TO_audio_pll_0_audio_clk_clk,                          --                        audio_pll_0_audio_clk.clk
 			clk_clk                                            => CONNECTED_TO_clk_clk,                                            --                                          clk.clk
-			clksampling_clk                                    => CONNECTED_TO_clksampling_clk,                                    --                                  clksampling.clk
 			hps_0_h2f_mpu_events_eventi                        => CONNECTED_TO_hps_0_h2f_mpu_events_eventi,                        --                         hps_0_h2f_mpu_events.eventi
 			hps_0_h2f_mpu_events_evento                        => CONNECTED_TO_hps_0_h2f_mpu_events_evento,                        --                                             .evento
 			hps_0_h2f_mpu_events_standbywfe                    => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfe,                    --                                             .standbywfe
@@ -94,12 +98,6 @@
 			memory_mem_dm                                      => CONNECTED_TO_memory_mem_dm,                                      --                                             .mem_dm
 			memory_oct_rzqin                                   => CONNECTED_TO_memory_oct_rzqin,                                   --                                             .oct_rzqin
 			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                        reset.reset_n
-			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe,                   --                 serial_flash_loader_0_noe_in.noe
-			audio_controller_avalon_right_channel_sink_data    => CONNECTED_TO_audio_controller_avalon_right_channel_sink_data,    --   audio_controller_avalon_right_channel_sink.data
-			audio_controller_avalon_right_channel_sink_valid   => CONNECTED_TO_audio_controller_avalon_right_channel_sink_valid,   --                                             .valid
-			audio_controller_avalon_right_channel_sink_ready   => CONNECTED_TO_audio_controller_avalon_right_channel_sink_ready,   --                                             .ready
-			audio_controller_avalon_right_channel_source_ready => CONNECTED_TO_audio_controller_avalon_right_channel_source_ready, -- audio_controller_avalon_right_channel_source.ready
-			audio_controller_avalon_right_channel_source_data  => CONNECTED_TO_audio_controller_avalon_right_channel_source_data,  --                                             .data
-			audio_controller_avalon_right_channel_source_valid => CONNECTED_TO_audio_controller_avalon_right_channel_source_valid  --                                             .valid
+			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                    --                 serial_flash_loader_0_noe_in.noe
 		);
 

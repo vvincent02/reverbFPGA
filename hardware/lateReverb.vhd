@@ -40,7 +40,6 @@ signal outputAdder : signed(dataIN'range);
 signal dataOUT_APF : S_vectArray4;
 
 
-
 BEGIN
 
 LFCF_blocks : FOR i IN 1 TO 8

@@ -6,6 +6,12 @@ module reverbFPGA_Qsys (
 	audio_controller_avalon_left_channel_source_ready,
 	audio_controller_avalon_left_channel_source_data,
 	audio_controller_avalon_left_channel_source_valid,
+	audio_controller_avalon_right_channel_sink_data,
+	audio_controller_avalon_right_channel_sink_valid,
+	audio_controller_avalon_right_channel_sink_ready,
+	audio_controller_avalon_right_channel_source_ready,
+	audio_controller_avalon_right_channel_source_data,
+	audio_controller_avalon_right_channel_source_valid,
 	audio_controller_external_interface_ADCDAT,
 	audio_controller_external_interface_ADCLRCK,
 	audio_controller_external_interface_BCLK,
@@ -13,7 +19,6 @@ module reverbFPGA_Qsys (
 	audio_controller_external_interface_DACLRCK,
 	audio_pll_0_audio_clk_clk,
 	clk_clk,
-	clksampling_clk,
 	hps_0_h2f_mpu_events_eventi,
 	hps_0_h2f_mpu_events_evento,
 	hps_0_h2f_mpu_events_standbywfe,
@@ -41,13 +46,7 @@ module reverbFPGA_Qsys (
 	memory_mem_dm,
 	memory_oct_rzqin,
 	reset_reset_n,
-	serial_flash_loader_0_noe_in_noe,
-	audio_controller_avalon_right_channel_sink_data,
-	audio_controller_avalon_right_channel_sink_valid,
-	audio_controller_avalon_right_channel_sink_ready,
-	audio_controller_avalon_right_channel_source_ready,
-	audio_controller_avalon_right_channel_source_data,
-	audio_controller_avalon_right_channel_source_valid);	
+	serial_flash_loader_0_noe_in_noe);	
 
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
 	input		audio_controller_avalon_left_channel_sink_valid;
@@ -55,6 +54,12 @@ module reverbFPGA_Qsys (
 	input		audio_controller_avalon_left_channel_source_ready;
 	output	[23:0]	audio_controller_avalon_left_channel_source_data;
 	output		audio_controller_avalon_left_channel_source_valid;
+	input	[23:0]	audio_controller_avalon_right_channel_sink_data;
+	input		audio_controller_avalon_right_channel_sink_valid;
+	output		audio_controller_avalon_right_channel_sink_ready;
+	input		audio_controller_avalon_right_channel_source_ready;
+	output	[23:0]	audio_controller_avalon_right_channel_source_data;
+	output		audio_controller_avalon_right_channel_source_valid;
 	input		audio_controller_external_interface_ADCDAT;
 	input		audio_controller_external_interface_ADCLRCK;
 	input		audio_controller_external_interface_BCLK;
@@ -62,7 +67,6 @@ module reverbFPGA_Qsys (
 	input		audio_controller_external_interface_DACLRCK;
 	output		audio_pll_0_audio_clk_clk;
 	input		clk_clk;
-	output		clksampling_clk;
 	input		hps_0_h2f_mpu_events_eventi;
 	output		hps_0_h2f_mpu_events_evento;
 	output	[1:0]	hps_0_h2f_mpu_events_standbywfe;
@@ -91,10 +95,4 @@ module reverbFPGA_Qsys (
 	input		memory_oct_rzqin;
 	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
-	input	[23:0]	audio_controller_avalon_right_channel_sink_data;
-	input		audio_controller_avalon_right_channel_sink_valid;
-	output		audio_controller_avalon_right_channel_sink_ready;
-	input		audio_controller_avalon_right_channel_source_ready;
-	output	[23:0]	audio_controller_avalon_right_channel_source_data;
-	output		audio_controller_avalon_right_channel_source_valid;
 endmodule

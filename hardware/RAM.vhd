@@ -4,7 +4,6 @@ use ieee.numeric_std.all;
 
 -- Single clock dual-port RAM with Old Data Read-during-Write
 
-
 ENTITY RAM IS
 GENERIC(
 	data_width : integer range 1 to 64;
@@ -37,7 +36,7 @@ BEGIN
 process(clk, rst)
 begin
 	if(clk'EVENT and clk='1') then
-		if(rst = '0') then -- reset synchrone
+		if(rst = '0') then
 			rd_data <= (others => '0');
 		else
 			-- écriture donnée synchrone

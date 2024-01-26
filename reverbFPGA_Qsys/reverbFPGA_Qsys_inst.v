@@ -5,6 +5,12 @@
 		.audio_controller_avalon_left_channel_source_ready  (<connected-to-audio_controller_avalon_left_channel_source_ready>),  //  audio_controller_avalon_left_channel_source.ready
 		.audio_controller_avalon_left_channel_source_data   (<connected-to-audio_controller_avalon_left_channel_source_data>),   //                                             .data
 		.audio_controller_avalon_left_channel_source_valid  (<connected-to-audio_controller_avalon_left_channel_source_valid>),  //                                             .valid
+		.audio_controller_avalon_right_channel_sink_data    (<connected-to-audio_controller_avalon_right_channel_sink_data>),    //   audio_controller_avalon_right_channel_sink.data
+		.audio_controller_avalon_right_channel_sink_valid   (<connected-to-audio_controller_avalon_right_channel_sink_valid>),   //                                             .valid
+		.audio_controller_avalon_right_channel_sink_ready   (<connected-to-audio_controller_avalon_right_channel_sink_ready>),   //                                             .ready
+		.audio_controller_avalon_right_channel_source_ready (<connected-to-audio_controller_avalon_right_channel_source_ready>), // audio_controller_avalon_right_channel_source.ready
+		.audio_controller_avalon_right_channel_source_data  (<connected-to-audio_controller_avalon_right_channel_source_data>),  //                                             .data
+		.audio_controller_avalon_right_channel_source_valid (<connected-to-audio_controller_avalon_right_channel_source_valid>), //                                             .valid
 		.audio_controller_external_interface_ADCDAT         (<connected-to-audio_controller_external_interface_ADCDAT>),         //          audio_controller_external_interface.ADCDAT
 		.audio_controller_external_interface_ADCLRCK        (<connected-to-audio_controller_external_interface_ADCLRCK>),        //                                             .ADCLRCK
 		.audio_controller_external_interface_BCLK           (<connected-to-audio_controller_external_interface_BCLK>),           //                                             .BCLK
@@ -12,7 +18,6 @@
 		.audio_controller_external_interface_DACLRCK        (<connected-to-audio_controller_external_interface_DACLRCK>),        //                                             .DACLRCK
 		.audio_pll_0_audio_clk_clk                          (<connected-to-audio_pll_0_audio_clk_clk>),                          //                        audio_pll_0_audio_clk.clk
 		.clk_clk                                            (<connected-to-clk_clk>),                                            //                                          clk.clk
-		.clksampling_clk                                    (<connected-to-clksampling_clk>),                                    //                                  clksampling.clk
 		.hps_0_h2f_mpu_events_eventi                        (<connected-to-hps_0_h2f_mpu_events_eventi>),                        //                         hps_0_h2f_mpu_events.eventi
 		.hps_0_h2f_mpu_events_evento                        (<connected-to-hps_0_h2f_mpu_events_evento>),                        //                                             .evento
 		.hps_0_h2f_mpu_events_standbywfe                    (<connected-to-hps_0_h2f_mpu_events_standbywfe>),                    //                                             .standbywfe
@@ -40,12 +45,6 @@
 		.memory_mem_dm                                      (<connected-to-memory_mem_dm>),                                      //                                             .mem_dm
 		.memory_oct_rzqin                                   (<connected-to-memory_oct_rzqin>),                                   //                                             .oct_rzqin
 		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                        reset.reset_n
-		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>),                   //                 serial_flash_loader_0_noe_in.noe
-		.audio_controller_avalon_right_channel_sink_data    (<connected-to-audio_controller_avalon_right_channel_sink_data>),    //   audio_controller_avalon_right_channel_sink.data
-		.audio_controller_avalon_right_channel_sink_valid   (<connected-to-audio_controller_avalon_right_channel_sink_valid>),   //                                             .valid
-		.audio_controller_avalon_right_channel_sink_ready   (<connected-to-audio_controller_avalon_right_channel_sink_ready>),   //                                             .ready
-		.audio_controller_avalon_right_channel_source_ready (<connected-to-audio_controller_avalon_right_channel_source_ready>), // audio_controller_avalon_right_channel_source.ready
-		.audio_controller_avalon_right_channel_source_data  (<connected-to-audio_controller_avalon_right_channel_source_data>),  //                                             .data
-		.audio_controller_avalon_right_channel_source_valid (<connected-to-audio_controller_avalon_right_channel_source_valid>)  //                                             .valid
+		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>)                    //                 serial_flash_loader_0_noe_in.noe
 	);
 

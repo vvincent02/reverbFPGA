@@ -27,7 +27,6 @@ entity reverbFPGA_Qsys is
 		audio_controller_external_interface_DACLRCK        : in    std_logic                     := '0';             --                                             .DACLRCK
 		audio_pll_0_audio_clk_clk                          : out   std_logic;                                        --                        audio_pll_0_audio_clk.clk
 		clk_clk                                            : in    std_logic                     := '0';             --                                          clk.clk
-		clksampling_clk                                    : out   std_logic;                                        --                                  clksampling.clk
 		hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := '0';             --                         hps_0_h2f_mpu_events.eventi
 		hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        --                                             .evento
 		hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     --                                             .standbywfe
@@ -583,7 +582,5 @@ begin
 		);
 
 	reset_reset_n_ports_inv <= not reset_reset_n;
-
-	clksampling_clk <= clk_clk;
 
 end architecture rtl; -- of reverbFPGA_Qsys

@@ -36,7 +36,6 @@ BEGIN
 gain1 : entity work.coefMult(archi)
 	generic map(dataIN'length)
 	port map(dataIN => dataIN, dataOUT => firstInputAdder1Inter, coef => g);
-
 firstInputAdder1 <= dataIN + firstInputAdder1Inter;
 
 -- gain g (retour de la boucle)

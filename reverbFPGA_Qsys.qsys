@@ -215,11 +215,7 @@
    type="clock"
    dir="start" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
- <interface
-   name="clksampling"
-   internal="clkSampling.clk"
-   type="clock"
-   dir="start" />
+ <interface name="clksampling" internal="clkSampling.clk" />
  <interface
    name="dampingvalue_pio_external_connection"
    internal="dampingValue_PIO.external_connection" />
@@ -296,7 +292,7 @@
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_refclk" value="50.0" />
  </module>
- <module name="clkSampling" kind="clock_source" version="23.1" enabled="1">
+ <module name="clkSampling" kind="clock_source" version="23.1" enabled="0">
   <parameter name="clockFrequency" value="48000" />
   <parameter name="clockFrequencyKnown" value="true" />
   <parameter name="inputClockFrequency" value="50000000" />

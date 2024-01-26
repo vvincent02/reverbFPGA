@@ -44,7 +44,7 @@ gain2 : entity work.coefMult(archi)
 process(samplingClk, rst)
 begin
 	if(samplingClk'EVENT and samplingClk='1') then
-		if(rst='0') then -- reset synchrone
+		if(rst='0') then
 			prevOutputAdder <= (others => '0');
 		else 
 			prevOutputAdder <= outputAdder;
