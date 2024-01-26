@@ -163,14 +163,6 @@
          type = "boolean";
       }
    }
-   element st_pipeline_stage_0
-   {
-      datum _sortIndex
-      {
-         value = "12";
-         type = "int";
-      }
-   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -203,6 +195,16 @@
    type="avalon_streaming"
    dir="start" />
  <interface
+   name="audio_controller_avalon_right_channel_sink"
+   internal="audio_controller.avalon_right_channel_sink"
+   type="avalon_streaming"
+   dir="end" />
+ <interface
+   name="audio_controller_avalon_right_channel_source"
+   internal="audio_controller.avalon_right_channel_source"
+   type="avalon_streaming"
+   dir="start" />
+ <interface
    name="audio_controller_external_interface"
    internal="audio_controller.external_interface"
    type="conduit"
@@ -220,14 +222,10 @@
    dir="start" />
  <interface
    name="dampingvalue_pio_external_connection"
-   internal="dampingValue_PIO.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="dampingValue_PIO.external_connection" />
  <interface
    name="decayvalue_pio_external_connection"
-   internal="decayValue_PIO.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="decayValue_PIO.external_connection" />
  <interface name="hps_0_h2f_loan_io" internal="hps_0.h2f_loan_io" />
  <interface
    name="hps_0_h2f_mpu_events"
@@ -238,24 +236,16 @@
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
    name="mixvalue_pio_external_connection"
-   internal="mixValue_PIO.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="mixValue_PIO.external_connection" />
  <interface
    name="paramtype_pio_external_connection"
-   internal="paramType_PIO.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="paramType_PIO.external_connection" />
  <interface
    name="paramvalueupdate_pio_external_connection"
-   internal="paramValueUpdate_PIO.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="paramValueUpdate_PIO.external_connection" />
  <interface
    name="predelayvalue_pio_external_connection"
-   internal="preDelayValue_PIO.external_connection"
-   type="conduit"
-   dir="end" />
+   internal="preDelayValue_PIO.external_connection" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="serial_flash_loader_0_asmi_access_granted"
@@ -322,7 +312,7 @@
    name="dampingValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -340,7 +330,7 @@
    name="decayValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -888,7 +878,7 @@
    name="mixValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -906,7 +896,7 @@
    name="paramType_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -924,7 +914,7 @@
    name="paramValueUpdate_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -942,7 +932,7 @@
    name="preDelayValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="1">
+   enabled="0">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -964,20 +954,6 @@
   <parameter name="ENHANCED_MODE" value="true" />
   <parameter name="INTENDED_DEVICE_FAMILY" value="Cyclone V" />
   <parameter name="gui_shared_access" value="false" />
- </module>
- <module
-   name="st_pipeline_stage_0"
-   kind="altera_avalon_st_pipeline_stage"
-   version="23.1"
-   enabled="0">
-  <parameter name="BITS_PER_SYMBOL" value="8" />
-  <parameter name="CHANNEL_WIDTH" value="0" />
-  <parameter name="ERROR_WIDTH" value="0" />
-  <parameter name="MAX_CHANNEL" value="0" />
-  <parameter name="PIPELINE_READY" value="1" />
-  <parameter name="SYMBOLS_PER_BEAT" value="3" />
-  <parameter name="USE_EMPTY" value="0" />
-  <parameter name="USE_PACKETS" value="0" />
  </module>
  <connection
    kind="avalon"
@@ -1033,11 +1009,6 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection
-   kind="avalon_streaming"
-   version="23.1"
-   start="audio_controller.avalon_right_channel_source"
-   end="audio_controller.avalon_right_channel_sink" />
  <connection kind="clock" version="23.1" start="clk_0.clk" end="paramType_PIO.clk" />
  <connection
    kind="clock"
@@ -1074,11 +1045,6 @@
    kind="clock"
    version="23.1"
    start="clk_0.clk"
-   end="st_pipeline_stage_0.cr0" />
- <connection
-   kind="clock"
-   version="23.1"
-   start="clk_0.clk"
    end="hps_0.f2h_axi_clock" />
  <connection
    kind="clock"
@@ -1100,11 +1066,6 @@
    version="23.1"
    start="clk_0.clk_reset"
    end="clkSampling.clk_in_reset" />
- <connection
-   kind="reset"
-   version="23.1"
-   start="clk_0.clk_reset"
-   end="st_pipeline_stage_0.cr0_reset" />
  <connection
    kind="reset"
    version="23.1"

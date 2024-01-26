@@ -26,8 +26,6 @@ Progress: Adding preDelayValue_PIO [altera_avalon_pio 23.1]
 Progress: Parameterizing module preDelayValue_PIO
 Progress: Adding serial_flash_loader [altera_serial_flash_loader 23.1]
 Progress: Parameterizing module serial_flash_loader
-Progress: Adding st_pipeline_stage_0 [altera_avalon_st_pipeline_stage 23.1]
-Progress: Parameterizing module st_pipeline_stage_0
 Progress: Building connections
 Progress: Parameterizing connections
 Progress: Validating
@@ -36,13 +34,28 @@ Info: reverbFPGA_Qsys.hps_0: HPS Main PLL counter settings: n = 0  m = 73
 Info: reverbFPGA_Qsys.hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
 Warning: reverbFPGA_Qsys.hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
 Warning: reverbFPGA_Qsys.hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
-Info: reverbFPGA_Qsys.paramType_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Info: reverbFPGA_Qsys.paramValueUpdate_PIO: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
-Warning: reverbFPGA_Qsys.: You have exported the interface audio_controller.avalon_left_channel_sink but not its associated reset interface.  Export the driver(s) of audio_controller.reset
-Warning: reverbFPGA_Qsys.: You have exported the interface audio_controller.avalon_left_channel_source but not its associated reset interface.  Export audio_controller.reset
 Info: reverbFPGA_Qsys: Generating reverbFPGA_Qsys "reverbFPGA_Qsys" for QUARTUS_SYNTH
-Error: Cannot find clock for audio_controller.clk. If audio_controller.clk is exported please use a clock bridge and reset bridge instead of a clock source. Reset synchronizer, rst_controller, may not function if not connected to a clock source. To rectify this error a clock must be manually attached to the clock port of rst_controller in the generated RTL.
-Error: Generation stopped, 14 or more modules remaining
-Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 10 modules, 1 files
-Error: qsys-generate failed with exit code 1: 2 Errors, 4 Warnings
+Info: audio_controller: Starting Generation of Audio Controller
+Info: audio_controller: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio "audio_controller"
+Info: audio_pll_0: "reverbFPGA_Qsys" instantiated altera_up_avalon_audio_pll "audio_pll_0"
+Info: hps_0: "Running  for module: hps_0"
+Info: hps_0: HPS Main PLL counter settings: n = 0  m = 73
+Info: hps_0: HPS peripherial PLL counter settings: n = 0  m = 39
+Warning: hps_0: "Configuration/HPS-to-FPGA user 0 clock frequency" (desired_cfg_clk_mhz) requested 100.0 MHz, but only achieved 97.368421 MHz
+Warning: hps_0: 1 or more output clock frequencies cannot be achieved precisely, consider revising desired output clock frequencies.
+Info: hps_0: "reverbFPGA_Qsys" instantiated altera_hps "hps_0"
+Info: serial_flash_loader: generating top-level entity altera_serial_flash_loader
+Info: altclkctrl_inst: "Generating: altclkctrl_inst"
+Info: serial_flash_loader: "reverbFPGA_Qsys" instantiated altera_serial_flash_loader "serial_flash_loader"
+Info: rst_controller: "reverbFPGA_Qsys" instantiated altera_reset_controller "rst_controller"
+Info: audio_pll: "audio_pll_0" instantiated altera_pll "audio_pll"
+Info: reset_from_locked: "audio_pll_0" instantiated altera_up_avalon_reset_from_locked_signal "reset_from_locked"
+Info: fpga_interfaces: "hps_0" instantiated altera_interface_generator "fpga_interfaces"
+Info: hps_io: "hps_0" instantiated altera_hps_io "hps_io"
+Info: altclkctrl_inst: "serial_flash_loader" instantiated altera_serial_flash_loader "altclkctrl_inst"
+Info: border: "hps_io" instantiated altera_interface_generator "border"
+Info: altclkctrl_inst: Generating top-level entity reverbFPGA_Qsys_serial_flash_loader_altclkctrl_inst_altclkctrl_inst.
+Info: altclkctrl_inst: "altclkctrl_inst" instantiated altclkctrl "altclkctrl_inst"
+Info: reverbFPGA_Qsys: Done "reverbFPGA_Qsys" with 13 modules, 64 files
+Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

@@ -11,10 +11,9 @@ module reverbFPGA_Qsys (
 	audio_controller_external_interface_BCLK,
 	audio_controller_external_interface_DACDAT,
 	audio_controller_external_interface_DACLRCK,
+	audio_pll_0_audio_clk_clk,
 	clk_clk,
 	clksampling_clk,
-	dampingvalue_pio_external_connection_export,
-	decayvalue_pio_external_connection_export,
 	hps_0_h2f_mpu_events_eventi,
 	hps_0_h2f_mpu_events_evento,
 	hps_0_h2f_mpu_events_standbywfe,
@@ -41,13 +40,14 @@ module reverbFPGA_Qsys (
 	memory_mem_odt,
 	memory_mem_dm,
 	memory_oct_rzqin,
-	mixvalue_pio_external_connection_export,
-	paramtype_pio_external_connection_export,
-	paramvalueupdate_pio_external_connection_export,
-	predelayvalue_pio_external_connection_export,
 	reset_reset_n,
 	serial_flash_loader_0_noe_in_noe,
-	audio_pll_0_audio_clk_clk);	
+	audio_controller_avalon_right_channel_sink_data,
+	audio_controller_avalon_right_channel_sink_valid,
+	audio_controller_avalon_right_channel_sink_ready,
+	audio_controller_avalon_right_channel_source_ready,
+	audio_controller_avalon_right_channel_source_data,
+	audio_controller_avalon_right_channel_source_valid);	
 
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
 	input		audio_controller_avalon_left_channel_sink_valid;
@@ -60,10 +60,9 @@ module reverbFPGA_Qsys (
 	input		audio_controller_external_interface_BCLK;
 	output		audio_controller_external_interface_DACDAT;
 	input		audio_controller_external_interface_DACLRCK;
+	output		audio_pll_0_audio_clk_clk;
 	input		clk_clk;
 	output		clksampling_clk;
-	output	[23:0]	dampingvalue_pio_external_connection_export;
-	output	[23:0]	decayvalue_pio_external_connection_export;
 	input		hps_0_h2f_mpu_events_eventi;
 	output		hps_0_h2f_mpu_events_evento;
 	output	[1:0]	hps_0_h2f_mpu_events_standbywfe;
@@ -90,11 +89,12 @@ module reverbFPGA_Qsys (
 	output		memory_mem_odt;
 	output	[3:0]	memory_mem_dm;
 	input		memory_oct_rzqin;
-	output	[23:0]	mixvalue_pio_external_connection_export;
-	input	[3:0]	paramtype_pio_external_connection_export;
-	input	[1:0]	paramvalueupdate_pio_external_connection_export;
-	output	[23:0]	predelayvalue_pio_external_connection_export;
 	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
-	output		audio_pll_0_audio_clk_clk;
+	input	[23:0]	audio_controller_avalon_right_channel_sink_data;
+	input		audio_controller_avalon_right_channel_sink_valid;
+	output		audio_controller_avalon_right_channel_sink_ready;
+	input		audio_controller_avalon_right_channel_source_ready;
+	output	[23:0]	audio_controller_avalon_right_channel_source_data;
+	output		audio_controller_avalon_right_channel_source_valid;
 endmodule
