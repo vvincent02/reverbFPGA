@@ -56,9 +56,9 @@ END reverbFPGA;
 
 ARCHITECTURE archi OF reverbFPGA IS
 
--- horloges de cadencement des opérations numériques
-signal samplingClkL : std_logic;
-signal samplingClkR : std_logic;
+-- signaux de cadencement des opérations numériques (1 lorsque les données peuvent être lues et écrites)
+signal dataL_sampled_valid : std_logic;
+signal dataR_sampled_valid : std_logic;
 
 ---- paramètres de la reverb
 --signal preDelayValue : std_logic_vector(23 downto 0);
@@ -84,10 +84,10 @@ signal audioR_OUT_data : std_logic_vector(23 downto 0);
 type interfaceState_type is (idle, transferData, endTransfer);
 signal interfaceStateL : interfaceState_type;
 signal interfaceStateR : interfaceState_type;
-signal dataL_IN_sampleRate : std_logic_vector(23 downto 0);
-signal dataL_OUT_sampleRate : std_logic_vector(23 downto 0);
-signal dataR_IN_sampleRate : std_logic_vector(23 downto 0);
-signal dataR_OUT_sampleRate : std_logic_vector(23 downto 0);
+signal dataL_IN : std_logic_vector(23 downto 0);
+signal dataL_OUT : std_logic_vector(23 downto 0);
+signal dataR_IN : std_logic_vector(23 downto 0);
+signal dataR_OUT : std_logic_vector(23 downto 0);
 
 -- signal de sortie avant remise à l'échelle sur 24 bits signés
 signal dataL_OUT_extended : signed(40 downto 0);
@@ -152,7 +152,6 @@ port (
 	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 
-	--clksampling_clk                                   : out   std_logic;                                         -- clk
 	audio_pll_0_audio_clk_clk                         : out   std_logic                                         -- clk
 );
 end component reverbFPGA_Qsys;
@@ -219,62 +218,60 @@ port map (
 	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    => HPS_I2C_CONTROL,                    --                                            .hps_io_gpio_inst_GPIO48
 	
-	--clksampling_clk                                   => samplingClk,                                    --                                 clksampling.clk
-
 	audio_pll_0_audio_clk_clk                         => AUD_XCK                          --                       audio_pll_0_audio_clk.clk
 );
 
 interfaceL : entity work.interface_AVST_proc(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, rst => rst, 
+	port map(clk50M => CLOCK_50, 
 				audio_IN_ready => audioL_IN_ready, 
 				audio_IN_valid => audioL_IN_valid,
 				audio_IN_data => audioL_IN_data,
 				audio_OUT_ready => audioL_OUT_ready, 
 				audio_OUT_valid => audioL_OUT_valid,
 				audio_OUT_data => audioL_OUT_data,
-				data_IN => dataL_IN_sampleRate,
-				data_OUT => dataL_OUT_sampleRate,
-				samplingClk => samplingClkL);
+				data_IN => dataL_IN,
+				data_OUT => dataL_OUT,
+				data_sampled_valid => dataL_sampled_valid);
 				
 interfaceR : entity work.interface_AVST_proc(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, rst => rst, 
+	port map(clk50M => CLOCK_50, 
 				audio_IN_ready => audioR_IN_ready, 
 				audio_IN_valid => audioR_IN_valid,
 				audio_IN_data => audioR_IN_data,
 				audio_OUT_ready => audioR_OUT_ready, 
 				audio_OUT_valid => audioR_OUT_valid,
 				audio_OUT_data => audioR_OUT_data,
-				data_IN => dataR_IN_sampleRate,
-				data_OUT => dataR_OUT_sampleRate,
-				samplingClk => samplingClkR);
+				data_IN => dataR_IN,
+				data_OUT => dataR_OUT,
+				data_sampled_valid => dataR_sampled_valid);
 
--- bridge IN -> OUT over samplingClkR (R channel)
+-- bridge IN -> OUT (R channel)
 bridgeR : process(CLOCK_50, rst)
 begin
 	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
 		if(rst = '0') then
 			LEDR_1 <= '0';
-			dataR_OUT_sampleRate <= (others => '0');
+			dataR_OUT <= (others => '0');
 		else 
-			if(samplingClkR = '1') then
+			if(dataR_sampled_valid = '1') then
 				LEDR_1 <= '1';
-				dataR_OUT_sampleRate <= dataR_IN_sampleRate;
+				dataR_OUT <= dataR_IN;
 			end if;
 		end if;
 	end if;
 end process;
 
--- bridge IN -> OUT over samplingClkL (L channel)
+-- bridge IN -> OUT (L channel)
 bridgeL : process(CLOCK_50, rst)
 begin
 	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
 		if(rst = '0') then
-			dataL_OUT_sampleRate <= (others => '0');
+			dataL_OUT <= (others => '0');
 		else 
-			if(samplingClkL = '1') then
-				dataL_OUT_sampleRate <= dataL_IN_sampleRate;
+			if(dataL_sampled_valid = '1') then
+				dataL_OUT <= dataL_IN;
 			end if;
 		end if;
 	end if;
