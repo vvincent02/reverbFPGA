@@ -249,15 +249,14 @@ interfaceR : entity work.interface_AVST_proc(archi)
 				data_sampled_valid => dataR_sampled_valid);
 
 -- bridge IN -> OUT (R channel)
-bridgeR : process(CLOCK_50, rst)
+bridgeR : process(CLOCK_50)
 begin
 	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
-		if(rst = '0') then
-			LEDR_1 <= '0';
-			dataR_OUT <= (others => '0');
-		elsif(dataR_sampled_valid = '1') then  
+		if(dataR_sampled_valid = '1') then
 			LEDR_1 <= '1';
 			dataR_OUT <= dataR_IN;
+		else
+			LEDR_1 <= '0';
 		end if;
 	end if;
 end process;
@@ -276,7 +275,7 @@ end process;
 				
 lateReverbComponent : entity work.lateReverb(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, rst => rst, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed, dampingValue => "10000000000000000000000000", decayValue => "1111110000000000000000000", g => "100000000000000000000000");  
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed, dampingValue => "10000000000000000000000000", decayValue => "1111110000000000000000000");  
 
 dataL_OUT <= std_logic_vector(dataL_OUT_signed);
 --dataL_OUT <= std_logic_vector(dataL_OUT_extended(40 downto 17));

@@ -9,7 +9,6 @@ GENERIC(
 PORT(
 	clk50M : IN std_logic;
 	data_sampled_valid : IN std_logic;
-	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
@@ -53,17 +52,12 @@ process(clk50M)
 begin
 	if(clk50M'EVENT and clk50M = '1') then
 		if(data_sampled_valid = '1') then
-			if(rst = '0') then
-				prevOutputAdder <= (others => '0');
-			else
-				prevOutputAdder <= outputAdder;
-			end if;
+			prevOutputAdder <= outputAdder;
 		end if;
 	end if;
 end process;
 
 -- sortie de l'entité
 dataOUT <= outputAdder(outputAdder'HIGH downto 1);
-
 
 END archi;

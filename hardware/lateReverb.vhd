@@ -9,15 +9,12 @@ GENERIC(
 PORT(
 	clk50M : IN std_logic;
 	data_sampled_valid : IN std_logic;
-	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
 	dampingValue : IN unsigned(dataSize+1 downto 0);
-	decayValue : IN unsigned(dataSize  downto 0);
-	
-	g : IN unsigned(dataSize-1 downto 0)
+	decayValue : IN unsigned(dataSize  downto 0)
 );
 END lateReverb;
 
@@ -48,7 +45,7 @@ GENERATE
 	
 LFCF_block : entity work.LFCF(archi)
 	generic map(dataSize, N_LFCF(i))
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, rst => rst, dataIN => dataIN, dataOUT => inputAdder(i), dampingValue => dampingValue, decayValue => decayValue);
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => dataIN, dataOUT => inputAdder(i), dampingValue => dampingValue, decayValue => decayValue);
 
 END GENERATE LFCF_blocks;
 
@@ -72,14 +69,14 @@ beginCond : IF(i = 1)
 GENERATE
 APF_block : entity work.APF(archi)
 	generic map(dataSize, N_APF(i))
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, rst => rst, dataIN => outputAdder(outputAdder'HIGH downto 3), dataOUT => dataOUT_APF(1), g => g);
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder(outputAdder'HIGH downto 3), dataOUT => dataOUT_APF(1));
 END GENERATE beginCond;
 
 nextCond : IF(i > 1)
 GENERATE
 APF_block : entity work.APF(archi)
 	generic map(dataSize, N_APF(i))
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, rst => rst, dataIN => dataOUT_APF(i-1), dataOUT => dataOUT_APF(i), g => g);
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => dataOUT_APF(i-1), dataOUT => dataOUT_APF(i));
 END GENERATE nextCond;
 
 END GENERATE APF_blocks;

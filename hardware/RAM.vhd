@@ -11,7 +11,6 @@ GENERIC(
 );
 PORT(
 	clk : IN std_logic;
-	rst : IN std_logic;
 	
 	-- bus de données entrant/sortant (mémoire dual-port)
 	wr_data : IN std_logic_vector(data_width-1 downto 0);
@@ -33,12 +32,12 @@ signal ram_block : mem;
 
 BEGIN
 
-process(clk, rst)
+process(clk)
 begin
 	if(clk'EVENT and clk='1') then
-		if(rst = '0') then
-			rd_data <= (others => '0');
-		else
+--		if(rst = '0') then
+--			rd_data <= (others => '0');
+--		else
 			-- écriture donnée synchrone
 			if(we = '1') then
 				ram_block(wr_addr) <= wr_data;
@@ -46,7 +45,7 @@ begin
 			
 			-- lecture donnée synchrone
 			rd_data <= ram_block(rd_addr);
-		end if;
+--		end if;
 	end if;
 end process;
 

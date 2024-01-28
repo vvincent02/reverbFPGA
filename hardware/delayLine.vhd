@@ -13,7 +13,6 @@ GENERIC(
 PORT(
 	clk50M : IN std_logic;
 	data_sampled_valid : IN std_logic;
-	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0)
@@ -37,17 +36,19 @@ BEGIN
 
 RAM_module : entity work.RAM(rtl)
 	generic map(data_width => dataSize, nbr_blocks => N)
-	port map(clk => clk50M, rst => rst, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
+	port map(clk => clk50M, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
 
 -- décalage de N échantillons et mise à jour de la valeur de sortie 
-process(clk50M, rst)
+process(clk50M)
 begin
 	if(clk50M'EVENT and clk50M='1') then
-		if(rst = '0') then
-			dataOUT_prev <= (others => '0');
-			dataOUT <= (others => '0');
-			shiftState <= idle;
-		else
+--		if(rst = '0') then
+--			if(data_sampled_valid = '1') then
+--				dataOUT_prev <= (others => '0');
+--				dataOUT <= (others => '0');
+--			end if;	
+--			shiftState <= idle;
+--		else
 			case shiftState is
 				when idle =>
 					rd_addr <= N-1;
@@ -84,7 +85,7 @@ begin
 				
 					shiftState <= idle;
 			end case;
-		end if;
+		--end if;
 	end if;
 end process;
 
