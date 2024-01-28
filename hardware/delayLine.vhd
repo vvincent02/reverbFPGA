@@ -12,7 +12,7 @@ GENERIC(
 );
 PORT(
 	clk50M : IN std_logic;
-	samplingClk : IN std_logic;
+	data_sampled_valid : IN std_logic;
 	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
@@ -23,7 +23,7 @@ END delayLine;
 ARCHITECTURE archi OF delayLine IS
 
 type shiftState_type is (idle, pull, shift, push);
-signal shiftState : shiftState_type; 
+signal shiftState : shiftState_type := idle; 
 
 signal wr_data : std_logic_vector(dataIN'range);
 signal rd_data : std_logic_vector(dataIN'range);
@@ -31,11 +31,7 @@ signal wr_addr : integer range 0 to N-1;
 signal rd_addr : integer range 0 to N-1;
 signal we : std_logic;
 
-signal launchShift : std_logic;
-signal launchShift_metastable : std_logic;
-signal launchShift_stable : std_logic;
-
-signal dataOUT_pre : signed(dataIN'range);
+signal dataOUT_prev : signed(dataIN'range);
 
 BEGIN
 
@@ -43,51 +39,33 @@ RAM_module : entity work.RAM(rtl)
 	generic map(data_width => dataSize, nbr_blocks => N)
 	port map(clk => clk50M, rst => rst, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
 
--- lancement décalage de N échantillons
-process(samplingClk, rst)
-begin
-	if(samplingClk'EVENT and samplingClk='1') then
-		if(rst='0') then
-			launchShift <= '0';
-		else 
-			dataOUT <= dataOUT_pre;
-			launchShift <= '1';
-		end if;
-	end if;
-end process;
-
 -- décalage de N échantillons et mise à jour de la valeur de sortie 
 process(clk50M, rst)
 begin
 	if(clk50M'EVENT and clk50M='1') then
-		if(rst='0') then
+		if(rst = '0') then
+			dataOUT_prev <= (others => '0');
+			dataOUT <= (others => '0');
 			shiftState <= idle;
-			launchShift_metastable <= '0';
-			launchShift_stable <= '0';
 		else
-			-- passage du drapeau issu de samplingClk à un état stable sur clk50
-			launchShift_metastable <= launchShift;
-			launchShift_stable <= launchShift_metastable;
-			
 			case shiftState is
 				when idle =>
 					rd_addr <= N-1;
 					we <= '0';
 					
 					-- si on peut lancer le décalage
-					if(launchShift_stable = '1') then
+					if(data_sampled_valid = '1') then
+						dataOUT <= dataOUT_prev;
 						shiftState <= pull;
-						
-						launchShift <= '0';
-						launchShift_metastable <= '0';
-						launchShift_stable <= '0';
 					end if;
 				-- on récupère la donnée en fin de file (i.e l'entrée décalée)
 				when pull =>
-					dataOUT_pre <= signed(rd_data);
+					dataOUT_prev <= signed(rd_data);
 				
 					rd_addr <= N-2;
 					wr_addr <= N-1;
+					
+					shiftState <= shift;
 				-- décalage de la file
 				when shift =>
 					wr_data <= rd_data;

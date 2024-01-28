@@ -85,6 +85,7 @@ type interfaceState_type is (idle, transferData, endTransfer);
 signal interfaceStateL : interfaceState_type;
 signal interfaceStateR : interfaceState_type;
 signal dataL_IN : std_logic_vector(23 downto 0);
+signal dataL_OUT_signed : signed(23 downto 0);
 signal dataL_OUT : std_logic_vector(23 downto 0);
 signal dataR_IN : std_logic_vector(23 downto 0);
 signal dataR_OUT : std_logic_vector(23 downto 0);
@@ -223,7 +224,7 @@ port map (
 
 interfaceL : entity work.interface_AVST_proc(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, 
+	port map(clk50M => CLOCK_50, rst => rst, 
 				audio_IN_ready => audioL_IN_ready, 
 				audio_IN_valid => audioL_IN_valid,
 				audio_IN_data => audioL_IN_data,
@@ -236,7 +237,7 @@ interfaceL : entity work.interface_AVST_proc(archi)
 				
 interfaceR : entity work.interface_AVST_proc(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, 
+	port map(clk50M => CLOCK_50, rst => rst,
 				audio_IN_ready => audioR_IN_ready, 
 				audio_IN_valid => audioR_IN_valid,
 				audio_IN_data => audioR_IN_data,
@@ -254,34 +255,31 @@ begin
 		if(rst = '0') then
 			LEDR_1 <= '0';
 			dataR_OUT <= (others => '0');
-		else 
-			if(dataR_sampled_valid = '1') then
-				LEDR_1 <= '1';
-				dataR_OUT <= dataR_IN;
-			end if;
+		elsif(dataR_sampled_valid = '1') then  
+			LEDR_1 <= '1';
+			dataR_OUT <= dataR_IN;
 		end if;
 	end if;
 end process;
 
--- bridge IN -> OUT (L channel)
-bridgeL : process(CLOCK_50, rst)
-begin
-	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
-		if(rst = '0') then
-			dataL_OUT <= (others => '0');
-		else 
-			if(dataL_sampled_valid = '1') then
-				dataL_OUT <= dataL_IN;
-			end if;
-		end if;
-	end if;
-end process;
+---- bridge IN -> OUT (L channel)
+--bridgeL : process(CLOCK_50, rst)
+--begin
+--	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
+--		if(rst = '0') then
+--			dataL_OUT <= (others => '0');
+--		elsif(dataL_sampled_valid = '1') then  
+--			dataL_OUT <= dataL_IN;
+--		end if;
+--	end if;
+--end process;
 				
---lateReverbComponent : entity work.lateReverb(archi)
---	generic map(41)
---	port map(clk50M => CLOCK_50, samplingClk => samplingClk, rst => rst, dataIN => resize(signed(dataL_IN_sampleRate), 41), dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000000000000000", decayValue => "10000000000000000000000000000000000000000", g => "10000000000000000000000000000000000000000");  
---
-----dataL_OUT <= dataL_IN_stable when (samplingClk'EVENT and samplingClk='1');
---dataL_OUT_sampleRate <= std_logic_vector(dataL_OUT_extended(40 downto 17));
+lateReverbComponent : entity work.lateReverb(archi)
+	generic map(24)
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, rst => rst, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed, dampingValue => "10000000000000000000000000", decayValue => "1111110000000000000000000", g => "100000000000000000000000");  
+
+dataL_OUT <= std_logic_vector(dataL_OUT_signed);
+--dataL_OUT <= std_logic_vector(dataL_OUT_extended(40 downto 17));
+--dataL_OUT <= std_logic_vector(dataL_OUT_extended(23 downto 0));
 
 END archi;

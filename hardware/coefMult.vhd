@@ -22,6 +22,6 @@ signal multTempValue : signed(2*dataSize+1 downto 0);
 BEGIN
 
 multTempValue <= resize(dataIN, dataSize+1) * signed(std_logic_vector('0' & coef));  
-dataOUT <= resize(multTempValue(multTempValue'high downto dataSize+1), dataSize);
+dataOUT <= resize(multTempValue(multTempValue'high downto dataSize), dataSize);
 
 END archi;
