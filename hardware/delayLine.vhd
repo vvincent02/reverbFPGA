@@ -2,8 +2,12 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- !! ATTENTION !! : il faut s'assurer que la valeur du décalage (N) ne soit pas trop grand de sorte à 
+-- !! ATTENTION !! : 
+-- il faut s'assurer que la valeur du décalage (N) ne soit pas trop grand de sorte à 
 -- ce que les données aient le temps d'être écrites et lues dans la RAM (voir le rapport entre clk50 et samplingClk)
+
+-- !! ATTENTION !! : 
+-- N doit être supérieure ou égale à 4 pour pouvoir établir le pipeline
 
 ENTITY delayLine IS
 GENERIC(
@@ -13,6 +17,7 @@ GENERIC(
 PORT(
 	clk50M : IN std_logic;
 	data_sampled_valid : IN std_logic;
+	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0)
@@ -21,8 +26,8 @@ END delayLine;
 
 ARCHITECTURE archi OF delayLine IS
 
-type shiftState_type is (idle, pull, shift, push);
-signal shiftState : shiftState_type := idle; 
+type shiftState_type is (idle, pull, startPipeline, shift, endPipeline, push);
+signal shiftState : shiftState_type; 
 
 signal wr_data : std_logic_vector(dataIN'range);
 signal rd_data : std_logic_vector(dataIN'range);
@@ -39,45 +44,100 @@ RAM_module : entity work.RAM(rtl)
 	port map(clk => clk50M, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
 
 -- décalage de N échantillons et mise à jour de la valeur de sortie 
-process(clk50M)
+process(clk50M, rst)
+
+variable cnt : integer range 0 to 2;
+variable read_addr_pipeline : integer range 0 to N-4; -- adresse de la donnée (dans le pipeline) qui sera copiée à l'adresse supérieure 3 cycles plus tard)  
+
 begin
 	if(clk50M'EVENT and clk50M='1') then
---		if(rst = '0') then
---			if(data_sampled_valid = '1') then
---				dataOUT_prev <= (others => '0');
---				dataOUT <= (others => '0');
---			end if;	
---			shiftState <= idle;
---		else
+		if(rst = '0') then
+			cnt := 0;
+			shiftState <= idle;
+		else
 			case shiftState is
+			
+				-- état de repos : attente du prochain tick pour l'échantillonnage suivant
 				when idle =>
-					rd_addr <= N-1;
 					we <= '0';
+					read_addr_pipeline := N-4;
 					
 					-- si on peut lancer le décalage
 					if(data_sampled_valid = '1') then
-						dataOUT <= dataOUT_prev;
+						dataOUT <= dataOUT_prev; -- mise à jour de la sortie avec la dernière valeur de la précédente file
 						shiftState <= pull;
 					end if;
-				-- on récupère la donnée en fin de file (i.e l'entrée décalée)
+					
+				-- on récupère la donnée en fin de la file (i.e l'entrée décalée)
 				when pull =>
-					dataOUT_prev <= signed(rd_data);
-				
-					rd_addr <= N-2;
-					wr_addr <= N-1;
+					case cnt is
+						when 0 =>
+							rd_addr <= N-1;
+						when 1 => 
+							-- accès à la donnée en RAM à l'adresse N-1
+						when 2 => 
+							dataOUT_prev <= signed(rd_data);
+							
+							shiftState <= startPipeline;
+					end case;
 					
-					shiftState <= shift;
-				-- décalage de la file
-				when shift =>
-					wr_data <= rd_data;
-					we <= '1';
-					
-					if(rd_addr = 0) then
-						shiftState <= push;
+					if(cnt < 2) then
+						cnt := cnt + 1;
 					else 
-						wr_addr <= wr_addr-1;
-						rd_addr <= rd_addr-1;
+						cnt := 0;
 					end if;
+					
+				-- mise en place du pipeline (début de l'empilement des données)
+				when startPipeline =>
+					case cnt is
+						when 0 =>
+							rd_addr <= N-2;
+						when 1 => 
+							rd_addr <= N-3;
+							
+							shiftState <= shift;
+						when others =>
+					end case;
+					
+					if(cnt < 1) then
+						cnt := cnt + 1;
+					else 
+						cnt := 0;
+					end if;
+					
+				-- le pipeline est lancé -> décalage des données
+				when shift =>
+					rd_addr <= read_addr_pipeline;
+					we <= '1';
+					wr_addr <= read_addr_pipeline+3;
+					wr_data <= rd_data; 
+					
+					if(read_addr_pipeline > 0) then
+						read_addr_pipeline := read_addr_pipeline - 1;
+					else
+						shiftState <= endPipeline;
+					end if;
+				
+				-- fin du pipeline
+				when endPipeline =>
+					case cnt is
+						when 0 =>
+							-- accès à la donnée en RAM à l'adresse 0
+						when 1 => 
+							we <= '1';
+							wr_addr <= 1;
+							wr_data <= rd_data; 
+							
+							shiftState <= push;
+						when others =>
+					end case;
+					
+					if(cnt < 1) then
+						cnt := cnt + 1;
+					else 
+						cnt := 0;
+					end if;
+					
 				-- ajout de la dernière valeur au début de la file
 				when push =>
 					wr_addr <= 0;
@@ -85,7 +145,7 @@ begin
 				
 					shiftState <= idle;
 			end case;
-		--end if;
+		end if;
 	end if;
 end process;
 

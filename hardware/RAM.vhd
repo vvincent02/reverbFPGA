@@ -35,17 +35,13 @@ BEGIN
 process(clk)
 begin
 	if(clk'EVENT and clk='1') then
---		if(rst = '0') then
---			rd_data <= (others => '0');
---		else
-			-- écriture donnée synchrone
-			if(we = '1') then
-				ram_block(wr_addr) <= wr_data;
-			end if;
-			
-			-- lecture donnée synchrone
-			rd_data <= ram_block(rd_addr);
---		end if;
+		-- écriture donnée synchrone
+		if(we = '1') then
+			ram_block(wr_addr) <= wr_data;
+		end if;
+		
+		-- lecture donnée synchrone
+		rd_data <= ram_block(rd_addr);
 	end if;
 end process;
 

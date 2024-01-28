@@ -10,6 +10,7 @@ GENERIC(
 PORT(
 	clk50M : IN std_logic;
 	data_sampled_valid : IN std_logic;
+	rst : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0)
@@ -44,7 +45,7 @@ outputAdder2 <= firstInputAdder2 - dataIN_resized;
 -- opérateur retard
 delayLineOperator : entity work.delayLine(archi)
 	generic map(outputAdder1'LENGTH, N)
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder1, dataOUT => firstInputAdder2);
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, rst => rst, dataIN => outputAdder1, dataOUT => firstInputAdder2);
 
 dataOUT <= outputAdder2(outputAdder2'HIGH downto 0);
 
