@@ -21,17 +21,17 @@ END LFCF;
 
 ARCHITECTURE archi OF LFCF IS
 
-signal delayedOutputAdder : signed(dataIN'HIGH downto 0);
-signal outFCFilter : signed(dataIN'HIGH downto 0);
+signal delayedOutputAdder : signed(dataIN'RANGE);
+signal outFCFilter : signed(dataIN'RANGE);
 
-signal firstInputAdder : signed(dataIN'HIGH downto 0);
-signal secondInputAdder : signed(dataIN'HIGH downto 0);
+signal firstInputAdder : signed(dataIN'RANGE);
+signal secondInputAdder : signed(dataIN'RANGE);
 
-signal outputAdder : signed(dataIN'HIGH downto 0);
+signal outputAdder : signed(dataIN'RANGE);
 
 BEGIN
 
-firstInputAdder <= resize(dataIN, dataIN'LENGTH);
+firstInputAdder <= dataIN;
 
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;
@@ -41,13 +41,11 @@ gain : entity work.coefMult(archi)
 	generic map(outFCFilter'LENGTH)
 	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => decayValue);
 
---secondInputAdder <= outFCFilter/2;
-
 -- filtre FCF dans la boucle de retour	
---FCFilter : entity work.FCF(archi)
---	generic map(delayedOutputAdder'LENGTH)
---	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
-outFCFilter <= delayedOutputAdder;
+FCFilter : entity work.FCF(archi)
+	generic map(delayedOutputAdder'LENGTH)
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
+--outFCFilter <= delayedOutputAdder;
 
 -- opérateur retard
 delayLineOperator : entity work.delayLine(archi)
@@ -55,15 +53,6 @@ delayLineOperator : entity work.delayLine(archi)
 	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => delayedOutputAdder);
 
 -- sortie de l'entité
-dataOUT <= delayedOutputAdder(delayedOutputAdder'HIGH downto 0);
-
---process(clk50M)
---begin
---	if(clk50M'EVENT and clk50M='1') then
---		if(data_sampled_valid='1') then
---			dataOUT <= dataIN;
---		end if;
---	end if;
---end process;
+dataOUT <= delayedOutputAdder;
 
 END archi;

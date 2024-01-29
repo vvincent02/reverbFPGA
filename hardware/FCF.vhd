@@ -13,39 +13,35 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize downto 0)
+	dampingValue : IN unsigned(dataSize-1 downto 0)
 );
 END FCF;
 
 ARCHITECTURE archi OF FCF IS
 
-constant U_fullScaleVector : unsigned(dataIN'HIGH+1 downto 0) := (others => '1');
+constant U_fullScaleVector : unsigned(dataIN'RANGE) := (others => '1');
 
-signal prevOutputAdder : signed(dataIN'HIGH+1 downto 0);
+signal prevOutputAdder : signed(dataIN'RANGE);
 
-signal firstInputAdder : signed(dataIN'HIGH+1 downto 0);
-signal secondInputAdder : signed(dataIN'HIGH+1 downto 0);
+signal firstInputAdder : signed(dataIN'RANGE);
+signal secondInputAdder : signed(dataIN'RANGE);
 
-signal outputAdder : signed(dataIN'HIGH+1 downto 0);
+signal outputAdder : signed(dataIN'RANGE);
 
 BEGIN
-
-firstInputAdder <= resize(dataIN, dataIN'LENGTH+1);
 
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;
 
 -- gain (1-d)
---gain1 : entity work.coefMult(archi)
---	generic map(dataIN'length)
---	port map(dataIN => dataIN, dataOUT => firstInputAdder, coef => U_fullScaleVector - dampingValue);
+gain1 : entity work.coefMult(archi)
+	generic map(dataIN'length)
+	port map(dataIN => dataIN, dataOUT => firstInputAdder, coef => U_fullScaleVector - dampingValue);
 
 -- gain d (retour de la boucle)
---gain2 : entity work.coefMult(archi)
---	generic map(dataIN'length)
---	port map(dataIN => prevOutputAdder, dataOUT => secondInputAdder, coef => dampingValue);
-
-secondInputAdder <= (others => '0');
+gain2 : entity work.coefMult(archi)
+	generic map(dataIN'length)
+	port map(dataIN => prevOutputAdder, dataOUT => secondInputAdder, coef => dampingValue);
 
 -- registre à décalage d'un échantillon	
 process(clk50M)
@@ -58,6 +54,6 @@ begin
 end process;
 
 -- sortie de l'entité
-dataOUT <= outputAdder(outputAdder'HIGH downto 1);
+dataOUT <= outputAdder;
 
 END archi;
