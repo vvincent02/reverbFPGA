@@ -37,11 +37,11 @@ firstInputAdder <= resize(dataIN, dataIN'LENGTH);
 outputAdder <= firstInputAdder + secondInputAdder;
 
 -- gain (feedback correspondant au paramètre decay de la reverb)
---gain : entity work.coefMult(archi)
---	generic map(outFCFilter'LENGTH)
---	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => decayValue);
+gain : entity work.coefMult(archi)
+	generic map(outFCFilter'LENGTH)
+	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => decayValue);
 
-secondInputAdder <= outFCFilter/2;
+--secondInputAdder <= outFCFilter/2;
 
 -- filtre FCF dans la boucle de retour	
 --FCFilter : entity work.FCF(archi)

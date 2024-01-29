@@ -279,7 +279,7 @@ end process;
 				
 lateReverbComponent : entity work.lateReverb(archi)
 	generic map(29)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => resize(signed(dataL_IN), 29), dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000", decayValue => "11111100000000000000000000000");  
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => resize(signed(dataL_IN), 29), dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000", decayValue => "11110000000000000000000000000");  
 
 --dataL_OUT <= std_logic_vector(dataL_OUT_signed);
 dataL_OUT <= std_logic_vector(dataL_OUT_extended(28 downto 5));
