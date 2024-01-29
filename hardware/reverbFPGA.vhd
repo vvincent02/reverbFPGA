@@ -273,17 +273,15 @@ end process;
 --	end if;
 --end process;
 
-delayLine_test : entity work.delayLine(archi)
-	generic map(24, 800)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, rst => rst, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed);
+--delayLine_test : entity work.delayLine(archi)
+--	generic map(24, 800)
+--	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed);
+				
+lateReverbComponent : entity work.lateReverb(archi)
+	generic map(24)
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed, dampingValue => "10000000000000000000000000", decayValue => "1111110000000000000000000");  
 
 dataL_OUT <= std_logic_vector(dataL_OUT_signed);
-				
---lateReverbComponent : entity work.lateReverb(archi)
---	generic map(24)
---	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, rst => rst, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed, dampingValue => "10000000000000000000000000", decayValue => "1111110000000000000000000");  
---
---dataL_OUT <= std_logic_vector(dataL_OUT_signed);
 --dataL_OUT <= std_logic_vector(dataL_OUT_extended(40 downto 17));
 --dataL_OUT <= std_logic_vector(dataL_OUT_extended(23 downto 0));
 

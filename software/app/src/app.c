@@ -67,7 +67,7 @@ int main(void) {
 										 0,
 										 1));
 	CHECK_ERROR(alt_i2c_master_transmit(&I2C_Device,
-										 bufferToSend(DIGITAL_AUDIO_PATH_CONTROL_ADDR, 0b00001),
+										 bufferToSend(DIGITAL_AUDIO_PATH_CONTROL_ADDR, 0b00000),
 										 2,
 										 0,
 										 1));
