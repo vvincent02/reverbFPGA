@@ -91,7 +91,7 @@ signal dataR_IN : std_logic_vector(23 downto 0);
 signal dataR_OUT : std_logic_vector(23 downto 0);
 
 -- signal de sortie avant remise à l'échelle sur 24 bits signés
-signal dataL_OUT_extended : signed(40 downto 0);
+signal dataL_OUT_extended : signed(28 downto 0);
 
 
 -- Qsys component
@@ -278,11 +278,11 @@ end process;
 --	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed);
 				
 lateReverbComponent : entity work.lateReverb(archi)
-	generic map(24)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed, dampingValue => "10000000000000000000000000", decayValue => "1111110000000000000000000");  
+	generic map(29)
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => resize(signed(dataL_IN), 29), dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000", decayValue => "11111100000000000000000000000");  
 
-dataL_OUT <= std_logic_vector(dataL_OUT_signed);
---dataL_OUT <= std_logic_vector(dataL_OUT_extended(40 downto 17));
+--dataL_OUT <= std_logic_vector(dataL_OUT_signed);
+dataL_OUT <= std_logic_vector(dataL_OUT_extended(28 downto 5));
 --dataL_OUT <= std_logic_vector(dataL_OUT_extended(23 downto 0));
 
 END archi;

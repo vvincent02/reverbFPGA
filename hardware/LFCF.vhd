@@ -14,24 +14,24 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize+1 downto 0);
-	decayValue : IN unsigned(dataSize downto 0)
+	dampingValue : IN unsigned(dataSize-1 downto 0);
+	decayValue : IN unsigned(dataSize-1 downto 0)
 ); 
 END LFCF;
 
 ARCHITECTURE archi OF LFCF IS
 
-signal delayedOutputAdder : signed(dataIN'HIGH+1 downto 0);
-signal outFCFilter : signed(dataIN'HIGH+1 downto 0);
+signal delayedOutputAdder : signed(dataIN'HIGH downto 0);
+signal outFCFilter : signed(dataIN'HIGH downto 0);
 
-signal firstInputAdder : signed(dataIN'HIGH+1 downto 0);
-signal secondInputAdder : signed(dataIN'HIGH+1 downto 0);
+signal firstInputAdder : signed(dataIN'HIGH downto 0);
+signal secondInputAdder : signed(dataIN'HIGH downto 0);
 
-signal outputAdder : signed(dataIN'HIGH+1 downto 0);
+signal outputAdder : signed(dataIN'HIGH downto 0);
 
 BEGIN
 
-firstInputAdder <= resize(dataIN, dataIN'LENGTH+1);
+firstInputAdder <= resize(dataIN, dataIN'LENGTH);
 
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;
@@ -55,7 +55,7 @@ delayLineOperator : entity work.delayLine(archi)
 	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => delayedOutputAdder);
 
 -- sortie de l'entité
-dataOUT <= delayedOutputAdder(delayedOutputAdder'HIGH downto 1);
+dataOUT <= delayedOutputAdder(delayedOutputAdder'HIGH downto 0);
 
 --process(clk50M)
 --begin

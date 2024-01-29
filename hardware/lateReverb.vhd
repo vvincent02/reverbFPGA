@@ -13,26 +13,26 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize+1 downto 0);
-	decayValue : IN unsigned(dataSize  downto 0)
+	dampingValue : IN unsigned(dataSize-1 downto 0);
+	decayValue : IN unsigned(dataSize-1  downto 0)
 );
 END lateReverb;
 
 ARCHITECTURE archi OF lateReverb IS
 
 type S_vectArray8 is array(1 to 8) of signed(dataIN'RANGE);
-type S_vectArray4 is array(1 to 4) of signed(dataIN'HIGH+1 downto 0);
+type S_vectArray4 is array(1 to 4) of signed(dataIN'RANGE);
 type int_Array8 is array(1 to 8) of integer range 1 to 65535; 
 type int_Array4 is array(1 to 4) of integer range 1 to 65535;
 
 -- retards des blocs LFCF en parallèle
-constant N_LFCF : int_Array8 := (900, 913, 949, 926, 927, 977, 983, 999);
+constant N_LFCF : int_Array8 := (547, 601, 683, 727, 859, 919, 983, 997);
 
 -- retards des blocs APF en série
 constant N_APF : int_Array4 := (225, 501, 226, 314);
 
 signal inputAdder : S_vectArray8;
-signal outputAdder : signed(dataIN'HIGH+3 downto 0);
+signal outputAdder : signed(dataIN'RANGE);
 
 signal dataOUT_APF : S_vectArray4;
 
@@ -51,14 +51,14 @@ END GENERATE LFCF_blocks;
 
 
 -- sommateur 8 entrées
-outputAdder <= resize(inputAdder(1), dataIN'LENGTH+3) + 
-					resize(inputAdder(2), dataIN'LENGTH+3) +
-					resize(inputAdder(3), dataIN'LENGTH+3) +
-					resize(inputAdder(4), dataIN'LENGTH+3) +
-					resize(inputAdder(5), dataIN'LENGTH+3) +
-					resize(inputAdder(6), dataIN'LENGTH+3) + 
-					resize(inputAdder(7), dataIN'LENGTH+3) +
-					resize(inputAdder(8), dataIN'LENGTH+3);
+outputAdder <= inputAdder(1) + 
+					inputAdder(2) +
+					inputAdder(3) +
+					inputAdder(4) +
+					inputAdder(5) +
+					inputAdder(6) + 
+					inputAdder(7) +
+					inputAdder(8);
 
 
 -- génération des blocs APF en série
@@ -68,14 +68,14 @@ GENERATE
 beginCond : IF(i = 1)
 GENERATE
 APF_block : entity work.APF(archi)
-	generic map(dataSize+1, N_APF(i))
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => resize(outputAdder(outputAdder'HIGH downto 3), dataSize+1), dataOUT => dataOUT_APF(1));
+	generic map(dataSize, N_APF(i))
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => dataOUT_APF(1));
 END GENERATE beginCond;
 
 nextCond : IF(i > 1)
 GENERATE
 APF_block : entity work.APF(archi)
-	generic map(dataSize+1, N_APF(i))
+	generic map(dataSize, N_APF(i))
 	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => dataOUT_APF(i-1), dataOUT => dataOUT_APF(i));
 END GENERATE nextCond;
 
@@ -83,6 +83,6 @@ END GENERATE APF_blocks;
 
 
 -- sortie de l'entité
-dataOUT <= dataOUT_APF(4)(dataOUT_APF(4)'HIGH downto 1);
+dataOUT <= dataOUT_APF(4);
 
 END archi;
