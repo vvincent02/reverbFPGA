@@ -27,7 +27,7 @@ END delayLine;
 ARCHITECTURE archi OF delayLine IS
 
 type shiftState_type is (idle, pull, startPipeline, shift, endPipeline, push);
-signal shiftState : shiftState_type; 
+signal shiftState : shiftState_type := idle; 
 
 signal wr_data : std_logic_vector(dataIN'range);
 signal rd_data : std_logic_vector(dataIN'range);
@@ -36,6 +36,7 @@ signal rd_addr : integer range 0 to N-1;
 signal we : std_logic;
 
 signal dataOUT_prev : signed(dataIN'range);
+signal dataIN_valid : signed(dataIN'range);
 
 BEGIN
 
@@ -51,20 +52,26 @@ variable read_addr_pipeline : integer range 0 to N-4; -- adresse de la donnée (
 
 begin
 	if(clk50M'EVENT and clk50M='1') then
-		if(rst = '0') then
-			cnt := 0;
-			shiftState <= idle;
-		else
+--		if(rst = '0') then
+--			if(data_sampled_valid = '1') then
+--				cnt := 0;
+--				read_addr_pipeline := N-4;
+--				dataOUT_prev <= (others => '0');
+--				shiftState <= pull;
+--			end if;
+--		else
 			case shiftState is
 			
 				-- état de repos : attente du prochain tick pour l'échantillonnage suivant
 				when idle =>
 					we <= '0';
+					cnt := 0;
 					read_addr_pipeline := N-4;
 					
 					-- si on peut lancer le décalage
 					if(data_sampled_valid = '1') then
 						dataOUT <= dataOUT_prev; -- mise à jour de la sortie avec la dernière valeur de la précédente file
+						dataIN_valid <= dataIN; -- on récupère l'entrée actuelle pour la mettre au début de la prochaine file
 						shiftState <= pull;
 					end if;
 					
@@ -122,9 +129,9 @@ begin
 				when endPipeline =>
 					case cnt is
 						when 0 =>
-							-- accès à la donnée en RAM à l'adresse 0
+							wr_addr <= 2;
+							wr_data <= rd_data;
 						when 1 => 
-							we <= '1';
 							wr_addr <= 1;
 							wr_data <= rd_data; 
 							
@@ -141,11 +148,11 @@ begin
 				-- ajout de la dernière valeur au début de la file
 				when push =>
 					wr_addr <= 0;
-					wr_data <= std_logic_vector(dataIN);
+					wr_data <= std_logic_vector(dataIN_valid);
 				
 					shiftState <= idle;
 			end case;
-		end if;
+		--end if;
 	end if;
 end process;
 
