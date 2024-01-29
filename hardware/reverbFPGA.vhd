@@ -56,6 +56,8 @@ END reverbFPGA;
 
 ARCHITECTURE archi OF reverbFPGA IS
 
+constant nbrExtraBits : integer := 5;
+
 -- signaux de cadencement des opérations numériques (1 lorsque les données peuvent être lues et écrites)
 signal dataL_sampled_valid : std_logic;
 signal dataR_sampled_valid : std_logic;
@@ -64,7 +66,7 @@ signal dataR_sampled_valid : std_logic;
 --signal preDelayValue : std_logic_vector(23 downto 0);
 --signal decayValue : std_logic_vector(23 downto 0);
 --signal dampingValue : std_logic_vector(23 downto 0);
---signal mixValue : std_logic_vector(23 downto 0);
+signal mixValue : std_logic_vector(23 downto 0);
 
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
@@ -85,13 +87,16 @@ type interfaceState_type is (idle, transferData, endTransfer);
 signal interfaceStateL : interfaceState_type;
 signal interfaceStateR : interfaceState_type;
 signal dataL_IN : std_logic_vector(23 downto 0);
-signal dataL_OUT_signed : signed(23 downto 0);
+signal dataL_IN_extended : signed(23 + nbrExtraBits downto 0);
 signal dataL_OUT : std_logic_vector(23 downto 0);
+signal dataL_OUT_extended : signed(23 + nbrExtraBits downto 0);
 signal dataR_IN : std_logic_vector(23 downto 0);
+signal dataR_IN_extended : signed(23 + nbrExtraBits downto 0);
 signal dataR_OUT : std_logic_vector(23 downto 0);
+signal dataR_OUT_extended : signed(23 + nbrExtraBits downto 0);
 
--- signal de sortie avant remise à l'échelle sur 24 bits signés
-signal dataL_OUT_extended : signed(28 downto 0);
+-- signaux intermédiaire dans le traitement de la réverb
+signal dryOutput : signed(23 + nbrExtraBits downto 0);
 
 
 -- Qsys component
@@ -222,6 +227,7 @@ port map (
 	audio_pll_0_audio_clk_clk                         => AUD_XCK                          --                       audio_pll_0_audio_clk.clk
 );
 
+--------------- interfaces bus Avalon ST - signals AUD codec (L+R) -----------------------------------
 interfaceL : entity work.interface_AVST_proc(archi)
 	generic map(24)
 	port map(clk50M => CLOCK_50, rst => rst, 
@@ -234,6 +240,8 @@ interfaceL : entity work.interface_AVST_proc(archi)
 				data_IN => dataL_IN,
 				data_OUT => dataL_OUT,
 				data_sampled_valid => dataL_sampled_valid);
+dataL_IN_extended <= resize(signed(dataL_IN), data_L_IN_extended'LENGTH);
+dataL_OUT <= std_logic_vector(dataL_OUT_extended(dataL_OUT'HIGH downto nbrExtraBits));
 				
 interfaceR : entity work.interface_AVST_proc(archi)
 	generic map(24)
@@ -247,6 +255,9 @@ interfaceR : entity work.interface_AVST_proc(archi)
 				data_IN => dataR_IN,
 				data_OUT => dataR_OUT,
 				data_sampled_valid => dataR_sampled_valid);
+dataR_IN_extended <= resize(signed(dataR_IN), data_R_IN_extended'LENGTH);
+dataR_OUT <= std_logic_vector(dataR_OUT_extended(dataR_OUT'HIGH downto nbrExtraBits));
+--------------------------------------------------------------------------------------------------------
 
 -- bridge IN -> OUT (R channel)
 bridgeR : process(CLOCK_50)
@@ -254,7 +265,7 @@ begin
 	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
 		if(dataR_sampled_valid = '1') then
 			LEDR_1 <= '1';
-			dataR_OUT <= dataR_IN;
+			dataR_OUT_extended <= dataR_IN_extended;
 		else
 			LEDR_1 <= '0';
 		end if;
@@ -273,16 +284,13 @@ end process;
 --	end if;
 --end process;
 
---delayLine_test : entity work.delayLine(archi)
---	generic map(24, 800)
---	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => signed(dataL_IN), dataOUT => dataL_OUT_signed);
-				
+-- gain dry pour l'envoi du son "pur" en sortie
+dryGain : entity work.coefMult(archi)
+	generic map(24 + nbrExtraBits)
+	port map(dataIN => dataL_IN_extended, dataOUT => dryOutput, 
+	
 lateReverbComponent : entity work.lateReverb(archi)
-	generic map(29)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => resize(signed(dataL_IN), 29), dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000", decayValue => "11110000000000000000000000000");  
-
---dataL_OUT <= std_logic_vector(dataL_OUT_signed);
-dataL_OUT <= std_logic_vector(dataL_OUT_extended(28 downto 5));
---dataL_OUT <= std_logic_vector(dataL_OUT_extended(23 downto 0));
+	generic map(24 + nbrExtraBits)
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => dataL_IN_extended, dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000", decayValue => "11110000000000000000000000000");  
 
 END archi;
