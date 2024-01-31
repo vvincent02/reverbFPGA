@@ -23,7 +23,8 @@ ARCHITECTURE archi OF LFCF IS
 
 constant nbrExtraBits : integer range 0 to 6 := 1;
 
-signal delayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
+signal firstDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
+signal secondDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal outFCFilter : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
 signal firstInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
@@ -45,16 +46,22 @@ gain : entity work.coefMult(archi)
 
 -- filtre FCF dans la boucle de retour	
 FCFilter : entity work.FCF(archi)
-	generic map(delayedOutputAdder'LENGTH)
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => delayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
---outFCFilter <= delayedOutputAdder;
+	generic map(secondDelayedOutputAdder'LENGTH)
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => secondDelayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
 
--- opérateur retard
-delayLineOperator : entity work.delayLine(archi)
-	generic map(outputAdder'LENGTH, N)
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => delayedOutputAdder);
+------------- lignes à retard (2 instances pour pouvoir dépasser le retard de 1000 sans problème) --------------------
+-- opérateur retard 1
+delayLineOperator1 : entity work.delayLine(archi)
+	generic map(outputAdder'LENGTH, N/2)
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => firstDelayedOutputAdder);
+
+-- opérateur retard 2
+delayLineOperator2 : entity work.delayLine(archi)
+	generic map(outputAdder'LENGTH, N/2)
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => firstDelayedOutputAdder, dataOUT => secondDelayedOutputAdder);
+----------------------------------------------------------------------------------------------------------------------
 
 -- sortie de l'entité
-dataOUT <= resize(delayedOutputAdder, dataOUT'LENGTH);
+dataOUT <= resize(secondDelayedOutputAdder, dataOUT'LENGTH);
 
 END archi;

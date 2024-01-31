@@ -3,16 +3,16 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 -- !! ATTENTION !! : 
--- il faut s'assurer que la valeur du décalage (N) ne soit pas trop grand de sorte à 
+-- il faut s'assurer que la valeur du décalage (Ns) ne soit pas trop grand de sorte à 
 -- ce que les données aient le temps d'être écrites et lues dans la RAM (voir le rapport entre clk50 et samplingClk)
 
 -- !! ATTENTION !! : 
--- N doit être supérieure ou égale à 4 pour pouvoir établir le pipeline
+-- Ns doit être supérieure ou égale à 5 pour pouvoir établir le pipeline
 
 ENTITY delayLine IS
 GENERIC(
 	dataSize: integer range 1 to 64;
-	N : integer range 1 to 65535
+	Ns : integer range 1 to 65535
 );
 PORT(
 	clk50M : IN std_logic;
@@ -24,6 +24,8 @@ PORT(
 END delayLine;
 
 ARCHITECTURE archi OF delayLine IS
+
+constant N : integer range 0 to 65535 := Ns - 1; -- la structure de la ligne à retard induit déjà un décalage d'un échantillon au minimum
 
 type shiftState_type is (idle, pull, startPipeline, shift, endPipeline, push);
 signal shiftState : shiftState_type := idle; 

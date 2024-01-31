@@ -41,7 +41,7 @@ secondInputAdder1 <= outputAdder2 / 2;
 -- gain atténuation en sortie
 reductionGain : entity work.coefMult(archi)
 	generic map(outputAdder2'LENGTH)
-	port map(dataIN => outputAdder2, dataOUT => APFoutput, coef => "11010111000010100011110101"); -- gain d'atténuation = 0.59
+	port map(dataIN => outputAdder2, dataOUT => APFoutput, coef => "11010111000010100011110101"); -- gain d'atténuation = 0.84
 
 -- sommateurs
 outputAdder1 <= firstInputAdder1 + secondInputAdder1;
