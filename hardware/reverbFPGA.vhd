@@ -64,7 +64,7 @@ signal dataR_sampled_valid : std_logic;
 --signal preDelayValue : std_logic_vector(23 downto 0);
 --signal decayValue : std_logic_vector(23 downto 0);
 --signal dampingValue : std_logic_vector(23 downto 0);
-constant mixValue : unsigned(23 downto 0) := "111111111111111111111111";
+constant mixValue : unsigned(23 downto 0) := "100000000000000000000000";
 
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
@@ -97,6 +97,9 @@ signal dataR_OUT_signed : signed(23 downto 0);
 signal dataL_OUT_dryGain : signed(23 downto 0);
 signal dataL_OUT_wetGain : signed(23 downto 0);
 signal dataL_OUT_lateReverb : signed(23 downto 0);
+signal dataR_OUT_dryGain : signed(23 downto 0);
+signal dataR_OUT_wetGain : signed(23 downto 0);
+signal dataR_OUT_lateReverb : signed(23 downto 0);
 
 
 -- Qsys component
@@ -259,36 +262,60 @@ dataR_IN_signed <= signed(dataR_IN);
 dataR_OUT <= std_logic_vector(dataR_OUT_signed);
 --------------------------------------------------------------------------------------------------------
 
--- bridge IN -> OUT (R channel)
-bridgeR : process(CLOCK_50)
-begin
-	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
-		if(dataR_sampled_valid = '1') then
-			LEDR_1 <= '1';
-			dataR_OUT_signed <= dataR_IN_signed;
-		else
-			LEDR_1 <= '0';
-		end if;
-	end if;
-end process;
+---- bridge IN -> OUT (R channel)
+--bridgeR : process(CLOCK_50)
+--begin
+--	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
+--		if(dataR_sampled_valid = '1') then
+--			LEDR_1 <= '1';
+--			dataR_OUT_signed <= dataR_IN_signed;
+--		else
+--			LEDR_1 <= '0';
+--		end if;
+--	end if;
+--end process;
 
-lateReverbComponent : entity work.lateReverb(archi)
+-------------------------------------- Late reverb ------------------------------------------
+lateReverbL : entity work.lateReverb(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => dataL_IN_signed, dataOUT => dataL_OUT_lateReverb, dampingValue => "0000000000000001000000000", decayValue => "1000000000000000000000000");  
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, 
+				dataIN => dataL_IN_signed, 
+				dataOUT => dataL_OUT_lateReverb, 
+				dampingValue => "0000000000010000000000000", 
+				decayValue => "1100000000000000000000000");  
+
+lateReverbR : entity work.lateReverb(archi)
+	generic map(24)
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataR_sampled_valid, 
+				dataIN => dataR_IN_signed, 
+				dataOUT => dataR_OUT_lateReverb, 
+				dampingValue => "0000000000010001000000000", 
+				decayValue => "1100000000000000000000000");  	
+---------------------------------------------------------------------------------------------
+
 
 --------------------------------- Gestion du mix dry/wet ------------------------------------
 -- gain dry pour l'envoi du son "pur" en sortie
 dryGainL : entity work.coefMult(archi)
 	generic map(24)
 	port map(dataIN => dataL_IN_signed, dataOUT => dataL_OUT_dryGain, coef => not(mixValue));
+dryGainR : entity work.coefMult(archi)
+	generic map(24)
+	port map(dataIN => dataR_IN_signed, dataOUT => dataR_OUT_dryGain, coef => not(mixValue));
 
 -- gain wet pour l'envoi du son réverbéré en sortie
 wetGainL : entity work.coefMult(archi)
 	generic map(24)
 	port map(dataIN => dataL_OUT_lateReverb, dataOUT => dataL_OUT_wetGain, coef => mixValue);
+wetGainR : entity work.coefMult(archi)
+	generic map(24)
+	port map(dataIN => dataR_OUT_lateReverb, dataOUT => dataR_OUT_wetGain, coef => mixValue);
 	
--- ajout des deux signaux (dry+wet)
+-- ajout des deux signaux (dry+wet) + multiplexeur sur le canal droit pour choisir reverb stereo ou mono
 dataL_OUT_signed <= dataL_OUT_dryGain + dataL_OUT_wetGain;
+with stereo_n_mono select dataR_OUT_signed <=
+	(dataR_OUT_dryGain + dataR_OUT_wetGain) when '1',
+	dataL_OUT_signed when '0';
 ---------------------------------------------------------------------------------------------
 
 END archi;
