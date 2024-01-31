@@ -13,8 +13,8 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize-1 downto 0);
-	decayValue : IN unsigned(dataSize-1  downto 0)
+	dampingValue : IN unsigned(dataSize downto 0);
+	decayValue : IN unsigned(dataSize  downto 0)
 );
 END lateReverb;
 
@@ -32,7 +32,7 @@ constant N_LFCF : int_Array8 := (547, 601, 683, 727, 859, 919, 983, 997);
 constant N_APF : int_Array4 := (225, 501, 226, 314);
 
 signal inputAdder : S_vectArray8;
-signal outputAdder : signed(dataIN'RANGE);
+signal outputAdder : signed(dataIN'HIGH+3 downto 0);
 
 signal dataOUT_APF : S_vectArray4;
 
@@ -51,14 +51,14 @@ END GENERATE LFCF_blocks;
 
 
 -- sommateur 8 entrées
-outputAdder <= inputAdder(1) + 
-					inputAdder(2) +
-					inputAdder(3) +
-					inputAdder(4) +
-					inputAdder(5) +
-					inputAdder(6) + 
-					inputAdder(7) +
-					inputAdder(8);
+outputAdder <= resize(inputAdder(1), outputAdder'LENGTH)  + 
+					resize(inputAdder(2), outputAdder'LENGTH) +
+					resize(inputAdder(3), outputAdder'LENGTH) +
+					resize(inputAdder(4), outputAdder'LENGTH) +
+					resize(inputAdder(5), outputAdder'LENGTH) +
+					resize(inputAdder(6), outputAdder'LENGTH) + 
+					resize(inputAdder(7), outputAdder'LENGTH) +
+					resize(inputAdder(8), outputAdder'LENGTH);
 
 
 -- génération des blocs APF en série
@@ -69,7 +69,7 @@ beginCond : IF(i = 1)
 GENERATE
 APF_block : entity work.APF(archi)
 	generic map(dataSize, N_APF(i))
-	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => dataOUT_APF(1));
+	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder(outputAdder'HIGH downto 3), dataOUT => dataOUT_APF(1));
 END GENERATE beginCond;
 
 nextCond : IF(i > 1)

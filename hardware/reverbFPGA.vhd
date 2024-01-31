@@ -56,8 +56,6 @@ END reverbFPGA;
 
 ARCHITECTURE archi OF reverbFPGA IS
 
-constant nbrExtraBits : integer := 5;
-
 -- signaux de cadencement des opérations numériques (1 lorsque les données peuvent être lues et écrites)
 signal dataL_sampled_valid : std_logic;
 signal dataR_sampled_valid : std_logic;
@@ -66,7 +64,7 @@ signal dataR_sampled_valid : std_logic;
 --signal preDelayValue : std_logic_vector(23 downto 0);
 --signal decayValue : std_logic_vector(23 downto 0);
 --signal dampingValue : std_logic_vector(23 downto 0);
-signal mixValue : std_logic_vector(23 downto 0);
+constant mixValue : unsigned(23 downto 0) := "111111111111111111111111";
 
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
@@ -87,16 +85,18 @@ type interfaceState_type is (idle, transferData, endTransfer);
 signal interfaceStateL : interfaceState_type;
 signal interfaceStateR : interfaceState_type;
 signal dataL_IN : std_logic_vector(23 downto 0);
-signal dataL_IN_extended : signed(23 + nbrExtraBits downto 0);
+signal dataL_IN_signed : signed(23 downto 0);
 signal dataL_OUT : std_logic_vector(23 downto 0);
-signal dataL_OUT_extended : signed(23 + nbrExtraBits downto 0);
+signal dataL_OUT_signed : signed(23 downto 0);
 signal dataR_IN : std_logic_vector(23 downto 0);
-signal dataR_IN_extended : signed(23 + nbrExtraBits downto 0);
+signal dataR_IN_signed : signed(23 downto 0);
 signal dataR_OUT : std_logic_vector(23 downto 0);
-signal dataR_OUT_extended : signed(23 + nbrExtraBits downto 0);
+signal dataR_OUT_signed : signed(23 downto 0);
 
 -- signaux intermédiaire dans le traitement de la réverb
-signal dryOutput : signed(23 + nbrExtraBits downto 0);
+signal dataL_OUT_dryGain : signed(23 downto 0);
+signal dataL_OUT_wetGain : signed(23 downto 0);
+signal dataL_OUT_lateReverb : signed(23 downto 0);
 
 
 -- Qsys component
@@ -105,6 +105,10 @@ port (
 	clk_clk                                           : in    std_logic                     := 'X';             -- clk
 --	dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
 --	decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
+--	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
+--	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+--	paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+--	predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
 	memory_mem_a                                      : out   std_logic_vector(14 downto 0);                    -- mem_a
 	memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     -- mem_ba
 	memory_mem_ck                                     : out   std_logic;                                        -- mem_ck
@@ -121,10 +125,6 @@ port (
 	memory_mem_odt                                    : out   std_logic;                                        -- mem_odt
 	memory_mem_dm                                     : out   std_logic_vector(3 downto 0);                     -- mem_dm
 	memory_oct_rzqin                                  : in    std_logic                     := 'X';             -- oct_rzqin
---	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
---	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
---	paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
---	predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
 	reset_reset_n                                     : in    std_logic                     := 'X';             -- reset_n
 	audio_controller_external_interface_ADCDAT        : in    std_logic                     := 'X';             -- ADCDAT
 	audio_controller_external_interface_ADCLRCK       : in    std_logic                     := 'X';             -- ADCLRCK
@@ -240,8 +240,8 @@ interfaceL : entity work.interface_AVST_proc(archi)
 				data_IN => dataL_IN,
 				data_OUT => dataL_OUT,
 				data_sampled_valid => dataL_sampled_valid);
-dataL_IN_extended <= resize(signed(dataL_IN), data_L_IN_extended'LENGTH);
-dataL_OUT <= std_logic_vector(dataL_OUT_extended(dataL_OUT'HIGH downto nbrExtraBits));
+dataL_IN_signed <= signed(dataL_IN);
+dataL_OUT <= std_logic_vector(dataL_OUT_signed);
 				
 interfaceR : entity work.interface_AVST_proc(archi)
 	generic map(24)
@@ -255,8 +255,8 @@ interfaceR : entity work.interface_AVST_proc(archi)
 				data_IN => dataR_IN,
 				data_OUT => dataR_OUT,
 				data_sampled_valid => dataR_sampled_valid);
-dataR_IN_extended <= resize(signed(dataR_IN), data_R_IN_extended'LENGTH);
-dataR_OUT <= std_logic_vector(dataR_OUT_extended(dataR_OUT'HIGH downto nbrExtraBits));
+dataR_IN_signed <= signed(dataR_IN);
+dataR_OUT <= std_logic_vector(dataR_OUT_signed);
 --------------------------------------------------------------------------------------------------------
 
 -- bridge IN -> OUT (R channel)
@@ -265,32 +265,30 @@ begin
 	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
 		if(dataR_sampled_valid = '1') then
 			LEDR_1 <= '1';
-			dataR_OUT_extended <= dataR_IN_extended;
+			dataR_OUT_signed <= dataR_IN_signed;
 		else
 			LEDR_1 <= '0';
 		end if;
 	end if;
 end process;
 
----- bridge IN -> OUT (L channel)
---bridgeL : process(CLOCK_50, rst)
---begin
---	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
---		if(rst = '0') then
---			dataL_OUT <= (others => '0');
---		elsif(dataL_sampled_valid = '1') then  
---			dataL_OUT <= dataL_IN;
---		end if;
---	end if;
---end process;
-
--- gain dry pour l'envoi du son "pur" en sortie
-dryGain : entity work.coefMult(archi)
-	generic map(24 + nbrExtraBits)
-	port map(dataIN => dataL_IN_extended, dataOUT => dryOutput, 
-	
 lateReverbComponent : entity work.lateReverb(archi)
-	generic map(24 + nbrExtraBits)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => dataL_IN_extended, dataOUT => dataL_OUT_extended, dampingValue => "10000000000000000000000000000", decayValue => "11110000000000000000000000000");  
+	generic map(24)
+	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, dataIN => dataL_IN_signed, dataOUT => dataL_OUT_lateReverb, dampingValue => "0000000000000001000000000", decayValue => "1000000000000000000000000");  
+
+--------------------------------- Gestion du mix dry/wet ------------------------------------
+-- gain dry pour l'envoi du son "pur" en sortie
+dryGainL : entity work.coefMult(archi)
+	generic map(24)
+	port map(dataIN => dataL_IN_signed, dataOUT => dataL_OUT_dryGain, coef => not(mixValue));
+
+-- gain wet pour l'envoi du son réverbéré en sortie
+wetGainL : entity work.coefMult(archi)
+	generic map(24)
+	port map(dataIN => dataL_OUT_lateReverb, dataOUT => dataL_OUT_wetGain, coef => mixValue);
+	
+-- ajout des deux signaux (dry+wet)
+dataL_OUT_signed <= dataL_OUT_dryGain + dataL_OUT_wetGain;
+---------------------------------------------------------------------------------------------
 
 END archi;

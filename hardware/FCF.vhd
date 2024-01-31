@@ -19,8 +19,6 @@ END FCF;
 
 ARCHITECTURE archi OF FCF IS
 
-constant U_fullScaleVector : unsigned(dataIN'RANGE) := (others => '1');
-
 signal prevOutputAdder : signed(dataIN'RANGE);
 
 signal firstInputAdder : signed(dataIN'RANGE);
@@ -36,7 +34,7 @@ outputAdder <= firstInputAdder + secondInputAdder;
 -- gain (1-d)
 gain1 : entity work.coefMult(archi)
 	generic map(dataIN'length)
-	port map(dataIN => dataIN, dataOUT => firstInputAdder, coef => U_fullScaleVector - dampingValue);
+	port map(dataIN => dataIN, dataOUT => firstInputAdder, coef => not(dampingValue));
 
 -- gain d (retour de la boucle)
 gain2 : entity work.coefMult(archi)
