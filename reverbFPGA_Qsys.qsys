@@ -26,14 +26,6 @@
    {
       datum _sortIndex
       {
-         value = "11";
-         type = "int";
-      }
-   }
-   element clkSampling
-   {
-      datum _sortIndex
-      {
          value = "10";
          type = "int";
       }
@@ -114,7 +106,7 @@
    {
       datum baseAddress
       {
-         value = "80";
+         value = "64";
          type = "String";
       }
    }
@@ -215,13 +207,16 @@
    type="clock"
    dir="start" />
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
- <interface name="clksampling" internal="clkSampling.clk" />
  <interface
    name="dampingvalue_pio_external_connection"
-   internal="dampingValue_PIO.external_connection" />
+   internal="dampingValue_PIO.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="decayvalue_pio_external_connection"
-   internal="decayValue_PIO.external_connection" />
+   internal="decayValue_PIO.external_connection"
+   type="conduit"
+   dir="end" />
  <interface name="hps_0_h2f_loan_io" internal="hps_0.h2f_loan_io" />
  <interface
    name="hps_0_h2f_mpu_events"
@@ -232,13 +227,19 @@
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
    name="mixvalue_pio_external_connection"
-   internal="mixValue_PIO.external_connection" />
+   internal="mixValue_PIO.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="paramtype_pio_external_connection"
-   internal="paramType_PIO.external_connection" />
+   internal="paramType_PIO.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="paramvalueupdate_pio_external_connection"
-   internal="paramValueUpdate_PIO.external_connection" />
+   internal="paramValueUpdate_PIO.external_connection"
+   type="conduit"
+   dir="end" />
  <interface
    name="predelayvalue_pio_external_connection"
    internal="preDelayValue_PIO.external_connection" />
@@ -292,12 +293,6 @@
   <parameter name="device_family" value="Cyclone V" />
   <parameter name="gui_refclk" value="50.0" />
  </module>
- <module name="clkSampling" kind="clock_source" version="23.1" enabled="0">
-  <parameter name="clockFrequency" value="48000" />
-  <parameter name="clockFrequencyKnown" value="true" />
-  <parameter name="inputClockFrequency" value="50000000" />
-  <parameter name="resetSynchronousEdges" value="NONE" />
- </module>
  <module name="clk_0" kind="clock_source" version="23.1" enabled="1">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -308,7 +303,7 @@
    name="dampingValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="0">
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -320,13 +315,13 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="24" />
+  <parameter name="width" value="25" />
  </module>
  <module
    name="decayValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="0">
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -338,7 +333,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="24" />
+  <parameter name="width" value="25" />
  </module>
  <module name="hps_0" kind="altera_hps" version="23.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -874,7 +869,7 @@
    name="mixValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="0">
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -892,7 +887,7 @@
    name="paramType_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="0">
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -910,7 +905,7 @@
    name="paramValueUpdate_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="0">
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -955,27 +950,9 @@
    kind="avalon"
    version="23.1"
    start="hps_0.h2f_lw_axi_master"
-   end="paramType_PIO.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0050" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="23.1"
-   start="hps_0.h2f_lw_axi_master"
    end="preDelayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0040" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="23.1"
-   start="hps_0.h2f_lw_axi_master"
-   end="decayValue_PIO.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1005,23 +982,30 @@
   <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
- <connection kind="clock" version="23.1" start="clk_0.clk" end="paramType_PIO.clk" />
+ <connection
+   kind="avalon"
+   version="23.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="paramType_PIO.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="23.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="decayValue_PIO.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection
    kind="clock"
    version="23.1"
    start="clk_0.clk"
    end="preDelayValue_PIO.clk" />
- <connection
-   kind="clock"
-   version="23.1"
-   start="clk_0.clk"
-   end="decayValue_PIO.clk" />
- <connection
-   kind="clock"
-   version="23.1"
-   start="clk_0.clk"
-   end="dampingValue_PIO.clk" />
- <connection kind="clock" version="23.1" start="clk_0.clk" end="mixValue_PIO.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="paramType_PIO.clk" />
  <connection
    kind="clock"
    version="23.1"
@@ -1036,7 +1020,13 @@
    kind="clock"
    version="23.1"
    start="clk_0.clk"
-   end="clkSampling.clk_in" />
+   end="decayValue_PIO.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="mixValue_PIO.clk" />
+ <connection
+   kind="clock"
+   version="23.1"
+   start="clk_0.clk"
+   end="dampingValue_PIO.clk" />
  <connection
    kind="clock"
    version="23.1"
@@ -1061,17 +1051,7 @@
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
-   end="clkSampling.clk_in_reset" />
- <connection
-   kind="reset"
-   version="23.1"
-   start="clk_0.clk_reset"
    end="audio_pll_0.ref_reset" />
- <connection
-   kind="reset"
-   version="23.1"
-   start="clk_0.clk_reset"
-   end="paramType_PIO.reset" />
  <connection
    kind="reset"
    version="23.1"
@@ -1081,7 +1061,7 @@
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
-   end="decayValue_PIO.reset" />
+   end="audio_controller.reset" />
  <connection
    kind="reset"
    version="23.1"
@@ -1091,17 +1071,22 @@
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
+   end="decayValue_PIO.reset" />
+ <connection
+   kind="reset"
+   version="23.1"
+   start="clk_0.clk_reset"
    end="mixValue_PIO.reset" />
  <connection
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
-   end="paramValueUpdate_PIO.reset" />
+   end="paramType_PIO.reset" />
  <connection
    kind="reset"
    version="23.1"
    start="clk_0.clk_reset"
-   end="audio_controller.reset" />
+   end="paramValueUpdate_PIO.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

@@ -62,9 +62,9 @@ signal dataR_sampled_valid : std_logic;
 
 ---- paramètres de la reverb
 --signal preDelayValue : std_logic_vector(23 downto 0);
---signal decayValue : std_logic_vector(23 downto 0);
---signal dampingValue : std_logic_vector(23 downto 0);
-constant mixValue : unsigned(23 downto 0) := "100000000000000000000000";
+signal mixValue : std_logic_vector(23 downto 0);
+signal decayValue : std_logic_vector(24 downto 0);
+signal dampingValue : std_logic_vector(24 downto 0);
 
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
@@ -106,12 +106,12 @@ signal dataR_OUT_lateReverb : signed(23 downto 0);
 component reverbFPGA_Qsys is
 port (
 	clk_clk                                           : in    std_logic                     := 'X';             -- clk
---	dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
---	decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
---	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
---	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
---	paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+	dampingvalue_pio_external_connection_export       : out   std_logic_vector(24 downto 0);                    -- export
+	decayvalue_pio_external_connection_export         : out   std_logic_vector(24 downto 0);                    -- export
+	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
 --	predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
+	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+	paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 	memory_mem_a                                      : out   std_logic_vector(14 downto 0);                    -- mem_a
 	memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     -- mem_ba
 	memory_mem_ck                                     : out   std_logic;                                        -- mem_ck
@@ -170,11 +170,11 @@ BEGIN
 Qsys : component reverbFPGA_Qsys
 port map (
 	clk_clk                                           => CLOCK_50,                                           --                                         clk.clk
---	dampingvalue_pio_external_connection_export       => dampingValue,       --        dampingvalue_pio_external_connection.export
---	decayvalue_pio_external_connection_export         => decayValue,         --          decayvalue_pio_external_connection.export
---	mixvalue_pio_external_connection_export           => mixValue,           --            mixvalue_pio_external_connection.export
---	paramtype_pio_external_connection_export      => paramType,      --       paramtype_pio_external_connection.export
---	paramvalueupdate_pio_external_connection_export   => paramValueUpdate,   --    paramvalueupdate_pio_external_connection.export
+	dampingvalue_pio_external_connection_export       => dampingValue,       --        dampingvalue_pio_external_connection.export
+	decayvalue_pio_external_connection_export         => decayValue,         --          decayvalue_pio_external_connection.export
+	mixvalue_pio_external_connection_export           => mixValue,           --            mixvalue_pio_external_connection.export
+	paramtype_pio_external_connection_export      => paramType,      --       paramtype_pio_external_connection.export
+	paramvalueupdate_pio_external_connection_export   => paramValueUpdate,   --    paramvalueupdate_pio_external_connection.export
 --	predelayvalue_pio_external_connection_export      => preDelayValue,      --       predelayvalue_pio_external_connection.export
 	reset_reset_n                                     => rst,                                     --                                       reset.reset_n
 	audio_controller_avalon_left_channel_source_ready => audioL_IN_ready, -- audio_controller_avalon_left_channel_source.ready
@@ -281,16 +281,16 @@ lateReverbL : entity work.lateReverb(archi)
 	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, 
 				dataIN => dataL_IN_signed, 
 				dataOUT => dataL_OUT_lateReverb, 
-				dampingValue => "0000000000010000000000000", 
-				decayValue => "1100000000000000000000000");  
+				dampingValue => unsigned(dampingValue), 
+				decayValue => unsigned(decayValue));  
 
 lateReverbR : entity work.lateReverb(archi)
 	generic map(24)
 	port map(clk50M => CLOCK_50, data_sampled_valid => dataR_sampled_valid, 
 				dataIN => dataR_IN_signed, 
 				dataOUT => dataR_OUT_lateReverb, 
-				dampingValue => "0000000000010001000000000", 
-				decayValue => "1100000000000000000000000");  	
+				dampingValue => unsigned(dampingValue), 
+				decayValue => unsigned(decayValue));  	
 ---------------------------------------------------------------------------------------------
 
 
@@ -298,18 +298,18 @@ lateReverbR : entity work.lateReverb(archi)
 -- gain dry pour l'envoi du son "pur" en sortie
 dryGainL : entity work.coefMult(archi)
 	generic map(24)
-	port map(dataIN => dataL_IN_signed, dataOUT => dataL_OUT_dryGain, coef => not(mixValue));
+	port map(dataIN => dataL_IN_signed, dataOUT => dataL_OUT_dryGain, coef => unsigned(not(mixValue)));
 dryGainR : entity work.coefMult(archi)
 	generic map(24)
-	port map(dataIN => dataR_IN_signed, dataOUT => dataR_OUT_dryGain, coef => not(mixValue));
+	port map(dataIN => dataR_IN_signed, dataOUT => dataR_OUT_dryGain, coef => unsigned(not(mixValue)));
 
 -- gain wet pour l'envoi du son réverbéré en sortie
 wetGainL : entity work.coefMult(archi)
 	generic map(24)
-	port map(dataIN => dataL_OUT_lateReverb, dataOUT => dataL_OUT_wetGain, coef => mixValue);
+	port map(dataIN => dataL_OUT_lateReverb, dataOUT => dataL_OUT_wetGain, coef => unsigned(mixValue));
 wetGainR : entity work.coefMult(archi)
 	generic map(24)
-	port map(dataIN => dataR_OUT_lateReverb, dataOUT => dataR_OUT_wetGain, coef => mixValue);
+	port map(dataIN => dataR_OUT_lateReverb, dataOUT => dataR_OUT_wetGain, coef => unsigned(mixValue));
 	
 -- ajout des deux signaux (dry+wet) + multiplexeur sur le canal droit pour choisir reverb stereo ou mono
 dataL_OUT_signed <= dataL_OUT_dryGain + dataL_OUT_wetGain;

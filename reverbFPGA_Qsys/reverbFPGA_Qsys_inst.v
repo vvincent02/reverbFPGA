@@ -18,6 +18,8 @@
 		.audio_controller_external_interface_DACLRCK        (<connected-to-audio_controller_external_interface_DACLRCK>),        //                                             .DACLRCK
 		.audio_pll_0_audio_clk_clk                          (<connected-to-audio_pll_0_audio_clk_clk>),                          //                        audio_pll_0_audio_clk.clk
 		.clk_clk                                            (<connected-to-clk_clk>),                                            //                                          clk.clk
+		.dampingvalue_pio_external_connection_export        (<connected-to-dampingvalue_pio_external_connection_export>),        //         dampingvalue_pio_external_connection.export
+		.decayvalue_pio_external_connection_export          (<connected-to-decayvalue_pio_external_connection_export>),          //           decayvalue_pio_external_connection.export
 		.hps_0_h2f_mpu_events_eventi                        (<connected-to-hps_0_h2f_mpu_events_eventi>),                        //                         hps_0_h2f_mpu_events.eventi
 		.hps_0_h2f_mpu_events_evento                        (<connected-to-hps_0_h2f_mpu_events_evento>),                        //                                             .evento
 		.hps_0_h2f_mpu_events_standbywfe                    (<connected-to-hps_0_h2f_mpu_events_standbywfe>),                    //                                             .standbywfe
@@ -44,6 +46,9 @@
 		.memory_mem_odt                                     (<connected-to-memory_mem_odt>),                                     //                                             .mem_odt
 		.memory_mem_dm                                      (<connected-to-memory_mem_dm>),                                      //                                             .mem_dm
 		.memory_oct_rzqin                                   (<connected-to-memory_oct_rzqin>),                                   //                                             .oct_rzqin
+		.mixvalue_pio_external_connection_export            (<connected-to-mixvalue_pio_external_connection_export>),            //             mixvalue_pio_external_connection.export
+		.paramtype_pio_external_connection_export           (<connected-to-paramtype_pio_external_connection_export>),           //            paramtype_pio_external_connection.export
+		.paramvalueupdate_pio_external_connection_export    (<connected-to-paramvalueupdate_pio_external_connection_export>),    //     paramvalueupdate_pio_external_connection.export
 		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                        reset.reset_n
 		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>)                    //                 serial_flash_loader_0_noe_in.noe
 	);

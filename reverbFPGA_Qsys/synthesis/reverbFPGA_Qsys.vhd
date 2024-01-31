@@ -27,6 +27,8 @@ entity reverbFPGA_Qsys is
 		audio_controller_external_interface_DACLRCK        : in    std_logic                     := '0';             --                                             .DACLRCK
 		audio_pll_0_audio_clk_clk                          : out   std_logic;                                        --                        audio_pll_0_audio_clk.clk
 		clk_clk                                            : in    std_logic                     := '0';             --                                          clk.clk
+		dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    --         dampingvalue_pio_external_connection.export
+		decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    --           decayvalue_pio_external_connection.export
 		hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := '0';             --                         hps_0_h2f_mpu_events.eventi
 		hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        --                                             .evento
 		hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     --                                             .standbywfe
@@ -53,6 +55,9 @@ entity reverbFPGA_Qsys is
 		memory_mem_odt                                     : out   std_logic;                                        --                                             .mem_odt
 		memory_mem_dm                                      : out   std_logic_vector(3 downto 0);                     --                                             .mem_dm
 		memory_oct_rzqin                                   : in    std_logic                     := '0';             --                                             .oct_rzqin
+		mixvalue_pio_external_connection_export            : out   std_logic_vector(23 downto 0);                    --             mixvalue_pio_external_connection.export
+		paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => '0'); --            paramtype_pio_external_connection.export
+		paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => '0'); --     paramvalueupdate_pio_external_connection.export
 		reset_reset_n                                      : in    std_logic                     := '0';             --                                        reset.reset_n
 		serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := '0'              --                 serial_flash_loader_0_noe_in.noe
 	);
@@ -91,6 +96,19 @@ architecture rtl of reverbFPGA_Qsys is
 			reset_source_reset : out std_logic         -- reset
 		);
 	end component reverbFPGA_Qsys_audio_pll_0;
+
+	component reverbFPGA_Qsys_dampingValue_PIO is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(24 downto 0)                     -- export
+		);
+	end component reverbFPGA_Qsys_dampingValue_PIO;
 
 	component reverbFPGA_Qsys_hps_0 is
 		generic (
@@ -241,6 +259,39 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component reverbFPGA_Qsys_hps_0;
 
+	component reverbFPGA_Qsys_mixValue_PIO is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(23 downto 0)                     -- export
+		);
+	end component reverbFPGA_Qsys_mixValue_PIO;
+
+	component reverbFPGA_Qsys_paramType_PIO is
+		port (
+			clk      : in  std_logic                     := 'X';             -- clk
+			reset_n  : in  std_logic                     := 'X';             -- reset_n
+			address  : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			readdata : out std_logic_vector(31 downto 0);                    -- readdata
+			in_port  : in  std_logic_vector(3 downto 0)  := (others => 'X')  -- export
+		);
+	end component reverbFPGA_Qsys_paramType_PIO;
+
+	component reverbFPGA_Qsys_paramValueUpdate_PIO is
+		port (
+			clk      : in  std_logic                     := 'X';             -- clk
+			reset_n  : in  std_logic                     := 'X';             -- reset_n
+			address  : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			readdata : out std_logic_vector(31 downto 0);                    -- readdata
+			in_port  : in  std_logic_vector(1 downto 0)  := (others => 'X')  -- export
+		);
+	end component reverbFPGA_Qsys_paramValueUpdate_PIO;
+
 	component altera_serial_flash_loader is
 		generic (
 			INTENDED_DEVICE_FAMILY  : string  := "";
@@ -253,6 +304,69 @@ architecture rtl of reverbFPGA_Qsys is
 			noe_in : in std_logic := 'X'  -- noe
 		);
 	end component altera_serial_flash_loader;
+
+	component reverbFPGA_Qsys_mm_interconnect_0 is
+		port (
+			hps_0_h2f_lw_axi_master_awid                                        : in  std_logic_vector(11 downto 0) := (others => 'X'); -- awid
+			hps_0_h2f_lw_axi_master_awaddr                                      : in  std_logic_vector(20 downto 0) := (others => 'X'); -- awaddr
+			hps_0_h2f_lw_axi_master_awlen                                       : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- awlen
+			hps_0_h2f_lw_axi_master_awsize                                      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- awsize
+			hps_0_h2f_lw_axi_master_awburst                                     : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- awburst
+			hps_0_h2f_lw_axi_master_awlock                                      : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- awlock
+			hps_0_h2f_lw_axi_master_awcache                                     : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- awcache
+			hps_0_h2f_lw_axi_master_awprot                                      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- awprot
+			hps_0_h2f_lw_axi_master_awvalid                                     : in  std_logic                     := 'X';             -- awvalid
+			hps_0_h2f_lw_axi_master_awready                                     : out std_logic;                                        -- awready
+			hps_0_h2f_lw_axi_master_wid                                         : in  std_logic_vector(11 downto 0) := (others => 'X'); -- wid
+			hps_0_h2f_lw_axi_master_wdata                                       : in  std_logic_vector(31 downto 0) := (others => 'X'); -- wdata
+			hps_0_h2f_lw_axi_master_wstrb                                       : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- wstrb
+			hps_0_h2f_lw_axi_master_wlast                                       : in  std_logic                     := 'X';             -- wlast
+			hps_0_h2f_lw_axi_master_wvalid                                      : in  std_logic                     := 'X';             -- wvalid
+			hps_0_h2f_lw_axi_master_wready                                      : out std_logic;                                        -- wready
+			hps_0_h2f_lw_axi_master_bid                                         : out std_logic_vector(11 downto 0);                    -- bid
+			hps_0_h2f_lw_axi_master_bresp                                       : out std_logic_vector(1 downto 0);                     -- bresp
+			hps_0_h2f_lw_axi_master_bvalid                                      : out std_logic;                                        -- bvalid
+			hps_0_h2f_lw_axi_master_bready                                      : in  std_logic                     := 'X';             -- bready
+			hps_0_h2f_lw_axi_master_arid                                        : in  std_logic_vector(11 downto 0) := (others => 'X'); -- arid
+			hps_0_h2f_lw_axi_master_araddr                                      : in  std_logic_vector(20 downto 0) := (others => 'X'); -- araddr
+			hps_0_h2f_lw_axi_master_arlen                                       : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- arlen
+			hps_0_h2f_lw_axi_master_arsize                                      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- arsize
+			hps_0_h2f_lw_axi_master_arburst                                     : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- arburst
+			hps_0_h2f_lw_axi_master_arlock                                      : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- arlock
+			hps_0_h2f_lw_axi_master_arcache                                     : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- arcache
+			hps_0_h2f_lw_axi_master_arprot                                      : in  std_logic_vector(2 downto 0)  := (others => 'X'); -- arprot
+			hps_0_h2f_lw_axi_master_arvalid                                     : in  std_logic                     := 'X';             -- arvalid
+			hps_0_h2f_lw_axi_master_arready                                     : out std_logic;                                        -- arready
+			hps_0_h2f_lw_axi_master_rid                                         : out std_logic_vector(11 downto 0);                    -- rid
+			hps_0_h2f_lw_axi_master_rdata                                       : out std_logic_vector(31 downto 0);                    -- rdata
+			hps_0_h2f_lw_axi_master_rresp                                       : out std_logic_vector(1 downto 0);                     -- rresp
+			hps_0_h2f_lw_axi_master_rlast                                       : out std_logic;                                        -- rlast
+			hps_0_h2f_lw_axi_master_rvalid                                      : out std_logic;                                        -- rvalid
+			hps_0_h2f_lw_axi_master_rready                                      : in  std_logic                     := 'X';             -- rready
+			clk_0_clk_clk                                                       : in  std_logic                     := 'X';             -- clk
+			dampingValue_PIO_reset_reset_bridge_in_reset_reset                  : in  std_logic                     := 'X';             -- reset
+			hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
+			dampingValue_PIO_s1_address                                         : out std_logic_vector(1 downto 0);                     -- address
+			dampingValue_PIO_s1_write                                           : out std_logic;                                        -- write
+			dampingValue_PIO_s1_readdata                                        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			dampingValue_PIO_s1_writedata                                       : out std_logic_vector(31 downto 0);                    -- writedata
+			dampingValue_PIO_s1_chipselect                                      : out std_logic;                                        -- chipselect
+			decayValue_PIO_s1_address                                           : out std_logic_vector(1 downto 0);                     -- address
+			decayValue_PIO_s1_write                                             : out std_logic;                                        -- write
+			decayValue_PIO_s1_readdata                                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			decayValue_PIO_s1_writedata                                         : out std_logic_vector(31 downto 0);                    -- writedata
+			decayValue_PIO_s1_chipselect                                        : out std_logic;                                        -- chipselect
+			mixValue_PIO_s1_address                                             : out std_logic_vector(1 downto 0);                     -- address
+			mixValue_PIO_s1_write                                               : out std_logic;                                        -- write
+			mixValue_PIO_s1_readdata                                            : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			mixValue_PIO_s1_writedata                                           : out std_logic_vector(31 downto 0);                    -- writedata
+			mixValue_PIO_s1_chipselect                                          : out std_logic;                                        -- chipselect
+			paramType_PIO_s1_address                                            : out std_logic_vector(1 downto 0);                     -- address
+			paramType_PIO_s1_readdata                                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			paramValueUpdate_PIO_s1_address                                     : out std_logic_vector(1 downto 0);                     -- address
+			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
+		);
+	end component reverbFPGA_Qsys_mm_interconnect_0;
 
 	component altera_reset_controller is
 		generic (
@@ -320,8 +434,70 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component altera_reset_controller;
 
-	signal rst_controller_reset_out_reset : std_logic; -- rst_controller:reset_out -> audio_controller:reset
-	signal reset_reset_n_ports_inv        : std_logic; -- reset_reset_n:inv -> [audio_pll_0:ref_reset_reset, rst_controller:reset_in0]
+	signal hps_0_h2f_lw_axi_master_awburst                       : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_AWBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awburst
+	signal hps_0_h2f_lw_axi_master_arlen                         : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_ARLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlen
+	signal hps_0_h2f_lw_axi_master_wstrb                         : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_WSTRB -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wstrb
+	signal hps_0_h2f_lw_axi_master_wready                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_wready -> hps_0:h2f_lw_WREADY
+	signal hps_0_h2f_lw_axi_master_rid                           : std_logic_vector(11 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rid -> hps_0:h2f_lw_RID
+	signal hps_0_h2f_lw_axi_master_rready                        : std_logic;                     -- hps_0:h2f_lw_RREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_rready
+	signal hps_0_h2f_lw_axi_master_awlen                         : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_AWLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlen
+	signal hps_0_h2f_lw_axi_master_wid                           : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_WID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wid
+	signal hps_0_h2f_lw_axi_master_arcache                       : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_ARCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arcache
+	signal hps_0_h2f_lw_axi_master_wvalid                        : std_logic;                     -- hps_0:h2f_lw_WVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wvalid
+	signal hps_0_h2f_lw_axi_master_araddr                        : std_logic_vector(20 downto 0); -- hps_0:h2f_lw_ARADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_araddr
+	signal hps_0_h2f_lw_axi_master_arprot                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_ARPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arprot
+	signal hps_0_h2f_lw_axi_master_awprot                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_AWPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awprot
+	signal hps_0_h2f_lw_axi_master_wdata                         : std_logic_vector(31 downto 0); -- hps_0:h2f_lw_WDATA -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wdata
+	signal hps_0_h2f_lw_axi_master_arvalid                       : std_logic;                     -- hps_0:h2f_lw_ARVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arvalid
+	signal hps_0_h2f_lw_axi_master_awcache                       : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_AWCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awcache
+	signal hps_0_h2f_lw_axi_master_arid                          : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_ARID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arid
+	signal hps_0_h2f_lw_axi_master_arlock                        : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_ARLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlock
+	signal hps_0_h2f_lw_axi_master_awlock                        : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_AWLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlock
+	signal hps_0_h2f_lw_axi_master_awaddr                        : std_logic_vector(20 downto 0); -- hps_0:h2f_lw_AWADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awaddr
+	signal hps_0_h2f_lw_axi_master_bresp                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bresp -> hps_0:h2f_lw_BRESP
+	signal hps_0_h2f_lw_axi_master_arready                       : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_arready -> hps_0:h2f_lw_ARREADY
+	signal hps_0_h2f_lw_axi_master_rdata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rdata -> hps_0:h2f_lw_RDATA
+	signal hps_0_h2f_lw_axi_master_awready                       : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_awready -> hps_0:h2f_lw_AWREADY
+	signal hps_0_h2f_lw_axi_master_arburst                       : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_ARBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arburst
+	signal hps_0_h2f_lw_axi_master_arsize                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_ARSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arsize
+	signal hps_0_h2f_lw_axi_master_bready                        : std_logic;                     -- hps_0:h2f_lw_BREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_bready
+	signal hps_0_h2f_lw_axi_master_rlast                         : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rlast -> hps_0:h2f_lw_RLAST
+	signal hps_0_h2f_lw_axi_master_wlast                         : std_logic;                     -- hps_0:h2f_lw_WLAST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wlast
+	signal hps_0_h2f_lw_axi_master_rresp                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rresp -> hps_0:h2f_lw_RRESP
+	signal hps_0_h2f_lw_axi_master_awid                          : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_AWID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awid
+	signal hps_0_h2f_lw_axi_master_bid                           : std_logic_vector(11 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bid -> hps_0:h2f_lw_BID
+	signal hps_0_h2f_lw_axi_master_bvalid                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bvalid -> hps_0:h2f_lw_BVALID
+	signal hps_0_h2f_lw_axi_master_awsize                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_AWSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awsize
+	signal hps_0_h2f_lw_axi_master_awvalid                       : std_logic;                     -- hps_0:h2f_lw_AWVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awvalid
+	signal hps_0_h2f_lw_axi_master_rvalid                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
+	signal mm_interconnect_0_dampingvalue_pio_s1_chipselect      : std_logic;                     -- mm_interconnect_0:dampingValue_PIO_s1_chipselect -> dampingValue_PIO:chipselect
+	signal mm_interconnect_0_dampingvalue_pio_s1_readdata        : std_logic_vector(31 downto 0); -- dampingValue_PIO:readdata -> mm_interconnect_0:dampingValue_PIO_s1_readdata
+	signal mm_interconnect_0_dampingvalue_pio_s1_address         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:dampingValue_PIO_s1_address -> dampingValue_PIO:address
+	signal mm_interconnect_0_dampingvalue_pio_s1_write           : std_logic;                     -- mm_interconnect_0:dampingValue_PIO_s1_write -> mm_interconnect_0_dampingvalue_pio_s1_write:in
+	signal mm_interconnect_0_dampingvalue_pio_s1_writedata       : std_logic_vector(31 downto 0); -- mm_interconnect_0:dampingValue_PIO_s1_writedata -> dampingValue_PIO:writedata
+	signal mm_interconnect_0_mixvalue_pio_s1_chipselect          : std_logic;                     -- mm_interconnect_0:mixValue_PIO_s1_chipselect -> mixValue_PIO:chipselect
+	signal mm_interconnect_0_mixvalue_pio_s1_readdata            : std_logic_vector(31 downto 0); -- mixValue_PIO:readdata -> mm_interconnect_0:mixValue_PIO_s1_readdata
+	signal mm_interconnect_0_mixvalue_pio_s1_address             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:mixValue_PIO_s1_address -> mixValue_PIO:address
+	signal mm_interconnect_0_mixvalue_pio_s1_write               : std_logic;                     -- mm_interconnect_0:mixValue_PIO_s1_write -> mm_interconnect_0_mixvalue_pio_s1_write:in
+	signal mm_interconnect_0_mixvalue_pio_s1_writedata           : std_logic_vector(31 downto 0); -- mm_interconnect_0:mixValue_PIO_s1_writedata -> mixValue_PIO:writedata
+	signal mm_interconnect_0_paramvalueupdate_pio_s1_readdata    : std_logic_vector(31 downto 0); -- paramValueUpdate_PIO:readdata -> mm_interconnect_0:paramValueUpdate_PIO_s1_readdata
+	signal mm_interconnect_0_paramvalueupdate_pio_s1_address     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:paramValueUpdate_PIO_s1_address -> paramValueUpdate_PIO:address
+	signal mm_interconnect_0_paramtype_pio_s1_readdata           : std_logic_vector(31 downto 0); -- paramType_PIO:readdata -> mm_interconnect_0:paramType_PIO_s1_readdata
+	signal mm_interconnect_0_paramtype_pio_s1_address            : std_logic_vector(1 downto 0);  -- mm_interconnect_0:paramType_PIO_s1_address -> paramType_PIO:address
+	signal mm_interconnect_0_decayvalue_pio_s1_chipselect        : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_chipselect -> decayValue_PIO:chipselect
+	signal mm_interconnect_0_decayvalue_pio_s1_readdata          : std_logic_vector(31 downto 0); -- decayValue_PIO:readdata -> mm_interconnect_0:decayValue_PIO_s1_readdata
+	signal mm_interconnect_0_decayvalue_pio_s1_address           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:decayValue_PIO_s1_address -> decayValue_PIO:address
+	signal mm_interconnect_0_decayvalue_pio_s1_write             : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_write -> mm_interconnect_0_decayvalue_pio_s1_write:in
+	signal mm_interconnect_0_decayvalue_pio_s1_writedata         : std_logic_vector(31 downto 0); -- mm_interconnect_0:decayValue_PIO_s1_writedata -> decayValue_PIO:writedata
+	signal rst_controller_reset_out_reset                        : std_logic;                     -- rst_controller:reset_out -> [audio_controller:reset, mm_interconnect_0:dampingValue_PIO_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
+	signal rst_controller_001_reset_out_reset                    : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
+	signal hps_0_h2f_reset_reset                                 : std_logic;                     -- hps_0:h2f_rst_n -> hps_0_h2f_reset_reset:in
+	signal reset_reset_n_ports_inv                               : std_logic;                     -- reset_reset_n:inv -> [audio_pll_0:ref_reset_reset, rst_controller:reset_in0]
+	signal mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv : std_logic;                     -- mm_interconnect_0_dampingvalue_pio_s1_write:inv -> dampingValue_PIO:write_n
+	signal mm_interconnect_0_mixvalue_pio_s1_write_ports_inv     : std_logic;                     -- mm_interconnect_0_mixvalue_pio_s1_write:inv -> mixValue_PIO:write_n
+	signal mm_interconnect_0_decayvalue_pio_s1_write_ports_inv   : std_logic;                     -- mm_interconnect_0_decayvalue_pio_s1_write:inv -> decayValue_PIO:write_n
+	signal rst_controller_reset_out_reset_ports_inv              : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n]
+	signal hps_0_h2f_reset_reset_ports_inv                       : std_logic;                     -- hps_0_h2f_reset_reset:inv -> rst_controller_001:reset_in0
 
 begin
 
@@ -356,6 +532,30 @@ begin
 			reset_source_reset => open                       -- reset_source.reset
 		);
 
+	dampingvalue_pio : component reverbFPGA_Qsys_dampingValue_PIO
+		port map (
+			clk        => clk_clk,                                               --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,              --               reset.reset_n
+			address    => mm_interconnect_0_dampingvalue_pio_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_dampingvalue_pio_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_dampingvalue_pio_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_dampingvalue_pio_s1_readdata,        --                    .readdata
+			out_port   => dampingvalue_pio_external_connection_export            -- external_connection.export
+		);
+
+	decayvalue_pio : component reverbFPGA_Qsys_dampingValue_PIO
+		port map (
+			clk        => clk_clk,                                             --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,            --               reset.reset_n
+			address    => mm_interconnect_0_decayvalue_pio_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_decayvalue_pio_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_decayvalue_pio_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_decayvalue_pio_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_decayvalue_pio_s1_readdata,        --                    .readdata
+			out_port   => decayvalue_pio_external_connection_export            -- external_connection.export
+		);
+
 	hps_0 : component reverbFPGA_Qsys_hps_0
 		generic map (
 			F2S_Width => 1,
@@ -388,7 +588,7 @@ begin
 			hps_io_i2c1_inst_SCL    => hps_io_hps_io_i2c1_inst_SCL,     --                  .hps_io_i2c1_inst_SCL
 			hps_io_gpio_inst_GPIO48 => hps_io_hps_io_gpio_inst_GPIO48,  --                  .hps_io_gpio_inst_GPIO48
 			hps_io_gpio_inst_GPIO53 => hps_io_hps_io_gpio_inst_GPIO53,  --                  .hps_io_gpio_inst_GPIO53
-			h2f_rst_n               => open,                            --         h2f_reset.reset_n
+			h2f_rst_n               => hps_0_h2f_reset_reset,           --         h2f_reset.reset_n
 			h2f_axi_clk             => clk_clk,                         --     h2f_axi_clock.clk
 			h2f_AWID                => open,                            --    h2f_axi_master.awid
 			h2f_AWADDR              => open,                            --                  .awaddr
@@ -466,42 +666,72 @@ begin
 			f2h_RVALID              => open,                            --                  .rvalid
 			f2h_RREADY              => open,                            --                  .rready
 			h2f_lw_axi_clk          => clk_clk,                         --  h2f_lw_axi_clock.clk
-			h2f_lw_AWID             => open,                            -- h2f_lw_axi_master.awid
-			h2f_lw_AWADDR           => open,                            --                  .awaddr
-			h2f_lw_AWLEN            => open,                            --                  .awlen
-			h2f_lw_AWSIZE           => open,                            --                  .awsize
-			h2f_lw_AWBURST          => open,                            --                  .awburst
-			h2f_lw_AWLOCK           => open,                            --                  .awlock
-			h2f_lw_AWCACHE          => open,                            --                  .awcache
-			h2f_lw_AWPROT           => open,                            --                  .awprot
-			h2f_lw_AWVALID          => open,                            --                  .awvalid
-			h2f_lw_AWREADY          => open,                            --                  .awready
-			h2f_lw_WID              => open,                            --                  .wid
-			h2f_lw_WDATA            => open,                            --                  .wdata
-			h2f_lw_WSTRB            => open,                            --                  .wstrb
-			h2f_lw_WLAST            => open,                            --                  .wlast
-			h2f_lw_WVALID           => open,                            --                  .wvalid
-			h2f_lw_WREADY           => open,                            --                  .wready
-			h2f_lw_BID              => open,                            --                  .bid
-			h2f_lw_BRESP            => open,                            --                  .bresp
-			h2f_lw_BVALID           => open,                            --                  .bvalid
-			h2f_lw_BREADY           => open,                            --                  .bready
-			h2f_lw_ARID             => open,                            --                  .arid
-			h2f_lw_ARADDR           => open,                            --                  .araddr
-			h2f_lw_ARLEN            => open,                            --                  .arlen
-			h2f_lw_ARSIZE           => open,                            --                  .arsize
-			h2f_lw_ARBURST          => open,                            --                  .arburst
-			h2f_lw_ARLOCK           => open,                            --                  .arlock
-			h2f_lw_ARCACHE          => open,                            --                  .arcache
-			h2f_lw_ARPROT           => open,                            --                  .arprot
-			h2f_lw_ARVALID          => open,                            --                  .arvalid
-			h2f_lw_ARREADY          => open,                            --                  .arready
-			h2f_lw_RID              => open,                            --                  .rid
-			h2f_lw_RDATA            => open,                            --                  .rdata
-			h2f_lw_RRESP            => open,                            --                  .rresp
-			h2f_lw_RLAST            => open,                            --                  .rlast
-			h2f_lw_RVALID           => open,                            --                  .rvalid
-			h2f_lw_RREADY           => open                             --                  .rready
+			h2f_lw_AWID             => hps_0_h2f_lw_axi_master_awid,    -- h2f_lw_axi_master.awid
+			h2f_lw_AWADDR           => hps_0_h2f_lw_axi_master_awaddr,  --                  .awaddr
+			h2f_lw_AWLEN            => hps_0_h2f_lw_axi_master_awlen,   --                  .awlen
+			h2f_lw_AWSIZE           => hps_0_h2f_lw_axi_master_awsize,  --                  .awsize
+			h2f_lw_AWBURST          => hps_0_h2f_lw_axi_master_awburst, --                  .awburst
+			h2f_lw_AWLOCK           => hps_0_h2f_lw_axi_master_awlock,  --                  .awlock
+			h2f_lw_AWCACHE          => hps_0_h2f_lw_axi_master_awcache, --                  .awcache
+			h2f_lw_AWPROT           => hps_0_h2f_lw_axi_master_awprot,  --                  .awprot
+			h2f_lw_AWVALID          => hps_0_h2f_lw_axi_master_awvalid, --                  .awvalid
+			h2f_lw_AWREADY          => hps_0_h2f_lw_axi_master_awready, --                  .awready
+			h2f_lw_WID              => hps_0_h2f_lw_axi_master_wid,     --                  .wid
+			h2f_lw_WDATA            => hps_0_h2f_lw_axi_master_wdata,   --                  .wdata
+			h2f_lw_WSTRB            => hps_0_h2f_lw_axi_master_wstrb,   --                  .wstrb
+			h2f_lw_WLAST            => hps_0_h2f_lw_axi_master_wlast,   --                  .wlast
+			h2f_lw_WVALID           => hps_0_h2f_lw_axi_master_wvalid,  --                  .wvalid
+			h2f_lw_WREADY           => hps_0_h2f_lw_axi_master_wready,  --                  .wready
+			h2f_lw_BID              => hps_0_h2f_lw_axi_master_bid,     --                  .bid
+			h2f_lw_BRESP            => hps_0_h2f_lw_axi_master_bresp,   --                  .bresp
+			h2f_lw_BVALID           => hps_0_h2f_lw_axi_master_bvalid,  --                  .bvalid
+			h2f_lw_BREADY           => hps_0_h2f_lw_axi_master_bready,  --                  .bready
+			h2f_lw_ARID             => hps_0_h2f_lw_axi_master_arid,    --                  .arid
+			h2f_lw_ARADDR           => hps_0_h2f_lw_axi_master_araddr,  --                  .araddr
+			h2f_lw_ARLEN            => hps_0_h2f_lw_axi_master_arlen,   --                  .arlen
+			h2f_lw_ARSIZE           => hps_0_h2f_lw_axi_master_arsize,  --                  .arsize
+			h2f_lw_ARBURST          => hps_0_h2f_lw_axi_master_arburst, --                  .arburst
+			h2f_lw_ARLOCK           => hps_0_h2f_lw_axi_master_arlock,  --                  .arlock
+			h2f_lw_ARCACHE          => hps_0_h2f_lw_axi_master_arcache, --                  .arcache
+			h2f_lw_ARPROT           => hps_0_h2f_lw_axi_master_arprot,  --                  .arprot
+			h2f_lw_ARVALID          => hps_0_h2f_lw_axi_master_arvalid, --                  .arvalid
+			h2f_lw_ARREADY          => hps_0_h2f_lw_axi_master_arready, --                  .arready
+			h2f_lw_RID              => hps_0_h2f_lw_axi_master_rid,     --                  .rid
+			h2f_lw_RDATA            => hps_0_h2f_lw_axi_master_rdata,   --                  .rdata
+			h2f_lw_RRESP            => hps_0_h2f_lw_axi_master_rresp,   --                  .rresp
+			h2f_lw_RLAST            => hps_0_h2f_lw_axi_master_rlast,   --                  .rlast
+			h2f_lw_RVALID           => hps_0_h2f_lw_axi_master_rvalid,  --                  .rvalid
+			h2f_lw_RREADY           => hps_0_h2f_lw_axi_master_rready   --                  .rready
+		);
+
+	mixvalue_pio : component reverbFPGA_Qsys_mixValue_PIO
+		port map (
+			clk        => clk_clk,                                           --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,          --               reset.reset_n
+			address    => mm_interconnect_0_mixvalue_pio_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_mixvalue_pio_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_mixvalue_pio_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_mixvalue_pio_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_mixvalue_pio_s1_readdata,        --                    .readdata
+			out_port   => mixvalue_pio_external_connection_export            -- external_connection.export
+		);
+
+	paramtype_pio : component reverbFPGA_Qsys_paramType_PIO
+		port map (
+			clk      => clk_clk,                                     --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv,    --               reset.reset_n
+			address  => mm_interconnect_0_paramtype_pio_s1_address,  --                  s1.address
+			readdata => mm_interconnect_0_paramtype_pio_s1_readdata, --                    .readdata
+			in_port  => paramtype_pio_external_connection_export     -- external_connection.export
+		);
+
+	paramvalueupdate_pio : component reverbFPGA_Qsys_paramValueUpdate_PIO
+		port map (
+			clk      => clk_clk,                                            --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv,           --               reset.reset_n
+			address  => mm_interconnect_0_paramvalueupdate_pio_s1_address,  --                  s1.address
+			readdata => mm_interconnect_0_paramvalueupdate_pio_s1_readdata, --                    .readdata
+			in_port  => paramvalueupdate_pio_external_connection_export     -- external_connection.export
 		);
 
 	serial_flash_loader : component altera_serial_flash_loader
@@ -514,6 +744,68 @@ begin
 		)
 		port map (
 			noe_in => serial_flash_loader_0_noe_in_noe  -- noe_in.noe
+		);
+
+	mm_interconnect_0 : component reverbFPGA_Qsys_mm_interconnect_0
+		port map (
+			hps_0_h2f_lw_axi_master_awid                                        => hps_0_h2f_lw_axi_master_awid,                       --                                       hps_0_h2f_lw_axi_master.awid
+			hps_0_h2f_lw_axi_master_awaddr                                      => hps_0_h2f_lw_axi_master_awaddr,                     --                                                              .awaddr
+			hps_0_h2f_lw_axi_master_awlen                                       => hps_0_h2f_lw_axi_master_awlen,                      --                                                              .awlen
+			hps_0_h2f_lw_axi_master_awsize                                      => hps_0_h2f_lw_axi_master_awsize,                     --                                                              .awsize
+			hps_0_h2f_lw_axi_master_awburst                                     => hps_0_h2f_lw_axi_master_awburst,                    --                                                              .awburst
+			hps_0_h2f_lw_axi_master_awlock                                      => hps_0_h2f_lw_axi_master_awlock,                     --                                                              .awlock
+			hps_0_h2f_lw_axi_master_awcache                                     => hps_0_h2f_lw_axi_master_awcache,                    --                                                              .awcache
+			hps_0_h2f_lw_axi_master_awprot                                      => hps_0_h2f_lw_axi_master_awprot,                     --                                                              .awprot
+			hps_0_h2f_lw_axi_master_awvalid                                     => hps_0_h2f_lw_axi_master_awvalid,                    --                                                              .awvalid
+			hps_0_h2f_lw_axi_master_awready                                     => hps_0_h2f_lw_axi_master_awready,                    --                                                              .awready
+			hps_0_h2f_lw_axi_master_wid                                         => hps_0_h2f_lw_axi_master_wid,                        --                                                              .wid
+			hps_0_h2f_lw_axi_master_wdata                                       => hps_0_h2f_lw_axi_master_wdata,                      --                                                              .wdata
+			hps_0_h2f_lw_axi_master_wstrb                                       => hps_0_h2f_lw_axi_master_wstrb,                      --                                                              .wstrb
+			hps_0_h2f_lw_axi_master_wlast                                       => hps_0_h2f_lw_axi_master_wlast,                      --                                                              .wlast
+			hps_0_h2f_lw_axi_master_wvalid                                      => hps_0_h2f_lw_axi_master_wvalid,                     --                                                              .wvalid
+			hps_0_h2f_lw_axi_master_wready                                      => hps_0_h2f_lw_axi_master_wready,                     --                                                              .wready
+			hps_0_h2f_lw_axi_master_bid                                         => hps_0_h2f_lw_axi_master_bid,                        --                                                              .bid
+			hps_0_h2f_lw_axi_master_bresp                                       => hps_0_h2f_lw_axi_master_bresp,                      --                                                              .bresp
+			hps_0_h2f_lw_axi_master_bvalid                                      => hps_0_h2f_lw_axi_master_bvalid,                     --                                                              .bvalid
+			hps_0_h2f_lw_axi_master_bready                                      => hps_0_h2f_lw_axi_master_bready,                     --                                                              .bready
+			hps_0_h2f_lw_axi_master_arid                                        => hps_0_h2f_lw_axi_master_arid,                       --                                                              .arid
+			hps_0_h2f_lw_axi_master_araddr                                      => hps_0_h2f_lw_axi_master_araddr,                     --                                                              .araddr
+			hps_0_h2f_lw_axi_master_arlen                                       => hps_0_h2f_lw_axi_master_arlen,                      --                                                              .arlen
+			hps_0_h2f_lw_axi_master_arsize                                      => hps_0_h2f_lw_axi_master_arsize,                     --                                                              .arsize
+			hps_0_h2f_lw_axi_master_arburst                                     => hps_0_h2f_lw_axi_master_arburst,                    --                                                              .arburst
+			hps_0_h2f_lw_axi_master_arlock                                      => hps_0_h2f_lw_axi_master_arlock,                     --                                                              .arlock
+			hps_0_h2f_lw_axi_master_arcache                                     => hps_0_h2f_lw_axi_master_arcache,                    --                                                              .arcache
+			hps_0_h2f_lw_axi_master_arprot                                      => hps_0_h2f_lw_axi_master_arprot,                     --                                                              .arprot
+			hps_0_h2f_lw_axi_master_arvalid                                     => hps_0_h2f_lw_axi_master_arvalid,                    --                                                              .arvalid
+			hps_0_h2f_lw_axi_master_arready                                     => hps_0_h2f_lw_axi_master_arready,                    --                                                              .arready
+			hps_0_h2f_lw_axi_master_rid                                         => hps_0_h2f_lw_axi_master_rid,                        --                                                              .rid
+			hps_0_h2f_lw_axi_master_rdata                                       => hps_0_h2f_lw_axi_master_rdata,                      --                                                              .rdata
+			hps_0_h2f_lw_axi_master_rresp                                       => hps_0_h2f_lw_axi_master_rresp,                      --                                                              .rresp
+			hps_0_h2f_lw_axi_master_rlast                                       => hps_0_h2f_lw_axi_master_rlast,                      --                                                              .rlast
+			hps_0_h2f_lw_axi_master_rvalid                                      => hps_0_h2f_lw_axi_master_rvalid,                     --                                                              .rvalid
+			hps_0_h2f_lw_axi_master_rready                                      => hps_0_h2f_lw_axi_master_rready,                     --                                                              .rready
+			clk_0_clk_clk                                                       => clk_clk,                                            --                                                     clk_0_clk.clk
+			dampingValue_PIO_reset_reset_bridge_in_reset_reset                  => rst_controller_reset_out_reset,                     --                  dampingValue_PIO_reset_reset_bridge_in_reset.reset
+			hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset => rst_controller_001_reset_out_reset,                 -- hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset.reset
+			dampingValue_PIO_s1_address                                         => mm_interconnect_0_dampingvalue_pio_s1_address,      --                                           dampingValue_PIO_s1.address
+			dampingValue_PIO_s1_write                                           => mm_interconnect_0_dampingvalue_pio_s1_write,        --                                                              .write
+			dampingValue_PIO_s1_readdata                                        => mm_interconnect_0_dampingvalue_pio_s1_readdata,     --                                                              .readdata
+			dampingValue_PIO_s1_writedata                                       => mm_interconnect_0_dampingvalue_pio_s1_writedata,    --                                                              .writedata
+			dampingValue_PIO_s1_chipselect                                      => mm_interconnect_0_dampingvalue_pio_s1_chipselect,   --                                                              .chipselect
+			decayValue_PIO_s1_address                                           => mm_interconnect_0_decayvalue_pio_s1_address,        --                                             decayValue_PIO_s1.address
+			decayValue_PIO_s1_write                                             => mm_interconnect_0_decayvalue_pio_s1_write,          --                                                              .write
+			decayValue_PIO_s1_readdata                                          => mm_interconnect_0_decayvalue_pio_s1_readdata,       --                                                              .readdata
+			decayValue_PIO_s1_writedata                                         => mm_interconnect_0_decayvalue_pio_s1_writedata,      --                                                              .writedata
+			decayValue_PIO_s1_chipselect                                        => mm_interconnect_0_decayvalue_pio_s1_chipselect,     --                                                              .chipselect
+			mixValue_PIO_s1_address                                             => mm_interconnect_0_mixvalue_pio_s1_address,          --                                               mixValue_PIO_s1.address
+			mixValue_PIO_s1_write                                               => mm_interconnect_0_mixvalue_pio_s1_write,            --                                                              .write
+			mixValue_PIO_s1_readdata                                            => mm_interconnect_0_mixvalue_pio_s1_readdata,         --                                                              .readdata
+			mixValue_PIO_s1_writedata                                           => mm_interconnect_0_mixvalue_pio_s1_writedata,        --                                                              .writedata
+			mixValue_PIO_s1_chipselect                                          => mm_interconnect_0_mixvalue_pio_s1_chipselect,       --                                                              .chipselect
+			paramType_PIO_s1_address                                            => mm_interconnect_0_paramtype_pio_s1_address,         --                                              paramType_PIO_s1.address
+			paramType_PIO_s1_readdata                                           => mm_interconnect_0_paramtype_pio_s1_readdata,        --                                                              .readdata
+			paramValueUpdate_PIO_s1_address                                     => mm_interconnect_0_paramvalueupdate_pio_s1_address,  --                                       paramValueUpdate_PIO_s1.address
+			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata  --                                                              .readdata
 		);
 
 	rst_controller : component altera_reset_controller
@@ -581,6 +873,81 @@ begin
 			reset_req_in15 => '0'                             -- (terminated)
 		);
 
+	rst_controller_001 : component altera_reset_controller
+		generic map (
+			NUM_RESET_INPUTS          => 1,
+			OUTPUT_RESET_SYNC_EDGES   => "deassert",
+			SYNC_DEPTH                => 2,
+			RESET_REQUEST_PRESENT     => 0,
+			RESET_REQ_WAIT_TIME       => 1,
+			MIN_RST_ASSERTION_TIME    => 3,
+			RESET_REQ_EARLY_DSRT_TIME => 1,
+			USE_RESET_REQUEST_IN0     => 0,
+			USE_RESET_REQUEST_IN1     => 0,
+			USE_RESET_REQUEST_IN2     => 0,
+			USE_RESET_REQUEST_IN3     => 0,
+			USE_RESET_REQUEST_IN4     => 0,
+			USE_RESET_REQUEST_IN5     => 0,
+			USE_RESET_REQUEST_IN6     => 0,
+			USE_RESET_REQUEST_IN7     => 0,
+			USE_RESET_REQUEST_IN8     => 0,
+			USE_RESET_REQUEST_IN9     => 0,
+			USE_RESET_REQUEST_IN10    => 0,
+			USE_RESET_REQUEST_IN11    => 0,
+			USE_RESET_REQUEST_IN12    => 0,
+			USE_RESET_REQUEST_IN13    => 0,
+			USE_RESET_REQUEST_IN14    => 0,
+			USE_RESET_REQUEST_IN15    => 0,
+			ADAPT_RESET_REQUEST       => 0
+		)
+		port map (
+			reset_in0      => hps_0_h2f_reset_reset_ports_inv,    -- reset_in0.reset
+			clk            => clk_clk,                            --       clk.clk
+			reset_out      => rst_controller_001_reset_out_reset, -- reset_out.reset
+			reset_req      => open,                               -- (terminated)
+			reset_req_in0  => '0',                                -- (terminated)
+			reset_in1      => '0',                                -- (terminated)
+			reset_req_in1  => '0',                                -- (terminated)
+			reset_in2      => '0',                                -- (terminated)
+			reset_req_in2  => '0',                                -- (terminated)
+			reset_in3      => '0',                                -- (terminated)
+			reset_req_in3  => '0',                                -- (terminated)
+			reset_in4      => '0',                                -- (terminated)
+			reset_req_in4  => '0',                                -- (terminated)
+			reset_in5      => '0',                                -- (terminated)
+			reset_req_in5  => '0',                                -- (terminated)
+			reset_in6      => '0',                                -- (terminated)
+			reset_req_in6  => '0',                                -- (terminated)
+			reset_in7      => '0',                                -- (terminated)
+			reset_req_in7  => '0',                                -- (terminated)
+			reset_in8      => '0',                                -- (terminated)
+			reset_req_in8  => '0',                                -- (terminated)
+			reset_in9      => '0',                                -- (terminated)
+			reset_req_in9  => '0',                                -- (terminated)
+			reset_in10     => '0',                                -- (terminated)
+			reset_req_in10 => '0',                                -- (terminated)
+			reset_in11     => '0',                                -- (terminated)
+			reset_req_in11 => '0',                                -- (terminated)
+			reset_in12     => '0',                                -- (terminated)
+			reset_req_in12 => '0',                                -- (terminated)
+			reset_in13     => '0',                                -- (terminated)
+			reset_req_in13 => '0',                                -- (terminated)
+			reset_in14     => '0',                                -- (terminated)
+			reset_req_in14 => '0',                                -- (terminated)
+			reset_in15     => '0',                                -- (terminated)
+			reset_req_in15 => '0'                                 -- (terminated)
+		);
+
 	reset_reset_n_ports_inv <= not reset_reset_n;
+
+	mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_dampingvalue_pio_s1_write;
+
+	mm_interconnect_0_mixvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_mixvalue_pio_s1_write;
+
+	mm_interconnect_0_decayvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_decayvalue_pio_s1_write;
+
+	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
+
+	hps_0_h2f_reset_reset_ports_inv <= not hps_0_h2f_reset_reset;
 
 end architecture rtl; -- of reverbFPGA_Qsys

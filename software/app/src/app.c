@@ -1,9 +1,11 @@
 #include "app.h"
+#include "reverbFPGA_Qsys.h"
 
 #include "hps.h"
 #include "alt_printf.h"
 #include "alt_generalpurpose_io.h"
 #include "alt_i2c.h"
+#include "socal.h"
 
 void CHECK_ERROR(ALT_STATUS_CODE retVal)	{
 	// turn on USER LED on error
@@ -14,9 +16,6 @@ void CHECK_ERROR(ALT_STATUS_CODE retVal)	{
 }
 
 int main(void) {
-	alt_printf("!!!Hello World!!!"); /* prints !!!Hello World!!! */
-
-
 	/* --- Set HPS_I2C_CONTROL to 1 for audio CODEC access from HPS --- */
 	alt_gpio_init();
 	CHECK_ERROR(alt_gpio_port_datadir_set(ALT_GPIO_PORTB, 1<<19, 1<<19));
@@ -92,8 +91,13 @@ int main(void) {
 										 0,
 										 1));
 	/* ------------------------------------------------------------------------------------ */
-
+	float decay = 0.25;
+	float mix = 0.75;
+	uint32_t max = (1<<HPS_0_DECAYVALUE_PIO_DATA_WIDTH) - 1;
+	uint32_t maxMix = (1<<HPS_0_MIXVALUE_PIO_DATA_WIDTH) - 1;
 	while(1)	{
+		alt_write_word(HPS_0_DECAYVALUE_PIO_BASE, 0b1000000000000000000000000);
+		alt_write_word(HPS_0_MIXVALUE_PIO_BASE, 0b100000000000000000000000);
 	}
 	return EXIT_SUCCESS;
 }

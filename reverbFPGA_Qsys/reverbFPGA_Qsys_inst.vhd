@@ -19,6 +19,8 @@
 			audio_controller_external_interface_DACLRCK        : in    std_logic                     := 'X';             -- DACLRCK
 			audio_pll_0_audio_clk_clk                          : out   std_logic;                                        -- clk
 			clk_clk                                            : in    std_logic                     := 'X';             -- clk
+			dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    -- export
+			decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    -- export
 			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
 			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
 			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe
@@ -45,6 +47,9 @@
 			memory_mem_odt                                     : out   std_logic;                                        -- mem_odt
 			memory_mem_dm                                      : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			memory_oct_rzqin                                   : in    std_logic                     := 'X';             -- oct_rzqin
+			mixvalue_pio_external_connection_export            : out   std_logic_vector(23 downto 0);                    -- export
+			paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+			paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
 			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X'              -- noe
 		);
@@ -71,6 +76,8 @@
 			audio_controller_external_interface_DACLRCK        => CONNECTED_TO_audio_controller_external_interface_DACLRCK,        --                                             .DACLRCK
 			audio_pll_0_audio_clk_clk                          => CONNECTED_TO_audio_pll_0_audio_clk_clk,                          --                        audio_pll_0_audio_clk.clk
 			clk_clk                                            => CONNECTED_TO_clk_clk,                                            --                                          clk.clk
+			dampingvalue_pio_external_connection_export        => CONNECTED_TO_dampingvalue_pio_external_connection_export,        --         dampingvalue_pio_external_connection.export
+			decayvalue_pio_external_connection_export          => CONNECTED_TO_decayvalue_pio_external_connection_export,          --           decayvalue_pio_external_connection.export
 			hps_0_h2f_mpu_events_eventi                        => CONNECTED_TO_hps_0_h2f_mpu_events_eventi,                        --                         hps_0_h2f_mpu_events.eventi
 			hps_0_h2f_mpu_events_evento                        => CONNECTED_TO_hps_0_h2f_mpu_events_evento,                        --                                             .evento
 			hps_0_h2f_mpu_events_standbywfe                    => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfe,                    --                                             .standbywfe
@@ -97,6 +104,9 @@
 			memory_mem_odt                                     => CONNECTED_TO_memory_mem_odt,                                     --                                             .mem_odt
 			memory_mem_dm                                      => CONNECTED_TO_memory_mem_dm,                                      --                                             .mem_dm
 			memory_oct_rzqin                                   => CONNECTED_TO_memory_oct_rzqin,                                   --                                             .oct_rzqin
+			mixvalue_pio_external_connection_export            => CONNECTED_TO_mixvalue_pio_external_connection_export,            --             mixvalue_pio_external_connection.export
+			paramtype_pio_external_connection_export           => CONNECTED_TO_paramtype_pio_external_connection_export,           --            paramtype_pio_external_connection.export
+			paramvalueupdate_pio_external_connection_export    => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,    --     paramvalueupdate_pio_external_connection.export
 			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                        reset.reset_n
 			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                    --                 serial_flash_loader_0_noe_in.noe
 		);
