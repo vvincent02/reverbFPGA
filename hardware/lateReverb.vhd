@@ -29,7 +29,7 @@ type int_Array4 is array(1 to 4) of integer range 1 to 65535;
 constant N_LFCF : int_Array8 := (547, 601, 683, 727, 859, 919, 983, 997);
 
 -- retards des blocs APF en série
-constant N_APF : int_Array4 := (225, 501, 226, 314);
+constant N_APF : int_Array4 := (227, 557, 443, 349);
 
 signal inputAdder : S_vectArray8;
 signal outputAdder : signed(dataIN'HIGH+3 downto 0);

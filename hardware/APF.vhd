@@ -18,7 +18,7 @@ END APF;
 
 ARCHITECTURE archi OF APF IS
 
-constant nbrExtraBits : integer range 0 to 6 := 1;
+constant nbrExtraBits : integer range 0 to 6 := 2;
 
 signal firstInputAdder1 : signed(dataIN'HIGH + nbrExtraBits downto 0); -- valeur d'entrée multipliée par (1+g) = 1.5
 signal secondInputAdder1 : signed(dataIN'HIGH + nbrExtraBits downto 0);
@@ -28,6 +28,8 @@ signal firstInputAdder2 : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondInputAdder2 : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal outputAdder2 : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
+signal APFoutput : signed(dataIN'HIGH + nbrExtraBits downto 0);
+
 BEGIN
 
 -- gain (1+g) = 1.5
@@ -35,6 +37,11 @@ firstInputAdder1 <= resize(dataIN, firstInputAdder1'LENGTH) + resize(dataIN, fir
 
 -- gain g (retour de la boucle)
 secondInputAdder1 <= outputAdder2 / 2;
+
+-- gain atténuation en sortie
+reductionGain : entity work.coefMult(archi)
+	generic map(outputAdder2'LENGTH)
+	port map(dataIN => outputAdder2, dataOUT => APFoutput, coef => "11010111000010100011110101"); -- gain d'atténuation = 0.59
 
 -- sommateurs
 outputAdder1 <= firstInputAdder1 + secondInputAdder1;
@@ -45,6 +52,6 @@ delayLineOperator : entity work.delayLine(archi)
 	generic map(outputAdder1'LENGTH, N)
 	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder1, dataOUT => firstInputAdder2);
 
-dataOUT <= resize(outputAdder2, dataOUT'LENGTH);
+dataOUT <= resize(APFoutput, dataOUT'LENGTH);
 
 END archi;
