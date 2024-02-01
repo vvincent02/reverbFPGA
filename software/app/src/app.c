@@ -22,6 +22,52 @@ int main(void) {
 	CHECK_ERROR(alt_gpio_port_data_write(ALT_GPIO_PORTB, 1<<19, 1<<19));
 	/* --- */
 
+	initAudioCODEC_I2C();
+
+	uint8_t paramType_PIO_value;
+	uint8_t paramValueUpdate_PIO_value;
+	PARAM_TYPE paramType = NONE_PARAM;
+	UPDATE_TYPE updateType = NONE;
+	while(1)	{
+		// get parameter type
+		paramType_PIO_value = alt_read_byte(ALT_LWFPGASLVS_ADDR + HPS_0_PARAMTYPE_PIO_BASE);
+		switch(paramType_PIO_value)	{
+		case 0b0001 :
+			paramType = DAMPING;
+			break;
+		case 0b0010 :
+			paramType = DECAY;
+			break;
+		case 0b0100 :
+			paramType = PREDELAY;
+			break;
+		case 0b1000 :
+			paramType = MIX;
+			break;
+		default :
+			paramType = NONE_PARAM;
+		}
+
+		// get value to modify or not the current parameter
+		paramValueUpdate_PIO_value = alt_read_byte(ALT_LWFPGASLVS_ADDR + HPS_0_PARAMVALUEUPDATE_PIO_BASE);
+		switch(paramValueUpdate_PIO_value)	{
+		case 0b10 :
+			updateType = INCR;
+			break;
+		case 0b01 :
+			updateType = DECR;
+			break;
+		default :
+			updateType = NONE;
+			break;
+		}
+
+		updateParamValue(paramType, updateType);
+	}
+	return EXIT_SUCCESS;
+}
+
+void initAudioCODEC_I2C()	{
 	/* --- Set audio CODEC registers through I2C communication --- */
 	ALT_I2C_DEV_t I2C_Device;
 
@@ -91,13 +137,30 @@ int main(void) {
 										 0,
 										 1));
 	/* ------------------------------------------------------------------------------------ */
-	float decay = 0.25;
-	float mix = 0.75;
-	uint32_t max = (1<<HPS_0_DECAYVALUE_PIO_DATA_WIDTH) - 1;
-	uint32_t maxMix = (1<<HPS_0_MIXVALUE_PIO_DATA_WIDTH) - 1;
-	while(1)	{
-		alt_write_word(HPS_0_DECAYVALUE_PIO_BASE, 0b1000000000000000000000000);
-		alt_write_word(HPS_0_MIXVALUE_PIO_BASE, 0b100000000000000000000000);
+}
+
+void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType)	{
+	uint32_t maxVal;
+
+// macro to update the selected parameter according to updateType value
+#define UPDATE_PARAM_VALUE(pioName) maxVal = (1<<HPS_0_##pioName##_PIO_DATA_WIDTH) - 1; \
+									alt_write_word(ALT_LWFPGASLVS_ADDR + HPS_0_##pioName##_PIO_BASE, \
+										CLAMP(alt_read_word(ALT_LWFPGASLVS_ADDR + HPS_0_##pioName##_PIO_BASE) + updateType*INCR_VALUE*maxVal, 0, maxVal))
+
+	switch(paramType)	{
+	case MIX :
+		UPDATE_PARAM_VALUE(MIXVALUE);
+		break;
+	case PREDELAY :
+
+		break;
+	case DECAY :
+		UPDATE_PARAM_VALUE(DECAYVALUE);
+		break;
+	case DAMPING :
+		UPDATE_PARAM_VALUE(DAMPINGVALUE);
+		break;
+	default :
+		break;
 	}
-	return EXIT_SUCCESS;
 }

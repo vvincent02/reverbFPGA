@@ -428,22 +428,6 @@ set_location_assignment PIN_AA30 -to IRDA_RXD
 set_location_assignment PIN_AB30 -to IRDA_TXD
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to IRDA_RXD
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to IRDA_TXD
-set_location_assignment PIN_AA14 -to KEY_N[0]
-set_location_assignment PIN_AA14 -to KEY_N_0
-set_location_assignment PIN_AA15 -to KEY_N[1]
-set_location_assignment PIN_AA15 -to KEY_N_1
-set_location_assignment PIN_W15 -to KEY_N[2]
-set_location_assignment PIN_W15 -to KEY_N_2
-set_location_assignment PIN_Y16 -to KEY_N[3]
-set_location_assignment PIN_Y16 -to KEY_N_3
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N_0
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N_1
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N_2
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to KEY_N_3
 set_location_assignment PIN_W16 -to LEDR[1]
 set_location_assignment PIN_W16 -to LEDR_1
 set_location_assignment PIN_V17 -to LEDR[2]
@@ -490,46 +474,6 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_CLK
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_CLK2
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_DAT
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to PS2_DAT2
-set_location_assignment PIN_AB12 -to SW[0]
-set_location_assignment PIN_AB12 -to SW_0
-set_location_assignment PIN_AC12 -to SW[1]
-set_location_assignment PIN_AC12 -to SW_1
-set_location_assignment PIN_AF9 -to SW[2]
-set_location_assignment PIN_AF9 -to SW_2
-set_location_assignment PIN_AF10 -to SW[3]
-set_location_assignment PIN_AF10 -to SW_3
-set_location_assignment PIN_AD11 -to SW[4]
-set_location_assignment PIN_AD11 -to SW_4
-set_location_assignment PIN_AD12 -to SW[5]
-set_location_assignment PIN_AD12 -to SW_5
-set_location_assignment PIN_AE11 -to SW[6]
-set_location_assignment PIN_AE11 -to SW_6
-set_location_assignment PIN_AC9 -to SW[7]
-set_location_assignment PIN_AC9 -to SW_7
-set_location_assignment PIN_AD10 -to SW[8]
-set_location_assignment PIN_AD10 -to SW_8
-set_location_assignment PIN_AE12 -to SW[9]
-set_location_assignment PIN_AE12 -to SW_9
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[0]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_0
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[1]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_1
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[2]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_2
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[3]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_3
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[4]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_4
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[5]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_5
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[6]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_6
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[7]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_7
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[8]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_8
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW[9]
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SW_9
 set_location_assignment PIN_H15 -to TD_CLK27
 set_location_assignment PIN_D2 -to TD_DATA[0]
 set_location_assignment PIN_D2 -to TD_DATA_0
@@ -1390,7 +1334,7 @@ set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_1[34]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_1_34
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_1[35]
 set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to GPIO_1_35
-set_location_assignment PIN_AE12 -to rst
+set_location_assignment PIN_AA14 -to rst
 set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[0] -tag __hps_sdram_p0
 set_instance_assignment -name OUTPUT_TERMINATION "SERIES 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[0] -tag __hps_sdram_p0
 set_instance_assignment -name INPUT_TERMINATION "PARALLEL 50 OHM WITH CALIBRATION" -to HPS_DDR3_DQ[1] -tag __hps_sdram_p0
@@ -1592,7 +1536,13 @@ set_instance_assignment -name GLOBAL_SIGNAL OFF -to Qsys|hps_0|hps_io|border|hps
 set_instance_assignment -name PLL_COMPENSATION_MODE DIRECT -to Qsys|hps_0|hps_io|border|hps_sdram_inst|pll0|fbout -tag __hps_sdram_p0
 set_global_assignment -name ENABLE_SIGNALTAP ON
 set_global_assignment -name USE_SIGNALTAP_FILE stp1.stp
-set_location_assignment PIN_AB12 -to stereo_n_mono
 set_global_assignment -name VHDL_FILE hardware/interface_AVST_proc.vhd
 set_global_assignment -name SOURCE_FILE db/reverbFPGA.cmp.rdb
+set_instance_assignment -name IO_STANDARD "1.2 V" -to altera_reserved_tdi
+set_location_assignment PIN_Y16 -to paramValueUpdate[1]
+set_location_assignment PIN_W15 -to paramValueUpdate[0]
+set_location_assignment PIN_AB12 -to paramType[0]
+set_location_assignment PIN_AC12 -to paramType[1]
+set_location_assignment PIN_AF9 -to paramType[2]
+set_location_assignment PIN_AF10 -to paramType[3]
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

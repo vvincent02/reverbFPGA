@@ -1,6 +1,10 @@
 #ifndef APP_H
 #define APP_H
 
+#include <stdint.h>
+#include <stdlib.h>
+#include <math.h>
+
 #define AUDIO_CODEC_ADDR 0b0011010
 
 #define ANALOG_AUDIO_PATH_CONTROL_ADDR 0b0000100
@@ -12,8 +16,25 @@
 #define POWER_DOWN_CONTROL_ADDR 0b0000110
 #define ACTIVE_CONTROL_ADDR 0b0001001
 
-#include <stdint.h>
-#include <stdlib.h>
+#define CLAMP(val, a, b) fmaxl(a, fminl(val, b))
+
+#define INCR_VALUE 1.0e-6
+
+typedef enum	{
+	MIX,
+	PREDELAY,
+	DECAY,
+	DAMPING,
+	NONE_PARAM
+} PARAM_TYPE;
+
+typedef enum	{
+	DECR=-1,
+	INCR=1,
+	NONE=0
+} UPDATE_TYPE;
+
+void initAudioCODEC_I2C();
 
 uint8_t* bufferToSend(uint8_t controlAddrBits, uint16_t controlDataBits)	{
 	static uint8_t dataBytes[2];
@@ -22,5 +43,8 @@ uint8_t* bufferToSend(uint8_t controlAddrBits, uint16_t controlDataBits)	{
 
 	return dataBytes;
 }
+
+void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType);
+
 
 #endif // APP_H
