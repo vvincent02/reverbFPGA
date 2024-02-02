@@ -39,15 +39,159 @@
 #define HPS_0_AXI_SDRAM_MEMORY_INFO_MEM_INIT_DATA_WIDTH 31
 
 /*
+ * Macros for device 'seg3', class 'altera_avalon_pio'
+ * The macros are prefixed with 'SEG3_'.
+ * The prefix is the slave descriptor.
+ */
+#define SEG3_COMPONENT_TYPE altera_avalon_pio
+#define SEG3_COMPONENT_NAME seg3
+#define SEG3_BASE 0x0
+#define SEG3_SPAN 16
+#define SEG3_END 0xf
+#define SEG3_BIT_CLEARING_EDGE_REGISTER 0
+#define SEG3_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define SEG3_CAPTURE 0
+#define SEG3_DATA_WIDTH 4
+#define SEG3_DO_TEST_BENCH_WIRING 0
+#define SEG3_DRIVEN_SIM_VALUE 0
+#define SEG3_EDGE_TYPE NONE
+#define SEG3_FREQ 50000000
+#define SEG3_HAS_IN 0
+#define SEG3_HAS_OUT 1
+#define SEG3_HAS_TRI 0
+#define SEG3_IRQ_TYPE NONE
+#define SEG3_RESET_VALUE 15
+
+/*
+ * Macros for device 'seg2', class 'altera_avalon_pio'
+ * The macros are prefixed with 'SEG2_'.
+ * The prefix is the slave descriptor.
+ */
+#define SEG2_COMPONENT_TYPE altera_avalon_pio
+#define SEG2_COMPONENT_NAME seg2
+#define SEG2_BASE 0x10
+#define SEG2_SPAN 16
+#define SEG2_END 0x1f
+#define SEG2_BIT_CLEARING_EDGE_REGISTER 0
+#define SEG2_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define SEG2_CAPTURE 0
+#define SEG2_DATA_WIDTH 4
+#define SEG2_DO_TEST_BENCH_WIRING 0
+#define SEG2_DRIVEN_SIM_VALUE 0
+#define SEG2_EDGE_TYPE NONE
+#define SEG2_FREQ 50000000
+#define SEG2_HAS_IN 0
+#define SEG2_HAS_OUT 1
+#define SEG2_HAS_TRI 0
+#define SEG2_IRQ_TYPE NONE
+#define SEG2_RESET_VALUE 15
+
+/*
+ * Macros for device 'seg1', class 'altera_avalon_pio'
+ * The macros are prefixed with 'SEG1_'.
+ * The prefix is the slave descriptor.
+ */
+#define SEG1_COMPONENT_TYPE altera_avalon_pio
+#define SEG1_COMPONENT_NAME seg1
+#define SEG1_BASE 0x20
+#define SEG1_SPAN 16
+#define SEG1_END 0x2f
+#define SEG1_BIT_CLEARING_EDGE_REGISTER 0
+#define SEG1_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define SEG1_CAPTURE 0
+#define SEG1_DATA_WIDTH 4
+#define SEG1_DO_TEST_BENCH_WIRING 0
+#define SEG1_DRIVEN_SIM_VALUE 0
+#define SEG1_EDGE_TYPE NONE
+#define SEG1_FREQ 50000000
+#define SEG1_HAS_IN 0
+#define SEG1_HAS_OUT 1
+#define SEG1_HAS_TRI 0
+#define SEG1_IRQ_TYPE NONE
+#define SEG1_RESET_VALUE 15
+
+/*
+ * Macros for device 'seg0', class 'altera_avalon_pio'
+ * The macros are prefixed with 'SEG0_'.
+ * The prefix is the slave descriptor.
+ */
+#define SEG0_COMPONENT_TYPE altera_avalon_pio
+#define SEG0_COMPONENT_NAME seg0
+#define SEG0_BASE 0x30
+#define SEG0_SPAN 16
+#define SEG0_END 0x3f
+#define SEG0_BIT_CLEARING_EDGE_REGISTER 0
+#define SEG0_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define SEG0_CAPTURE 0
+#define SEG0_DATA_WIDTH 4
+#define SEG0_DO_TEST_BENCH_WIRING 0
+#define SEG0_DRIVEN_SIM_VALUE 0
+#define SEG0_EDGE_TYPE NONE
+#define SEG0_FREQ 50000000
+#define SEG0_HAS_IN 0
+#define SEG0_HAS_OUT 1
+#define SEG0_HAS_TRI 0
+#define SEG0_IRQ_TYPE NONE
+#define SEG0_RESET_VALUE 15
+
+/*
+ * Macros for device 'decayValue_PIO', class 'altera_avalon_pio'
+ * The macros are prefixed with 'DECAYVALUE_PIO_'.
+ * The prefix is the slave descriptor.
+ */
+#define DECAYVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
+#define DECAYVALUE_PIO_COMPONENT_NAME decayValue_PIO
+#define DECAYVALUE_PIO_BASE 0x40
+#define DECAYVALUE_PIO_SPAN 16
+#define DECAYVALUE_PIO_END 0x4f
+#define DECAYVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
+#define DECAYVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define DECAYVALUE_PIO_CAPTURE 0
+#define DECAYVALUE_PIO_DATA_WIDTH 24
+#define DECAYVALUE_PIO_DO_TEST_BENCH_WIRING 0
+#define DECAYVALUE_PIO_DRIVEN_SIM_VALUE 0
+#define DECAYVALUE_PIO_EDGE_TYPE NONE
+#define DECAYVALUE_PIO_FREQ 50000000
+#define DECAYVALUE_PIO_HAS_IN 0
+#define DECAYVALUE_PIO_HAS_OUT 1
+#define DECAYVALUE_PIO_HAS_TRI 0
+#define DECAYVALUE_PIO_IRQ_TYPE NONE
+#define DECAYVALUE_PIO_RESET_VALUE 0
+
+/*
+ * Macros for device 'paramType_PIO', class 'altera_avalon_pio'
+ * The macros are prefixed with 'PARAMTYPE_PIO_'.
+ * The prefix is the slave descriptor.
+ */
+#define PARAMTYPE_PIO_COMPONENT_TYPE altera_avalon_pio
+#define PARAMTYPE_PIO_COMPONENT_NAME paramType_PIO
+#define PARAMTYPE_PIO_BASE 0x50
+#define PARAMTYPE_PIO_SPAN 16
+#define PARAMTYPE_PIO_END 0x5f
+#define PARAMTYPE_PIO_BIT_CLEARING_EDGE_REGISTER 0
+#define PARAMTYPE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define PARAMTYPE_PIO_CAPTURE 0
+#define PARAMTYPE_PIO_DATA_WIDTH 4
+#define PARAMTYPE_PIO_DO_TEST_BENCH_WIRING 0
+#define PARAMTYPE_PIO_DRIVEN_SIM_VALUE 0
+#define PARAMTYPE_PIO_EDGE_TYPE NONE
+#define PARAMTYPE_PIO_FREQ 50000000
+#define PARAMTYPE_PIO_HAS_IN 1
+#define PARAMTYPE_PIO_HAS_OUT 0
+#define PARAMTYPE_PIO_HAS_TRI 0
+#define PARAMTYPE_PIO_IRQ_TYPE NONE
+#define PARAMTYPE_PIO_RESET_VALUE 0
+
+/*
  * Macros for device 'paramValueUpdate_PIO', class 'altera_avalon_pio'
  * The macros are prefixed with 'PARAMVALUEUPDATE_PIO_'.
  * The prefix is the slave descriptor.
  */
 #define PARAMVALUEUPDATE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define PARAMVALUEUPDATE_PIO_COMPONENT_NAME paramValueUpdate_PIO
-#define PARAMVALUEUPDATE_PIO_BASE 0x0
+#define PARAMVALUEUPDATE_PIO_BASE 0x60
 #define PARAMVALUEUPDATE_PIO_SPAN 16
-#define PARAMVALUEUPDATE_PIO_END 0xf
+#define PARAMVALUEUPDATE_PIO_END 0x6f
 #define PARAMVALUEUPDATE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define PARAMVALUEUPDATE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PARAMVALUEUPDATE_PIO_CAPTURE 0
@@ -69,9 +213,9 @@
  */
 #define MIXVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define MIXVALUE_PIO_COMPONENT_NAME mixValue_PIO
-#define MIXVALUE_PIO_BASE 0x10
+#define MIXVALUE_PIO_BASE 0x70
 #define MIXVALUE_PIO_SPAN 16
-#define MIXVALUE_PIO_END 0x1f
+#define MIXVALUE_PIO_END 0x7f
 #define MIXVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define MIXVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define MIXVALUE_PIO_CAPTURE 0
@@ -93,13 +237,13 @@
  */
 #define DAMPINGVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define DAMPINGVALUE_PIO_COMPONENT_NAME dampingValue_PIO
-#define DAMPINGVALUE_PIO_BASE 0x20
+#define DAMPINGVALUE_PIO_BASE 0x80
 #define DAMPINGVALUE_PIO_SPAN 16
-#define DAMPINGVALUE_PIO_END 0x2f
+#define DAMPINGVALUE_PIO_END 0x8f
 #define DAMPINGVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define DAMPINGVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define DAMPINGVALUE_PIO_CAPTURE 0
-#define DAMPINGVALUE_PIO_DATA_WIDTH 25
+#define DAMPINGVALUE_PIO_DATA_WIDTH 24
 #define DAMPINGVALUE_PIO_DO_TEST_BENCH_WIRING 0
 #define DAMPINGVALUE_PIO_DRIVEN_SIM_VALUE 0
 #define DAMPINGVALUE_PIO_EDGE_TYPE NONE
@@ -109,54 +253,6 @@
 #define DAMPINGVALUE_PIO_HAS_TRI 0
 #define DAMPINGVALUE_PIO_IRQ_TYPE NONE
 #define DAMPINGVALUE_PIO_RESET_VALUE 0
-
-/*
- * Macros for device 'decayValue_PIO', class 'altera_avalon_pio'
- * The macros are prefixed with 'DECAYVALUE_PIO_'.
- * The prefix is the slave descriptor.
- */
-#define DECAYVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
-#define DECAYVALUE_PIO_COMPONENT_NAME decayValue_PIO
-#define DECAYVALUE_PIO_BASE 0x30
-#define DECAYVALUE_PIO_SPAN 16
-#define DECAYVALUE_PIO_END 0x3f
-#define DECAYVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
-#define DECAYVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define DECAYVALUE_PIO_CAPTURE 0
-#define DECAYVALUE_PIO_DATA_WIDTH 25
-#define DECAYVALUE_PIO_DO_TEST_BENCH_WIRING 0
-#define DECAYVALUE_PIO_DRIVEN_SIM_VALUE 0
-#define DECAYVALUE_PIO_EDGE_TYPE NONE
-#define DECAYVALUE_PIO_FREQ 50000000
-#define DECAYVALUE_PIO_HAS_IN 0
-#define DECAYVALUE_PIO_HAS_OUT 1
-#define DECAYVALUE_PIO_HAS_TRI 0
-#define DECAYVALUE_PIO_IRQ_TYPE NONE
-#define DECAYVALUE_PIO_RESET_VALUE 0
-
-/*
- * Macros for device 'paramType_PIO', class 'altera_avalon_pio'
- * The macros are prefixed with 'PARAMTYPE_PIO_'.
- * The prefix is the slave descriptor.
- */
-#define PARAMTYPE_PIO_COMPONENT_TYPE altera_avalon_pio
-#define PARAMTYPE_PIO_COMPONENT_NAME paramType_PIO
-#define PARAMTYPE_PIO_BASE 0x40
-#define PARAMTYPE_PIO_SPAN 16
-#define PARAMTYPE_PIO_END 0x4f
-#define PARAMTYPE_PIO_BIT_CLEARING_EDGE_REGISTER 0
-#define PARAMTYPE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define PARAMTYPE_PIO_CAPTURE 0
-#define PARAMTYPE_PIO_DATA_WIDTH 4
-#define PARAMTYPE_PIO_DO_TEST_BENCH_WIRING 0
-#define PARAMTYPE_PIO_DRIVEN_SIM_VALUE 0
-#define PARAMTYPE_PIO_EDGE_TYPE NONE
-#define PARAMTYPE_PIO_FREQ 50000000
-#define PARAMTYPE_PIO_HAS_IN 1
-#define PARAMTYPE_PIO_HAS_OUT 0
-#define PARAMTYPE_PIO_HAS_TRI 0
-#define PARAMTYPE_PIO_IRQ_TYPE NONE
-#define PARAMTYPE_PIO_RESET_VALUE 0
 
 /*
  * Macros for device 'hps_0_gmac0', class 'stmmac'

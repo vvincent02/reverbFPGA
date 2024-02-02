@@ -49,7 +49,11 @@ PORT(
 	HPS_UART_TX : OUT std_logic;
 	HPS_LED : INOUT std_logic;
 	
-	LEDR_1 : OUT std_logic;
+	HEX0_N : OUT std_logic_vector(6 downto 0);
+	HEX1_N : OUT std_logic_vector(6 downto 0);
+	HEX2_N : OUT std_logic_vector(6 downto 0);
+	HEX3_N : OUT std_logic_vector(6 downto 0);
+	
 	stereo_n_mono : IN std_logic
 );
 END reverbFPGA;
@@ -60,11 +64,17 @@ ARCHITECTURE archi OF reverbFPGA IS
 signal dataL_sampled_valid : std_logic;
 signal dataR_sampled_valid : std_logic;
 
----- paramètres de la reverb
+-- paramètres de la reverb
 --signal preDelayValue : std_logic_vector(23 downto 0);
 signal mixValue : std_logic_vector(23 downto 0);
-signal decayValue : std_logic_vector(24 downto 0);
-signal dampingValue : std_logic_vector(24 downto 0);
+signal decayValue : std_logic_vector(23 downto 0);
+signal dampingValue : std_logic_vector(23 downto 0);
+
+-- signaux valeur des afficheurs 7 segments
+signal seg0Val : std_logic_vector(3 downto 0);
+signal seg1Val : std_logic_vector(3 downto 0);
+signal seg2Val : std_logic_vector(3 downto 0);
+signal seg3Val : std_logic_vector(3 downto 0);
 
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
@@ -101,13 +111,12 @@ signal dataR_OUT_dryGain : signed(23 downto 0);
 signal dataR_OUT_wetGain : signed(23 downto 0);
 signal dataR_OUT_lateReverb : signed(23 downto 0);
 
-
 -- Qsys component
 component reverbFPGA_Qsys is
 port (
 	clk_clk                                           : in    std_logic                     := 'X';             -- clk
-	dampingvalue_pio_external_connection_export       : out   std_logic_vector(24 downto 0);                    -- export
-	decayvalue_pio_external_connection_export         : out   std_logic_vector(24 downto 0);                    -- export
+	dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
+	decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
 	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
 --	predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
 	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
@@ -161,7 +170,12 @@ port (
 	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 
-	audio_pll_0_audio_clk_clk                         : out   std_logic                                         -- clk
+	audio_pll_0_audio_clk_clk                         : out   std_logic;                                         -- clk
+
+	seg0_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
+   seg1_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
+   seg2_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
+   seg3_external_connection_export                    : out   std_logic_vector(3 downto 0)                      -- export
 );
 end component reverbFPGA_Qsys;
 
@@ -227,8 +241,24 @@ port map (
 	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    => HPS_I2C_CONTROL,                    --                                            .hps_io_gpio_inst_GPIO48
 	
-	audio_pll_0_audio_clk_clk                         => AUD_XCK                          --                       audio_pll_0_audio_clk.clk
+	audio_pll_0_audio_clk_clk                         => AUD_XCK,                          --                       audio_pll_0_audio_clk.clk
+
+	seg0_external_connection_export                    => seg0Val,                    --                     seg0_external_connection.export
+   seg1_external_connection_export                    => seg1Val,                    --                     seg1_external_connection.export
+   seg2_external_connection_export                    => seg2Val,                    --                     seg2_external_connection.export
+   seg3_external_connection_export                    => seg3Val                     --                     seg3_external_connection.export
 );
+
+---------------- 7seg decoders --------------------
+seg0 : entity work.segDecod(archi)
+	port map(valueIN => seg0Val, segOUT => HEX0_N);
+seg1 : entity work.segDecod(archi)
+	port map(valueIN => seg1Val, segOUT => HEX1_N);
+seg2 : entity work.segDecod(archi)
+	port map(valueIN => seg2Val, segOUT => HEX2_N);
+seg3 : entity work.segDecod(archi)
+	port map(valueIN => seg3Val, segOUT => HEX3_N);
+---------------------------------------------------
 
 --------------- interfaces bus Avalon ST - signals AUD codec (L+R) -----------------------------------
 interfaceL : entity work.interface_AVST_proc(archi)
@@ -292,7 +322,6 @@ lateReverbR : entity work.lateReverb(archi)
 				dampingValue => unsigned(dampingValue), 
 				decayValue => unsigned(decayValue));  	
 ---------------------------------------------------------------------------------------------
-
 
 --------------------------------- Gestion du mix dry/wet ------------------------------------
 -- gain dry pour l'envoi du son "pur" en sortie

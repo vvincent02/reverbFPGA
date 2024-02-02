@@ -50,6 +50,10 @@
 		.paramtype_pio_external_connection_export           (<connected-to-paramtype_pio_external_connection_export>),           //            paramtype_pio_external_connection.export
 		.paramvalueupdate_pio_external_connection_export    (<connected-to-paramvalueupdate_pio_external_connection_export>),    //     paramvalueupdate_pio_external_connection.export
 		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                        reset.reset_n
-		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>)                    //                 serial_flash_loader_0_noe_in.noe
+		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>),                   //                 serial_flash_loader_0_noe_in.noe
+		.seg0_external_connection_export                    (<connected-to-seg0_external_connection_export>),                    //                     seg0_external_connection.export
+		.seg1_external_connection_export                    (<connected-to-seg1_external_connection_export>),                    //                     seg1_external_connection.export
+		.seg2_external_connection_export                    (<connected-to-seg2_external_connection_export>),                    //                     seg2_external_connection.export
+		.seg3_external_connection_export                    (<connected-to-seg3_external_connection_export>)                     //                     seg3_external_connection.export
 	);
 

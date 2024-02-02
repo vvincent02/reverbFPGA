@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2024.01.31.21:14:30 -->
+ <!-- 2024.02.02.22:11:06 -->
  <name>reverbFPGA_Qsys</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
@@ -72,7 +72,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>25</value>
+   <value>24</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
@@ -124,7 +124,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>25</value>
+   <value>24</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
@@ -160,7 +160,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>25</value>
+   <value>24</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
@@ -212,7 +212,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>25</value>
+   <value>24</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
@@ -249,8 +249,8 @@
    <masterGroupDesc>hps_0</masterGroupDesc>
    <addressGroup>1</addressGroup>
    <connectedDevice>
-    <moduleName>paramValueUpdate_PIO</moduleName>
-    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <moduleName>seg3</moduleName>
+    <slaveDesc>seg3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -270,7 +270,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>0</baseAddress>
@@ -288,8 +288,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>mixValue_PIO</moduleName>
-    <slaveDesc>mixValue_PIO</slaveDesc>
+    <moduleName>seg2</moduleName>
+    <slaveDesc>seg2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -309,7 +309,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>16</baseAddress>
@@ -327,8 +327,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>dampingValue_PIO</moduleName>
-    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <moduleName>seg1</moduleName>
+    <slaveDesc>seg1</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -348,11 +348,50 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg1.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>32</baseAddress>
     <basePhysicalAddress>32</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>seg0</moduleName>
+    <slaveDesc>seg0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>seg0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>48</baseAddress>
+    <basePhysicalAddress>48</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -390,8 +429,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>48</baseAddress>
-    <basePhysicalAddress>48</basePhysicalAddress>
+    <baseAddress>64</baseAddress>
+    <basePhysicalAddress>64</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -429,8 +468,125 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>64</baseAddress>
-    <basePhysicalAddress>64</basePhysicalAddress>
+    <baseAddress>80</baseAddress>
+    <basePhysicalAddress>80</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>paramValueUpdate_PIO</moduleName>
+    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>96</baseAddress>
+    <basePhysicalAddress>96</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>mixValue_PIO</moduleName>
+    <slaveDesc>mixValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>112</baseAddress>
+    <basePhysicalAddress>112</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>dampingValue_PIO</moduleName>
+    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>128</baseAddress>
+    <basePhysicalAddress>128</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -566,8 +722,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>paramValueUpdate_PIO</moduleName>
-    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <moduleName>seg3</moduleName>
+    <slaveDesc>seg3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -587,7 +743,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>0</baseAddress>
@@ -605,8 +761,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>mixValue_PIO</moduleName>
-    <slaveDesc>mixValue_PIO</slaveDesc>
+    <moduleName>seg2</moduleName>
+    <slaveDesc>seg2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -626,7 +782,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>16</baseAddress>
@@ -644,8 +800,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>dampingValue_PIO</moduleName>
-    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <moduleName>seg1</moduleName>
+    <slaveDesc>seg1</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -665,11 +821,50 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg1.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>32</baseAddress>
     <basePhysicalAddress>32</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>seg0</moduleName>
+    <slaveDesc>seg0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>seg0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>48</baseAddress>
+    <basePhysicalAddress>48</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -707,8 +902,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>48</baseAddress>
-    <basePhysicalAddress>48</basePhysicalAddress>
+    <baseAddress>64</baseAddress>
+    <basePhysicalAddress>64</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -746,8 +941,125 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>64</baseAddress>
-    <basePhysicalAddress>64</basePhysicalAddress>
+    <baseAddress>80</baseAddress>
+    <basePhysicalAddress>80</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>paramValueUpdate_PIO</moduleName>
+    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>96</baseAddress>
+    <basePhysicalAddress>96</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>mixValue_PIO</moduleName>
+    <slaveDesc>mixValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>112</baseAddress>
+    <basePhysicalAddress>112</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>dampingValue_PIO</moduleName>
+    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>128</baseAddress>
+    <basePhysicalAddress>128</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -1944,8 +2256,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>paramValueUpdate_PIO</moduleName>
-    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <moduleName>seg3</moduleName>
+    <slaveDesc>seg3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -1965,7 +2277,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287232</baseAddress>
@@ -1983,8 +2295,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>mixValue_PIO</moduleName>
-    <slaveDesc>mixValue_PIO</slaveDesc>
+    <moduleName>seg2</moduleName>
+    <slaveDesc>seg2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -2004,7 +2316,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287248</baseAddress>
@@ -2022,8 +2334,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>dampingValue_PIO</moduleName>
-    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <moduleName>seg1</moduleName>
+    <slaveDesc>seg1</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -2043,11 +2355,50 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg1.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287264</baseAddress>
     <basePhysicalAddress>4280287264</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>seg0</moduleName>
+    <slaveDesc>seg0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>seg0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287280</baseAddress>
+    <basePhysicalAddress>4280287280</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2085,8 +2436,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287280</baseAddress>
-    <basePhysicalAddress>4280287280</basePhysicalAddress>
+    <baseAddress>4280287296</baseAddress>
+    <basePhysicalAddress>4280287296</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2124,8 +2475,125 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287296</baseAddress>
-    <basePhysicalAddress>4280287296</basePhysicalAddress>
+    <baseAddress>4280287312</baseAddress>
+    <basePhysicalAddress>4280287312</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>paramValueUpdate_PIO</moduleName>
+    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287328</baseAddress>
+    <basePhysicalAddress>4280287328</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>mixValue_PIO</moduleName>
+    <slaveDesc>mixValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287344</baseAddress>
+    <basePhysicalAddress>4280287344</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>dampingValue_PIO</moduleName>
+    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287360</baseAddress>
+    <basePhysicalAddress>4280287360</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3289,8 +3757,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>paramValueUpdate_PIO</moduleName>
-    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <moduleName>seg3</moduleName>
+    <slaveDesc>seg3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3310,7 +3778,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287232</baseAddress>
@@ -3328,8 +3796,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>mixValue_PIO</moduleName>
-    <slaveDesc>mixValue_PIO</slaveDesc>
+    <moduleName>seg2</moduleName>
+    <slaveDesc>seg2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3349,7 +3817,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287248</baseAddress>
@@ -3367,8 +3835,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>dampingValue_PIO</moduleName>
-    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <moduleName>seg1</moduleName>
+    <slaveDesc>seg1</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3388,11 +3856,50 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <systemSlaveName>seg1.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287264</baseAddress>
     <basePhysicalAddress>4280287264</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>seg0</moduleName>
+    <slaveDesc>seg0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>seg0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287280</baseAddress>
+    <basePhysicalAddress>4280287280</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3430,8 +3937,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287280</baseAddress>
-    <basePhysicalAddress>4280287280</basePhysicalAddress>
+    <baseAddress>4280287296</baseAddress>
+    <basePhysicalAddress>4280287296</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3469,8 +3976,125 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287296</baseAddress>
-    <basePhysicalAddress>4280287296</basePhysicalAddress>
+    <baseAddress>4280287312</baseAddress>
+    <basePhysicalAddress>4280287312</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>paramValueUpdate_PIO</moduleName>
+    <slaveDesc>paramValueUpdate_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287328</baseAddress>
+    <basePhysicalAddress>4280287328</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>mixValue_PIO</moduleName>
+    <slaveDesc>mixValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287344</baseAddress>
+    <basePhysicalAddress>4280287344</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>dampingValue_PIO</moduleName>
+    <slaveDesc>dampingValue_PIO</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287360</baseAddress>
+    <basePhysicalAddress>4280287360</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -6513,6 +7137,358 @@
    <frequency>50000000</frequency>
   </clockConnection>
   <path>paramValueUpdate_PIO</path>
+ </module>
+ <module>
+  <name>seg0</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>seg0</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>seg0.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>seg0</path>
+ </module>
+ <module>
+  <name>seg1</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>seg1</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>seg1.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>seg1</path>
+ </module>
+ <module>
+  <name>seg2</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>seg2</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>seg2.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>seg2</path>
+ </module>
+ <module>
+  <name>seg3</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>4</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>15</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>seg3</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>seg3.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>seg3</path>
  </module>
  <module>
   <name>serial_flash_loader</name>

@@ -16,9 +16,13 @@
 #define POWER_DOWN_CONTROL_ADDR 0b0000110
 #define ACTIVE_CONTROL_ADDR 0b0001001
 
-#define CLAMP(val, a, b) fmaxl(a, fminl(val, b))
+#define CLAMP(val, a, b) fmax(a, fmin(val, b))
 
-#define INCR_VALUE 1.0e-6
+#define INCR_VALUE_DB 0.01
+
+#define GET_DB_FROM_GAIN(gain) 20*log(gain)
+#define GET_GAIN_FROM_DB(gain_dB) 10*pow(10, gain_dB/20)
+
 
 typedef enum	{
 	MIX,
@@ -45,6 +49,8 @@ uint8_t* bufferToSend(uint8_t controlAddrBits, uint16_t controlDataBits)	{
 }
 
 void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType);
+
+
 
 
 #endif // APP_H

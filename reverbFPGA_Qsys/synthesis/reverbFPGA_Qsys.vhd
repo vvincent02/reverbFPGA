@@ -27,8 +27,8 @@ entity reverbFPGA_Qsys is
 		audio_controller_external_interface_DACLRCK        : in    std_logic                     := '0';             --                                             .DACLRCK
 		audio_pll_0_audio_clk_clk                          : out   std_logic;                                        --                        audio_pll_0_audio_clk.clk
 		clk_clk                                            : in    std_logic                     := '0';             --                                          clk.clk
-		dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    --         dampingvalue_pio_external_connection.export
-		decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    --           decayvalue_pio_external_connection.export
+		dampingvalue_pio_external_connection_export        : out   std_logic_vector(23 downto 0);                    --         dampingvalue_pio_external_connection.export
+		decayvalue_pio_external_connection_export          : out   std_logic_vector(23 downto 0);                    --           decayvalue_pio_external_connection.export
 		hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := '0';             --                         hps_0_h2f_mpu_events.eventi
 		hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        --                                             .evento
 		hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     --                                             .standbywfe
@@ -59,6 +59,10 @@ entity reverbFPGA_Qsys is
 		paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => '0'); --            paramtype_pio_external_connection.export
 		paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => '0'); --     paramvalueupdate_pio_external_connection.export
 		reset_reset_n                                      : in    std_logic                     := '0';             --                                        reset.reset_n
+		seg0_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg0_external_connection.export
+		seg1_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg1_external_connection.export
+		seg2_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg2_external_connection.export
+		seg3_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg3_external_connection.export
 		serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := '0'              --                 serial_flash_loader_0_noe_in.noe
 	);
 end entity reverbFPGA_Qsys;
@@ -106,7 +110,7 @@ architecture rtl of reverbFPGA_Qsys is
 			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			chipselect : in  std_logic                     := 'X';             -- chipselect
 			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			out_port   : out std_logic_vector(24 downto 0)                     -- export
+			out_port   : out std_logic_vector(23 downto 0)                     -- export
 		);
 	end component reverbFPGA_Qsys_dampingValue_PIO;
 
@@ -259,19 +263,6 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component reverbFPGA_Qsys_hps_0;
 
-	component reverbFPGA_Qsys_mixValue_PIO is
-		port (
-			clk        : in  std_logic                     := 'X';             -- clk
-			reset_n    : in  std_logic                     := 'X';             -- reset_n
-			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			write_n    : in  std_logic                     := 'X';             -- write_n
-			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			chipselect : in  std_logic                     := 'X';             -- chipselect
-			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			out_port   : out std_logic_vector(23 downto 0)                     -- export
-		);
-	end component reverbFPGA_Qsys_mixValue_PIO;
-
 	component reverbFPGA_Qsys_paramType_PIO is
 		port (
 			clk      : in  std_logic                     := 'X';             -- clk
@@ -291,6 +282,19 @@ architecture rtl of reverbFPGA_Qsys is
 			in_port  : in  std_logic_vector(1 downto 0)  := (others => 'X')  -- export
 		);
 	end component reverbFPGA_Qsys_paramValueUpdate_PIO;
+
+	component reverbFPGA_Qsys_seg0 is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(3 downto 0)                      -- export
+		);
+	end component reverbFPGA_Qsys_seg0;
 
 	component altera_serial_flash_loader is
 		generic (
@@ -364,7 +368,27 @@ architecture rtl of reverbFPGA_Qsys is
 			paramType_PIO_s1_address                                            : out std_logic_vector(1 downto 0);                     -- address
 			paramType_PIO_s1_readdata                                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			paramValueUpdate_PIO_s1_address                                     : out std_logic_vector(1 downto 0);                     -- address
-			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
+			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			seg0_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			seg0_s1_write                                                       : out std_logic;                                        -- write
+			seg0_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			seg0_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			seg0_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			seg1_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			seg1_s1_write                                                       : out std_logic;                                        -- write
+			seg1_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			seg1_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			seg1_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			seg2_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			seg2_s1_write                                                       : out std_logic;                                        -- write
+			seg2_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			seg2_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			seg2_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			seg3_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			seg3_s1_write                                                       : out std_logic;                                        -- write
+			seg3_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			seg3_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			seg3_s1_chipselect                                                  : out std_logic                                         -- chipselect
 		);
 	end component reverbFPGA_Qsys_mm_interconnect_0;
 
@@ -489,6 +513,26 @@ architecture rtl of reverbFPGA_Qsys is
 	signal mm_interconnect_0_decayvalue_pio_s1_address           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:decayValue_PIO_s1_address -> decayValue_PIO:address
 	signal mm_interconnect_0_decayvalue_pio_s1_write             : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_write -> mm_interconnect_0_decayvalue_pio_s1_write:in
 	signal mm_interconnect_0_decayvalue_pio_s1_writedata         : std_logic_vector(31 downto 0); -- mm_interconnect_0:decayValue_PIO_s1_writedata -> decayValue_PIO:writedata
+	signal mm_interconnect_0_seg0_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg0_s1_chipselect -> seg0:chipselect
+	signal mm_interconnect_0_seg0_s1_readdata                    : std_logic_vector(31 downto 0); -- seg0:readdata -> mm_interconnect_0:seg0_s1_readdata
+	signal mm_interconnect_0_seg0_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg0_s1_address -> seg0:address
+	signal mm_interconnect_0_seg0_s1_write                       : std_logic;                     -- mm_interconnect_0:seg0_s1_write -> mm_interconnect_0_seg0_s1_write:in
+	signal mm_interconnect_0_seg0_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg0_s1_writedata -> seg0:writedata
+	signal mm_interconnect_0_seg1_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg1_s1_chipselect -> seg1:chipselect
+	signal mm_interconnect_0_seg1_s1_readdata                    : std_logic_vector(31 downto 0); -- seg1:readdata -> mm_interconnect_0:seg1_s1_readdata
+	signal mm_interconnect_0_seg1_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg1_s1_address -> seg1:address
+	signal mm_interconnect_0_seg1_s1_write                       : std_logic;                     -- mm_interconnect_0:seg1_s1_write -> mm_interconnect_0_seg1_s1_write:in
+	signal mm_interconnect_0_seg1_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg1_s1_writedata -> seg1:writedata
+	signal mm_interconnect_0_seg2_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg2_s1_chipselect -> seg2:chipselect
+	signal mm_interconnect_0_seg2_s1_readdata                    : std_logic_vector(31 downto 0); -- seg2:readdata -> mm_interconnect_0:seg2_s1_readdata
+	signal mm_interconnect_0_seg2_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg2_s1_address -> seg2:address
+	signal mm_interconnect_0_seg2_s1_write                       : std_logic;                     -- mm_interconnect_0:seg2_s1_write -> mm_interconnect_0_seg2_s1_write:in
+	signal mm_interconnect_0_seg2_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg2_s1_writedata -> seg2:writedata
+	signal mm_interconnect_0_seg3_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg3_s1_chipselect -> seg3:chipselect
+	signal mm_interconnect_0_seg3_s1_readdata                    : std_logic_vector(31 downto 0); -- seg3:readdata -> mm_interconnect_0:seg3_s1_readdata
+	signal mm_interconnect_0_seg3_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg3_s1_address -> seg3:address
+	signal mm_interconnect_0_seg3_s1_write                       : std_logic;                     -- mm_interconnect_0:seg3_s1_write -> mm_interconnect_0_seg3_s1_write:in
+	signal mm_interconnect_0_seg3_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg3_s1_writedata -> seg3:writedata
 	signal rst_controller_reset_out_reset                        : std_logic;                     -- rst_controller:reset_out -> [audio_controller:reset, mm_interconnect_0:dampingValue_PIO_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                    : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 	signal hps_0_h2f_reset_reset                                 : std_logic;                     -- hps_0:h2f_rst_n -> hps_0_h2f_reset_reset:in
@@ -496,7 +540,11 @@ architecture rtl of reverbFPGA_Qsys is
 	signal mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv : std_logic;                     -- mm_interconnect_0_dampingvalue_pio_s1_write:inv -> dampingValue_PIO:write_n
 	signal mm_interconnect_0_mixvalue_pio_s1_write_ports_inv     : std_logic;                     -- mm_interconnect_0_mixvalue_pio_s1_write:inv -> mixValue_PIO:write_n
 	signal mm_interconnect_0_decayvalue_pio_s1_write_ports_inv   : std_logic;                     -- mm_interconnect_0_decayvalue_pio_s1_write:inv -> decayValue_PIO:write_n
-	signal rst_controller_reset_out_reset_ports_inv              : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n]
+	signal mm_interconnect_0_seg0_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg0_s1_write:inv -> seg0:write_n
+	signal mm_interconnect_0_seg1_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg1_s1_write:inv -> seg1:write_n
+	signal mm_interconnect_0_seg2_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg2_s1_write:inv -> seg2:write_n
+	signal mm_interconnect_0_seg3_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg3_s1_write:inv -> seg3:write_n
+	signal rst_controller_reset_out_reset_ports_inv              : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n, seg0:reset_n, seg1:reset_n, seg2:reset_n, seg3:reset_n]
 	signal hps_0_h2f_reset_reset_ports_inv                       : std_logic;                     -- hps_0_h2f_reset_reset:inv -> rst_controller_001:reset_in0
 
 begin
@@ -704,7 +752,7 @@ begin
 			h2f_lw_RREADY           => hps_0_h2f_lw_axi_master_rready   --                  .rready
 		);
 
-	mixvalue_pio : component reverbFPGA_Qsys_mixValue_PIO
+	mixvalue_pio : component reverbFPGA_Qsys_dampingValue_PIO
 		port map (
 			clk        => clk_clk,                                           --                 clk.clk
 			reset_n    => rst_controller_reset_out_reset_ports_inv,          --               reset.reset_n
@@ -732,6 +780,54 @@ begin
 			address  => mm_interconnect_0_paramvalueupdate_pio_s1_address,  --                  s1.address
 			readdata => mm_interconnect_0_paramvalueupdate_pio_s1_readdata, --                    .readdata
 			in_port  => paramvalueupdate_pio_external_connection_export     -- external_connection.export
+		);
+
+	seg0 : component reverbFPGA_Qsys_seg0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_seg0_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_seg0_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_seg0_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_seg0_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_seg0_s1_readdata,        --                    .readdata
+			out_port   => seg0_external_connection_export            -- external_connection.export
+		);
+
+	seg1 : component reverbFPGA_Qsys_seg0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_seg1_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_seg1_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_seg1_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_seg1_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_seg1_s1_readdata,        --                    .readdata
+			out_port   => seg1_external_connection_export            -- external_connection.export
+		);
+
+	seg2 : component reverbFPGA_Qsys_seg0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_seg2_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_seg2_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_seg2_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_seg2_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_seg2_s1_readdata,        --                    .readdata
+			out_port   => seg2_external_connection_export            -- external_connection.export
+		);
+
+	seg3 : component reverbFPGA_Qsys_seg0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_seg3_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_seg3_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_seg3_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_seg3_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_seg3_s1_readdata,        --                    .readdata
+			out_port   => seg3_external_connection_export            -- external_connection.export
 		);
 
 	serial_flash_loader : component altera_serial_flash_loader
@@ -805,7 +901,27 @@ begin
 			paramType_PIO_s1_address                                            => mm_interconnect_0_paramtype_pio_s1_address,         --                                              paramType_PIO_s1.address
 			paramType_PIO_s1_readdata                                           => mm_interconnect_0_paramtype_pio_s1_readdata,        --                                                              .readdata
 			paramValueUpdate_PIO_s1_address                                     => mm_interconnect_0_paramvalueupdate_pio_s1_address,  --                                       paramValueUpdate_PIO_s1.address
-			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata  --                                                              .readdata
+			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata, --                                                              .readdata
+			seg0_s1_address                                                     => mm_interconnect_0_seg0_s1_address,                  --                                                       seg0_s1.address
+			seg0_s1_write                                                       => mm_interconnect_0_seg0_s1_write,                    --                                                              .write
+			seg0_s1_readdata                                                    => mm_interconnect_0_seg0_s1_readdata,                 --                                                              .readdata
+			seg0_s1_writedata                                                   => mm_interconnect_0_seg0_s1_writedata,                --                                                              .writedata
+			seg0_s1_chipselect                                                  => mm_interconnect_0_seg0_s1_chipselect,               --                                                              .chipselect
+			seg1_s1_address                                                     => mm_interconnect_0_seg1_s1_address,                  --                                                       seg1_s1.address
+			seg1_s1_write                                                       => mm_interconnect_0_seg1_s1_write,                    --                                                              .write
+			seg1_s1_readdata                                                    => mm_interconnect_0_seg1_s1_readdata,                 --                                                              .readdata
+			seg1_s1_writedata                                                   => mm_interconnect_0_seg1_s1_writedata,                --                                                              .writedata
+			seg1_s1_chipselect                                                  => mm_interconnect_0_seg1_s1_chipselect,               --                                                              .chipselect
+			seg2_s1_address                                                     => mm_interconnect_0_seg2_s1_address,                  --                                                       seg2_s1.address
+			seg2_s1_write                                                       => mm_interconnect_0_seg2_s1_write,                    --                                                              .write
+			seg2_s1_readdata                                                    => mm_interconnect_0_seg2_s1_readdata,                 --                                                              .readdata
+			seg2_s1_writedata                                                   => mm_interconnect_0_seg2_s1_writedata,                --                                                              .writedata
+			seg2_s1_chipselect                                                  => mm_interconnect_0_seg2_s1_chipselect,               --                                                              .chipselect
+			seg3_s1_address                                                     => mm_interconnect_0_seg3_s1_address,                  --                                                       seg3_s1.address
+			seg3_s1_write                                                       => mm_interconnect_0_seg3_s1_write,                    --                                                              .write
+			seg3_s1_readdata                                                    => mm_interconnect_0_seg3_s1_readdata,                 --                                                              .readdata
+			seg3_s1_writedata                                                   => mm_interconnect_0_seg3_s1_writedata,                --                                                              .writedata
+			seg3_s1_chipselect                                                  => mm_interconnect_0_seg3_s1_chipselect                --                                                              .chipselect
 		);
 
 	rst_controller : component altera_reset_controller
@@ -945,6 +1061,14 @@ begin
 	mm_interconnect_0_mixvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_mixvalue_pio_s1_write;
 
 	mm_interconnect_0_decayvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_decayvalue_pio_s1_write;
+
+	mm_interconnect_0_seg0_s1_write_ports_inv <= not mm_interconnect_0_seg0_s1_write;
+
+	mm_interconnect_0_seg1_s1_write_ports_inv <= not mm_interconnect_0_seg1_s1_write;
+
+	mm_interconnect_0_seg2_s1_write_ports_inv <= not mm_interconnect_0_seg2_s1_write;
+
+	mm_interconnect_0_seg3_s1_write_ports_inv <= not mm_interconnect_0_seg3_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

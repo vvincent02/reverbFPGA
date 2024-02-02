@@ -140,6 +140,7 @@ void initAudioCODEC_I2C()	{
 }
 
 void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType)	{
+	uint32_t readVal;
 	uint32_t maxVal;
 
 // macro to update the selected parameter according to updateType value
@@ -149,18 +150,42 @@ void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType)	{
 
 	switch(paramType)	{
 	case MIX :
-		UPDATE_PARAM_VALUE(MIXVALUE);
+		maxVal = (1<<HPS_0_MIXVALUE_PIO_DATA_WIDTH) - 1;
+		readVal = alt_read_word(ALT_LWFPGASLVS_ADDR + HPS_0_MIXVALUE_PIO_BASE);
+		alt_write_word(ALT_LWFPGASLVS_ADDR + HPS_0_MIXVALUE_PIO_BASE, CLAMP(GET_GAIN_FROM_DB(updateType*INCR_VALUE_DB)*readVal, 0, maxVal));
+
+
+		//UPDATE_PARAM_VALUE(MIXVALUE);
+
 		break;
 	case PREDELAY :
 
 		break;
 	case DECAY :
-		UPDATE_PARAM_VALUE(DECAYVALUE);
+		maxVal = (1<<HPS_0_DECAYVALUE_PIO_DATA_WIDTH) - 1;
+		readVal = alt_read_word(ALT_LWFPGASLVS_ADDR + HPS_0_DECAYVALUE_PIO_BASE);
+		alt_write_word(ALT_LWFPGASLVS_ADDR + HPS_0_DECAYVALUE_PIO_BASE, CLAMP(GET_GAIN_FROM_DB(updateType*INCR_VALUE_DB)*readVal, 0, maxVal));
+
+		//UPDATE_PARAM_VALUE(DECAYVALUE);
 		break;
 	case DAMPING :
-		UPDATE_PARAM_VALUE(DAMPINGVALUE);
+		maxVal = (1<<HPS_0_DAMPINGVALUE_PIO_DATA_WIDTH) - 1;
+		readVal = alt_read_word(ALT_LWFPGASLVS_ADDR + HPS_0_DAMPINGVALUE_PIO_BASE);
+		alt_write_word(ALT_LWFPGASLVS_ADDR + HPS_0_DAMPINGVALUE_PIO_BASE, CLAMP(GET_GAIN_FROM_DB(updateType*INCR_VALUE_DB)*readVal, 0, maxVal));
+
+		//UPDATE_PARAM_VALUE(DAMPINGVALUE);
 		break;
 	default :
 		break;
 	}
+
+	/* --- display current parameter value in dB on 7seg --- */
+	uint8_t mag_dB = GET_GAIN_DB((float)maxVal/readVal);
+	uint8_t ten = mag_dB/10;
+	uint8_t unit = (mag_dB - ten)/10;
+	alt_write_byte(ALT_LWFPGASLVS_ADDR + HPS_0_SEG3_BASE, 0b1111);
+	alt_write_byte(ALT_LWFPGASLVS_ADDR + HPS_0_SEG2_BASE, 0b1010);
+	alt_write_byte(ALT_LWFPGASLVS_ADDR + HPS_0_SEG1_BASE, ten);
+	alt_write_byte(ALT_LWFPGASLVS_ADDR + HPS_0_SEG0_BASE, unit);
+	/* ----------------------------------------------------- */
 }

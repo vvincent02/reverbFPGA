@@ -13,8 +13,8 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize downto 0);
-	decayValue : IN unsigned(dataSize  downto 0)
+	dampingValue : IN unsigned(dataSize-1 downto 0);
+	decayValue : IN unsigned(dataSize-1  downto 0)
 );
 END lateReverb;
 

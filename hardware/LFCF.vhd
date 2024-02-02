@@ -14,19 +14,20 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize downto 0);
-	decayValue : IN unsigned(dataSize downto 0)
+	dampingValue : IN unsigned(dataSize-1 downto 0);
+	decayValue : IN unsigned(dataSize-1 downto 0)
 ); 
 END LFCF;
 
 ARCHITECTURE archi OF LFCF IS
 
-constant nbrExtraBits : integer range 0 to 6 := 1;
+constant nbrExtraBits : integer range 0 to 6 := 0;
 
 signal firstDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal outFCFilter : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
+signal LFCFinput : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal firstInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
@@ -34,7 +35,12 @@ signal outputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
 BEGIN
 
-firstInputAdder <= resize(dataIN, firstInputAdder'LENGTH);
+-- gain atténuation en entrée
+reductionGain : entity work.coefMult(archi)
+	generic map(LFCFinput'LENGTH)
+	port map(dataIN => resize(dataIN, firstInputAdder'LENGTH), dataOUT => LFCFinput, coef => not(decayValue)); -- gain d'atténuation pour ne pas dépasser un gain unitaire
+
+firstInputAdder <= LFCFinput;
 
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;

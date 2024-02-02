@@ -50,7 +50,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "128";
          type = "String";
       }
    }
@@ -66,7 +66,7 @@
    {
       datum baseAddress
       {
-         value = "48";
+         value = "64";
          type = "String";
       }
    }
@@ -90,7 +90,7 @@
    {
       datum baseAddress
       {
-         value = "16";
+         value = "112";
          type = "String";
       }
    }
@@ -106,7 +106,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "80";
          type = "String";
       }
    }
@@ -122,7 +122,7 @@
    {
       datum baseAddress
       {
-         value = "0";
+         value = "96";
          type = "String";
       }
    }
@@ -139,6 +139,70 @@
       datum baseAddress
       {
          value = "64";
+         type = "String";
+      }
+   }
+   element seg0
+   {
+      datum _sortIndex
+      {
+         value = "11";
+         type = "int";
+      }
+   }
+   element seg0.s1
+   {
+      datum baseAddress
+      {
+         value = "48";
+         type = "String";
+      }
+   }
+   element seg1
+   {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+   }
+   element seg1.s1
+   {
+      datum baseAddress
+      {
+         value = "32";
+         type = "String";
+      }
+   }
+   element seg2
+   {
+      datum _sortIndex
+      {
+         value = "13";
+         type = "int";
+      }
+   }
+   element seg2.s1
+   {
+      datum baseAddress
+      {
+         value = "16";
+         type = "String";
+      }
+   }
+   element seg3
+   {
+      datum _sortIndex
+      {
+         value = "14";
+         type = "int";
+      }
+   }
+   element seg3.s1
+   {
+      datum baseAddress
+      {
+         value = "0";
          type = "String";
       }
    }
@@ -245,6 +309,26 @@
    internal="preDelayValue_PIO.external_connection" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
+   name="seg0_external_connection"
+   internal="seg0.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg1_external_connection"
+   internal="seg1.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg2_external_connection"
+   internal="seg2.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="seg3_external_connection"
+   internal="seg3.external_connection"
+   type="conduit"
+   dir="end" />
+ <interface
    name="serial_flash_loader_0_asmi_access_granted"
    internal="serial_flash_loader.asmi_access_granted" />
  <interface
@@ -315,7 +399,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="25" />
+  <parameter name="width" value="24" />
  </module>
  <module
    name="decayValue_PIO"
@@ -333,7 +417,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="25" />
+  <parameter name="width" value="24" />
  </module>
  <module name="hps_0" kind="altera_hps" version="23.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />
@@ -937,6 +1021,62 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="24" />
  </module>
+ <module name="seg0" kind="altera_avalon_pio" version="23.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="15" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="4" />
+ </module>
+ <module name="seg1" kind="altera_avalon_pio" version="23.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="15" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="4" />
+ </module>
+ <module name="seg2" kind="altera_avalon_pio" version="23.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="15" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="4" />
+ </module>
+ <module name="seg3" kind="altera_avalon_pio" version="23.1" enabled="1">
+  <parameter name="bitClearingEdgeCapReg" value="false" />
+  <parameter name="bitModifyingOutReg" value="false" />
+  <parameter name="captureEdge" value="false" />
+  <parameter name="clockRate" value="50000000" />
+  <parameter name="direction" value="Output" />
+  <parameter name="edgeType" value="RISING" />
+  <parameter name="generateIRQ" value="false" />
+  <parameter name="irqType" value="LEVEL" />
+  <parameter name="resetValue" value="15" />
+  <parameter name="simDoTestBenchWiring" value="false" />
+  <parameter name="simDrivenValue" value="0" />
+  <parameter name="width" value="4" />
+ </module>
  <module
    name="serial_flash_loader"
    kind="altera_serial_flash_loader"
@@ -961,7 +1101,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="dampingValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -970,7 +1110,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="mixValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -979,7 +1119,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="paramValueUpdate_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -988,7 +1128,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="paramType_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -997,7 +1137,43 @@
    start="hps_0.h2f_lw_axi_master"
    end="decayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="23.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="seg0.s1">
+  <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0030" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="23.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="seg1.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="23.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="seg2.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="23.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="seg3.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1027,6 +1203,10 @@
    version="23.1"
    start="clk_0.clk"
    end="dampingValue_PIO.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="seg0.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="seg1.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="seg2.clk" />
+ <connection kind="clock" version="23.1" start="clk_0.clk" end="seg3.clk" />
  <connection
    kind="clock"
    version="23.1"
@@ -1087,6 +1267,10 @@
    version="23.1"
    start="clk_0.clk_reset"
    end="paramValueUpdate_PIO.reset" />
+ <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="seg0.reset" />
+ <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="seg1.reset" />
+ <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="seg2.reset" />
+ <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="seg3.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />
