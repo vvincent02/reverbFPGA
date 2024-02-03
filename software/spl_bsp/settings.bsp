@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
         <BspVersion>1.0</BspVersion>
-        <BspGeneratedTimeStamp>Jan 23, 2024 11:24:32 AM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1706005472359</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>..\</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Feb 3, 2024 9:57:01 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1706950621457</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>..\..\..\..\..\..\</BspGeneratedLocation>
         <BspSettingsFile>C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\settings.bsp</BspSettingsFile>
         <HpsSettingsPath>..\..\hps_isw_handoff\reverbFPGA_Qsys_hps_0</HpsSettingsPath>
         <JdiFile>default</JdiFile>

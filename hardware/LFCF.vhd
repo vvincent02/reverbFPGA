@@ -14,20 +14,20 @@ PORT(
 	dataIN : IN signed(dataSize-1 downto 0);
 	dataOUT : OUT signed(dataSize-1 downto 0);
 	
-	dampingValue : IN unsigned(dataSize-1 downto 0);
-	decayValue : IN unsigned(dataSize-1 downto 0)
+	dampingValue : IN unsigned(dataSize downto 0);
+	decayValue : IN unsigned(dataSize downto 0)
 ); 
 END LFCF;
 
 ARCHITECTURE archi OF LFCF IS
 
-constant nbrExtraBits : integer range 0 to 6 := 0;
+constant nbrExtraBits : integer range 0 to 6 := 1;
 
 signal firstDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal outFCFilter : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
-signal LFCFinput : signed(dataIN'HIGH + nbrExtraBits downto 0);
+signal LFCFoutput : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal firstInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
@@ -35,12 +35,7 @@ signal outputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
 BEGIN
 
--- gain atténuation en entrée
-reductionGain : entity work.coefMult(archi)
-	generic map(LFCFinput'LENGTH)
-	port map(dataIN => resize(dataIN, firstInputAdder'LENGTH), dataOUT => LFCFinput, coef => not(decayValue)); -- gain d'atténuation pour ne pas dépasser un gain unitaire
-
-firstInputAdder <= LFCFinput;
+firstInputAdder <= resize(dataIN, firstInputAdder'LENGTH);
 
 -- sommateur
 outputAdder <= firstInputAdder + secondInputAdder;
@@ -67,7 +62,12 @@ delayLineOperator2 : entity work.delayLine(archi)
 	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => firstDelayedOutputAdder, dataOUT => secondDelayedOutputAdder);
 ----------------------------------------------------------------------------------------------------------------------
 
+-- gain atténuation en sortie (pour ne pas dépasser un gain unitaire en moyenne)
+reductionGain : entity work.coefMult(archi)
+	generic map(secondDelayedOutputAdder'LENGTH)
+	port map(dataIN => secondDelayedOutputAdder, dataOUT => LFCFoutput, coef => "1100110011001100110011001"); -- gain d'atténuation = 0.8
+	
 -- sortie de l'entité
-dataOUT <= resize(secondDelayedOutputAdder, dataOUT'LENGTH);
+dataOUT <= resize(LFCFoutput, dataOUT'LENGTH);
 
 END archi;

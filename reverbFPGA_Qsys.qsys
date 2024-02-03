@@ -399,7 +399,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="24" />
+  <parameter name="width" value="25" />
  </module>
  <module
    name="decayValue_PIO"
@@ -417,7 +417,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="24" />
+  <parameter name="width" value="25" />
  </module>
  <module name="hps_0" kind="altera_hps" version="23.1" enabled="1">
   <parameter name="ABSTRACT_REAL_COMPARE_TEST" value="false" />

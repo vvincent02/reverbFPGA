@@ -18,14 +18,25 @@
 
 #define CLAMP(val, a, b) fmax(a, fmin(val, b))
 
-#define INCR_VALUE_DB 0.01
+#define NBR_PARAM 5 // number of parameters + 1 (parameter NONE_PARAM)
+
+// increment values
+#define MIX_INCR_VALUE 4e-6
+#define DECAY_INCR_VALUE 4e-6
+#define DAMPING_INCR_VALUE 1e-6
+
+#define MIX_MAX 1.
+#define MIX_MIN 1e-9
+#define DECAY_MAX 0.95
+#define DECAY_MIN 0.25
+#define DAMPING_MAX 1.
+#define DAMPING_MIN 1e-9
 
 #define GET_DB_FROM_GAIN(gain) 20*log(gain)
-#define GET_GAIN_FROM_DB(gain_dB) 10*pow(10, gain_dB/20)
-
+#define GET_GAIN_FROM_DB(gain_dB) pow(10, (gain_dB)/20.0)
 
 typedef enum	{
-	MIX,
+	MIX=0,
 	PREDELAY,
 	DECAY,
 	DAMPING,
@@ -48,6 +59,7 @@ uint8_t* bufferToSend(uint8_t controlAddrBits, uint16_t controlDataBits)	{
 	return dataBytes;
 }
 
+void initParamValue(); // reverb settings initialization
 void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType);
 
 

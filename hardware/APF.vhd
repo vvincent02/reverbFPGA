@@ -38,11 +38,6 @@ firstInputAdder1 <= resize(dataIN, firstInputAdder1'LENGTH) + resize(dataIN, fir
 -- gain g (retour de la boucle)
 secondInputAdder1 <= outputAdder2 / 2;
 
--- gain atténuation en sortie
-reductionGain : entity work.coefMult(archi)
-	generic map(outputAdder2'LENGTH)
-	port map(dataIN => outputAdder2, dataOUT => APFoutput, coef => "11010111000010100011110101"); -- gain d'atténuation = 0.84
-
 -- sommateurs
 outputAdder1 <= firstInputAdder1 + secondInputAdder1;
 outputAdder2 <= firstInputAdder2 - dataIN;
@@ -51,6 +46,11 @@ outputAdder2 <= firstInputAdder2 - dataIN;
 delayLineOperator : entity work.delayLine(archi)
 	generic map(outputAdder1'LENGTH, N)
 	port map(clk50M => clk50M, data_sampled_valid => data_sampled_valid, dataIN => outputAdder1, dataOUT => firstInputAdder2);
+
+-- gain atténuation en sortie (pour ne pas dépasser un gain unitaire en moyenne)
+reductionGain : entity work.coefMult(archi)
+	generic map(outputAdder2'LENGTH)
+	port map(dataIN => outputAdder2, dataOUT => APFoutput, coef => "11010111000010100011110101"); -- gain d'atténuation = 0.84
 
 dataOUT <= resize(APFoutput, dataOUT'LENGTH);
 

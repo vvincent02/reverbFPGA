@@ -67,8 +67,8 @@ signal dataR_sampled_valid : std_logic;
 -- paramètres de la reverb
 --signal preDelayValue : std_logic_vector(23 downto 0);
 signal mixValue : std_logic_vector(23 downto 0);
-signal decayValue : std_logic_vector(23 downto 0);
-signal dampingValue : std_logic_vector(23 downto 0);
+signal decayValue : std_logic_vector(24 downto 0);
+signal dampingValue : std_logic_vector(24 downto 0);
 
 -- signaux valeur des afficheurs 7 segments
 signal seg0Val : std_logic_vector(3 downto 0);
@@ -115,8 +115,8 @@ signal dataR_OUT_lateReverb : signed(23 downto 0);
 component reverbFPGA_Qsys is
 port (
 	clk_clk                                           : in    std_logic                     := 'X';             -- clk
-	dampingvalue_pio_external_connection_export       : out   std_logic_vector(23 downto 0);                    -- export
-	decayvalue_pio_external_connection_export         : out   std_logic_vector(23 downto 0);                    -- export
+	dampingvalue_pio_external_connection_export       : out   std_logic_vector(24 downto 0);                    -- export
+	decayvalue_pio_external_connection_export         : out   std_logic_vector(24 downto 0);                    -- export
 	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
 --	predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
 	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export

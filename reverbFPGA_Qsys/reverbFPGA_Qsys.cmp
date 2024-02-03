@@ -19,8 +19,8 @@
 			audio_controller_external_interface_DACLRCK        : in    std_logic                     := 'X';             -- DACLRCK
 			audio_pll_0_audio_clk_clk                          : out   std_logic;                                        -- clk
 			clk_clk                                            : in    std_logic                     := 'X';             -- clk
-			dampingvalue_pio_external_connection_export        : out   std_logic_vector(23 downto 0);                    -- export
-			decayvalue_pio_external_connection_export          : out   std_logic_vector(23 downto 0);                    -- export
+			dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    -- export
+			decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    -- export
 			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
 			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
 			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe

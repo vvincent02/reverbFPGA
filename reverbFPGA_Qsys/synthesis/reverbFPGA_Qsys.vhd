@@ -27,8 +27,8 @@ entity reverbFPGA_Qsys is
 		audio_controller_external_interface_DACLRCK        : in    std_logic                     := '0';             --                                             .DACLRCK
 		audio_pll_0_audio_clk_clk                          : out   std_logic;                                        --                        audio_pll_0_audio_clk.clk
 		clk_clk                                            : in    std_logic                     := '0';             --                                          clk.clk
-		dampingvalue_pio_external_connection_export        : out   std_logic_vector(23 downto 0);                    --         dampingvalue_pio_external_connection.export
-		decayvalue_pio_external_connection_export          : out   std_logic_vector(23 downto 0);                    --           decayvalue_pio_external_connection.export
+		dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    --         dampingvalue_pio_external_connection.export
+		decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    --           decayvalue_pio_external_connection.export
 		hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := '0';             --                         hps_0_h2f_mpu_events.eventi
 		hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        --                                             .evento
 		hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     --                                             .standbywfe
@@ -110,7 +110,7 @@ architecture rtl of reverbFPGA_Qsys is
 			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			chipselect : in  std_logic                     := 'X';             -- chipselect
 			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			out_port   : out std_logic_vector(23 downto 0)                     -- export
+			out_port   : out std_logic_vector(24 downto 0)                     -- export
 		);
 	end component reverbFPGA_Qsys_dampingValue_PIO;
 
@@ -262,6 +262,19 @@ architecture rtl of reverbFPGA_Qsys is
 			h2f_lw_RREADY           : out   std_logic                                         -- rready
 		);
 	end component reverbFPGA_Qsys_hps_0;
+
+	component reverbFPGA_Qsys_mixValue_PIO is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(23 downto 0)                     -- export
+		);
+	end component reverbFPGA_Qsys_mixValue_PIO;
 
 	component reverbFPGA_Qsys_paramType_PIO is
 		port (
@@ -752,7 +765,7 @@ begin
 			h2f_lw_RREADY           => hps_0_h2f_lw_axi_master_rready   --                  .rready
 		);
 
-	mixvalue_pio : component reverbFPGA_Qsys_dampingValue_PIO
+	mixvalue_pio : component reverbFPGA_Qsys_mixValue_PIO
 		port map (
 			clk        => clk_clk,                                           --                 clk.clk
 			reset_n    => rst_controller_reset_out_reset_ports_inv,          --               reset.reset_n

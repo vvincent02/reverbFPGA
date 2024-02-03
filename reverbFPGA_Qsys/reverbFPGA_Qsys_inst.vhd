@@ -19,8 +19,8 @@
 			audio_controller_external_interface_DACLRCK        : in    std_logic                     := 'X';             -- DACLRCK
 			audio_pll_0_audio_clk_clk                          : out   std_logic;                                        -- clk
 			clk_clk                                            : in    std_logic                     := 'X';             -- clk
-			dampingvalue_pio_external_connection_export        : out   std_logic_vector(23 downto 0);                    -- export
-			decayvalue_pio_external_connection_export          : out   std_logic_vector(23 downto 0);                    -- export
+			dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    -- export
+			decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    -- export
 			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
 			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
 			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe
@@ -51,11 +51,11 @@
 			paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
-			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X';             -- noe
 			seg0_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
 			seg1_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
 			seg2_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-			seg3_external_connection_export                    : out   std_logic_vector(3 downto 0)                      -- export
+			seg3_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
+			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X'              -- noe
 		);
 	end component reverbFPGA_Qsys;
 
@@ -112,10 +112,10 @@
 			paramtype_pio_external_connection_export           => CONNECTED_TO_paramtype_pio_external_connection_export,           --            paramtype_pio_external_connection.export
 			paramvalueupdate_pio_external_connection_export    => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,    --     paramvalueupdate_pio_external_connection.export
 			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                        reset.reset_n
-			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe,                   --                 serial_flash_loader_0_noe_in.noe
 			seg0_external_connection_export                    => CONNECTED_TO_seg0_external_connection_export,                    --                     seg0_external_connection.export
 			seg1_external_connection_export                    => CONNECTED_TO_seg1_external_connection_export,                    --                     seg1_external_connection.export
 			seg2_external_connection_export                    => CONNECTED_TO_seg2_external_connection_export,                    --                     seg2_external_connection.export
-			seg3_external_connection_export                    => CONNECTED_TO_seg3_external_connection_export                     --                     seg3_external_connection.export
+			seg3_external_connection_export                    => CONNECTED_TO_seg3_external_connection_export,                    --                     seg3_external_connection.export
+			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                    --                 serial_flash_loader_0_noe_in.noe
 		);
 

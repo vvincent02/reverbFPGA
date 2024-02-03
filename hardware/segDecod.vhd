@@ -24,8 +24,8 @@ begin
 		when "0111" => segOUT<="1111000";
 		when "1000" => segOUT<="0000000";
 		when "1001" => segOUT<="0010000";
-		when "1011" => segOUT<="0111111"; -- signe moins 
-		when others => segOUT<="1111111";
+		when "1010" => segOUT<="0111111"; -- signe moins 
+		when others => segOUT<="1111111"; -- 7 seg éteint
 	end case;
 end process;
 

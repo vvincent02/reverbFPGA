@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2024.02.02.22:11:06 -->
+ <!-- 2024.02.03.13:50:32 -->
  <name>reverbFPGA_Qsys</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
@@ -72,7 +72,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>24</value>
+   <value>25</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
@@ -124,7 +124,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>24</value>
+   <value>25</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
@@ -160,7 +160,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>24</value>
+   <value>25</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
@@ -212,7 +212,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>24</value>
+   <value>25</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.resetvalue</name>
