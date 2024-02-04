@@ -20,13 +20,13 @@
 		.clk_clk                                            (<connected-to-clk_clk>),                                            //                                          clk.clk
 		.dampingvalue_pio_external_connection_export        (<connected-to-dampingvalue_pio_external_connection_export>),        //         dampingvalue_pio_external_connection.export
 		.decayvalue_pio_external_connection_export          (<connected-to-decayvalue_pio_external_connection_export>),          //           decayvalue_pio_external_connection.export
-		.hps_0_h2f_mpu_events_eventi                        (<connected-to-hps_0_h2f_mpu_events_eventi>),                        //                         hps_0_h2f_mpu_events.eventi
-		.hps_0_h2f_mpu_events_evento                        (<connected-to-hps_0_h2f_mpu_events_evento>),                        //                                             .evento
-		.hps_0_h2f_mpu_events_standbywfe                    (<connected-to-hps_0_h2f_mpu_events_standbywfe>),                    //                                             .standbywfe
-		.hps_0_h2f_mpu_events_standbywfi                    (<connected-to-hps_0_h2f_mpu_events_standbywfi>),                    //                                             .standbywfi
-		.hps_io_hps_io_uart0_inst_RX                        (<connected-to-hps_io_hps_io_uart0_inst_RX>),                        //                                       hps_io.hps_io_uart0_inst_RX
-		.hps_io_hps_io_uart0_inst_TX                        (<connected-to-hps_io_hps_io_uart0_inst_TX>),                        //                                             .hps_io_uart0_inst_TX
-		.hps_io_hps_io_i2c1_inst_SDA                        (<connected-to-hps_io_hps_io_i2c1_inst_SDA>),                        //                                             .hps_io_i2c1_inst_SDA
+		.hex0_external_connection_export                    (<connected-to-hex0_external_connection_export>),                    //                     hex0_external_connection.export
+		.hex1_external_connection_export                    (<connected-to-hex1_external_connection_export>),                    //                     hex1_external_connection.export
+		.hex2_external_connection_export                    (<connected-to-hex2_external_connection_export>),                    //                     hex2_external_connection.export
+		.hex3_external_connection_export                    (<connected-to-hex3_external_connection_export>),                    //                     hex3_external_connection.export
+		.hex4_external_connection_export                    (<connected-to-hex4_external_connection_export>),                    //                     hex4_external_connection.export
+		.hex5_external_connection_export                    (<connected-to-hex5_external_connection_export>),                    //                     hex5_external_connection.export
+		.hps_io_hps_io_i2c1_inst_SDA                        (<connected-to-hps_io_hps_io_i2c1_inst_SDA>),                        //                                       hps_io.hps_io_i2c1_inst_SDA
 		.hps_io_hps_io_i2c1_inst_SCL                        (<connected-to-hps_io_hps_io_i2c1_inst_SCL>),                        //                                             .hps_io_i2c1_inst_SCL
 		.hps_io_hps_io_gpio_inst_GPIO48                     (<connected-to-hps_io_hps_io_gpio_inst_GPIO48>),                     //                                             .hps_io_gpio_inst_GPIO48
 		.hps_io_hps_io_gpio_inst_GPIO53                     (<connected-to-hps_io_hps_io_gpio_inst_GPIO53>),                     //                                             .hps_io_gpio_inst_GPIO53
@@ -50,10 +50,6 @@
 		.paramtype_pio_external_connection_export           (<connected-to-paramtype_pio_external_connection_export>),           //            paramtype_pio_external_connection.export
 		.paramvalueupdate_pio_external_connection_export    (<connected-to-paramvalueupdate_pio_external_connection_export>),    //     paramvalueupdate_pio_external_connection.export
 		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                        reset.reset_n
-		.seg0_external_connection_export                    (<connected-to-seg0_external_connection_export>),                    //                     seg0_external_connection.export
-		.seg1_external_connection_export                    (<connected-to-seg1_external_connection_export>),                    //                     seg1_external_connection.export
-		.seg2_external_connection_export                    (<connected-to-seg2_external_connection_export>),                    //                     seg2_external_connection.export
-		.seg3_external_connection_export                    (<connected-to-seg3_external_connection_export>),                    //                     seg3_external_connection.export
 		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>)                    //                 serial_flash_loader_0_noe_in.noe
 	);
 

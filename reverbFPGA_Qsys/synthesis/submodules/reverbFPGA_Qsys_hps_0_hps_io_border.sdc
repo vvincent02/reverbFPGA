@@ -1,5 +1,3 @@
-set_false_path -from [get_ports hps_io_hps_io_uart0_inst_RX] -to *
-set_false_path -from * -to [get_ports hps_io_hps_io_uart0_inst_TX]
 set_false_path -from [get_ports hps_io_hps_io_i2c1_inst_SDA] -to *
 set_false_path -from * -to [get_ports hps_io_hps_io_i2c1_inst_SDA]
 set_false_path -from [get_ports hps_io_hps_io_i2c1_inst_SCL] -to *

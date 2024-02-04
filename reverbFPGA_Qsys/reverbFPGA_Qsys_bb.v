@@ -21,12 +21,12 @@ module reverbFPGA_Qsys (
 	clk_clk,
 	dampingvalue_pio_external_connection_export,
 	decayvalue_pio_external_connection_export,
-	hps_0_h2f_mpu_events_eventi,
-	hps_0_h2f_mpu_events_evento,
-	hps_0_h2f_mpu_events_standbywfe,
-	hps_0_h2f_mpu_events_standbywfi,
-	hps_io_hps_io_uart0_inst_RX,
-	hps_io_hps_io_uart0_inst_TX,
+	hex0_external_connection_export,
+	hex1_external_connection_export,
+	hex2_external_connection_export,
+	hex3_external_connection_export,
+	hex4_external_connection_export,
+	hex5_external_connection_export,
 	hps_io_hps_io_i2c1_inst_SDA,
 	hps_io_hps_io_i2c1_inst_SCL,
 	hps_io_hps_io_gpio_inst_GPIO48,
@@ -51,10 +51,6 @@ module reverbFPGA_Qsys (
 	paramtype_pio_external_connection_export,
 	paramvalueupdate_pio_external_connection_export,
 	reset_reset_n,
-	seg0_external_connection_export,
-	seg1_external_connection_export,
-	seg2_external_connection_export,
-	seg3_external_connection_export,
 	serial_flash_loader_0_noe_in_noe);	
 
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
@@ -78,12 +74,12 @@ module reverbFPGA_Qsys (
 	input		clk_clk;
 	output	[24:0]	dampingvalue_pio_external_connection_export;
 	output	[24:0]	decayvalue_pio_external_connection_export;
-	input		hps_0_h2f_mpu_events_eventi;
-	output		hps_0_h2f_mpu_events_evento;
-	output	[1:0]	hps_0_h2f_mpu_events_standbywfe;
-	output	[1:0]	hps_0_h2f_mpu_events_standbywfi;
-	input		hps_io_hps_io_uart0_inst_RX;
-	output		hps_io_hps_io_uart0_inst_TX;
+	output	[5:0]	hex0_external_connection_export;
+	output	[5:0]	hex1_external_connection_export;
+	output	[5:0]	hex2_external_connection_export;
+	output	[5:0]	hex3_external_connection_export;
+	output	[5:0]	hex4_external_connection_export;
+	output	[5:0]	hex5_external_connection_export;
 	inout		hps_io_hps_io_i2c1_inst_SDA;
 	inout		hps_io_hps_io_i2c1_inst_SCL;
 	inout		hps_io_hps_io_gpio_inst_GPIO48;
@@ -108,9 +104,5 @@ module reverbFPGA_Qsys (
 	input	[3:0]	paramtype_pio_external_connection_export;
 	input	[1:0]	paramvalueupdate_pio_external_connection_export;
 	input		reset_reset_n;
-	output	[3:0]	seg0_external_connection_export;
-	output	[3:0]	seg1_external_connection_export;
-	output	[3:0]	seg2_external_connection_export;
-	output	[3:0]	seg3_external_connection_export;
 	input		serial_flash_loader_0_noe_in_noe;
 endmodule

@@ -21,12 +21,12 @@
 			clk_clk                                            : in    std_logic                     := 'X';             -- clk
 			dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    -- export
 			decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    -- export
-			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
-			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
-			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe
-			hps_0_h2f_mpu_events_standbywfi                    : out   std_logic_vector(1 downto 0);                     -- standbywfi
-			hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
-			hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        -- hps_io_uart0_inst_TX
+			hex0_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+			hex1_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+			hex2_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+			hex3_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+			hex4_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+			hex5_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
 			hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
 			hps_io_hps_io_i2c1_inst_SCL                        : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                     : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
@@ -51,10 +51,6 @@
 			paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
-			seg0_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-			seg1_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-			seg2_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-			seg3_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
 			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X'              -- noe
 		);
 	end component reverbFPGA_Qsys;
@@ -82,13 +78,13 @@
 			clk_clk                                            => CONNECTED_TO_clk_clk,                                            --                                          clk.clk
 			dampingvalue_pio_external_connection_export        => CONNECTED_TO_dampingvalue_pio_external_connection_export,        --         dampingvalue_pio_external_connection.export
 			decayvalue_pio_external_connection_export          => CONNECTED_TO_decayvalue_pio_external_connection_export,          --           decayvalue_pio_external_connection.export
-			hps_0_h2f_mpu_events_eventi                        => CONNECTED_TO_hps_0_h2f_mpu_events_eventi,                        --                         hps_0_h2f_mpu_events.eventi
-			hps_0_h2f_mpu_events_evento                        => CONNECTED_TO_hps_0_h2f_mpu_events_evento,                        --                                             .evento
-			hps_0_h2f_mpu_events_standbywfe                    => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfe,                    --                                             .standbywfe
-			hps_0_h2f_mpu_events_standbywfi                    => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfi,                    --                                             .standbywfi
-			hps_io_hps_io_uart0_inst_RX                        => CONNECTED_TO_hps_io_hps_io_uart0_inst_RX,                        --                                       hps_io.hps_io_uart0_inst_RX
-			hps_io_hps_io_uart0_inst_TX                        => CONNECTED_TO_hps_io_hps_io_uart0_inst_TX,                        --                                             .hps_io_uart0_inst_TX
-			hps_io_hps_io_i2c1_inst_SDA                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SDA,                        --                                             .hps_io_i2c1_inst_SDA
+			hex0_external_connection_export                    => CONNECTED_TO_hex0_external_connection_export,                    --                     hex0_external_connection.export
+			hex1_external_connection_export                    => CONNECTED_TO_hex1_external_connection_export,                    --                     hex1_external_connection.export
+			hex2_external_connection_export                    => CONNECTED_TO_hex2_external_connection_export,                    --                     hex2_external_connection.export
+			hex3_external_connection_export                    => CONNECTED_TO_hex3_external_connection_export,                    --                     hex3_external_connection.export
+			hex4_external_connection_export                    => CONNECTED_TO_hex4_external_connection_export,                    --                     hex4_external_connection.export
+			hex5_external_connection_export                    => CONNECTED_TO_hex5_external_connection_export,                    --                     hex5_external_connection.export
+			hps_io_hps_io_i2c1_inst_SDA                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SDA,                        --                                       hps_io.hps_io_i2c1_inst_SDA
 			hps_io_hps_io_i2c1_inst_SCL                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SCL,                        --                                             .hps_io_i2c1_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                     => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO48,                     --                                             .hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                     => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO53,                     --                                             .hps_io_gpio_inst_GPIO53
@@ -112,10 +108,6 @@
 			paramtype_pio_external_connection_export           => CONNECTED_TO_paramtype_pio_external_connection_export,           --            paramtype_pio_external_connection.export
 			paramvalueupdate_pio_external_connection_export    => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,    --     paramvalueupdate_pio_external_connection.export
 			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                        reset.reset_n
-			seg0_external_connection_export                    => CONNECTED_TO_seg0_external_connection_export,                    --                     seg0_external_connection.export
-			seg1_external_connection_export                    => CONNECTED_TO_seg1_external_connection_export,                    --                     seg1_external_connection.export
-			seg2_external_connection_export                    => CONNECTED_TO_seg2_external_connection_export,                    --                     seg2_external_connection.export
-			seg3_external_connection_export                    => CONNECTED_TO_seg3_external_connection_export,                    --                     seg3_external_connection.export
 			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                    --                 serial_flash_loader_0_noe_in.noe
 		);
 

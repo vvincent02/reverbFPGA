@@ -29,13 +29,13 @@ entity reverbFPGA_Qsys is
 		clk_clk                                            : in    std_logic                     := '0';             --                                          clk.clk
 		dampingvalue_pio_external_connection_export        : out   std_logic_vector(24 downto 0);                    --         dampingvalue_pio_external_connection.export
 		decayvalue_pio_external_connection_export          : out   std_logic_vector(24 downto 0);                    --           decayvalue_pio_external_connection.export
-		hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := '0';             --                         hps_0_h2f_mpu_events.eventi
-		hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        --                                             .evento
-		hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     --                                             .standbywfe
-		hps_0_h2f_mpu_events_standbywfi                    : out   std_logic_vector(1 downto 0);                     --                                             .standbywfi
-		hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := '0';             --                                       hps_io.hps_io_uart0_inst_RX
-		hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        --                                             .hps_io_uart0_inst_TX
-		hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := '0';             --                                             .hps_io_i2c1_inst_SDA
+		hex0_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex0_external_connection.export
+		hex1_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex1_external_connection.export
+		hex2_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex2_external_connection.export
+		hex3_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex3_external_connection.export
+		hex4_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex4_external_connection.export
+		hex5_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex5_external_connection.export
+		hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := '0';             --                                       hps_io.hps_io_i2c1_inst_SDA
 		hps_io_hps_io_i2c1_inst_SCL                        : inout std_logic                     := '0';             --                                             .hps_io_i2c1_inst_SCL
 		hps_io_hps_io_gpio_inst_GPIO48                     : inout std_logic                     := '0';             --                                             .hps_io_gpio_inst_GPIO48
 		hps_io_hps_io_gpio_inst_GPIO53                     : inout std_logic                     := '0';             --                                             .hps_io_gpio_inst_GPIO53
@@ -59,10 +59,6 @@ entity reverbFPGA_Qsys is
 		paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => '0'); --            paramtype_pio_external_connection.export
 		paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => '0'); --     paramvalueupdate_pio_external_connection.export
 		reset_reset_n                                      : in    std_logic                     := '0';             --                                        reset.reset_n
-		seg0_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg0_external_connection.export
-		seg1_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg1_external_connection.export
-		seg2_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg2_external_connection.export
-		seg3_external_connection_export                    : out   std_logic_vector(3 downto 0);                     --                     seg3_external_connection.export
 		serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := '0'              --                 serial_flash_loader_0_noe_in.noe
 	);
 end entity reverbFPGA_Qsys;
@@ -114,16 +110,25 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component reverbFPGA_Qsys_dampingValue_PIO;
 
+	component reverbFPGA_Qsys_hex0 is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(5 downto 0)                      -- export
+		);
+	end component reverbFPGA_Qsys_hex0;
+
 	component reverbFPGA_Qsys_hps_0 is
 		generic (
 			F2S_Width : integer := 2;
 			S2F_Width : integer := 2
 		);
 		port (
-			h2f_mpu_eventi          : in    std_logic                     := 'X';             -- eventi
-			h2f_mpu_evento          : out   std_logic;                                        -- evento
-			h2f_mpu_standbywfe      : out   std_logic_vector(1 downto 0);                     -- standbywfe
-			h2f_mpu_standbywfi      : out   std_logic_vector(1 downto 0);                     -- standbywfi
 			mem_a                   : out   std_logic_vector(14 downto 0);                    -- mem_a
 			mem_ba                  : out   std_logic_vector(2 downto 0);                     -- mem_ba
 			mem_ck                  : out   std_logic;                                        -- mem_ck
@@ -140,89 +145,11 @@ architecture rtl of reverbFPGA_Qsys is
 			mem_odt                 : out   std_logic;                                        -- mem_odt
 			mem_dm                  : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			oct_rzqin               : in    std_logic                     := 'X';             -- oct_rzqin
-			hps_io_uart0_inst_RX    : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
-			hps_io_uart0_inst_TX    : out   std_logic;                                        -- hps_io_uart0_inst_TX
 			hps_io_i2c1_inst_SDA    : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
 			hps_io_i2c1_inst_SCL    : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
 			hps_io_gpio_inst_GPIO48 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 			hps_io_gpio_inst_GPIO53 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
 			h2f_rst_n               : out   std_logic;                                        -- reset_n
-			h2f_axi_clk             : in    std_logic                     := 'X';             -- clk
-			h2f_AWID                : out   std_logic_vector(11 downto 0);                    -- awid
-			h2f_AWADDR              : out   std_logic_vector(29 downto 0);                    -- awaddr
-			h2f_AWLEN               : out   std_logic_vector(3 downto 0);                     -- awlen
-			h2f_AWSIZE              : out   std_logic_vector(2 downto 0);                     -- awsize
-			h2f_AWBURST             : out   std_logic_vector(1 downto 0);                     -- awburst
-			h2f_AWLOCK              : out   std_logic_vector(1 downto 0);                     -- awlock
-			h2f_AWCACHE             : out   std_logic_vector(3 downto 0);                     -- awcache
-			h2f_AWPROT              : out   std_logic_vector(2 downto 0);                     -- awprot
-			h2f_AWVALID             : out   std_logic;                                        -- awvalid
-			h2f_AWREADY             : in    std_logic                     := 'X';             -- awready
-			h2f_WID                 : out   std_logic_vector(11 downto 0);                    -- wid
-			h2f_WDATA               : out   std_logic_vector(31 downto 0);                    -- wdata
-			h2f_WSTRB               : out   std_logic_vector(3 downto 0);                     -- wstrb
-			h2f_WLAST               : out   std_logic;                                        -- wlast
-			h2f_WVALID              : out   std_logic;                                        -- wvalid
-			h2f_WREADY              : in    std_logic                     := 'X';             -- wready
-			h2f_BID                 : in    std_logic_vector(11 downto 0) := (others => 'X'); -- bid
-			h2f_BRESP               : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- bresp
-			h2f_BVALID              : in    std_logic                     := 'X';             -- bvalid
-			h2f_BREADY              : out   std_logic;                                        -- bready
-			h2f_ARID                : out   std_logic_vector(11 downto 0);                    -- arid
-			h2f_ARADDR              : out   std_logic_vector(29 downto 0);                    -- araddr
-			h2f_ARLEN               : out   std_logic_vector(3 downto 0);                     -- arlen
-			h2f_ARSIZE              : out   std_logic_vector(2 downto 0);                     -- arsize
-			h2f_ARBURST             : out   std_logic_vector(1 downto 0);                     -- arburst
-			h2f_ARLOCK              : out   std_logic_vector(1 downto 0);                     -- arlock
-			h2f_ARCACHE             : out   std_logic_vector(3 downto 0);                     -- arcache
-			h2f_ARPROT              : out   std_logic_vector(2 downto 0);                     -- arprot
-			h2f_ARVALID             : out   std_logic;                                        -- arvalid
-			h2f_ARREADY             : in    std_logic                     := 'X';             -- arready
-			h2f_RID                 : in    std_logic_vector(11 downto 0) := (others => 'X'); -- rid
-			h2f_RDATA               : in    std_logic_vector(31 downto 0) := (others => 'X'); -- rdata
-			h2f_RRESP               : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- rresp
-			h2f_RLAST               : in    std_logic                     := 'X';             -- rlast
-			h2f_RVALID              : in    std_logic                     := 'X';             -- rvalid
-			h2f_RREADY              : out   std_logic;                                        -- rready
-			f2h_axi_clk             : in    std_logic                     := 'X';             -- clk
-			f2h_AWID                : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- awid
-			f2h_AWADDR              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- awaddr
-			f2h_AWLEN               : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- awlen
-			f2h_AWSIZE              : in    std_logic_vector(2 downto 0)  := (others => 'X'); -- awsize
-			f2h_AWBURST             : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- awburst
-			f2h_AWLOCK              : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- awlock
-			f2h_AWCACHE             : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- awcache
-			f2h_AWPROT              : in    std_logic_vector(2 downto 0)  := (others => 'X'); -- awprot
-			f2h_AWVALID             : in    std_logic                     := 'X';             -- awvalid
-			f2h_AWREADY             : out   std_logic;                                        -- awready
-			f2h_AWUSER              : in    std_logic_vector(4 downto 0)  := (others => 'X'); -- awuser
-			f2h_WID                 : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- wid
-			f2h_WDATA               : in    std_logic_vector(31 downto 0) := (others => 'X'); -- wdata
-			f2h_WSTRB               : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- wstrb
-			f2h_WLAST               : in    std_logic                     := 'X';             -- wlast
-			f2h_WVALID              : in    std_logic                     := 'X';             -- wvalid
-			f2h_WREADY              : out   std_logic;                                        -- wready
-			f2h_BID                 : out   std_logic_vector(7 downto 0);                     -- bid
-			f2h_BRESP               : out   std_logic_vector(1 downto 0);                     -- bresp
-			f2h_BVALID              : out   std_logic;                                        -- bvalid
-			f2h_BREADY              : in    std_logic                     := 'X';             -- bready
-			f2h_ARID                : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- arid
-			f2h_ARADDR              : in    std_logic_vector(31 downto 0) := (others => 'X'); -- araddr
-			f2h_ARLEN               : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- arlen
-			f2h_ARSIZE              : in    std_logic_vector(2 downto 0)  := (others => 'X'); -- arsize
-			f2h_ARBURST             : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- arburst
-			f2h_ARLOCK              : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- arlock
-			f2h_ARCACHE             : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- arcache
-			f2h_ARPROT              : in    std_logic_vector(2 downto 0)  := (others => 'X'); -- arprot
-			f2h_ARVALID             : in    std_logic                     := 'X';             -- arvalid
-			f2h_ARREADY             : out   std_logic;                                        -- arready
-			f2h_ARUSER              : in    std_logic_vector(4 downto 0)  := (others => 'X'); -- aruser
-			f2h_RID                 : out   std_logic_vector(7 downto 0);                     -- rid
-			f2h_RDATA               : out   std_logic_vector(31 downto 0);                    -- rdata
-			f2h_RRESP               : out   std_logic_vector(1 downto 0);                     -- rresp
-			f2h_RLAST               : out   std_logic;                                        -- rlast
-			f2h_RVALID              : out   std_logic;                                        -- rvalid
-			f2h_RREADY              : in    std_logic                     := 'X';             -- rready
 			h2f_lw_axi_clk          : in    std_logic                     := 'X';             -- clk
 			h2f_lw_AWID             : out   std_logic_vector(11 downto 0);                    -- awid
 			h2f_lw_AWADDR           : out   std_logic_vector(20 downto 0);                    -- awaddr
@@ -296,19 +223,6 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component reverbFPGA_Qsys_paramValueUpdate_PIO;
 
-	component reverbFPGA_Qsys_seg0 is
-		port (
-			clk        : in  std_logic                     := 'X';             -- clk
-			reset_n    : in  std_logic                     := 'X';             -- reset_n
-			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			write_n    : in  std_logic                     := 'X';             -- write_n
-			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			chipselect : in  std_logic                     := 'X';             -- chipselect
-			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			out_port   : out std_logic_vector(3 downto 0)                      -- export
-		);
-	end component reverbFPGA_Qsys_seg0;
-
 	component altera_serial_flash_loader is
 		generic (
 			INTENDED_DEVICE_FAMILY  : string  := "";
@@ -373,6 +287,36 @@ architecture rtl of reverbFPGA_Qsys is
 			decayValue_PIO_s1_readdata                                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			decayValue_PIO_s1_writedata                                         : out std_logic_vector(31 downto 0);                    -- writedata
 			decayValue_PIO_s1_chipselect                                        : out std_logic;                                        -- chipselect
+			hex0_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			hex0_s1_write                                                       : out std_logic;                                        -- write
+			hex0_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			hex0_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			hex0_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			hex1_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			hex1_s1_write                                                       : out std_logic;                                        -- write
+			hex1_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			hex1_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			hex1_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			hex2_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			hex2_s1_write                                                       : out std_logic;                                        -- write
+			hex2_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			hex2_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			hex2_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			hex3_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			hex3_s1_write                                                       : out std_logic;                                        -- write
+			hex3_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			hex3_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			hex3_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			hex4_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			hex4_s1_write                                                       : out std_logic;                                        -- write
+			hex4_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			hex4_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			hex4_s1_chipselect                                                  : out std_logic;                                        -- chipselect
+			hex5_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
+			hex5_s1_write                                                       : out std_logic;                                        -- write
+			hex5_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			hex5_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			hex5_s1_chipselect                                                  : out std_logic;                                        -- chipselect
 			mixValue_PIO_s1_address                                             : out std_logic_vector(1 downto 0);                     -- address
 			mixValue_PIO_s1_write                                               : out std_logic;                                        -- write
 			mixValue_PIO_s1_readdata                                            : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -381,27 +325,7 @@ architecture rtl of reverbFPGA_Qsys is
 			paramType_PIO_s1_address                                            : out std_logic_vector(1 downto 0);                     -- address
 			paramType_PIO_s1_readdata                                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			paramValueUpdate_PIO_s1_address                                     : out std_logic_vector(1 downto 0);                     -- address
-			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			seg0_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
-			seg0_s1_write                                                       : out std_logic;                                        -- write
-			seg0_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			seg0_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
-			seg0_s1_chipselect                                                  : out std_logic;                                        -- chipselect
-			seg1_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
-			seg1_s1_write                                                       : out std_logic;                                        -- write
-			seg1_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			seg1_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
-			seg1_s1_chipselect                                                  : out std_logic;                                        -- chipselect
-			seg2_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
-			seg2_s1_write                                                       : out std_logic;                                        -- write
-			seg2_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			seg2_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
-			seg2_s1_chipselect                                                  : out std_logic;                                        -- chipselect
-			seg3_s1_address                                                     : out std_logic_vector(1 downto 0);                     -- address
-			seg3_s1_write                                                       : out std_logic;                                        -- write
-			seg3_s1_readdata                                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			seg3_s1_writedata                                                   : out std_logic_vector(31 downto 0);                    -- writedata
-			seg3_s1_chipselect                                                  : out std_logic                                         -- chipselect
+			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
 		);
 	end component reverbFPGA_Qsys_mm_interconnect_0;
 
@@ -526,26 +450,36 @@ architecture rtl of reverbFPGA_Qsys is
 	signal mm_interconnect_0_decayvalue_pio_s1_address           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:decayValue_PIO_s1_address -> decayValue_PIO:address
 	signal mm_interconnect_0_decayvalue_pio_s1_write             : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_write -> mm_interconnect_0_decayvalue_pio_s1_write:in
 	signal mm_interconnect_0_decayvalue_pio_s1_writedata         : std_logic_vector(31 downto 0); -- mm_interconnect_0:decayValue_PIO_s1_writedata -> decayValue_PIO:writedata
-	signal mm_interconnect_0_seg0_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg0_s1_chipselect -> seg0:chipselect
-	signal mm_interconnect_0_seg0_s1_readdata                    : std_logic_vector(31 downto 0); -- seg0:readdata -> mm_interconnect_0:seg0_s1_readdata
-	signal mm_interconnect_0_seg0_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg0_s1_address -> seg0:address
-	signal mm_interconnect_0_seg0_s1_write                       : std_logic;                     -- mm_interconnect_0:seg0_s1_write -> mm_interconnect_0_seg0_s1_write:in
-	signal mm_interconnect_0_seg0_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg0_s1_writedata -> seg0:writedata
-	signal mm_interconnect_0_seg1_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg1_s1_chipselect -> seg1:chipselect
-	signal mm_interconnect_0_seg1_s1_readdata                    : std_logic_vector(31 downto 0); -- seg1:readdata -> mm_interconnect_0:seg1_s1_readdata
-	signal mm_interconnect_0_seg1_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg1_s1_address -> seg1:address
-	signal mm_interconnect_0_seg1_s1_write                       : std_logic;                     -- mm_interconnect_0:seg1_s1_write -> mm_interconnect_0_seg1_s1_write:in
-	signal mm_interconnect_0_seg1_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg1_s1_writedata -> seg1:writedata
-	signal mm_interconnect_0_seg2_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg2_s1_chipselect -> seg2:chipselect
-	signal mm_interconnect_0_seg2_s1_readdata                    : std_logic_vector(31 downto 0); -- seg2:readdata -> mm_interconnect_0:seg2_s1_readdata
-	signal mm_interconnect_0_seg2_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg2_s1_address -> seg2:address
-	signal mm_interconnect_0_seg2_s1_write                       : std_logic;                     -- mm_interconnect_0:seg2_s1_write -> mm_interconnect_0_seg2_s1_write:in
-	signal mm_interconnect_0_seg2_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg2_s1_writedata -> seg2:writedata
-	signal mm_interconnect_0_seg3_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:seg3_s1_chipselect -> seg3:chipselect
-	signal mm_interconnect_0_seg3_s1_readdata                    : std_logic_vector(31 downto 0); -- seg3:readdata -> mm_interconnect_0:seg3_s1_readdata
-	signal mm_interconnect_0_seg3_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:seg3_s1_address -> seg3:address
-	signal mm_interconnect_0_seg3_s1_write                       : std_logic;                     -- mm_interconnect_0:seg3_s1_write -> mm_interconnect_0_seg3_s1_write:in
-	signal mm_interconnect_0_seg3_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:seg3_s1_writedata -> seg3:writedata
+	signal mm_interconnect_0_hex0_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex0_s1_chipselect -> hex0:chipselect
+	signal mm_interconnect_0_hex0_s1_readdata                    : std_logic_vector(31 downto 0); -- hex0:readdata -> mm_interconnect_0:hex0_s1_readdata
+	signal mm_interconnect_0_hex0_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex0_s1_address -> hex0:address
+	signal mm_interconnect_0_hex0_s1_write                       : std_logic;                     -- mm_interconnect_0:hex0_s1_write -> mm_interconnect_0_hex0_s1_write:in
+	signal mm_interconnect_0_hex0_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex0_s1_writedata -> hex0:writedata
+	signal mm_interconnect_0_hex1_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex1_s1_chipselect -> hex1:chipselect
+	signal mm_interconnect_0_hex1_s1_readdata                    : std_logic_vector(31 downto 0); -- hex1:readdata -> mm_interconnect_0:hex1_s1_readdata
+	signal mm_interconnect_0_hex1_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex1_s1_address -> hex1:address
+	signal mm_interconnect_0_hex1_s1_write                       : std_logic;                     -- mm_interconnect_0:hex1_s1_write -> mm_interconnect_0_hex1_s1_write:in
+	signal mm_interconnect_0_hex1_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex1_s1_writedata -> hex1:writedata
+	signal mm_interconnect_0_hex2_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex2_s1_chipselect -> hex2:chipselect
+	signal mm_interconnect_0_hex2_s1_readdata                    : std_logic_vector(31 downto 0); -- hex2:readdata -> mm_interconnect_0:hex2_s1_readdata
+	signal mm_interconnect_0_hex2_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex2_s1_address -> hex2:address
+	signal mm_interconnect_0_hex2_s1_write                       : std_logic;                     -- mm_interconnect_0:hex2_s1_write -> mm_interconnect_0_hex2_s1_write:in
+	signal mm_interconnect_0_hex2_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex2_s1_writedata -> hex2:writedata
+	signal mm_interconnect_0_hex3_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex3_s1_chipselect -> hex3:chipselect
+	signal mm_interconnect_0_hex3_s1_readdata                    : std_logic_vector(31 downto 0); -- hex3:readdata -> mm_interconnect_0:hex3_s1_readdata
+	signal mm_interconnect_0_hex3_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex3_s1_address -> hex3:address
+	signal mm_interconnect_0_hex3_s1_write                       : std_logic;                     -- mm_interconnect_0:hex3_s1_write -> mm_interconnect_0_hex3_s1_write:in
+	signal mm_interconnect_0_hex3_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex3_s1_writedata -> hex3:writedata
+	signal mm_interconnect_0_hex4_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex4_s1_chipselect -> hex4:chipselect
+	signal mm_interconnect_0_hex4_s1_readdata                    : std_logic_vector(31 downto 0); -- hex4:readdata -> mm_interconnect_0:hex4_s1_readdata
+	signal mm_interconnect_0_hex4_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex4_s1_address -> hex4:address
+	signal mm_interconnect_0_hex4_s1_write                       : std_logic;                     -- mm_interconnect_0:hex4_s1_write -> mm_interconnect_0_hex4_s1_write:in
+	signal mm_interconnect_0_hex4_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex4_s1_writedata -> hex4:writedata
+	signal mm_interconnect_0_hex5_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex5_s1_chipselect -> hex5:chipselect
+	signal mm_interconnect_0_hex5_s1_readdata                    : std_logic_vector(31 downto 0); -- hex5:readdata -> mm_interconnect_0:hex5_s1_readdata
+	signal mm_interconnect_0_hex5_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex5_s1_address -> hex5:address
+	signal mm_interconnect_0_hex5_s1_write                       : std_logic;                     -- mm_interconnect_0:hex5_s1_write -> mm_interconnect_0_hex5_s1_write:in
+	signal mm_interconnect_0_hex5_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex5_s1_writedata -> hex5:writedata
 	signal rst_controller_reset_out_reset                        : std_logic;                     -- rst_controller:reset_out -> [audio_controller:reset, mm_interconnect_0:dampingValue_PIO_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                    : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
 	signal hps_0_h2f_reset_reset                                 : std_logic;                     -- hps_0:h2f_rst_n -> hps_0_h2f_reset_reset:in
@@ -553,11 +487,13 @@ architecture rtl of reverbFPGA_Qsys is
 	signal mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv : std_logic;                     -- mm_interconnect_0_dampingvalue_pio_s1_write:inv -> dampingValue_PIO:write_n
 	signal mm_interconnect_0_mixvalue_pio_s1_write_ports_inv     : std_logic;                     -- mm_interconnect_0_mixvalue_pio_s1_write:inv -> mixValue_PIO:write_n
 	signal mm_interconnect_0_decayvalue_pio_s1_write_ports_inv   : std_logic;                     -- mm_interconnect_0_decayvalue_pio_s1_write:inv -> decayValue_PIO:write_n
-	signal mm_interconnect_0_seg0_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg0_s1_write:inv -> seg0:write_n
-	signal mm_interconnect_0_seg1_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg1_s1_write:inv -> seg1:write_n
-	signal mm_interconnect_0_seg2_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg2_s1_write:inv -> seg2:write_n
-	signal mm_interconnect_0_seg3_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_seg3_s1_write:inv -> seg3:write_n
-	signal rst_controller_reset_out_reset_ports_inv              : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n, seg0:reset_n, seg1:reset_n, seg2:reset_n, seg3:reset_n]
+	signal mm_interconnect_0_hex0_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex0_s1_write:inv -> hex0:write_n
+	signal mm_interconnect_0_hex1_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex1_s1_write:inv -> hex1:write_n
+	signal mm_interconnect_0_hex2_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex2_s1_write:inv -> hex2:write_n
+	signal mm_interconnect_0_hex3_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex3_s1_write:inv -> hex3:write_n
+	signal mm_interconnect_0_hex4_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex4_s1_write:inv -> hex4:write_n
+	signal mm_interconnect_0_hex5_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex5_s1_write:inv -> hex5:write_n
+	signal rst_controller_reset_out_reset_ports_inv              : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, hex0:reset_n, hex1:reset_n, hex2:reset_n, hex3:reset_n, hex4:reset_n, hex5:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n]
 	signal hps_0_h2f_reset_reset_ports_inv                       : std_logic;                     -- hps_0_h2f_reset_reset:inv -> rst_controller_001:reset_in0
 
 begin
@@ -617,16 +553,84 @@ begin
 			out_port   => decayvalue_pio_external_connection_export            -- external_connection.export
 		);
 
+	hex0 : component reverbFPGA_Qsys_hex0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_hex0_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex0_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex0_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex0_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex0_s1_readdata,        --                    .readdata
+			out_port   => hex0_external_connection_export            -- external_connection.export
+		);
+
+	hex1 : component reverbFPGA_Qsys_hex0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_hex1_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex1_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex1_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex1_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex1_s1_readdata,        --                    .readdata
+			out_port   => hex1_external_connection_export            -- external_connection.export
+		);
+
+	hex2 : component reverbFPGA_Qsys_hex0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_hex2_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex2_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex2_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex2_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex2_s1_readdata,        --                    .readdata
+			out_port   => hex2_external_connection_export            -- external_connection.export
+		);
+
+	hex3 : component reverbFPGA_Qsys_hex0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_hex3_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex3_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex3_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex3_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex3_s1_readdata,        --                    .readdata
+			out_port   => hex3_external_connection_export            -- external_connection.export
+		);
+
+	hex4 : component reverbFPGA_Qsys_hex0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_hex4_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex4_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex4_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex4_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex4_s1_readdata,        --                    .readdata
+			out_port   => hex4_external_connection_export            -- external_connection.export
+		);
+
+	hex5 : component reverbFPGA_Qsys_hex0
+		port map (
+			clk        => clk_clk,                                   --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
+			address    => mm_interconnect_0_hex5_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_hex5_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_hex5_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_hex5_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_hex5_s1_readdata,        --                    .readdata
+			out_port   => hex5_external_connection_export            -- external_connection.export
+		);
+
 	hps_0 : component reverbFPGA_Qsys_hps_0
 		generic map (
-			F2S_Width => 1,
-			S2F_Width => 1
+			F2S_Width => 0,
+			S2F_Width => 0
 		)
 		port map (
-			h2f_mpu_eventi          => hps_0_h2f_mpu_events_eventi,     --    h2f_mpu_events.eventi
-			h2f_mpu_evento          => hps_0_h2f_mpu_events_evento,     --                  .evento
-			h2f_mpu_standbywfe      => hps_0_h2f_mpu_events_standbywfe, --                  .standbywfe
-			h2f_mpu_standbywfi      => hps_0_h2f_mpu_events_standbywfi, --                  .standbywfi
 			mem_a                   => memory_mem_a,                    --            memory.mem_a
 			mem_ba                  => memory_mem_ba,                   --                  .mem_ba
 			mem_ck                  => memory_mem_ck,                   --                  .mem_ck
@@ -643,89 +647,11 @@ begin
 			mem_odt                 => memory_mem_odt,                  --                  .mem_odt
 			mem_dm                  => memory_mem_dm,                   --                  .mem_dm
 			oct_rzqin               => memory_oct_rzqin,                --                  .oct_rzqin
-			hps_io_uart0_inst_RX    => hps_io_hps_io_uart0_inst_RX,     --            hps_io.hps_io_uart0_inst_RX
-			hps_io_uart0_inst_TX    => hps_io_hps_io_uart0_inst_TX,     --                  .hps_io_uart0_inst_TX
-			hps_io_i2c1_inst_SDA    => hps_io_hps_io_i2c1_inst_SDA,     --                  .hps_io_i2c1_inst_SDA
+			hps_io_i2c1_inst_SDA    => hps_io_hps_io_i2c1_inst_SDA,     --            hps_io.hps_io_i2c1_inst_SDA
 			hps_io_i2c1_inst_SCL    => hps_io_hps_io_i2c1_inst_SCL,     --                  .hps_io_i2c1_inst_SCL
 			hps_io_gpio_inst_GPIO48 => hps_io_hps_io_gpio_inst_GPIO48,  --                  .hps_io_gpio_inst_GPIO48
 			hps_io_gpio_inst_GPIO53 => hps_io_hps_io_gpio_inst_GPIO53,  --                  .hps_io_gpio_inst_GPIO53
 			h2f_rst_n               => hps_0_h2f_reset_reset,           --         h2f_reset.reset_n
-			h2f_axi_clk             => clk_clk,                         --     h2f_axi_clock.clk
-			h2f_AWID                => open,                            --    h2f_axi_master.awid
-			h2f_AWADDR              => open,                            --                  .awaddr
-			h2f_AWLEN               => open,                            --                  .awlen
-			h2f_AWSIZE              => open,                            --                  .awsize
-			h2f_AWBURST             => open,                            --                  .awburst
-			h2f_AWLOCK              => open,                            --                  .awlock
-			h2f_AWCACHE             => open,                            --                  .awcache
-			h2f_AWPROT              => open,                            --                  .awprot
-			h2f_AWVALID             => open,                            --                  .awvalid
-			h2f_AWREADY             => open,                            --                  .awready
-			h2f_WID                 => open,                            --                  .wid
-			h2f_WDATA               => open,                            --                  .wdata
-			h2f_WSTRB               => open,                            --                  .wstrb
-			h2f_WLAST               => open,                            --                  .wlast
-			h2f_WVALID              => open,                            --                  .wvalid
-			h2f_WREADY              => open,                            --                  .wready
-			h2f_BID                 => open,                            --                  .bid
-			h2f_BRESP               => open,                            --                  .bresp
-			h2f_BVALID              => open,                            --                  .bvalid
-			h2f_BREADY              => open,                            --                  .bready
-			h2f_ARID                => open,                            --                  .arid
-			h2f_ARADDR              => open,                            --                  .araddr
-			h2f_ARLEN               => open,                            --                  .arlen
-			h2f_ARSIZE              => open,                            --                  .arsize
-			h2f_ARBURST             => open,                            --                  .arburst
-			h2f_ARLOCK              => open,                            --                  .arlock
-			h2f_ARCACHE             => open,                            --                  .arcache
-			h2f_ARPROT              => open,                            --                  .arprot
-			h2f_ARVALID             => open,                            --                  .arvalid
-			h2f_ARREADY             => open,                            --                  .arready
-			h2f_RID                 => open,                            --                  .rid
-			h2f_RDATA               => open,                            --                  .rdata
-			h2f_RRESP               => open,                            --                  .rresp
-			h2f_RLAST               => open,                            --                  .rlast
-			h2f_RVALID              => open,                            --                  .rvalid
-			h2f_RREADY              => open,                            --                  .rready
-			f2h_axi_clk             => clk_clk,                         --     f2h_axi_clock.clk
-			f2h_AWID                => open,                            --     f2h_axi_slave.awid
-			f2h_AWADDR              => open,                            --                  .awaddr
-			f2h_AWLEN               => open,                            --                  .awlen
-			f2h_AWSIZE              => open,                            --                  .awsize
-			f2h_AWBURST             => open,                            --                  .awburst
-			f2h_AWLOCK              => open,                            --                  .awlock
-			f2h_AWCACHE             => open,                            --                  .awcache
-			f2h_AWPROT              => open,                            --                  .awprot
-			f2h_AWVALID             => open,                            --                  .awvalid
-			f2h_AWREADY             => open,                            --                  .awready
-			f2h_AWUSER              => open,                            --                  .awuser
-			f2h_WID                 => open,                            --                  .wid
-			f2h_WDATA               => open,                            --                  .wdata
-			f2h_WSTRB               => open,                            --                  .wstrb
-			f2h_WLAST               => open,                            --                  .wlast
-			f2h_WVALID              => open,                            --                  .wvalid
-			f2h_WREADY              => open,                            --                  .wready
-			f2h_BID                 => open,                            --                  .bid
-			f2h_BRESP               => open,                            --                  .bresp
-			f2h_BVALID              => open,                            --                  .bvalid
-			f2h_BREADY              => open,                            --                  .bready
-			f2h_ARID                => open,                            --                  .arid
-			f2h_ARADDR              => open,                            --                  .araddr
-			f2h_ARLEN               => open,                            --                  .arlen
-			f2h_ARSIZE              => open,                            --                  .arsize
-			f2h_ARBURST             => open,                            --                  .arburst
-			f2h_ARLOCK              => open,                            --                  .arlock
-			f2h_ARCACHE             => open,                            --                  .arcache
-			f2h_ARPROT              => open,                            --                  .arprot
-			f2h_ARVALID             => open,                            --                  .arvalid
-			f2h_ARREADY             => open,                            --                  .arready
-			f2h_ARUSER              => open,                            --                  .aruser
-			f2h_RID                 => open,                            --                  .rid
-			f2h_RDATA               => open,                            --                  .rdata
-			f2h_RRESP               => open,                            --                  .rresp
-			f2h_RLAST               => open,                            --                  .rlast
-			f2h_RVALID              => open,                            --                  .rvalid
-			f2h_RREADY              => open,                            --                  .rready
 			h2f_lw_axi_clk          => clk_clk,                         --  h2f_lw_axi_clock.clk
 			h2f_lw_AWID             => hps_0_h2f_lw_axi_master_awid,    -- h2f_lw_axi_master.awid
 			h2f_lw_AWADDR           => hps_0_h2f_lw_axi_master_awaddr,  --                  .awaddr
@@ -795,54 +721,6 @@ begin
 			in_port  => paramvalueupdate_pio_external_connection_export     -- external_connection.export
 		);
 
-	seg0 : component reverbFPGA_Qsys_seg0
-		port map (
-			clk        => clk_clk,                                   --                 clk.clk
-			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_0_seg0_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_0_seg0_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_0_seg0_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_0_seg0_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_0_seg0_s1_readdata,        --                    .readdata
-			out_port   => seg0_external_connection_export            -- external_connection.export
-		);
-
-	seg1 : component reverbFPGA_Qsys_seg0
-		port map (
-			clk        => clk_clk,                                   --                 clk.clk
-			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_0_seg1_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_0_seg1_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_0_seg1_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_0_seg1_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_0_seg1_s1_readdata,        --                    .readdata
-			out_port   => seg1_external_connection_export            -- external_connection.export
-		);
-
-	seg2 : component reverbFPGA_Qsys_seg0
-		port map (
-			clk        => clk_clk,                                   --                 clk.clk
-			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_0_seg2_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_0_seg2_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_0_seg2_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_0_seg2_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_0_seg2_s1_readdata,        --                    .readdata
-			out_port   => seg2_external_connection_export            -- external_connection.export
-		);
-
-	seg3 : component reverbFPGA_Qsys_seg0
-		port map (
-			clk        => clk_clk,                                   --                 clk.clk
-			reset_n    => rst_controller_reset_out_reset_ports_inv,  --               reset.reset_n
-			address    => mm_interconnect_0_seg3_s1_address,         --                  s1.address
-			write_n    => mm_interconnect_0_seg3_s1_write_ports_inv, --                    .write_n
-			writedata  => mm_interconnect_0_seg3_s1_writedata,       --                    .writedata
-			chipselect => mm_interconnect_0_seg3_s1_chipselect,      --                    .chipselect
-			readdata   => mm_interconnect_0_seg3_s1_readdata,        --                    .readdata
-			out_port   => seg3_external_connection_export            -- external_connection.export
-		);
-
 	serial_flash_loader : component altera_serial_flash_loader
 		generic map (
 			INTENDED_DEVICE_FAMILY  => "Cyclone V",
@@ -906,6 +784,36 @@ begin
 			decayValue_PIO_s1_readdata                                          => mm_interconnect_0_decayvalue_pio_s1_readdata,       --                                                              .readdata
 			decayValue_PIO_s1_writedata                                         => mm_interconnect_0_decayvalue_pio_s1_writedata,      --                                                              .writedata
 			decayValue_PIO_s1_chipselect                                        => mm_interconnect_0_decayvalue_pio_s1_chipselect,     --                                                              .chipselect
+			hex0_s1_address                                                     => mm_interconnect_0_hex0_s1_address,                  --                                                       hex0_s1.address
+			hex0_s1_write                                                       => mm_interconnect_0_hex0_s1_write,                    --                                                              .write
+			hex0_s1_readdata                                                    => mm_interconnect_0_hex0_s1_readdata,                 --                                                              .readdata
+			hex0_s1_writedata                                                   => mm_interconnect_0_hex0_s1_writedata,                --                                                              .writedata
+			hex0_s1_chipselect                                                  => mm_interconnect_0_hex0_s1_chipselect,               --                                                              .chipselect
+			hex1_s1_address                                                     => mm_interconnect_0_hex1_s1_address,                  --                                                       hex1_s1.address
+			hex1_s1_write                                                       => mm_interconnect_0_hex1_s1_write,                    --                                                              .write
+			hex1_s1_readdata                                                    => mm_interconnect_0_hex1_s1_readdata,                 --                                                              .readdata
+			hex1_s1_writedata                                                   => mm_interconnect_0_hex1_s1_writedata,                --                                                              .writedata
+			hex1_s1_chipselect                                                  => mm_interconnect_0_hex1_s1_chipselect,               --                                                              .chipselect
+			hex2_s1_address                                                     => mm_interconnect_0_hex2_s1_address,                  --                                                       hex2_s1.address
+			hex2_s1_write                                                       => mm_interconnect_0_hex2_s1_write,                    --                                                              .write
+			hex2_s1_readdata                                                    => mm_interconnect_0_hex2_s1_readdata,                 --                                                              .readdata
+			hex2_s1_writedata                                                   => mm_interconnect_0_hex2_s1_writedata,                --                                                              .writedata
+			hex2_s1_chipselect                                                  => mm_interconnect_0_hex2_s1_chipselect,               --                                                              .chipselect
+			hex3_s1_address                                                     => mm_interconnect_0_hex3_s1_address,                  --                                                       hex3_s1.address
+			hex3_s1_write                                                       => mm_interconnect_0_hex3_s1_write,                    --                                                              .write
+			hex3_s1_readdata                                                    => mm_interconnect_0_hex3_s1_readdata,                 --                                                              .readdata
+			hex3_s1_writedata                                                   => mm_interconnect_0_hex3_s1_writedata,                --                                                              .writedata
+			hex3_s1_chipselect                                                  => mm_interconnect_0_hex3_s1_chipselect,               --                                                              .chipselect
+			hex4_s1_address                                                     => mm_interconnect_0_hex4_s1_address,                  --                                                       hex4_s1.address
+			hex4_s1_write                                                       => mm_interconnect_0_hex4_s1_write,                    --                                                              .write
+			hex4_s1_readdata                                                    => mm_interconnect_0_hex4_s1_readdata,                 --                                                              .readdata
+			hex4_s1_writedata                                                   => mm_interconnect_0_hex4_s1_writedata,                --                                                              .writedata
+			hex4_s1_chipselect                                                  => mm_interconnect_0_hex4_s1_chipselect,               --                                                              .chipselect
+			hex5_s1_address                                                     => mm_interconnect_0_hex5_s1_address,                  --                                                       hex5_s1.address
+			hex5_s1_write                                                       => mm_interconnect_0_hex5_s1_write,                    --                                                              .write
+			hex5_s1_readdata                                                    => mm_interconnect_0_hex5_s1_readdata,                 --                                                              .readdata
+			hex5_s1_writedata                                                   => mm_interconnect_0_hex5_s1_writedata,                --                                                              .writedata
+			hex5_s1_chipselect                                                  => mm_interconnect_0_hex5_s1_chipselect,               --                                                              .chipselect
 			mixValue_PIO_s1_address                                             => mm_interconnect_0_mixvalue_pio_s1_address,          --                                               mixValue_PIO_s1.address
 			mixValue_PIO_s1_write                                               => mm_interconnect_0_mixvalue_pio_s1_write,            --                                                              .write
 			mixValue_PIO_s1_readdata                                            => mm_interconnect_0_mixvalue_pio_s1_readdata,         --                                                              .readdata
@@ -914,27 +822,7 @@ begin
 			paramType_PIO_s1_address                                            => mm_interconnect_0_paramtype_pio_s1_address,         --                                              paramType_PIO_s1.address
 			paramType_PIO_s1_readdata                                           => mm_interconnect_0_paramtype_pio_s1_readdata,        --                                                              .readdata
 			paramValueUpdate_PIO_s1_address                                     => mm_interconnect_0_paramvalueupdate_pio_s1_address,  --                                       paramValueUpdate_PIO_s1.address
-			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata, --                                                              .readdata
-			seg0_s1_address                                                     => mm_interconnect_0_seg0_s1_address,                  --                                                       seg0_s1.address
-			seg0_s1_write                                                       => mm_interconnect_0_seg0_s1_write,                    --                                                              .write
-			seg0_s1_readdata                                                    => mm_interconnect_0_seg0_s1_readdata,                 --                                                              .readdata
-			seg0_s1_writedata                                                   => mm_interconnect_0_seg0_s1_writedata,                --                                                              .writedata
-			seg0_s1_chipselect                                                  => mm_interconnect_0_seg0_s1_chipselect,               --                                                              .chipselect
-			seg1_s1_address                                                     => mm_interconnect_0_seg1_s1_address,                  --                                                       seg1_s1.address
-			seg1_s1_write                                                       => mm_interconnect_0_seg1_s1_write,                    --                                                              .write
-			seg1_s1_readdata                                                    => mm_interconnect_0_seg1_s1_readdata,                 --                                                              .readdata
-			seg1_s1_writedata                                                   => mm_interconnect_0_seg1_s1_writedata,                --                                                              .writedata
-			seg1_s1_chipselect                                                  => mm_interconnect_0_seg1_s1_chipselect,               --                                                              .chipselect
-			seg2_s1_address                                                     => mm_interconnect_0_seg2_s1_address,                  --                                                       seg2_s1.address
-			seg2_s1_write                                                       => mm_interconnect_0_seg2_s1_write,                    --                                                              .write
-			seg2_s1_readdata                                                    => mm_interconnect_0_seg2_s1_readdata,                 --                                                              .readdata
-			seg2_s1_writedata                                                   => mm_interconnect_0_seg2_s1_writedata,                --                                                              .writedata
-			seg2_s1_chipselect                                                  => mm_interconnect_0_seg2_s1_chipselect,               --                                                              .chipselect
-			seg3_s1_address                                                     => mm_interconnect_0_seg3_s1_address,                  --                                                       seg3_s1.address
-			seg3_s1_write                                                       => mm_interconnect_0_seg3_s1_write,                    --                                                              .write
-			seg3_s1_readdata                                                    => mm_interconnect_0_seg3_s1_readdata,                 --                                                              .readdata
-			seg3_s1_writedata                                                   => mm_interconnect_0_seg3_s1_writedata,                --                                                              .writedata
-			seg3_s1_chipselect                                                  => mm_interconnect_0_seg3_s1_chipselect                --                                                              .chipselect
+			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata  --                                                              .readdata
 		);
 
 	rst_controller : component altera_reset_controller
@@ -1075,13 +963,17 @@ begin
 
 	mm_interconnect_0_decayvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_decayvalue_pio_s1_write;
 
-	mm_interconnect_0_seg0_s1_write_ports_inv <= not mm_interconnect_0_seg0_s1_write;
+	mm_interconnect_0_hex0_s1_write_ports_inv <= not mm_interconnect_0_hex0_s1_write;
 
-	mm_interconnect_0_seg1_s1_write_ports_inv <= not mm_interconnect_0_seg1_s1_write;
+	mm_interconnect_0_hex1_s1_write_ports_inv <= not mm_interconnect_0_hex1_s1_write;
 
-	mm_interconnect_0_seg2_s1_write_ports_inv <= not mm_interconnect_0_seg2_s1_write;
+	mm_interconnect_0_hex2_s1_write_ports_inv <= not mm_interconnect_0_hex2_s1_write;
 
-	mm_interconnect_0_seg3_s1_write_ports_inv <= not mm_interconnect_0_seg3_s1_write;
+	mm_interconnect_0_hex3_s1_write_ports_inv <= not mm_interconnect_0_hex3_s1_write;
+
+	mm_interconnect_0_hex4_s1_write_ports_inv <= not mm_interconnect_0_hex4_s1_write;
+
+	mm_interconnect_0_hex5_s1_write_ports_inv <= not mm_interconnect_0_hex5_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

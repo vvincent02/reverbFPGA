@@ -1546,4 +1546,5 @@ set_global_assignment -name VHDL_FILE hardware/lateReverb.vhd
 set_global_assignment -name VHDL_FILE hardware/RAM.vhd
 set_global_assignment -name VHDL_FILE hardware/interface_AVST_proc.vhd
 set_global_assignment -name SOURCE_FILE db/reverbFPGA.cmp.rdb
+set_location_assignment PIN_AE12 -to stereo_n_mono
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -12,7 +12,6 @@
  * This file contains macros for module 'hps_0_bridges' and devices
  * connected to the following masters:
  *   axi_f2h
- *   h2f
  *   h2f_lw
  * 
  * Do not include this header file and another header file created for a
@@ -22,117 +21,148 @@
  */
 
 /*
- * Macros for device 'hps_0_axi_sdram', class 'axi_sdram'
- * The macros are prefixed with 'HPS_0_AXI_SDRAM_'.
+ * Macros for device 'hex5', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX5_'.
  * The prefix is the slave descriptor.
  */
-#define HPS_0_AXI_SDRAM_COMPONENT_TYPE axi_sdram
-#define HPS_0_AXI_SDRAM_COMPONENT_NAME hps_0_axi_sdram
-#define HPS_0_AXI_SDRAM_BASE 0x0
-#define HPS_0_AXI_SDRAM_SPAN 0x80000000
-#define HPS_0_AXI_SDRAM_END 0x7fffffff
-#define HPS_0_AXI_SDRAM_SIZE_MULTIPLE 1
-#define HPS_0_AXI_SDRAM_SIZE_VALUE 1<<31
-#define HPS_0_AXI_SDRAM_WRITABLE 1
-#define HPS_0_AXI_SDRAM_MEMORY_INFO_GENERATE_DAT_SYM 0
-#define HPS_0_AXI_SDRAM_MEMORY_INFO_GENERATE_HEX 0
-#define HPS_0_AXI_SDRAM_MEMORY_INFO_MEM_INIT_DATA_WIDTH 31
+#define HEX5_COMPONENT_TYPE altera_avalon_pio
+#define HEX5_COMPONENT_NAME hex5
+#define HEX5_BASE 0x0
+#define HEX5_SPAN 16
+#define HEX5_END 0xf
+#define HEX5_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX5_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX5_CAPTURE 0
+#define HEX5_DATA_WIDTH 6
+#define HEX5_DO_TEST_BENCH_WIRING 0
+#define HEX5_DRIVEN_SIM_VALUE 0
+#define HEX5_EDGE_TYPE NONE
+#define HEX5_FREQ 50000000
+#define HEX5_HAS_IN 0
+#define HEX5_HAS_OUT 1
+#define HEX5_HAS_TRI 0
+#define HEX5_IRQ_TYPE NONE
+#define HEX5_RESET_VALUE 63
 
 /*
- * Macros for device 'seg3', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG3_'.
+ * Macros for device 'hex4', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX4_'.
  * The prefix is the slave descriptor.
  */
-#define SEG3_COMPONENT_TYPE altera_avalon_pio
-#define SEG3_COMPONENT_NAME seg3
-#define SEG3_BASE 0x0
-#define SEG3_SPAN 16
-#define SEG3_END 0xf
-#define SEG3_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG3_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG3_CAPTURE 0
-#define SEG3_DATA_WIDTH 4
-#define SEG3_DO_TEST_BENCH_WIRING 0
-#define SEG3_DRIVEN_SIM_VALUE 0
-#define SEG3_EDGE_TYPE NONE
-#define SEG3_FREQ 50000000
-#define SEG3_HAS_IN 0
-#define SEG3_HAS_OUT 1
-#define SEG3_HAS_TRI 0
-#define SEG3_IRQ_TYPE NONE
-#define SEG3_RESET_VALUE 15
+#define HEX4_COMPONENT_TYPE altera_avalon_pio
+#define HEX4_COMPONENT_NAME hex4
+#define HEX4_BASE 0x10
+#define HEX4_SPAN 16
+#define HEX4_END 0x1f
+#define HEX4_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX4_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX4_CAPTURE 0
+#define HEX4_DATA_WIDTH 6
+#define HEX4_DO_TEST_BENCH_WIRING 0
+#define HEX4_DRIVEN_SIM_VALUE 0
+#define HEX4_EDGE_TYPE NONE
+#define HEX4_FREQ 50000000
+#define HEX4_HAS_IN 0
+#define HEX4_HAS_OUT 1
+#define HEX4_HAS_TRI 0
+#define HEX4_IRQ_TYPE NONE
+#define HEX4_RESET_VALUE 63
 
 /*
- * Macros for device 'seg2', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG2_'.
+ * Macros for device 'hex3', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX3_'.
  * The prefix is the slave descriptor.
  */
-#define SEG2_COMPONENT_TYPE altera_avalon_pio
-#define SEG2_COMPONENT_NAME seg2
-#define SEG2_BASE 0x10
-#define SEG2_SPAN 16
-#define SEG2_END 0x1f
-#define SEG2_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG2_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG2_CAPTURE 0
-#define SEG2_DATA_WIDTH 4
-#define SEG2_DO_TEST_BENCH_WIRING 0
-#define SEG2_DRIVEN_SIM_VALUE 0
-#define SEG2_EDGE_TYPE NONE
-#define SEG2_FREQ 50000000
-#define SEG2_HAS_IN 0
-#define SEG2_HAS_OUT 1
-#define SEG2_HAS_TRI 0
-#define SEG2_IRQ_TYPE NONE
-#define SEG2_RESET_VALUE 15
+#define HEX3_COMPONENT_TYPE altera_avalon_pio
+#define HEX3_COMPONENT_NAME hex3
+#define HEX3_BASE 0x20
+#define HEX3_SPAN 16
+#define HEX3_END 0x2f
+#define HEX3_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX3_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX3_CAPTURE 0
+#define HEX3_DATA_WIDTH 6
+#define HEX3_DO_TEST_BENCH_WIRING 0
+#define HEX3_DRIVEN_SIM_VALUE 0
+#define HEX3_EDGE_TYPE NONE
+#define HEX3_FREQ 50000000
+#define HEX3_HAS_IN 0
+#define HEX3_HAS_OUT 1
+#define HEX3_HAS_TRI 0
+#define HEX3_IRQ_TYPE NONE
+#define HEX3_RESET_VALUE 63
 
 /*
- * Macros for device 'seg1', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG1_'.
+ * Macros for device 'hex2', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX2_'.
  * The prefix is the slave descriptor.
  */
-#define SEG1_COMPONENT_TYPE altera_avalon_pio
-#define SEG1_COMPONENT_NAME seg1
-#define SEG1_BASE 0x20
-#define SEG1_SPAN 16
-#define SEG1_END 0x2f
-#define SEG1_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG1_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG1_CAPTURE 0
-#define SEG1_DATA_WIDTH 4
-#define SEG1_DO_TEST_BENCH_WIRING 0
-#define SEG1_DRIVEN_SIM_VALUE 0
-#define SEG1_EDGE_TYPE NONE
-#define SEG1_FREQ 50000000
-#define SEG1_HAS_IN 0
-#define SEG1_HAS_OUT 1
-#define SEG1_HAS_TRI 0
-#define SEG1_IRQ_TYPE NONE
-#define SEG1_RESET_VALUE 15
+#define HEX2_COMPONENT_TYPE altera_avalon_pio
+#define HEX2_COMPONENT_NAME hex2
+#define HEX2_BASE 0x30
+#define HEX2_SPAN 16
+#define HEX2_END 0x3f
+#define HEX2_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX2_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX2_CAPTURE 0
+#define HEX2_DATA_WIDTH 6
+#define HEX2_DO_TEST_BENCH_WIRING 0
+#define HEX2_DRIVEN_SIM_VALUE 0
+#define HEX2_EDGE_TYPE NONE
+#define HEX2_FREQ 50000000
+#define HEX2_HAS_IN 0
+#define HEX2_HAS_OUT 1
+#define HEX2_HAS_TRI 0
+#define HEX2_IRQ_TYPE NONE
+#define HEX2_RESET_VALUE 63
 
 /*
- * Macros for device 'seg0', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG0_'.
+ * Macros for device 'hex1', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX1_'.
  * The prefix is the slave descriptor.
  */
-#define SEG0_COMPONENT_TYPE altera_avalon_pio
-#define SEG0_COMPONENT_NAME seg0
-#define SEG0_BASE 0x30
-#define SEG0_SPAN 16
-#define SEG0_END 0x3f
-#define SEG0_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG0_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG0_CAPTURE 0
-#define SEG0_DATA_WIDTH 4
-#define SEG0_DO_TEST_BENCH_WIRING 0
-#define SEG0_DRIVEN_SIM_VALUE 0
-#define SEG0_EDGE_TYPE NONE
-#define SEG0_FREQ 50000000
-#define SEG0_HAS_IN 0
-#define SEG0_HAS_OUT 1
-#define SEG0_HAS_TRI 0
-#define SEG0_IRQ_TYPE NONE
-#define SEG0_RESET_VALUE 15
+#define HEX1_COMPONENT_TYPE altera_avalon_pio
+#define HEX1_COMPONENT_NAME hex1
+#define HEX1_BASE 0x40
+#define HEX1_SPAN 16
+#define HEX1_END 0x4f
+#define HEX1_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX1_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX1_CAPTURE 0
+#define HEX1_DATA_WIDTH 6
+#define HEX1_DO_TEST_BENCH_WIRING 0
+#define HEX1_DRIVEN_SIM_VALUE 0
+#define HEX1_EDGE_TYPE NONE
+#define HEX1_FREQ 50000000
+#define HEX1_HAS_IN 0
+#define HEX1_HAS_OUT 1
+#define HEX1_HAS_TRI 0
+#define HEX1_IRQ_TYPE NONE
+#define HEX1_RESET_VALUE 63
+
+/*
+ * Macros for device 'hex0', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX0_'.
+ * The prefix is the slave descriptor.
+ */
+#define HEX0_COMPONENT_TYPE altera_avalon_pio
+#define HEX0_COMPONENT_NAME hex0
+#define HEX0_BASE 0x50
+#define HEX0_SPAN 16
+#define HEX0_END 0x5f
+#define HEX0_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX0_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX0_CAPTURE 0
+#define HEX0_DATA_WIDTH 6
+#define HEX0_DO_TEST_BENCH_WIRING 0
+#define HEX0_DRIVEN_SIM_VALUE 0
+#define HEX0_EDGE_TYPE NONE
+#define HEX0_FREQ 50000000
+#define HEX0_HAS_IN 0
+#define HEX0_HAS_OUT 1
+#define HEX0_HAS_TRI 0
+#define HEX0_IRQ_TYPE NONE
+#define HEX0_RESET_VALUE 63
 
 /*
  * Macros for device 'decayValue_PIO', class 'altera_avalon_pio'
@@ -141,9 +171,9 @@
  */
 #define DECAYVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define DECAYVALUE_PIO_COMPONENT_NAME decayValue_PIO
-#define DECAYVALUE_PIO_BASE 0x40
+#define DECAYVALUE_PIO_BASE 0x60
 #define DECAYVALUE_PIO_SPAN 16
-#define DECAYVALUE_PIO_END 0x4f
+#define DECAYVALUE_PIO_END 0x6f
 #define DECAYVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define DECAYVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define DECAYVALUE_PIO_CAPTURE 0
@@ -165,9 +195,9 @@
  */
 #define PARAMTYPE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define PARAMTYPE_PIO_COMPONENT_NAME paramType_PIO
-#define PARAMTYPE_PIO_BASE 0x50
+#define PARAMTYPE_PIO_BASE 0x70
 #define PARAMTYPE_PIO_SPAN 16
-#define PARAMTYPE_PIO_END 0x5f
+#define PARAMTYPE_PIO_END 0x7f
 #define PARAMTYPE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define PARAMTYPE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PARAMTYPE_PIO_CAPTURE 0
@@ -189,9 +219,9 @@
  */
 #define PARAMVALUEUPDATE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define PARAMVALUEUPDATE_PIO_COMPONENT_NAME paramValueUpdate_PIO
-#define PARAMVALUEUPDATE_PIO_BASE 0x60
+#define PARAMVALUEUPDATE_PIO_BASE 0x80
 #define PARAMVALUEUPDATE_PIO_SPAN 16
-#define PARAMVALUEUPDATE_PIO_END 0x6f
+#define PARAMVALUEUPDATE_PIO_END 0x8f
 #define PARAMVALUEUPDATE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define PARAMVALUEUPDATE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PARAMVALUEUPDATE_PIO_CAPTURE 0
@@ -213,9 +243,9 @@
  */
 #define MIXVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define MIXVALUE_PIO_COMPONENT_NAME mixValue_PIO
-#define MIXVALUE_PIO_BASE 0x70
+#define MIXVALUE_PIO_BASE 0x90
 #define MIXVALUE_PIO_SPAN 16
-#define MIXVALUE_PIO_END 0x7f
+#define MIXVALUE_PIO_END 0x9f
 #define MIXVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define MIXVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define MIXVALUE_PIO_CAPTURE 0
@@ -237,9 +267,9 @@
  */
 #define DAMPINGVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define DAMPINGVALUE_PIO_COMPONENT_NAME dampingValue_PIO
-#define DAMPINGVALUE_PIO_BASE 0x80
+#define DAMPINGVALUE_PIO_BASE 0xa0
 #define DAMPINGVALUE_PIO_SPAN 16
-#define DAMPINGVALUE_PIO_END 0x8f
+#define DAMPINGVALUE_PIO_END 0xaf
 #define DAMPINGVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define DAMPINGVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define DAMPINGVALUE_PIO_CAPTURE 0
@@ -253,407 +283,6 @@
 #define DAMPINGVALUE_PIO_HAS_TRI 0
 #define DAMPINGVALUE_PIO_IRQ_TYPE NONE
 #define DAMPINGVALUE_PIO_RESET_VALUE 0
-
-/*
- * Macros for device 'hps_0_gmac0', class 'stmmac'
- * The macros are prefixed with 'HPS_0_GMAC0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_GMAC0_COMPONENT_TYPE stmmac
-#define HPS_0_GMAC0_COMPONENT_NAME hps_0_gmac0
-#define HPS_0_GMAC0_BASE 0xff700000
-#define HPS_0_GMAC0_SPAN 8192
-#define HPS_0_GMAC0_END 0xff701fff
-
-/*
- * Macros for device 'hps_0_gmac1', class 'stmmac'
- * The macros are prefixed with 'HPS_0_GMAC1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_GMAC1_COMPONENT_TYPE stmmac
-#define HPS_0_GMAC1_COMPONENT_NAME hps_0_gmac1
-#define HPS_0_GMAC1_BASE 0xff702000
-#define HPS_0_GMAC1_SPAN 8192
-#define HPS_0_GMAC1_END 0xff703fff
-
-/*
- * Macros for device 'hps_0_sdmmc', class 'sdmmc'
- * The macros are prefixed with 'HPS_0_SDMMC_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_SDMMC_COMPONENT_TYPE sdmmc
-#define HPS_0_SDMMC_COMPONENT_NAME hps_0_sdmmc
-#define HPS_0_SDMMC_BASE 0xff704000
-#define HPS_0_SDMMC_SPAN 4096
-#define HPS_0_SDMMC_END 0xff704fff
-
-/*
- * Macros for device 'hps_0_qspi', class 'cadence_qspi'
- * The macros are prefixed with 'HPS_0_QSPI_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_QSPI_COMPONENT_TYPE cadence_qspi
-#define HPS_0_QSPI_COMPONENT_NAME hps_0_qspi
-#define HPS_0_QSPI_BASE 0xff705000
-#define HPS_0_QSPI_SPAN 256
-#define HPS_0_QSPI_END 0xff7050ff
-
-/*
- * Macros for device 'hps_0_fpgamgr', class 'altera_fpgamgr'
- * The macros are prefixed with 'HPS_0_FPGAMGR_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_FPGAMGR_COMPONENT_TYPE altera_fpgamgr
-#define HPS_0_FPGAMGR_COMPONENT_NAME hps_0_fpgamgr
-#define HPS_0_FPGAMGR_BASE 0xff706000
-#define HPS_0_FPGAMGR_SPAN 4096
-#define HPS_0_FPGAMGR_END 0xff706fff
-
-/*
- * Macros for device 'hps_0_gpio0', class 'dw_gpio'
- * The macros are prefixed with 'HPS_0_GPIO0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_GPIO0_COMPONENT_TYPE dw_gpio
-#define HPS_0_GPIO0_COMPONENT_NAME hps_0_gpio0
-#define HPS_0_GPIO0_BASE 0xff708000
-#define HPS_0_GPIO0_SPAN 256
-#define HPS_0_GPIO0_END 0xff7080ff
-
-/*
- * Macros for device 'hps_0_gpio1', class 'dw_gpio'
- * The macros are prefixed with 'HPS_0_GPIO1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_GPIO1_COMPONENT_TYPE dw_gpio
-#define HPS_0_GPIO1_COMPONENT_NAME hps_0_gpio1
-#define HPS_0_GPIO1_BASE 0xff709000
-#define HPS_0_GPIO1_SPAN 256
-#define HPS_0_GPIO1_END 0xff7090ff
-
-/*
- * Macros for device 'hps_0_gpio2', class 'dw_gpio'
- * The macros are prefixed with 'HPS_0_GPIO2_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_GPIO2_COMPONENT_TYPE dw_gpio
-#define HPS_0_GPIO2_COMPONENT_NAME hps_0_gpio2
-#define HPS_0_GPIO2_BASE 0xff70a000
-#define HPS_0_GPIO2_SPAN 256
-#define HPS_0_GPIO2_END 0xff70a0ff
-
-/*
- * Macros for device 'hps_0_l3regs', class 'altera_l3regs'
- * The macros are prefixed with 'HPS_0_L3REGS_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_L3REGS_COMPONENT_TYPE altera_l3regs
-#define HPS_0_L3REGS_COMPONENT_NAME hps_0_l3regs
-#define HPS_0_L3REGS_BASE 0xff800000
-#define HPS_0_L3REGS_SPAN 4096
-#define HPS_0_L3REGS_END 0xff800fff
-
-/*
- * Macros for device 'hps_0_nand0', class 'denali_nand'
- * The macros are prefixed with 'HPS_0_NAND0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_NAND0_COMPONENT_TYPE denali_nand
-#define HPS_0_NAND0_COMPONENT_NAME hps_0_nand0
-#define HPS_0_NAND0_BASE 0xff900000
-#define HPS_0_NAND0_SPAN 65536
-#define HPS_0_NAND0_END 0xff90ffff
-
-/*
- * Macros for device 'hps_0_usb0', class 'usb'
- * The macros are prefixed with 'HPS_0_USB0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_USB0_COMPONENT_TYPE usb
-#define HPS_0_USB0_COMPONENT_NAME hps_0_usb0
-#define HPS_0_USB0_BASE 0xffb00000
-#define HPS_0_USB0_SPAN 262144
-#define HPS_0_USB0_END 0xffb3ffff
-
-/*
- * Macros for device 'hps_0_usb1', class 'usb'
- * The macros are prefixed with 'HPS_0_USB1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_USB1_COMPONENT_TYPE usb
-#define HPS_0_USB1_COMPONENT_NAME hps_0_usb1
-#define HPS_0_USB1_BASE 0xffb40000
-#define HPS_0_USB1_SPAN 262144
-#define HPS_0_USB1_END 0xffb7ffff
-
-/*
- * Macros for device 'hps_0_dcan0', class 'bosch_dcan'
- * The macros are prefixed with 'HPS_0_DCAN0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_DCAN0_COMPONENT_TYPE bosch_dcan
-#define HPS_0_DCAN0_COMPONENT_NAME hps_0_dcan0
-#define HPS_0_DCAN0_BASE 0xffc00000
-#define HPS_0_DCAN0_SPAN 4096
-#define HPS_0_DCAN0_END 0xffc00fff
-
-/*
- * Macros for device 'hps_0_dcan1', class 'bosch_dcan'
- * The macros are prefixed with 'HPS_0_DCAN1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_DCAN1_COMPONENT_TYPE bosch_dcan
-#define HPS_0_DCAN1_COMPONENT_NAME hps_0_dcan1
-#define HPS_0_DCAN1_BASE 0xffc01000
-#define HPS_0_DCAN1_SPAN 4096
-#define HPS_0_DCAN1_END 0xffc01fff
-
-/*
- * Macros for device 'hps_0_uart0', class 'snps_uart'
- * The macros are prefixed with 'HPS_0_UART0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_UART0_COMPONENT_TYPE snps_uart
-#define HPS_0_UART0_COMPONENT_NAME hps_0_uart0
-#define HPS_0_UART0_BASE 0xffc02000
-#define HPS_0_UART0_SPAN 256
-#define HPS_0_UART0_END 0xffc020ff
-#define HPS_0_UART0_FIFO_DEPTH 128
-#define HPS_0_UART0_FIFO_HWFC 0
-#define HPS_0_UART0_FIFO_MODE 1
-#define HPS_0_UART0_FIFO_SWFC 0
-#define HPS_0_UART0_FREQ 100000000
-
-/*
- * Macros for device 'hps_0_uart1', class 'snps_uart'
- * The macros are prefixed with 'HPS_0_UART1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_UART1_COMPONENT_TYPE snps_uart
-#define HPS_0_UART1_COMPONENT_NAME hps_0_uart1
-#define HPS_0_UART1_BASE 0xffc03000
-#define HPS_0_UART1_SPAN 256
-#define HPS_0_UART1_END 0xffc030ff
-#define HPS_0_UART1_FIFO_DEPTH 128
-#define HPS_0_UART1_FIFO_HWFC 0
-#define HPS_0_UART1_FIFO_MODE 1
-#define HPS_0_UART1_FIFO_SWFC 0
-#define HPS_0_UART1_FREQ 100000000
-
-/*
- * Macros for device 'hps_0_i2c0', class 'designware_i2c'
- * The macros are prefixed with 'HPS_0_I2C0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_I2C0_COMPONENT_TYPE designware_i2c
-#define HPS_0_I2C0_COMPONENT_NAME hps_0_i2c0
-#define HPS_0_I2C0_BASE 0xffc04000
-#define HPS_0_I2C0_SPAN 256
-#define HPS_0_I2C0_END 0xffc040ff
-
-/*
- * Macros for device 'hps_0_i2c1', class 'designware_i2c'
- * The macros are prefixed with 'HPS_0_I2C1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_I2C1_COMPONENT_TYPE designware_i2c
-#define HPS_0_I2C1_COMPONENT_NAME hps_0_i2c1
-#define HPS_0_I2C1_BASE 0xffc05000
-#define HPS_0_I2C1_SPAN 256
-#define HPS_0_I2C1_END 0xffc050ff
-
-/*
- * Macros for device 'hps_0_i2c2', class 'designware_i2c'
- * The macros are prefixed with 'HPS_0_I2C2_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_I2C2_COMPONENT_TYPE designware_i2c
-#define HPS_0_I2C2_COMPONENT_NAME hps_0_i2c2
-#define HPS_0_I2C2_BASE 0xffc06000
-#define HPS_0_I2C2_SPAN 256
-#define HPS_0_I2C2_END 0xffc060ff
-
-/*
- * Macros for device 'hps_0_i2c3', class 'designware_i2c'
- * The macros are prefixed with 'HPS_0_I2C3_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_I2C3_COMPONENT_TYPE designware_i2c
-#define HPS_0_I2C3_COMPONENT_NAME hps_0_i2c3
-#define HPS_0_I2C3_BASE 0xffc07000
-#define HPS_0_I2C3_SPAN 256
-#define HPS_0_I2C3_END 0xffc070ff
-
-/*
- * Macros for device 'hps_0_timer0', class 'dw_apb_timer_sp'
- * The macros are prefixed with 'HPS_0_TIMER0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_TIMER0_COMPONENT_TYPE dw_apb_timer_sp
-#define HPS_0_TIMER0_COMPONENT_NAME hps_0_timer0
-#define HPS_0_TIMER0_BASE 0xffc08000
-#define HPS_0_TIMER0_SPAN 256
-#define HPS_0_TIMER0_END 0xffc080ff
-
-/*
- * Macros for device 'hps_0_timer1', class 'dw_apb_timer_sp'
- * The macros are prefixed with 'HPS_0_TIMER1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_TIMER1_COMPONENT_TYPE dw_apb_timer_sp
-#define HPS_0_TIMER1_COMPONENT_NAME hps_0_timer1
-#define HPS_0_TIMER1_BASE 0xffc09000
-#define HPS_0_TIMER1_SPAN 256
-#define HPS_0_TIMER1_END 0xffc090ff
-
-/*
- * Macros for device 'hps_0_sdrctl', class 'altera_sdrctl'
- * The macros are prefixed with 'HPS_0_SDRCTL_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_SDRCTL_COMPONENT_TYPE altera_sdrctl
-#define HPS_0_SDRCTL_COMPONENT_NAME hps_0_sdrctl
-#define HPS_0_SDRCTL_BASE 0xffc25000
-#define HPS_0_SDRCTL_SPAN 4096
-#define HPS_0_SDRCTL_END 0xffc25fff
-
-/*
- * Macros for device 'hps_0_timer2', class 'dw_apb_timer_osc'
- * The macros are prefixed with 'HPS_0_TIMER2_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_TIMER2_COMPONENT_TYPE dw_apb_timer_osc
-#define HPS_0_TIMER2_COMPONENT_NAME hps_0_timer2
-#define HPS_0_TIMER2_BASE 0xffd00000
-#define HPS_0_TIMER2_SPAN 256
-#define HPS_0_TIMER2_END 0xffd000ff
-
-/*
- * Macros for device 'hps_0_timer3', class 'dw_apb_timer_osc'
- * The macros are prefixed with 'HPS_0_TIMER3_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_TIMER3_COMPONENT_TYPE dw_apb_timer_osc
-#define HPS_0_TIMER3_COMPONENT_NAME hps_0_timer3
-#define HPS_0_TIMER3_BASE 0xffd01000
-#define HPS_0_TIMER3_SPAN 256
-#define HPS_0_TIMER3_END 0xffd010ff
-
-/*
- * Macros for device 'hps_0_clkmgr', class 'asimov_clkmgr'
- * The macros are prefixed with 'HPS_0_CLKMGR_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_CLKMGR_COMPONENT_TYPE asimov_clkmgr
-#define HPS_0_CLKMGR_COMPONENT_NAME hps_0_clkmgr
-#define HPS_0_CLKMGR_BASE 0xffd04000
-#define HPS_0_CLKMGR_SPAN 4096
-#define HPS_0_CLKMGR_END 0xffd04fff
-
-/*
- * Macros for device 'hps_0_rstmgr', class 'altera_rstmgr'
- * The macros are prefixed with 'HPS_0_RSTMGR_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_RSTMGR_COMPONENT_TYPE altera_rstmgr
-#define HPS_0_RSTMGR_COMPONENT_NAME hps_0_rstmgr
-#define HPS_0_RSTMGR_BASE 0xffd05000
-#define HPS_0_RSTMGR_SPAN 256
-#define HPS_0_RSTMGR_END 0xffd050ff
-
-/*
- * Macros for device 'hps_0_sysmgr', class 'altera_sysmgr'
- * The macros are prefixed with 'HPS_0_SYSMGR_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_SYSMGR_COMPONENT_TYPE altera_sysmgr
-#define HPS_0_SYSMGR_COMPONENT_NAME hps_0_sysmgr
-#define HPS_0_SYSMGR_BASE 0xffd08000
-#define HPS_0_SYSMGR_SPAN 1024
-#define HPS_0_SYSMGR_END 0xffd083ff
-
-/*
- * Macros for device 'hps_0_dma', class 'arm_pl330_dma'
- * The macros are prefixed with 'HPS_0_DMA_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_DMA_COMPONENT_TYPE arm_pl330_dma
-#define HPS_0_DMA_COMPONENT_NAME hps_0_dma
-#define HPS_0_DMA_BASE 0xffe01000
-#define HPS_0_DMA_SPAN 4096
-#define HPS_0_DMA_END 0xffe01fff
-
-/*
- * Macros for device 'hps_0_spim0', class 'spi'
- * The macros are prefixed with 'HPS_0_SPIM0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_SPIM0_COMPONENT_TYPE spi
-#define HPS_0_SPIM0_COMPONENT_NAME hps_0_spim0
-#define HPS_0_SPIM0_BASE 0xfff00000
-#define HPS_0_SPIM0_SPAN 256
-#define HPS_0_SPIM0_END 0xfff000ff
-
-/*
- * Macros for device 'hps_0_spim1', class 'spi'
- * The macros are prefixed with 'HPS_0_SPIM1_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_SPIM1_COMPONENT_TYPE spi
-#define HPS_0_SPIM1_COMPONENT_NAME hps_0_spim1
-#define HPS_0_SPIM1_BASE 0xfff01000
-#define HPS_0_SPIM1_SPAN 256
-#define HPS_0_SPIM1_END 0xfff010ff
-
-/*
- * Macros for device 'hps_0_timer', class 'arm_internal_timer'
- * The macros are prefixed with 'HPS_0_TIMER_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_TIMER_COMPONENT_TYPE arm_internal_timer
-#define HPS_0_TIMER_COMPONENT_NAME hps_0_timer
-#define HPS_0_TIMER_BASE 0xfffec600
-#define HPS_0_TIMER_SPAN 256
-#define HPS_0_TIMER_END 0xfffec6ff
-
-/*
- * Macros for device 'hps_0_arm_gic_0', class 'arm_gic'
- * The macros are prefixed with 'HPS_0_ARM_GIC_0_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_ARM_GIC_0_COMPONENT_TYPE arm_gic
-#define HPS_0_ARM_GIC_0_COMPONENT_NAME hps_0_arm_gic_0
-#define HPS_0_ARM_GIC_0_BASE 0xfffed000
-#define HPS_0_ARM_GIC_0_SPAN 4096
-#define HPS_0_ARM_GIC_0_END 0xfffedfff
-
-/*
- * Macros for device 'hps_0_L2', class 'arm_pl310_L2'
- * The macros are prefixed with 'HPS_0_L2_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_L2_COMPONENT_TYPE arm_pl310_L2
-#define HPS_0_L2_COMPONENT_NAME hps_0_L2
-#define HPS_0_L2_BASE 0xfffef000
-#define HPS_0_L2_SPAN 4096
-#define HPS_0_L2_END 0xfffeffff
-
-/*
- * Macros for device 'hps_0_axi_ocram', class 'axi_ocram'
- * The macros are prefixed with 'HPS_0_AXI_OCRAM_'.
- * The prefix is the slave descriptor.
- */
-#define HPS_0_AXI_OCRAM_COMPONENT_TYPE axi_ocram
-#define HPS_0_AXI_OCRAM_COMPONENT_NAME hps_0_axi_ocram
-#define HPS_0_AXI_OCRAM_BASE 0xffff0000
-#define HPS_0_AXI_OCRAM_SPAN 65536
-#define HPS_0_AXI_OCRAM_END 0xffffffff
-#define HPS_0_AXI_OCRAM_SIZE_MULTIPLE 1
-#define HPS_0_AXI_OCRAM_SIZE_VALUE 1<<16
-#define HPS_0_AXI_OCRAM_WRITABLE 1
-#define HPS_0_AXI_OCRAM_MEMORY_INFO_GENERATE_DAT_SYM 0
-#define HPS_0_AXI_OCRAM_MEMORY_INFO_GENERATE_HEX 0
-#define HPS_0_AXI_OCRAM_MEMORY_INFO_MEM_INIT_DATA_WIDTH 16
 
 
 #endif /* _ALTERA_HPS_0_BRIDGES_H_ */

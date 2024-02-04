@@ -30,8 +30,6 @@ module reverbFPGA_Qsys_hps_0_hps_io_border(
  ,output wire [4 - 1 : 0 ] mem_dm
  ,input wire [1 - 1 : 0 ] oct_rzqin
 // hps_io
- ,input wire [1 - 1 : 0 ] hps_io_uart0_inst_RX
- ,output wire [1 - 1 : 0 ] hps_io_uart0_inst_TX
  ,inout wire [1 - 1 : 0 ] hps_io_i2c1_inst_SDA
  ,inout wire [1 - 1 : 0 ] hps_io_i2c1_inst_SCL
  ,inout wire [1 - 1 : 0 ] hps_io_gpio_inst_GPIO48
@@ -46,16 +44,6 @@ assign hps_io_gpio_inst_GPIO53 = intermediate[5] ? intermediate[4] : 'z;
 wire [6 - 1 : 0] intermediate;
 
 wire [69 - 1 : 0] floating;
-
-cyclonev_hps_peripheral_uart uart0_inst(
- .UART_RXD({
-    hps_io_uart0_inst_RX[0:0] // 0:0
-  })
-,.UART_TXD({
-    hps_io_uart0_inst_TX[0:0] // 0:0
-  })
-);
-
 
 cyclonev_hps_peripheral_i2c i2c1_inst(
  .I2C_DATA({

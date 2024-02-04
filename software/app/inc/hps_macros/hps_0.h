@@ -10,8 +10,7 @@
 
 /*
  * This file contains macros for module 'hps_0' and devices
- * connected to the following masters:
- *   h2f_axi_master
+ * connected to the following master:
  *   h2f_lw_axi_master
  * 
  * Do not include this header file and another header file created for a
@@ -21,100 +20,148 @@
  */
 
 /*
- * Macros for device 'seg3', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG3_'.
+ * Macros for device 'hex5', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX5_'.
  * The prefix is the slave descriptor.
  */
-#define SEG3_COMPONENT_TYPE altera_avalon_pio
-#define SEG3_COMPONENT_NAME seg3
-#define SEG3_BASE 0x0
-#define SEG3_SPAN 16
-#define SEG3_END 0xf
-#define SEG3_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG3_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG3_CAPTURE 0
-#define SEG3_DATA_WIDTH 4
-#define SEG3_DO_TEST_BENCH_WIRING 0
-#define SEG3_DRIVEN_SIM_VALUE 0
-#define SEG3_EDGE_TYPE NONE
-#define SEG3_FREQ 50000000
-#define SEG3_HAS_IN 0
-#define SEG3_HAS_OUT 1
-#define SEG3_HAS_TRI 0
-#define SEG3_IRQ_TYPE NONE
-#define SEG3_RESET_VALUE 15
+#define HEX5_COMPONENT_TYPE altera_avalon_pio
+#define HEX5_COMPONENT_NAME hex5
+#define HEX5_BASE 0x0
+#define HEX5_SPAN 16
+#define HEX5_END 0xf
+#define HEX5_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX5_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX5_CAPTURE 0
+#define HEX5_DATA_WIDTH 6
+#define HEX5_DO_TEST_BENCH_WIRING 0
+#define HEX5_DRIVEN_SIM_VALUE 0
+#define HEX5_EDGE_TYPE NONE
+#define HEX5_FREQ 50000000
+#define HEX5_HAS_IN 0
+#define HEX5_HAS_OUT 1
+#define HEX5_HAS_TRI 0
+#define HEX5_IRQ_TYPE NONE
+#define HEX5_RESET_VALUE 63
 
 /*
- * Macros for device 'seg2', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG2_'.
+ * Macros for device 'hex4', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX4_'.
  * The prefix is the slave descriptor.
  */
-#define SEG2_COMPONENT_TYPE altera_avalon_pio
-#define SEG2_COMPONENT_NAME seg2
-#define SEG2_BASE 0x10
-#define SEG2_SPAN 16
-#define SEG2_END 0x1f
-#define SEG2_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG2_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG2_CAPTURE 0
-#define SEG2_DATA_WIDTH 4
-#define SEG2_DO_TEST_BENCH_WIRING 0
-#define SEG2_DRIVEN_SIM_VALUE 0
-#define SEG2_EDGE_TYPE NONE
-#define SEG2_FREQ 50000000
-#define SEG2_HAS_IN 0
-#define SEG2_HAS_OUT 1
-#define SEG2_HAS_TRI 0
-#define SEG2_IRQ_TYPE NONE
-#define SEG2_RESET_VALUE 15
+#define HEX4_COMPONENT_TYPE altera_avalon_pio
+#define HEX4_COMPONENT_NAME hex4
+#define HEX4_BASE 0x10
+#define HEX4_SPAN 16
+#define HEX4_END 0x1f
+#define HEX4_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX4_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX4_CAPTURE 0
+#define HEX4_DATA_WIDTH 6
+#define HEX4_DO_TEST_BENCH_WIRING 0
+#define HEX4_DRIVEN_SIM_VALUE 0
+#define HEX4_EDGE_TYPE NONE
+#define HEX4_FREQ 50000000
+#define HEX4_HAS_IN 0
+#define HEX4_HAS_OUT 1
+#define HEX4_HAS_TRI 0
+#define HEX4_IRQ_TYPE NONE
+#define HEX4_RESET_VALUE 63
 
 /*
- * Macros for device 'seg1', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG1_'.
+ * Macros for device 'hex3', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX3_'.
  * The prefix is the slave descriptor.
  */
-#define SEG1_COMPONENT_TYPE altera_avalon_pio
-#define SEG1_COMPONENT_NAME seg1
-#define SEG1_BASE 0x20
-#define SEG1_SPAN 16
-#define SEG1_END 0x2f
-#define SEG1_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG1_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG1_CAPTURE 0
-#define SEG1_DATA_WIDTH 4
-#define SEG1_DO_TEST_BENCH_WIRING 0
-#define SEG1_DRIVEN_SIM_VALUE 0
-#define SEG1_EDGE_TYPE NONE
-#define SEG1_FREQ 50000000
-#define SEG1_HAS_IN 0
-#define SEG1_HAS_OUT 1
-#define SEG1_HAS_TRI 0
-#define SEG1_IRQ_TYPE NONE
-#define SEG1_RESET_VALUE 15
+#define HEX3_COMPONENT_TYPE altera_avalon_pio
+#define HEX3_COMPONENT_NAME hex3
+#define HEX3_BASE 0x20
+#define HEX3_SPAN 16
+#define HEX3_END 0x2f
+#define HEX3_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX3_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX3_CAPTURE 0
+#define HEX3_DATA_WIDTH 6
+#define HEX3_DO_TEST_BENCH_WIRING 0
+#define HEX3_DRIVEN_SIM_VALUE 0
+#define HEX3_EDGE_TYPE NONE
+#define HEX3_FREQ 50000000
+#define HEX3_HAS_IN 0
+#define HEX3_HAS_OUT 1
+#define HEX3_HAS_TRI 0
+#define HEX3_IRQ_TYPE NONE
+#define HEX3_RESET_VALUE 63
 
 /*
- * Macros for device 'seg0', class 'altera_avalon_pio'
- * The macros are prefixed with 'SEG0_'.
+ * Macros for device 'hex2', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX2_'.
  * The prefix is the slave descriptor.
  */
-#define SEG0_COMPONENT_TYPE altera_avalon_pio
-#define SEG0_COMPONENT_NAME seg0
-#define SEG0_BASE 0x30
-#define SEG0_SPAN 16
-#define SEG0_END 0x3f
-#define SEG0_BIT_CLEARING_EDGE_REGISTER 0
-#define SEG0_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define SEG0_CAPTURE 0
-#define SEG0_DATA_WIDTH 4
-#define SEG0_DO_TEST_BENCH_WIRING 0
-#define SEG0_DRIVEN_SIM_VALUE 0
-#define SEG0_EDGE_TYPE NONE
-#define SEG0_FREQ 50000000
-#define SEG0_HAS_IN 0
-#define SEG0_HAS_OUT 1
-#define SEG0_HAS_TRI 0
-#define SEG0_IRQ_TYPE NONE
-#define SEG0_RESET_VALUE 15
+#define HEX2_COMPONENT_TYPE altera_avalon_pio
+#define HEX2_COMPONENT_NAME hex2
+#define HEX2_BASE 0x30
+#define HEX2_SPAN 16
+#define HEX2_END 0x3f
+#define HEX2_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX2_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX2_CAPTURE 0
+#define HEX2_DATA_WIDTH 6
+#define HEX2_DO_TEST_BENCH_WIRING 0
+#define HEX2_DRIVEN_SIM_VALUE 0
+#define HEX2_EDGE_TYPE NONE
+#define HEX2_FREQ 50000000
+#define HEX2_HAS_IN 0
+#define HEX2_HAS_OUT 1
+#define HEX2_HAS_TRI 0
+#define HEX2_IRQ_TYPE NONE
+#define HEX2_RESET_VALUE 63
+
+/*
+ * Macros for device 'hex1', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX1_'.
+ * The prefix is the slave descriptor.
+ */
+#define HEX1_COMPONENT_TYPE altera_avalon_pio
+#define HEX1_COMPONENT_NAME hex1
+#define HEX1_BASE 0x40
+#define HEX1_SPAN 16
+#define HEX1_END 0x4f
+#define HEX1_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX1_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX1_CAPTURE 0
+#define HEX1_DATA_WIDTH 6
+#define HEX1_DO_TEST_BENCH_WIRING 0
+#define HEX1_DRIVEN_SIM_VALUE 0
+#define HEX1_EDGE_TYPE NONE
+#define HEX1_FREQ 50000000
+#define HEX1_HAS_IN 0
+#define HEX1_HAS_OUT 1
+#define HEX1_HAS_TRI 0
+#define HEX1_IRQ_TYPE NONE
+#define HEX1_RESET_VALUE 63
+
+/*
+ * Macros for device 'hex0', class 'altera_avalon_pio'
+ * The macros are prefixed with 'HEX0_'.
+ * The prefix is the slave descriptor.
+ */
+#define HEX0_COMPONENT_TYPE altera_avalon_pio
+#define HEX0_COMPONENT_NAME hex0
+#define HEX0_BASE 0x50
+#define HEX0_SPAN 16
+#define HEX0_END 0x5f
+#define HEX0_BIT_CLEARING_EDGE_REGISTER 0
+#define HEX0_BIT_MODIFYING_OUTPUT_REGISTER 0
+#define HEX0_CAPTURE 0
+#define HEX0_DATA_WIDTH 6
+#define HEX0_DO_TEST_BENCH_WIRING 0
+#define HEX0_DRIVEN_SIM_VALUE 0
+#define HEX0_EDGE_TYPE NONE
+#define HEX0_FREQ 50000000
+#define HEX0_HAS_IN 0
+#define HEX0_HAS_OUT 1
+#define HEX0_HAS_TRI 0
+#define HEX0_IRQ_TYPE NONE
+#define HEX0_RESET_VALUE 63
 
 /*
  * Macros for device 'decayValue_PIO', class 'altera_avalon_pio'
@@ -123,9 +170,9 @@
  */
 #define DECAYVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define DECAYVALUE_PIO_COMPONENT_NAME decayValue_PIO
-#define DECAYVALUE_PIO_BASE 0x40
+#define DECAYVALUE_PIO_BASE 0x60
 #define DECAYVALUE_PIO_SPAN 16
-#define DECAYVALUE_PIO_END 0x4f
+#define DECAYVALUE_PIO_END 0x6f
 #define DECAYVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define DECAYVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define DECAYVALUE_PIO_CAPTURE 0
@@ -147,9 +194,9 @@
  */
 #define PARAMTYPE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define PARAMTYPE_PIO_COMPONENT_NAME paramType_PIO
-#define PARAMTYPE_PIO_BASE 0x50
+#define PARAMTYPE_PIO_BASE 0x70
 #define PARAMTYPE_PIO_SPAN 16
-#define PARAMTYPE_PIO_END 0x5f
+#define PARAMTYPE_PIO_END 0x7f
 #define PARAMTYPE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define PARAMTYPE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PARAMTYPE_PIO_CAPTURE 0
@@ -171,9 +218,9 @@
  */
 #define PARAMVALUEUPDATE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define PARAMVALUEUPDATE_PIO_COMPONENT_NAME paramValueUpdate_PIO
-#define PARAMVALUEUPDATE_PIO_BASE 0x60
+#define PARAMVALUEUPDATE_PIO_BASE 0x80
 #define PARAMVALUEUPDATE_PIO_SPAN 16
-#define PARAMVALUEUPDATE_PIO_END 0x6f
+#define PARAMVALUEUPDATE_PIO_END 0x8f
 #define PARAMVALUEUPDATE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define PARAMVALUEUPDATE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define PARAMVALUEUPDATE_PIO_CAPTURE 0
@@ -195,9 +242,9 @@
  */
 #define MIXVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define MIXVALUE_PIO_COMPONENT_NAME mixValue_PIO
-#define MIXVALUE_PIO_BASE 0x70
+#define MIXVALUE_PIO_BASE 0x90
 #define MIXVALUE_PIO_SPAN 16
-#define MIXVALUE_PIO_END 0x7f
+#define MIXVALUE_PIO_END 0x9f
 #define MIXVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define MIXVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define MIXVALUE_PIO_CAPTURE 0
@@ -219,9 +266,9 @@
  */
 #define DAMPINGVALUE_PIO_COMPONENT_TYPE altera_avalon_pio
 #define DAMPINGVALUE_PIO_COMPONENT_NAME dampingValue_PIO
-#define DAMPINGVALUE_PIO_BASE 0x80
+#define DAMPINGVALUE_PIO_BASE 0xa0
 #define DAMPINGVALUE_PIO_SPAN 16
-#define DAMPINGVALUE_PIO_END 0x8f
+#define DAMPINGVALUE_PIO_END 0xaf
 #define DAMPINGVALUE_PIO_BIT_CLEARING_EDGE_REGISTER 0
 #define DAMPINGVALUE_PIO_BIT_MODIFYING_OUTPUT_REGISTER 0
 #define DAMPINGVALUE_PIO_CAPTURE 0

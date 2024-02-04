@@ -8,6 +8,7 @@ GENERIC(
 );
 PORT(
 	clk50M : IN std_logic;
+	rst : IN std_logic;
 	data_sampled_valid : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
@@ -45,8 +46,12 @@ gain2 : entity work.coefMult(archi)
 process(clk50M)
 begin
 	if(clk50M'EVENT and clk50M = '1') then
-		if(data_sampled_valid = '1') then
-			prevOutputAdder <= outputAdder;
+		if(rst = '0') then
+			prevOutputAdder <= (others => '0');
+		else
+			if(data_sampled_valid = '1') then
+				prevOutputAdder <= outputAdder;
+			end if;
 		end if;
 	end if;
 end process;

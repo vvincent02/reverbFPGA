@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SopcSystem>
  <!-- An entire SOPC Builder system -->
- <!-- 2024.02.03.13:50:32 -->
+ <!-- 2024.02.04.10:33:15 -->
  <name>reverbFPGA_Qsys</name>
  <version>1.0</version>
  <sopcVersion>1.0</sopcVersion>
@@ -232,6 +232,534 @@
   <path>decayValue_PIO</path>
  </module>
  <module>
+  <name>hex0</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>hex0</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>hex0.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>hex0</path>
+ </module>
+ <module>
+  <name>hex1</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>hex1</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>hex1.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>hex1</path>
+ </module>
+ <module>
+  <name>hex2</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>hex2</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>hex2.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>hex2</path>
+ </module>
+ <module>
+  <name>hex3</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>hex3</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>hex3.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>hex3</path>
+ </module>
+ <module>
+  <name>hex4</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>hex4</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>hex4.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>hex4</path>
+ </module>
+ <module>
+  <name>hex5</name>
+  <version>23.1</version>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.CAPTURE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DATA_WIDTH</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.EDGE_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.FREQ</name>
+   <value>50000000</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_IN</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_OUT</name>
+   <value>1</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.HAS_TRI</name>
+   <value>0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.IRQ_TYPE</name>
+   <value>NONE</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.CMacro.RESET_VALUE</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.compatible</name>
+   <value>altr,pio-1.0</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.group</name>
+   <value>gpio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.name</name>
+   <value>pio</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
+   <value>6</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.params.resetvalue</name>
+   <value>63</value>
+  </assignment>
+  <assignment>
+   <name>embeddedsw.dts.vendor</name>
+   <value>altr</value>
+  </assignment>
+  <className>altera_avalon_pio</className>
+  <clockConnection>
+   <moduleName>hex5</moduleName>
+   <localSlaveName>clk</localSlaveName>
+   <systemConnectionName>hex5.clk</systemConnectionName>
+   <frequency>50000000</frequency>
+  </clockConnection>
+  <path>hex5</path>
+ </module>
+ <module>
   <name>hps_0</name>
   <version>23.1</version>
   <assignment>
@@ -244,13 +772,12 @@
   </assignment>
   <className>altera_hps</className>
   <masterGroup>
-   <masterName>h2f_axi_master</masterName>
    <masterName>h2f_lw_axi_master</masterName>
    <masterGroupDesc>hps_0</masterGroupDesc>
    <addressGroup>1</addressGroup>
    <connectedDevice>
-    <moduleName>seg3</moduleName>
-    <slaveDesc>seg3</slaveDesc>
+    <moduleName>hex5</moduleName>
+    <slaveDesc>hex5</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -270,7 +797,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg3.s1</systemSlaveName>
+     <systemSlaveName>hex5.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>0</baseAddress>
@@ -288,8 +815,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg2</moduleName>
-    <slaveDesc>seg2</slaveDesc>
+    <moduleName>hex4</moduleName>
+    <slaveDesc>hex4</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -309,7 +836,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg2.s1</systemSlaveName>
+     <systemSlaveName>hex4.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>16</baseAddress>
@@ -327,8 +854,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg1</moduleName>
-    <slaveDesc>seg1</slaveDesc>
+    <moduleName>hex3</moduleName>
+    <slaveDesc>hex3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -348,7 +875,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg1.s1</systemSlaveName>
+     <systemSlaveName>hex3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>32</baseAddress>
@@ -366,8 +893,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg0</moduleName>
-    <slaveDesc>seg0</slaveDesc>
+    <moduleName>hex2</moduleName>
+    <slaveDesc>hex2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -387,11 +914,89 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg0.s1</systemSlaveName>
+     <systemSlaveName>hex2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>48</baseAddress>
     <basePhysicalAddress>48</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex1</moduleName>
+    <slaveDesc>hex1</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex1.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>64</baseAddress>
+    <basePhysicalAddress>64</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex0</moduleName>
+    <slaveDesc>hex0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>80</baseAddress>
+    <basePhysicalAddress>80</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -429,8 +1034,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>64</baseAddress>
-    <basePhysicalAddress>64</basePhysicalAddress>
+    <baseAddress>96</baseAddress>
+    <basePhysicalAddress>96</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -468,8 +1073,8 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>80</baseAddress>
-    <basePhysicalAddress>80</basePhysicalAddress>
+    <baseAddress>112</baseAddress>
+    <basePhysicalAddress>112</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -507,8 +1112,8 @@
      <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>96</baseAddress>
-    <basePhysicalAddress>96</basePhysicalAddress>
+    <baseAddress>128</baseAddress>
+    <basePhysicalAddress>128</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -546,8 +1151,8 @@
      <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>112</baseAddress>
-    <basePhysicalAddress>112</basePhysicalAddress>
+    <baseAddress>144</baseAddress>
+    <basePhysicalAddress>144</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -585,8 +1190,8 @@
      <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>128</baseAddress>
-    <basePhysicalAddress>128</basePhysicalAddress>
+    <baseAddress>160</baseAddress>
+    <basePhysicalAddress>160</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -600,18 +1205,6 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
   </masterGroup>
-  <clockConnection>
-   <moduleName>hps_0</moduleName>
-   <localSlaveName>h2f_axi_clock</localSlaveName>
-   <systemConnectionName>hps_0.h2f_axi_clock</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
-  <clockConnection>
-   <moduleName>hps_0</moduleName>
-   <localSlaveName>f2h_axi_clock</localSlaveName>
-   <systemConnectionName>hps_0.f2h_axi_clock</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
   <clockConnection>
    <moduleName>hps_0</moduleName>
    <localSlaveName>h2f_lw_axi_clock</localSlaveName>
@@ -682,48 +1275,12 @@
   <className>hps_bridge_avalon</className>
   <masterGroup>
    <masterName>axi_f2h</masterName>
-   <masterName>h2f</masterName>
    <masterName>h2f_lw</masterName>
    <masterGroupDesc>hps_0_bridges</masterGroupDesc>
    <addressGroup>1</addressGroup>
    <connectedDevice>
-    <moduleName>hps_0_axi_sdram</moduleName>
-    <slaveDesc>hps_0_axi_sdram</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>-2147483648</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isMemoryDevice</name>
-      <value>1</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isNonVolatileStorage</name>
-      <value>0</value>
-     </assignment>
-     <systemSlaveName>hps_0_axi_sdram.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>0</baseAddress>
-    <basePhysicalAddress>0</basePhysicalAddress>
-    <span>2147483648</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>seg3</moduleName>
-    <slaveDesc>seg3</slaveDesc>
+    <moduleName>hex5</moduleName>
+    <slaveDesc>hex5</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -743,7 +1300,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg3.s1</systemSlaveName>
+     <systemSlaveName>hex5.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>0</baseAddress>
@@ -761,8 +1318,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg2</moduleName>
-    <slaveDesc>seg2</slaveDesc>
+    <moduleName>hex4</moduleName>
+    <slaveDesc>hex4</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -782,7 +1339,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg2.s1</systemSlaveName>
+     <systemSlaveName>hex4.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>16</baseAddress>
@@ -800,8 +1357,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg1</moduleName>
-    <slaveDesc>seg1</slaveDesc>
+    <moduleName>hex3</moduleName>
+    <slaveDesc>hex3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -821,7 +1378,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg1.s1</systemSlaveName>
+     <systemSlaveName>hex3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>32</baseAddress>
@@ -839,8 +1396,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg0</moduleName>
-    <slaveDesc>seg0</slaveDesc>
+    <moduleName>hex2</moduleName>
+    <slaveDesc>hex2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -860,11 +1417,89 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg0.s1</systemSlaveName>
+     <systemSlaveName>hex2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>48</baseAddress>
     <basePhysicalAddress>48</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex1</moduleName>
+    <slaveDesc>hex1</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex1.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>64</baseAddress>
+    <basePhysicalAddress>64</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex0</moduleName>
+    <slaveDesc>hex0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>80</baseAddress>
+    <basePhysicalAddress>80</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -902,8 +1537,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>64</baseAddress>
-    <basePhysicalAddress>64</basePhysicalAddress>
+    <baseAddress>96</baseAddress>
+    <basePhysicalAddress>96</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -941,8 +1576,8 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>80</baseAddress>
-    <basePhysicalAddress>80</basePhysicalAddress>
+    <baseAddress>112</baseAddress>
+    <basePhysicalAddress>112</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -980,8 +1615,8 @@
      <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>96</baseAddress>
-    <basePhysicalAddress>96</basePhysicalAddress>
+    <baseAddress>128</baseAddress>
+    <basePhysicalAddress>128</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -1019,8 +1654,8 @@
      <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>112</baseAddress>
-    <basePhysicalAddress>112</basePhysicalAddress>
+    <baseAddress>144</baseAddress>
+    <basePhysicalAddress>144</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -1058,1010 +1693,9 @@
      <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>128</baseAddress>
-    <basePhysicalAddress>128</basePhysicalAddress>
+    <baseAddress>160</baseAddress>
+    <basePhysicalAddress>160</basePhysicalAddress>
     <span>16</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_gmac0</moduleName>
-    <slaveDesc>hps_0_gmac0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>8192</value>
-     </assignment>
-     <systemSlaveName>hps_0_gmac0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285530112</baseAddress>
-    <basePhysicalAddress>4285530112</basePhysicalAddress>
-    <span>8192</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_gmac1</moduleName>
-    <slaveDesc>hps_0_gmac1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>8192</value>
-     </assignment>
-     <systemSlaveName>hps_0_gmac1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285538304</baseAddress>
-    <basePhysicalAddress>4285538304</basePhysicalAddress>
-    <span>8192</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_sdmmc</moduleName>
-    <slaveDesc>hps_0_sdmmc</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_sdmmc.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285546496</baseAddress>
-    <basePhysicalAddress>4285546496</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_qspi</moduleName>
-    <slaveDesc>hps_0_qspi</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_qspi.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <slave>
-     <name>axi_slave1</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_qspi.axi_slave1</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285550592</baseAddress>
-    <basePhysicalAddress>4285550592</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_fpgamgr</moduleName>
-    <slaveDesc>hps_0_fpgamgr</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_fpgamgr.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <slave>
-     <name>axi_slave1</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_fpgamgr.axi_slave1</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285554688</baseAddress>
-    <basePhysicalAddress>4285554688</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_gpio0</moduleName>
-    <slaveDesc>hps_0_gpio0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_gpio0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285562880</baseAddress>
-    <basePhysicalAddress>4285562880</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_gpio1</moduleName>
-    <slaveDesc>hps_0_gpio1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_gpio1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285566976</baseAddress>
-    <basePhysicalAddress>4285566976</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_gpio2</moduleName>
-    <slaveDesc>hps_0_gpio2</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_gpio2.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4285571072</baseAddress>
-    <basePhysicalAddress>4285571072</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_l3regs</moduleName>
-    <slaveDesc>hps_0_l3regs</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_l3regs.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4286578688</baseAddress>
-    <basePhysicalAddress>4286578688</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_nand0</moduleName>
-    <slaveDesc>hps_0_nand0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>65536</value>
-     </assignment>
-     <systemSlaveName>hps_0_nand0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <slave>
-     <name>axi_slave1</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>65536</value>
-     </assignment>
-     <systemSlaveName>hps_0_nand0.axi_slave1</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4287627264</baseAddress>
-    <basePhysicalAddress>4287627264</basePhysicalAddress>
-    <span>65536</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_usb0</moduleName>
-    <slaveDesc>hps_0_usb0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>262144</value>
-     </assignment>
-     <systemSlaveName>hps_0_usb0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4289724416</baseAddress>
-    <basePhysicalAddress>4289724416</basePhysicalAddress>
-    <span>262144</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_usb1</moduleName>
-    <slaveDesc>hps_0_usb1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>262144</value>
-     </assignment>
-     <systemSlaveName>hps_0_usb1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4289986560</baseAddress>
-    <basePhysicalAddress>4289986560</basePhysicalAddress>
-    <span>262144</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_dcan0</moduleName>
-    <slaveDesc>hps_0_dcan0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_dcan0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290772992</baseAddress>
-    <basePhysicalAddress>4290772992</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_dcan1</moduleName>
-    <slaveDesc>hps_0_dcan1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_dcan1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290777088</baseAddress>
-    <basePhysicalAddress>4290777088</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_uart0</moduleName>
-    <slaveDesc>hps_0_uart0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isPrintableDevice</name>
-      <value>1</value>
-     </assignment>
-     <systemSlaveName>hps_0_uart0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290781184</baseAddress>
-    <basePhysicalAddress>4290781184</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_uart1</moduleName>
-    <slaveDesc>hps_0_uart1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isPrintableDevice</name>
-      <value>1</value>
-     </assignment>
-     <systemSlaveName>hps_0_uart1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290785280</baseAddress>
-    <basePhysicalAddress>4290785280</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_i2c0</moduleName>
-    <slaveDesc>hps_0_i2c0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_i2c0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290789376</baseAddress>
-    <basePhysicalAddress>4290789376</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_i2c1</moduleName>
-    <slaveDesc>hps_0_i2c1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_i2c1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290793472</baseAddress>
-    <basePhysicalAddress>4290793472</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_i2c2</moduleName>
-    <slaveDesc>hps_0_i2c2</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_i2c2.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290797568</baseAddress>
-    <basePhysicalAddress>4290797568</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_i2c3</moduleName>
-    <slaveDesc>hps_0_i2c3</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_i2c3.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290801664</baseAddress>
-    <basePhysicalAddress>4290801664</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_timer0</moduleName>
-    <slaveDesc>hps_0_timer0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_timer0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290805760</baseAddress>
-    <basePhysicalAddress>4290805760</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_timer1</moduleName>
-    <slaveDesc>hps_0_timer1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_timer1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290809856</baseAddress>
-    <basePhysicalAddress>4290809856</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_sdrctl</moduleName>
-    <slaveDesc>hps_0_sdrctl</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_sdrctl.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4290924544</baseAddress>
-    <basePhysicalAddress>4290924544</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_timer2</moduleName>
-    <slaveDesc>hps_0_timer2</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_timer2.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4291821568</baseAddress>
-    <basePhysicalAddress>4291821568</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_timer3</moduleName>
-    <slaveDesc>hps_0_timer3</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_timer3.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4291825664</baseAddress>
-    <basePhysicalAddress>4291825664</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_clkmgr</moduleName>
-    <slaveDesc>hps_0_clkmgr</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_clkmgr.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4291837952</baseAddress>
-    <basePhysicalAddress>4291837952</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_rstmgr</moduleName>
-    <slaveDesc>hps_0_rstmgr</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_rstmgr.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4291842048</baseAddress>
-    <basePhysicalAddress>4291842048</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_sysmgr</moduleName>
-    <slaveDesc>hps_0_sysmgr</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>1024</value>
-     </assignment>
-     <systemSlaveName>hps_0_sysmgr.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4291854336</baseAddress>
-    <basePhysicalAddress>4291854336</basePhysicalAddress>
-    <span>1024</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_dma</moduleName>
-    <slaveDesc>hps_0_dma</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_dma.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4292874240</baseAddress>
-    <basePhysicalAddress>4292874240</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_spim0</moduleName>
-    <slaveDesc>hps_0_spim0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_spim0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4293918720</baseAddress>
-    <basePhysicalAddress>4293918720</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_spim1</moduleName>
-    <slaveDesc>hps_0_spim1</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_spim1.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4293922816</baseAddress>
-    <basePhysicalAddress>4293922816</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_timer</moduleName>
-    <slaveDesc>hps_0_timer</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_timer.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4294886912</baseAddress>
-    <basePhysicalAddress>4294886912</basePhysicalAddress>
-    <span>256</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_arm_gic_0</moduleName>
-    <slaveDesc>hps_0_arm_gic_0</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_arm_gic_0.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <slave>
-     <name>axi_slave1</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>256</value>
-     </assignment>
-     <systemSlaveName>hps_0_arm_gic_0.axi_slave1</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4294889472</baseAddress>
-    <basePhysicalAddress>4294889472</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_L2</moduleName>
-    <slaveDesc>hps_0_L2</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>4096</value>
-     </assignment>
-     <systemSlaveName>hps_0_L2.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4294897664</baseAddress>
-    <basePhysicalAddress>4294897664</basePhysicalAddress>
-    <span>4096</span>
-    <isBigEndian>false</isBigEndian>
-    <isInstructionAccessible>false</isInstructionAccessible>
-    <isDataAccessible>false</isDataAccessible>
-    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
-    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
-    <hasIrq>false</hasIrq>
-    <irqNumber>-1</irqNumber>
-    <irqInterruptControllerID>-1</irqInterruptControllerID>
-    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
-    <interruptControllerID>-1</interruptControllerID>
-   </connectedDevice>
-   <connectedDevice>
-    <moduleName>hps_0_axi_ocram</moduleName>
-    <slaveDesc>hps_0_axi_ocram</slaveDesc>
-    <slave>
-     <name>axi_slave0</name>
-     <version>23.1</version>
-     <assignment>
-      <name>addressSpan</name>
-      <value>65536</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isMemoryDevice</name>
-      <value>1</value>
-     </assignment>
-     <assignment>
-      <name>embeddedsw.configuration.isNonVolatileStorage</name>
-      <value>0</value>
-     </assignment>
-     <systemSlaveName>hps_0_axi_ocram.axi_slave0</systemSlaveName>
-     <addressGroup>1</addressGroup>
-    </slave>
-    <baseAddress>4294901760</baseAddress>
-    <basePhysicalAddress>4294901760</basePhysicalAddress>
-    <span>65536</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
     <isDataAccessible>false</isDataAccessible>
@@ -2082,20 +1716,8 @@
   </clockConnection>
   <clockConnection>
    <moduleName>hps_0_bridges</moduleName>
-   <localSlaveName>h2f_axi_clock</localSlaveName>
-   <systemConnectionName>hps_0_bridges.h2f_axi_clock</systemConnectionName>
-   <frequency>0</frequency>
-  </clockConnection>
-  <clockConnection>
-   <moduleName>hps_0_bridges</moduleName>
    <localSlaveName>h2f_lw_axi_clock</localSlaveName>
    <systemConnectionName>hps_0_bridges.h2f_lw_axi_clock</systemConnectionName>
-   <frequency>0</frequency>
-  </clockConnection>
-  <clockConnection>
-   <moduleName>hps_0_bridges</moduleName>
-   <localSlaveName>f2h_axi_clock</localSlaveName>
-   <systemConnectionName>hps_0_bridges.f2h_axi_clock</systemConnectionName>
    <frequency>0</frequency>
   </clockConnection>
   <path>hps_0.bridges</path>
@@ -2256,8 +1878,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg3</moduleName>
-    <slaveDesc>seg3</slaveDesc>
+    <moduleName>hex5</moduleName>
+    <slaveDesc>hex5</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -2277,7 +1899,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg3.s1</systemSlaveName>
+     <systemSlaveName>hex5.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287232</baseAddress>
@@ -2295,8 +1917,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg2</moduleName>
-    <slaveDesc>seg2</slaveDesc>
+    <moduleName>hex4</moduleName>
+    <slaveDesc>hex4</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -2316,7 +1938,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg2.s1</systemSlaveName>
+     <systemSlaveName>hex4.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287248</baseAddress>
@@ -2334,8 +1956,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg1</moduleName>
-    <slaveDesc>seg1</slaveDesc>
+    <moduleName>hex3</moduleName>
+    <slaveDesc>hex3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -2355,7 +1977,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg1.s1</systemSlaveName>
+     <systemSlaveName>hex3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287264</baseAddress>
@@ -2373,8 +1995,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg0</moduleName>
-    <slaveDesc>seg0</slaveDesc>
+    <moduleName>hex2</moduleName>
+    <slaveDesc>hex2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -2394,11 +2016,89 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg0.s1</systemSlaveName>
+     <systemSlaveName>hex2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287280</baseAddress>
     <basePhysicalAddress>4280287280</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex1</moduleName>
+    <slaveDesc>hex1</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex1.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287296</baseAddress>
+    <basePhysicalAddress>4280287296</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex0</moduleName>
+    <slaveDesc>hex0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287312</baseAddress>
+    <basePhysicalAddress>4280287312</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2436,8 +2136,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287296</baseAddress>
-    <basePhysicalAddress>4280287296</basePhysicalAddress>
+    <baseAddress>4280287328</baseAddress>
+    <basePhysicalAddress>4280287328</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2475,8 +2175,8 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287312</baseAddress>
-    <basePhysicalAddress>4280287312</basePhysicalAddress>
+    <baseAddress>4280287344</baseAddress>
+    <basePhysicalAddress>4280287344</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2514,8 +2214,8 @@
      <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287328</baseAddress>
-    <basePhysicalAddress>4280287328</basePhysicalAddress>
+    <baseAddress>4280287360</baseAddress>
+    <basePhysicalAddress>4280287360</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2553,8 +2253,8 @@
      <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287344</baseAddress>
-    <basePhysicalAddress>4280287344</basePhysicalAddress>
+    <baseAddress>4280287376</baseAddress>
+    <basePhysicalAddress>4280287376</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -2592,8 +2292,8 @@
      <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287360</baseAddress>
-    <basePhysicalAddress>4280287360</basePhysicalAddress>
+    <baseAddress>4280287392</baseAddress>
+    <basePhysicalAddress>4280287392</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3757,8 +3457,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg3</moduleName>
-    <slaveDesc>seg3</slaveDesc>
+    <moduleName>hex5</moduleName>
+    <slaveDesc>hex5</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3778,7 +3478,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg3.s1</systemSlaveName>
+     <systemSlaveName>hex5.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287232</baseAddress>
@@ -3796,8 +3496,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg2</moduleName>
-    <slaveDesc>seg2</slaveDesc>
+    <moduleName>hex4</moduleName>
+    <slaveDesc>hex4</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3817,7 +3517,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg2.s1</systemSlaveName>
+     <systemSlaveName>hex4.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287248</baseAddress>
@@ -3835,8 +3535,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg1</moduleName>
-    <slaveDesc>seg1</slaveDesc>
+    <moduleName>hex3</moduleName>
+    <slaveDesc>hex3</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3856,7 +3556,7 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg1.s1</systemSlaveName>
+     <systemSlaveName>hex3.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287264</baseAddress>
@@ -3874,8 +3574,8 @@
     <interruptControllerID>-1</interruptControllerID>
    </connectedDevice>
    <connectedDevice>
-    <moduleName>seg0</moduleName>
-    <slaveDesc>seg0</slaveDesc>
+    <moduleName>hex2</moduleName>
+    <slaveDesc>hex2</slaveDesc>
     <slave>
      <name>s1</name>
      <version>23.1</version>
@@ -3895,11 +3595,89 @@
       <name>embeddedsw.configuration.isPrintableDevice</name>
       <value>0</value>
      </assignment>
-     <systemSlaveName>seg0.s1</systemSlaveName>
+     <systemSlaveName>hex2.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
     <baseAddress>4280287280</baseAddress>
     <basePhysicalAddress>4280287280</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex1</moduleName>
+    <slaveDesc>hex1</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex1.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287296</baseAddress>
+    <basePhysicalAddress>4280287296</basePhysicalAddress>
+    <span>16</span>
+    <isBigEndian>false</isBigEndian>
+    <isInstructionAccessible>false</isInstructionAccessible>
+    <isDataAccessible>false</isDataAccessible>
+    <isTightlyCoupledInstructionAccessible>false</isTightlyCoupledInstructionAccessible>
+    <isTightlyCoupledDataAccessible>false</isTightlyCoupledDataAccessible>
+    <hasIrq>false</hasIrq>
+    <irqNumber>-1</irqNumber>
+    <irqInterruptControllerID>-1</irqInterruptControllerID>
+    <isConnectedInterruptControllerDevice>false</isConnectedInterruptControllerDevice>
+    <interruptControllerID>-1</interruptControllerID>
+   </connectedDevice>
+   <connectedDevice>
+    <moduleName>hex0</moduleName>
+    <slaveDesc>hex0</slaveDesc>
+    <slave>
+     <name>s1</name>
+     <version>23.1</version>
+     <assignment>
+      <name>embeddedsw.configuration.isFlash</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isMemoryDevice</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isNonVolatileStorage</name>
+      <value>0</value>
+     </assignment>
+     <assignment>
+      <name>embeddedsw.configuration.isPrintableDevice</name>
+      <value>0</value>
+     </assignment>
+     <systemSlaveName>hex0.s1</systemSlaveName>
+     <addressGroup>0</addressGroup>
+    </slave>
+    <baseAddress>4280287312</baseAddress>
+    <basePhysicalAddress>4280287312</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3937,8 +3715,8 @@
      <systemSlaveName>decayValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287296</baseAddress>
-    <basePhysicalAddress>4280287296</basePhysicalAddress>
+    <baseAddress>4280287328</baseAddress>
+    <basePhysicalAddress>4280287328</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -3976,8 +3754,8 @@
      <systemSlaveName>paramType_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287312</baseAddress>
-    <basePhysicalAddress>4280287312</basePhysicalAddress>
+    <baseAddress>4280287344</baseAddress>
+    <basePhysicalAddress>4280287344</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -4015,8 +3793,8 @@
      <systemSlaveName>paramValueUpdate_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287328</baseAddress>
-    <basePhysicalAddress>4280287328</basePhysicalAddress>
+    <baseAddress>4280287360</baseAddress>
+    <basePhysicalAddress>4280287360</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -4054,8 +3832,8 @@
      <systemSlaveName>mixValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287344</baseAddress>
-    <basePhysicalAddress>4280287344</basePhysicalAddress>
+    <baseAddress>4280287376</baseAddress>
+    <basePhysicalAddress>4280287376</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -4093,8 +3871,8 @@
      <systemSlaveName>dampingValue_PIO.s1</systemSlaveName>
      <addressGroup>0</addressGroup>
     </slave>
-    <baseAddress>4280287360</baseAddress>
-    <basePhysicalAddress>4280287360</basePhysicalAddress>
+    <baseAddress>4280287392</baseAddress>
+    <basePhysicalAddress>4280287392</basePhysicalAddress>
     <span>16</span>
     <isBigEndian>false</isBigEndian>
     <isInstructionAccessible>false</isInstructionAccessible>
@@ -5597,7 +5375,7 @@
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.status</name>
-   <value>okay</value>
+   <value>disabled</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -7137,358 +6915,6 @@
    <frequency>50000000</frequency>
   </clockConnection>
   <path>paramValueUpdate_PIO</path>
- </module>
- <module>
-  <name>seg0</name>
-  <version>23.1</version>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.CAPTURE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.EDGE_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.FREQ</name>
-   <value>50000000</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_IN</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_OUT</name>
-   <value>1</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_TRI</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.IRQ_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.compatible</name>
-   <value>altr,pio-1.0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.group</name>
-   <value>gpio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.name</name>
-   <value>pio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.resetvalue</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.vendor</name>
-   <value>altr</value>
-  </assignment>
-  <className>altera_avalon_pio</className>
-  <clockConnection>
-   <moduleName>seg0</moduleName>
-   <localSlaveName>clk</localSlaveName>
-   <systemConnectionName>seg0.clk</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
-  <path>seg0</path>
- </module>
- <module>
-  <name>seg1</name>
-  <version>23.1</version>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.CAPTURE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.EDGE_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.FREQ</name>
-   <value>50000000</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_IN</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_OUT</name>
-   <value>1</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_TRI</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.IRQ_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.compatible</name>
-   <value>altr,pio-1.0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.group</name>
-   <value>gpio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.name</name>
-   <value>pio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.resetvalue</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.vendor</name>
-   <value>altr</value>
-  </assignment>
-  <className>altera_avalon_pio</className>
-  <clockConnection>
-   <moduleName>seg1</moduleName>
-   <localSlaveName>clk</localSlaveName>
-   <systemConnectionName>seg1.clk</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
-  <path>seg1</path>
- </module>
- <module>
-  <name>seg2</name>
-  <version>23.1</version>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.CAPTURE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.EDGE_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.FREQ</name>
-   <value>50000000</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_IN</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_OUT</name>
-   <value>1</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_TRI</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.IRQ_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.compatible</name>
-   <value>altr,pio-1.0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.group</name>
-   <value>gpio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.name</name>
-   <value>pio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.resetvalue</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.vendor</name>
-   <value>altr</value>
-  </assignment>
-  <className>altera_avalon_pio</className>
-  <clockConnection>
-   <moduleName>seg2</moduleName>
-   <localSlaveName>clk</localSlaveName>
-   <systemConnectionName>seg2.clk</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
-  <path>seg2</path>
- </module>
- <module>
-  <name>seg3</name>
-  <version>23.1</version>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_CLEARING_EDGE_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.BIT_MODIFYING_OUTPUT_REGISTER</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.CAPTURE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DO_TEST_BENCH_WIRING</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.DRIVEN_SIM_VALUE</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.EDGE_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.FREQ</name>
-   <value>50000000</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_IN</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_OUT</name>
-   <value>1</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.HAS_TRI</name>
-   <value>0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.IRQ_TYPE</name>
-   <value>NONE</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.CMacro.RESET_VALUE</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.compatible</name>
-   <value>altr,pio-1.0</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.group</name>
-   <value>gpio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.name</name>
-   <value>pio</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.altr,gpio-bank-width</name>
-   <value>4</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.params.resetvalue</name>
-   <value>15</value>
-  </assignment>
-  <assignment>
-   <name>embeddedsw.dts.vendor</name>
-   <value>altr</value>
-  </assignment>
-  <className>altera_avalon_pio</className>
-  <clockConnection>
-   <moduleName>seg3</moduleName>
-   <localSlaveName>clk</localSlaveName>
-   <systemConnectionName>seg3.clk</systemConnectionName>
-   <frequency>50000000</frequency>
-  </clockConnection>
-  <path>seg3</path>
  </module>
  <module>
   <name>serial_flash_loader</name>

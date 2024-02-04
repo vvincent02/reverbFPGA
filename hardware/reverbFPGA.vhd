@@ -37,22 +37,24 @@ PORT(
 	HPS_DDR3_DM : OUT std_logic_vector(3 downto 0);
 	HPS_DDR3_RZQ : IN std_logic;
 	
-	HPS_eventI : IN std_logic;
-	HPS_eventO : OUT std_logic;
-	HPS_standbywfe : OUT std_logic_vector(1 downto 0);
-	HPS_standbywfi : OUT std_logic_vector(1 downto 0);
+--	HPS_eventI : IN std_logic;
+--	HPS_eventO : OUT std_logic;
+--	HPS_standbywfe : OUT std_logic_vector(1 downto 0);
+--	HPS_standbywfi : OUT std_logic_vector(1 downto 0);
 	
 	HPS_I2C1_SDAT : INOUT std_logic;
 	HPS_I2C1_SCLK : INOUT std_logic;
 	HPS_I2C_CONTROL : INOUT std_logic;
-	HPS_UART_RX : IN std_logic;
-	HPS_UART_TX : OUT std_logic;
+--	HPS_UART_RX : IN std_logic;
+--	HPS_UART_TX : OUT std_logic;
 	HPS_LED : INOUT std_logic;
 	
 	HEX0_N : OUT std_logic_vector(6 downto 0);
 	HEX1_N : OUT std_logic_vector(6 downto 0);
 	HEX2_N : OUT std_logic_vector(6 downto 0);
 	HEX3_N : OUT std_logic_vector(6 downto 0);
+	HEX4_N : OUT std_logic_vector(6 downto 0);
+	HEX5_N : OUT std_logic_vector(6 downto 0);
 	
 	stereo_n_mono : IN std_logic
 );
@@ -71,10 +73,12 @@ signal decayValue : std_logic_vector(24 downto 0);
 signal dampingValue : std_logic_vector(24 downto 0);
 
 -- signaux valeur des afficheurs 7 segments
-signal seg0Val : std_logic_vector(3 downto 0);
-signal seg1Val : std_logic_vector(3 downto 0);
-signal seg2Val : std_logic_vector(3 downto 0);
-signal seg3Val : std_logic_vector(3 downto 0);
+signal hex0Val : std_logic_vector(5 downto 0);
+signal hex1Val : std_logic_vector(5 downto 0);
+signal hex2Val : std_logic_vector(5 downto 0);
+signal hex3Val : std_logic_vector(5 downto 0);
+signal hex4Val : std_logic_vector(5 downto 0);
+signal hex5Val : std_logic_vector(5 downto 0);
 
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
@@ -156,15 +160,15 @@ port (
 	audio_controller_avalon_right_channel_sink_valid   : in    std_logic                     := 'X';             -- valid
 	audio_controller_avalon_right_channel_sink_ready   : out   std_logic;                                         -- ready
 
-	hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := 'X';             -- eventi
-   hps_0_h2f_mpu_events_evento                       : out   std_logic;                                        -- evento
-   hps_0_h2f_mpu_events_standbywfe                   : out   std_logic_vector(1 downto 0);                     -- standbywfe
-	hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     -- standbywfi
-	
+--	hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := 'X';             -- eventi
+--   hps_0_h2f_mpu_events_evento                       : out   std_logic;                                        -- evento
+--   hps_0_h2f_mpu_events_standbywfe                   : out   std_logic_vector(1 downto 0);                     -- standbywfe
+--	hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     -- standbywfi
+
 	serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X';              -- noe
 	
-	hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
-	hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
+--	hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+--	hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
 	hps_io_hps_io_i2c1_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
 	hps_io_hps_io_i2c1_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
@@ -172,10 +176,12 @@ port (
 
 	audio_pll_0_audio_clk_clk                         : out   std_logic;                                         -- clk
 
-	seg0_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-   seg1_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-   seg2_external_connection_export                    : out   std_logic_vector(3 downto 0);                     -- export
-   seg3_external_connection_export                    : out   std_logic_vector(3 downto 0)                      -- export
+	hex0_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+   hex1_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+   hex2_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+   hex3_external_connection_export                    : out   std_logic_vector(5 downto 0);                      -- export
+	hex4_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
+   hex5_external_connection_export                    : out   std_logic_vector(5 downto 0)                      -- export
 );
 end component reverbFPGA_Qsys;
 
@@ -227,15 +233,15 @@ port map (
 	memory_mem_dm                                     => HPS_DDR3_DM,                                     --                                            .mem_dm
 	memory_oct_rzqin                                  => HPS_DDR3_RZQ,
 
-	hps_0_h2f_mpu_events_eventi                       => open,                       --                        hps_0_h2f_mpu_events.eventi
-	hps_0_h2f_mpu_events_evento                       => open,                       --                                            .evento
-	hps_0_h2f_mpu_events_standbywfe                   => open,                   --                                            .standbywfe
-	hps_0_h2f_mpu_events_standbywfi                   => open,                   --                                            .standbywfi
-	
+--	hps_0_h2f_mpu_events_eventi                       => open,                       --                        hps_0_h2f_mpu_events.eventi
+--	hps_0_h2f_mpu_events_evento                       => open,                       --                                            .evento
+--	hps_0_h2f_mpu_events_standbywfe                   => open,                   --                                            .standbywfe
+--	hps_0_h2f_mpu_events_standbywfi                   => open,                   --                                            .standbywfi
+
 	serial_flash_loader_0_noe_in_noe => '0',
 	
-	hps_io_hps_io_uart0_inst_RX                       => HPS_UART_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
-	hps_io_hps_io_uart0_inst_TX                       => HPS_UART_TX,                       --                                            .hps_io_uart0_inst_TX
+--	hps_io_hps_io_uart0_inst_RX                       => HPS_UART_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
+--	hps_io_hps_io_uart0_inst_TX                       => HPS_UART_TX,                       --                                            .hps_io_uart0_inst_TX
 	hps_io_hps_io_i2c1_inst_SDA                       => HPS_I2C1_SDAT,                       --                                            .hps_io_i2c0_inst_SDA
 	hps_io_hps_io_i2c1_inst_SCL                       => HPS_I2C1_SCLK,                       --                                            .hps_io_i2c0_inst_SCL
 	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
@@ -243,21 +249,27 @@ port map (
 	
 	audio_pll_0_audio_clk_clk                         => AUD_XCK,                          --                       audio_pll_0_audio_clk.clk
 
-	seg0_external_connection_export                    => seg0Val,                    --                     seg0_external_connection.export
-   seg1_external_connection_export                    => seg1Val,                    --                     seg1_external_connection.export
-   seg2_external_connection_export                    => seg2Val,                    --                     seg2_external_connection.export
-   seg3_external_connection_export                    => seg3Val                     --                     seg3_external_connection.export
+	hex0_external_connection_export                    => hex0Val,                    --                     hex0_external_connection.export
+   hex1_external_connection_export                    => hex1Val,                    --                     hex1_external_connection.export
+   hex2_external_connection_export                    => hex2Val,                    --                     hex2_external_connection.export
+   hex3_external_connection_export                    => hex3Val,                     --                     hex3_external_connection.export
+	hex4_external_connection_export                    => hex4Val,                    --                     hex4_external_connection.export
+   hex5_external_connection_export                    => hex5Val                     --                     hex5_external_connection.export
 );
 
 ---------------- 7seg decoders --------------------
-seg0 : entity work.segDecod(archi)
-	port map(valueIN => seg0Val, segOUT => HEX0_N);
-seg1 : entity work.segDecod(archi)
-	port map(valueIN => seg1Val, segOUT => HEX1_N);
-seg2 : entity work.segDecod(archi)
-	port map(valueIN => seg2Val, segOUT => HEX2_N);
-seg3 : entity work.segDecod(archi)
-	port map(valueIN => seg3Val, segOUT => HEX3_N);
+hex0 : entity work.segDecod(archi)
+	port map(valueIN => hex0Val, segOUT => HEX0_N);
+hex1 : entity work.segDecod(archi)
+	port map(valueIN => hex1Val, segOUT => HEX1_N);
+hex2 : entity work.segDecod(archi)
+	port map(valueIN => hex2Val, segOUT => HEX2_N);
+hex3 : entity work.segDecod(archi)
+	port map(valueIN => hex3Val, segOUT => HEX3_N);
+hex4 : entity work.segDecod(archi)
+	port map(valueIN => hex4Val, segOUT => HEX4_N);
+hex5 : entity work.segDecod(archi)
+	port map(valueIN => hex5Val, segOUT => HEX5_N);
 ---------------------------------------------------
 
 --------------- interfaces bus Avalon ST - signals AUD codec (L+R) -----------------------------------
@@ -308,7 +320,8 @@ dataR_OUT <= std_logic_vector(dataR_OUT_signed);
 -------------------------------------- Late reverb ------------------------------------------
 lateReverbL : entity work.lateReverb(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataL_sampled_valid, 
+	port map(clk50M => CLOCK_50, rst => rst, 
+				data_sampled_valid => dataL_sampled_valid, 
 				dataIN => dataL_IN_signed, 
 				dataOUT => dataL_OUT_lateReverb, 
 				dampingValue => unsigned(dampingValue), 
@@ -316,7 +329,8 @@ lateReverbL : entity work.lateReverb(archi)
 
 lateReverbR : entity work.lateReverb(archi)
 	generic map(24)
-	port map(clk50M => CLOCK_50, data_sampled_valid => dataR_sampled_valid, 
+	port map(clk50M => CLOCK_50, rst => rst,
+				data_sampled_valid => dataR_sampled_valid, 
 				dataIN => dataR_IN_signed, 
 				dataOUT => dataR_OUT_lateReverb, 
 				dampingValue => unsigned(dampingValue), 
