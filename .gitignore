@@ -49,6 +49,9 @@
 *.dylib
 *.dll
 
+# Others
+*.txt
+
 # Fortran module files
 *.mod
 
