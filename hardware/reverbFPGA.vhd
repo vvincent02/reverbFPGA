@@ -36,17 +36,10 @@ PORT(
 	HPS_DDR3_ODT : OUT std_logic;
 	HPS_DDR3_DM : OUT std_logic_vector(3 downto 0);
 	HPS_DDR3_RZQ : IN std_logic;
-	
---	HPS_eventI : IN std_logic;
---	HPS_eventO : OUT std_logic;
---	HPS_standbywfe : OUT std_logic_vector(1 downto 0);
---	HPS_standbywfi : OUT std_logic_vector(1 downto 0);
-	
+		
 	HPS_I2C1_SDAT : INOUT std_logic;
 	HPS_I2C1_SCLK : INOUT std_logic;
 	HPS_I2C_CONTROL : INOUT std_logic;
---	HPS_UART_RX : IN std_logic;
---	HPS_UART_TX : OUT std_logic;
 	HPS_LED : INOUT std_logic;
 	
 	HEX0_N : OUT std_logic_vector(6 downto 0);
@@ -62,15 +55,17 @@ END reverbFPGA;
 
 ARCHITECTURE archi OF reverbFPGA IS
 
+constant dataSize : integer range 0 to 32 := 24;
+
 -- signaux de cadencement des opérations numériques (1 lorsque les données peuvent être lues et écrites)
 signal dataL_sampled_valid : std_logic;
 signal dataR_sampled_valid : std_logic;
 
 -- paramètres de la reverb
 --signal preDelayValue : std_logic_vector(23 downto 0);
-signal mixValue : std_logic_vector(23 downto 0);
-signal decayValue : std_logic_vector(24 downto 0);
-signal dampingValue : std_logic_vector(24 downto 0);
+signal mixValue : std_logic_vector(dataSize-1 downto 0);
+signal decayValue : std_logic_vector(dataSize downto 0);
+signal dampingValue : std_logic_vector(dataSize downto 0);
 
 -- signaux valeur des afficheurs 7 segments
 signal hex0Val : std_logic_vector(5 downto 0);
@@ -83,37 +78,43 @@ signal hex5Val : std_logic_vector(5 downto 0);
 -- signaux audio d'entrée et de sortie gauche/droite (signaux du bus avalon streaming)
 signal audioL_IN_ready : std_logic;
 signal audioL_IN_valid : std_logic;
-signal audioL_IN_data : std_logic_vector(23 downto 0);
+signal audioL_IN_data : std_logic_vector(dataSize-1 downto 0);
 signal audioL_OUT_ready : std_logic;
 signal audioL_OUT_valid : std_logic;
-signal audioL_OUT_data : std_logic_vector(23 downto 0);
+signal audioL_OUT_data : std_logic_vector(dataSize-1 downto 0);
 signal audioR_IN_ready : std_logic;
 signal audioR_IN_valid : std_logic;
-signal audioR_IN_data : std_logic_vector(23 downto 0);
+signal audioR_IN_data : std_logic_vector(dataSize-1 downto 0);
 signal audioR_OUT_ready : std_logic;
 signal audioR_OUT_valid : std_logic;
-signal audioR_OUT_data : std_logic_vector(23 downto 0);
+signal audioR_OUT_data : std_logic_vector(dataSize-1 downto 0);
 
 -- signaux interfaçe controleur audio / traitement reverb
 type interfaceState_type is (idle, transferData, endTransfer);
 signal interfaceStateL : interfaceState_type;
 signal interfaceStateR : interfaceState_type;
-signal dataL_IN : std_logic_vector(23 downto 0);
-signal dataL_IN_signed : signed(23 downto 0);
-signal dataL_OUT : std_logic_vector(23 downto 0);
-signal dataL_OUT_signed : signed(23 downto 0);
-signal dataR_IN : std_logic_vector(23 downto 0);
-signal dataR_IN_signed : signed(23 downto 0);
-signal dataR_OUT : std_logic_vector(23 downto 0);
-signal dataR_OUT_signed : signed(23 downto 0);
+signal dataL_IN : std_logic_vector(dataSize-1 downto 0);
+signal dataL_IN_signed : signed(dataSize-1 downto 0);
+signal dataL_OUT : std_logic_vector(dataSize-1 downto 0);
+signal dataL_OUT_signed : signed(dataSize-1 downto 0);
+signal dataR_IN : std_logic_vector(dataSize-1 downto 0);
+signal dataR_IN_signed : signed(dataSize-1 downto 0);
+signal dataR_OUT : std_logic_vector(dataSize-1 downto 0);
+signal dataR_OUT_signed : signed(dataSize-1 downto 0);
 
 -- signaux intermédiaire dans le traitement de la réverb
-signal dataL_OUT_dryGain : signed(23 downto 0);
-signal dataL_OUT_wetGain : signed(23 downto 0);
-signal dataL_OUT_lateReverb : signed(23 downto 0);
-signal dataR_OUT_dryGain : signed(23 downto 0);
-signal dataR_OUT_wetGain : signed(23 downto 0);
-signal dataR_OUT_lateReverb : signed(23 downto 0);
+signal dataL_OUT_dryGain : signed(dataSize-1 downto 0);
+signal dataL_OUT_wetGain : signed(dataSize-1 downto 0);
+signal dataL_OUT_earlyReverb : signed(dataSize-1 downto 0);
+signal dataL_OUT_earlyToLateReverb : signed(dataSize-1 downto 0);
+signal dataL_OUT_lateReverb : signed(dataSize-1 downto 0);
+signal dataL_OUT_sum_EarlyLate : signed(dataSize downto 0);
+signal dataR_OUT_dryGain : signed(dataSize-1 downto 0);
+signal dataR_OUT_wetGain : signed(dataSize-1 downto 0);
+signal dataR_OUT_earlyReverb : signed(dataSize-1 downto 0);
+signal dataR_OUT_earlyToLateReverb : signed(dataSize-1 downto 0);
+signal dataR_OUT_lateReverb : signed(dataSize-1 downto 0);
+signal dataR_OUT_sum_EarlyLate : signed(dataSize downto 0);
 
 -- Qsys component
 component reverbFPGA_Qsys is
@@ -160,15 +161,8 @@ port (
 	audio_controller_avalon_right_channel_sink_valid   : in    std_logic                     := 'X';             -- valid
 	audio_controller_avalon_right_channel_sink_ready   : out   std_logic;                                         -- ready
 
---	hps_0_h2f_mpu_events_eventi                       : in    std_logic                     := 'X';             -- eventi
---   hps_0_h2f_mpu_events_evento                       : out   std_logic;                                        -- evento
---   hps_0_h2f_mpu_events_standbywfe                   : out   std_logic_vector(1 downto 0);                     -- standbywfe
---	hps_0_h2f_mpu_events_standbywfi                   : out   std_logic_vector(1 downto 0);                     -- standbywfi
-
 	serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X';              -- noe
 	
---	hps_io_hps_io_uart0_inst_RX                       : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
---	hps_io_hps_io_uart0_inst_TX                       : out   std_logic;                                        -- hps_io_uart0_inst_TX
 	hps_io_hps_io_i2c1_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
 	hps_io_hps_io_i2c1_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
@@ -233,15 +227,8 @@ port map (
 	memory_mem_dm                                     => HPS_DDR3_DM,                                     --                                            .mem_dm
 	memory_oct_rzqin                                  => HPS_DDR3_RZQ,
 
---	hps_0_h2f_mpu_events_eventi                       => open,                       --                        hps_0_h2f_mpu_events.eventi
---	hps_0_h2f_mpu_events_evento                       => open,                       --                                            .evento
---	hps_0_h2f_mpu_events_standbywfe                   => open,                   --                                            .standbywfe
---	hps_0_h2f_mpu_events_standbywfi                   => open,                   --                                            .standbywfi
-
 	serial_flash_loader_0_noe_in_noe => '0',
 	
---	hps_io_hps_io_uart0_inst_RX                       => HPS_UART_RX,                       --                                      hps_io.hps_io_uart0_inst_RX
---	hps_io_hps_io_uart0_inst_TX                       => HPS_UART_TX,                       --                                            .hps_io_uart0_inst_TX
 	hps_io_hps_io_i2c1_inst_SDA                       => HPS_I2C1_SDAT,                       --                                            .hps_io_i2c0_inst_SDA
 	hps_io_hps_io_i2c1_inst_SCL                       => HPS_I2C1_SCLK,                       --                                            .hps_io_i2c0_inst_SCL
 	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
@@ -274,7 +261,7 @@ hex5 : entity work.segDecod(archi)
 
 --------------- interfaces bus Avalon ST - signals AUD codec (L+R) -----------------------------------
 interfaceL : entity work.interface_AVST_proc(archi)
-	generic map(24)
+	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst, 
 				audio_IN_ready => audioL_IN_ready, 
 				audio_IN_valid => audioL_IN_valid,
@@ -289,7 +276,7 @@ dataL_IN_signed <= signed(dataL_IN);
 dataL_OUT <= std_logic_vector(dataL_OUT_signed);
 				
 interfaceR : entity work.interface_AVST_proc(archi)
-	generic map(24)
+	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst,
 				audio_IN_ready => audioR_IN_ready, 
 				audio_IN_valid => audioR_IN_valid,
@@ -304,55 +291,70 @@ dataR_IN_signed <= signed(dataR_IN);
 dataR_OUT <= std_logic_vector(dataR_OUT_signed);
 --------------------------------------------------------------------------------------------------------
 
----- bridge IN -> OUT (R channel)
---bridgeR : process(CLOCK_50)
---begin
---	if(CLOCK_50'EVENT and CLOCK_50 = '1') then
---		if(dataR_sampled_valid = '1') then
---			LEDR_1 <= '1';
---			dataR_OUT_signed <= dataR_IN_signed;
---		else
---			LEDR_1 <= '0';
---		end if;
---	end if;
---end process;
+-------------------------------------- Early reverb -----------------------------------------
+earlyReverbL : entity work.earlyReverb(archi)
+	generic map(dataSize)
+	port map(clk50M => CLOCK_50, rst => rst,
+				data_sampled_valid => dataL_sampled_valid,
+				dataIN => dataL_IN_signed,
+				dataOUT_toLateReverb => dataL_OUT_earlyToLateReverb,
+				dataOUT_earlyReverb => dataL_OUT_earlyReverb,
+				delayInitEcho => 0);
+
+earlyReverbR : entity work.earlyReverb(archi)
+	generic map(dataSize)
+	port map(clk50M => CLOCK_50, rst => rst,
+				data_sampled_valid => dataR_sampled_valid,
+				dataIN => dataR_IN_signed,
+				dataOUT_toLateReverb => dataR_OUT_earlyToLateReverb,
+				dataOUT_earlyReverb => dataR_OUT_earlyReverb,
+				delayInitEcho => 0);
+---------------------------------------------------------------------------------------------
 
 -------------------------------------- Late reverb ------------------------------------------
 lateReverbL : entity work.lateReverb(archi)
-	generic map(24)
+	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst, 
 				data_sampled_valid => dataL_sampled_valid, 
-				dataIN => dataL_IN_signed, 
+				dataIN => dataL_OUT_earlyToLateReverb, 
 				dataOUT => dataL_OUT_lateReverb, 
 				dampingValue => unsigned(dampingValue), 
 				decayValue => unsigned(decayValue));  
 
 lateReverbR : entity work.lateReverb(archi)
-	generic map(24)
+	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst,
 				data_sampled_valid => dataR_sampled_valid, 
-				dataIN => dataR_IN_signed, 
+				dataIN => dataR_OUT_earlyToLateReverb, 
 				dataOUT => dataR_OUT_lateReverb, 
 				dampingValue => unsigned(dampingValue), 
 				decayValue => unsigned(decayValue));  	
 ---------------------------------------------------------------------------------------------
 
+-------------------------- Ajout réverb proche + queue de la réverb -------------------------
+dataL_OUT_sum_EarlyLate <= resize(dataL_OUT_earlyReverb, dataL_OUT_sum_EarlyLate'LENGTH) + 
+									resize(dataL_OUT_lateReverb, dataL_OUT_sum_EarlyLate'LENGTH);
+dataR_OUT_sum_EarlyLate <= resize(dataR_OUT_earlyReverb, dataR_OUT_sum_EarlyLate'LENGTH) + 
+									resize(dataR_OUT_lateReverb, dataR_OUT_sum_EarlyLate'LENGTH);
+
+---------------------------------------------------------------------------------------------
+
 --------------------------------- Gestion du mix dry/wet ------------------------------------
 -- gain dry pour l'envoi du son "pur" en sortie
 dryGainL : entity work.coefMult(archi)
-	generic map(24)
+	generic map(dataSize)
 	port map(dataIN => dataL_IN_signed, dataOUT => dataL_OUT_dryGain, coef => unsigned(not(mixValue)));
 dryGainR : entity work.coefMult(archi)
-	generic map(24)
+	generic map(dataSize)
 	port map(dataIN => dataR_IN_signed, dataOUT => dataR_OUT_dryGain, coef => unsigned(not(mixValue)));
 
 -- gain wet pour l'envoi du son réverbéré en sortie
 wetGainL : entity work.coefMult(archi)
-	generic map(24)
-	port map(dataIN => dataL_OUT_lateReverb, dataOUT => dataL_OUT_wetGain, coef => unsigned(mixValue));
+	generic map(dataSize)
+	port map(dataIN => dataL_OUT_sum_EarlyLate(dataL_OUT_sum_EarlyLate'HIGH downto 1), dataOUT => dataL_OUT_wetGain, coef => unsigned(mixValue));
 wetGainR : entity work.coefMult(archi)
-	generic map(24)
-	port map(dataIN => dataR_OUT_lateReverb, dataOUT => dataR_OUT_wetGain, coef => unsigned(mixValue));
+	generic map(dataSize)
+	port map(dataIN => dataR_OUT_sum_EarlyLate(dataR_OUT_sum_EarlyLate'HIGH downto 1), dataOUT => dataR_OUT_wetGain, coef => unsigned(mixValue));
 	
 -- ajout des deux signaux (dry+wet) + multiplexeur sur le canal droit pour choisir reverb stereo ou mono
 dataL_OUT_signed <= dataL_OUT_dryGain + dataL_OUT_wetGain;

@@ -52,7 +52,7 @@ END GENERATE LFCF_blocks;
 
 
 -- sommateur 8 entrées
-outputAdder <= resize(inputAdder(1), outputAdder'LENGTH)  + 
+outputAdder <= resize(inputAdder(1), outputAdder'LENGTH) + 
 					resize(inputAdder(2), outputAdder'LENGTH) +
 					resize(inputAdder(3), outputAdder'LENGTH) +
 					resize(inputAdder(4), outputAdder'LENGTH) +

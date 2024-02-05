@@ -1534,6 +1534,8 @@ set_location_assignment PIN_AB12 -to paramType[0]
 set_location_assignment PIN_AC12 -to paramType[1]
 set_location_assignment PIN_AF9 -to paramType[2]
 set_location_assignment PIN_AF10 -to paramType[3]
+set_location_assignment PIN_AE12 -to stereo_n_mono
+set_global_assignment -name VHDL_FILE hardware/earlyReverb.vhd
 set_global_assignment -name VHDL_FILE hardware/segDecod.vhd
 set_global_assignment -name QIP_FILE reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.qip
 set_global_assignment -name VHDL_FILE hardware/reverbFPGA.vhd
@@ -1546,5 +1548,4 @@ set_global_assignment -name VHDL_FILE hardware/lateReverb.vhd
 set_global_assignment -name VHDL_FILE hardware/RAM.vhd
 set_global_assignment -name VHDL_FILE hardware/interface_AVST_proc.vhd
 set_global_assignment -name SOURCE_FILE db/reverbFPGA.cmp.rdb
-set_location_assignment PIN_AE12 -to stereo_n_mono
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
