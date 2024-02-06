@@ -49,6 +49,7 @@
 		.mixvalue_pio_external_connection_export            (<connected-to-mixvalue_pio_external_connection_export>),            //             mixvalue_pio_external_connection.export
 		.paramtype_pio_external_connection_export           (<connected-to-paramtype_pio_external_connection_export>),           //            paramtype_pio_external_connection.export
 		.paramvalueupdate_pio_external_connection_export    (<connected-to-paramvalueupdate_pio_external_connection_export>),    //     paramvalueupdate_pio_external_connection.export
+		.predelayvalue_pio_external_connection_export       (<connected-to-predelayvalue_pio_external_connection_export>),       //        predelayvalue_pio_external_connection.export
 		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                        reset.reset_n
 		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>)                    //                 serial_flash_loader_0_noe_in.noe
 	);

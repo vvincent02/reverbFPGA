@@ -20,6 +20,9 @@
 
 #define NBR_PARAM 5 // number of parameters + 1 (parameter NONE_PARAM)
 
+#define SAMPLING_FREQ 48000
+#define NBR_DELAYLINE_INSTANCES_INITECHO 12
+
 #define GET_DB_FROM_GAIN(gain) 20*log(gain)
 #define GET_GAIN_FROM_DB(gain_dB) pow(10, (gain_dB)/20.0)
 
@@ -32,8 +35,8 @@ typedef enum	{
 } PARAM_TYPE;
 
 const float paramValueIncr[NBR_PARAM] = {3e-6, 3e-6, 3e-6, 3e-6, 0};
-const float paramValueMIN[NBR_PARAM] = {1e-9, 0, 0.25, 1e-9, 0};
-const float paramValueMAX[NBR_PARAM] = {1, 0, 0.95, 1, 0};
+const float paramValueMIN[NBR_PARAM] = {1e-9, 6./1024, 0.25, 1e-9, 0};
+const float paramValueMAX[NBR_PARAM] = {1, 1000./1024, 0.95, 1, 0};
 const char stringToDisplay[NBR_PARAM][4] = {"MI", "PR", "DE", "DA", ""};
 
 typedef enum	{

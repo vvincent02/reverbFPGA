@@ -3,16 +3,16 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 -- !! ATTENTION !! : 
--- il faut s'assurer que la valeur du décalage (Ns) ne soit pas trop grand de sorte à 
--- ce que les données aient le temps d'être écrites et lues dans la RAM (voir le rapport entre clk50 et samplingClk)
+-- il faut s'assurer que la valeur du décalage (Ns_max et currentN) ne soit pas trop grand de sorte à 
+-- ce que les données aient le temps d'être écrites et lues daNs_max la RAM (voir le rapport entre clk50 et samplingClk)
 
 -- !! ATTENTION !! : 
--- Ns doit être supérieure ou égale à 5 pour pouvoir établir le pipeline
+-- Ns_max et currentN doivent être supérieures ou égales à 5 pour pouvoir établir le pipeline
 
 ENTITY delayLine IS
 GENERIC(
 	dataSize: integer range 1 to 64;
-	Ns : integer range 1 to 65535
+	Ns_max : integer range 5 to 1000
 );
 PORT(
 	clk50M : IN std_logic;
@@ -20,13 +20,15 @@ PORT(
 	data_sampled_valid : IN std_logic;
 	
 	dataIN : IN signed(dataSize-1 downto 0);
-	dataOUT : OUT signed(dataSize-1 downto 0)
+	dataOUT : OUT signed(dataSize-1 downto 0);
+	
+	currentN : IN integer range 5 to 1000 -- délai variable
 );
 END delayLine;
 
 ARCHITECTURE archi OF delayLine IS
 
-constant N : integer range 0 to 65535 := Ns - 1; -- la structure de la ligne à retard induit déjà un décalage d'un échantillon au minimum
+constant N : integer range 4 to 1000 := Ns_max - 1; -- la structure de la ligne à retard induit déjà un décalage d'un échantillon au minimum
 
 type shiftState_type is (idle, pull, startPipeline, shift, endPipeline, push);
 signal shiftState : shiftState_type; 
@@ -39,6 +41,7 @@ signal we : std_logic;
 
 signal dataOUT_prev : signed(dataIN'range);
 signal dataIN_valid : signed(dataIN'range);
+signal currentN_valid : integer range 4 to 1000;
 
 BEGIN
 
@@ -46,11 +49,11 @@ RAM_module : entity work.RAM(rtl)
 	generic map(data_width => dataSize, nbr_blocks => N)
 	port map(clk => clk50M, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
 
--- décalage de N échantillons et mise à jour de la valeur de sortie 
+-- décalage de N échantilloNs_max et mise à jour de la valeur de sortie 
 process(clk50M)
 
 variable cnt : integer range 0 to 2;
-variable read_addr_pipeline : integer range 0 to N-4; -- adresse de la donnée (dans le pipeline) qui sera copiée à l'adresse supérieure 3 cycles plus tard)  
+variable read_addr_pipeline : integer range 0 to N-4; -- adresse de la donnée (daNs_max le pipeline) qui sera copiée à l'adresse supérieure 3 cycles plus tard)  
 
 begin
 	if(clk50M'EVENT and clk50M='1') then
@@ -66,12 +69,13 @@ begin
 				when idle =>
 					we <= '0';
 					cnt := 0;
-					read_addr_pipeline := N-4;
 					
 					-- si on peut lancer le décalage
 					if(data_sampled_valid = '1') then
 						dataOUT <= dataOUT_prev; -- mise à jour de la sortie avec la dernière valeur de la précédente file
 						dataIN_valid <= dataIN; -- on récupère l'entrée actuelle pour la mettre au début de la prochaine file
+						currentN_valid <= currentN - 1; -- on récupère le nombre de retards de la ligne
+						read_addr_pipeline := (currentN - 1) - 4;
 						shiftState <= pull;
 					end if;
 					
@@ -79,7 +83,7 @@ begin
 				when pull =>
 					case cnt is
 						when 0 =>
-							rd_addr <= N-1;
+							rd_addr <= currentN_valid-1;
 						when 1 => 
 							-- accès à la donnée en RAM à l'adresse N-1
 						when 2 => 
@@ -98,9 +102,9 @@ begin
 				when startPipeline =>
 					case cnt is
 						when 0 =>
-							rd_addr <= N-2;
+							rd_addr <= currentN_valid-2;
 						when 1 => 
-							rd_addr <= N-3;
+							rd_addr <= currentN_valid-3;
 							
 							shiftState <= shift;
 						when others =>

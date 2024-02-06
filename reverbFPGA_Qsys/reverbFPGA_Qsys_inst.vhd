@@ -50,6 +50,7 @@
 			mixvalue_pio_external_connection_export            : out   std_logic_vector(23 downto 0);                    -- export
 			paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+			predelayvalue_pio_external_connection_export       : out   std_logic_vector(9 downto 0);                     -- export
 			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
 			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X'              -- noe
 		);
@@ -107,6 +108,7 @@
 			mixvalue_pio_external_connection_export            => CONNECTED_TO_mixvalue_pio_external_connection_export,            --             mixvalue_pio_external_connection.export
 			paramtype_pio_external_connection_export           => CONNECTED_TO_paramtype_pio_external_connection_export,           --            paramtype_pio_external_connection.export
 			paramvalueupdate_pio_external_connection_export    => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,    --     paramvalueupdate_pio_external_connection.export
+			predelayvalue_pio_external_connection_export       => CONNECTED_TO_predelayvalue_pio_external_connection_export,       --        predelayvalue_pio_external_connection.export
 			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                        reset.reset_n
 			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                    --                 serial_flash_loader_0_noe_in.noe
 		);

@@ -50,6 +50,7 @@ module reverbFPGA_Qsys (
 	mixvalue_pio_external_connection_export,
 	paramtype_pio_external_connection_export,
 	paramvalueupdate_pio_external_connection_export,
+	predelayvalue_pio_external_connection_export,
 	reset_reset_n,
 	serial_flash_loader_0_noe_in_noe);	
 
@@ -103,6 +104,7 @@ module reverbFPGA_Qsys (
 	output	[23:0]	mixvalue_pio_external_connection_export;
 	input	[3:0]	paramtype_pio_external_connection_export;
 	input	[1:0]	paramvalueupdate_pio_external_connection_export;
+	output	[9:0]	predelayvalue_pio_external_connection_export;
 	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
 endmodule

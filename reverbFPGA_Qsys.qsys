@@ -50,7 +50,7 @@
    {
       datum baseAddress
       {
-         value = "160";
+         value = "176";
          type = "String";
       }
    }
@@ -66,7 +66,7 @@
    {
       datum baseAddress
       {
-         value = "96";
+         value = "112";
          type = "String";
       }
    }
@@ -82,7 +82,7 @@
    {
       datum baseAddress
       {
-         value = "80";
+         value = "96";
          type = "String";
       }
    }
@@ -98,7 +98,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "80";
          type = "String";
       }
    }
@@ -114,7 +114,7 @@
    {
       datum baseAddress
       {
-         value = "48";
+         value = "64";
          type = "String";
       }
    }
@@ -130,7 +130,7 @@
    {
       datum baseAddress
       {
-         value = "32";
+         value = "48";
          type = "String";
       }
    }
@@ -146,7 +146,7 @@
    {
       datum baseAddress
       {
-         value = "16";
+         value = "32";
          type = "String";
       }
    }
@@ -162,7 +162,7 @@
    {
       datum baseAddress
       {
-         value = "0";
+         value = "16";
          type = "String";
       }
    }
@@ -186,7 +186,7 @@
    {
       datum baseAddress
       {
-         value = "144";
+         value = "160";
          type = "String";
       }
    }
@@ -202,7 +202,7 @@
    {
       datum baseAddress
       {
-         value = "112";
+         value = "128";
          type = "String";
       }
    }
@@ -218,7 +218,7 @@
    {
       datum baseAddress
       {
-         value = "128";
+         value = "144";
          type = "String";
       }
    }
@@ -234,7 +234,7 @@
    {
       datum baseAddress
       {
-         value = "64";
+         value = "0";
          type = "String";
       }
    }
@@ -364,7 +364,9 @@
    dir="end" />
  <interface
    name="predelayvalue_pio_external_connection"
-   internal="preDelayValue_PIO.external_connection" />
+   internal="preDelayValue_PIO.external_connection"
+   type="conduit"
+   dir="end" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
  <interface
    name="serial_flash_loader_0_asmi_access_granted"
@@ -1129,7 +1131,7 @@
    name="preDelayValue_PIO"
    kind="altera_avalon_pio"
    version="23.1"
-   enabled="0">
+   enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
   <parameter name="captureEdge" value="false" />
@@ -1138,10 +1140,10 @@
   <parameter name="edgeType" value="RISING" />
   <parameter name="generateIRQ" value="false" />
   <parameter name="irqType" value="LEVEL" />
-  <parameter name="resetValue" value="0" />
+  <parameter name="resetValue" value="5" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="24" />
+  <parameter name="width" value="10" />
  </module>
  <module
    name="serial_flash_loader"
@@ -1156,18 +1158,9 @@
    kind="avalon"
    version="23.1"
    start="hps_0.h2f_lw_axi_master"
-   end="preDelayValue_PIO.s1">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="23.1"
-   start="hps_0.h2f_lw_axi_master"
    end="dampingValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x00a0" />
+  <parameter name="baseAddress" value="0x00b0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1176,7 +1169,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="mixValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0090" />
+  <parameter name="baseAddress" value="0x00a0" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1185,7 +1178,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="paramValueUpdate_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0080" />
+  <parameter name="baseAddress" value="0x0090" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1194,7 +1187,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="paramType_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0070" />
+  <parameter name="baseAddress" value="0x0080" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1203,7 +1196,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="decayValue_PIO.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0060" />
+  <parameter name="baseAddress" value="0x0070" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1212,7 +1205,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hex0.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0050" />
+  <parameter name="baseAddress" value="0x0060" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1221,7 +1214,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hex1.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0040" />
+  <parameter name="baseAddress" value="0x0050" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1230,7 +1223,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hex2.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0030" />
+  <parameter name="baseAddress" value="0x0040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1239,7 +1232,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hex3.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0020" />
+  <parameter name="baseAddress" value="0x0030" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1248,7 +1241,7 @@
    start="hps_0.h2f_lw_axi_master"
    end="hex4.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0010" />
+  <parameter name="baseAddress" value="0x0020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1257,14 +1250,18 @@
    start="hps_0.h2f_lw_axi_master"
    end="hex5.s1">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="baseAddress" value="0x0010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
-   kind="clock"
+   kind="avalon"
    version="23.1"
-   start="clk_0.clk"
-   end="preDelayValue_PIO.clk" />
+   start="hps_0.h2f_lw_axi_master"
+   end="preDelayValue_PIO.s1">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
  <connection kind="clock" version="23.1" start="clk_0.clk" end="paramType_PIO.clk" />
  <connection
    kind="clock"
@@ -1297,6 +1294,11 @@
    kind="clock"
    version="23.1"
    start="clk_0.clk"
+   end="preDelayValue_PIO.clk" />
+ <connection
+   kind="clock"
+   version="23.1"
+   start="clk_0.clk"
    end="hps_0.h2f_lw_axi_clock" />
  <connection
    kind="clock"
@@ -1308,11 +1310,6 @@
    version="23.1"
    start="clk_0.clk_reset"
    end="audio_pll_0.ref_reset" />
- <connection
-   kind="reset"
-   version="23.1"
-   start="clk_0.clk_reset"
-   end="preDelayValue_PIO.reset" />
  <connection
    kind="reset"
    version="23.1"
@@ -1349,6 +1346,11 @@
  <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="hex3.reset" />
  <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="hex4.reset" />
  <connection kind="reset" version="23.1" start="clk_0.clk_reset" end="hex5.reset" />
+ <connection
+   kind="reset"
+   version="23.1"
+   start="clk_0.clk_reset"
+   end="preDelayValue_PIO.reset" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.enableEccProtection" value="FALSE" />
  <interconnectRequirement for="$system" name="qsys_mm.insertDefaultSlave" value="FALSE" />

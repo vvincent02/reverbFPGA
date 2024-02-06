@@ -46,7 +46,11 @@ outputAdder2 <= firstInputAdder2 - dataIN;
 -- opérateur retard
 delayLineOperator : entity work.delayLine(archi)
 	generic map(outputAdder1'LENGTH, N)
-	port map(clk50M => clk50M, rst => rst, data_sampled_valid => data_sampled_valid, dataIN => outputAdder1, dataOUT => firstInputAdder2);
+	port map(clk50M => clk50M, rst => rst, 
+				data_sampled_valid => data_sampled_valid, 
+				dataIN => outputAdder1, 
+				dataOUT => firstInputAdder2,
+				currentN => N);
 
 -- gain atténuation en sortie (pour ne pas dépasser un gain unitaire en moyenne)
 reductionGain : entity work.coefMult(archi)

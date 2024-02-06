@@ -15,29 +15,29 @@ PORT(
 	dataOUT_toLateReverb : OUT signed(dataSize-1 downto 0); -- sortie alimentation late reverb
 	dataOUT_earlyReverb : OUT signed(dataSize-1 downto 0); -- sortie reverb proche pure
 	
-	delayInitEcho : IN integer range 0 to 1000 -- retard du premier echo (délai total du premier echo = nbrDelays * nombre d'instances de ligne à retard)
+	nbrDelaysPerLine_initEcho : IN integer range 5 to 1000 -- retard du premier echo (délai total du premier echo = valeur * nombre d'instances de ligne à retard)
 );
 END earlyReverb;
 
 ARCHITECTURE archi OF earlyReverb IS
 
-constant nbrCells : integer range 0 to 15 := 8; -- min = 1 (pour l'écho principal)
-constant nbrDelayLines_initEcho : integer range 0 to 15 := 7; -- nombre de ligne à retard pouvant chacune décaler au maximum de 1000 échantillons 
-constant delayValue_earlyEchoes : integer range 0 to 500 := 50; -- délai des réflexions proches par rapport à la réflexion initiale
+constant nbrCells : integer range 0 to 15 := 8; -- min = 1 (au moins pour l'écho principal)
+constant nbrDelayLines_initEcho : integer range 0 to 15 := 12; -- nombre de ligne à retard pouvant chacune décaler au maximum de 1000 échantillons 
+constant ratio_initEcho_earlyEchoes : integer range 0 to 1000 := 50; -- ratio délai écho initial (ratio value):1 délai échos proches
 
 type S_vectArray_nbrCells is array(1 to nbrCells) of signed(dataIN'RANGE);
 type S_vectArray_nbrDelayLines_initEcho is array(0 to nbrDelayLines_initEcho) of signed(dataIN'RANGE);
 type U_vectArray_nbrCells is array(1 to nbrCells) of unsigned(dataIN'RANGE);
 
 -- coefficients de pondération des différents retards succédants au premier retard
-constant coefs : U_vectArray_nbrCells := ("111111111111111111111111",
-														"111111111111111111000000",
-														"111111111111000000000000",
-														"111111100000001111111111",
-														"111110000111111111111111",
-														"000011111111111111111111",
-														"000000000111111111111111",
-														"000000000000001111111111");
+constant coefs : U_vectArray_nbrCells := ("111111111111111111111111", -- 1
+														"110110011001100110011001", -- 0.85
+														"101111111111111111111111", -- 0.75
+														"101010111000010100011110", -- 0.67
+														"100110011001100110011001", -- 0.60
+														"100011001100110011001100", -- 0.55
+														"100001010001111010110111", -- 0.52
+														"011111111111111111111111"); -- 0.5
 														
 
 -- signaux intermédiaires décalés au sein du premier bloc retard (réflexion initiale)
@@ -66,7 +66,11 @@ delayLines : FOR j IN 1 TO nbrDelayLines_initEcho
 GENERATE
 delayLineOperator : entity work.delayLine(archi)
 	generic map(dataSize, 1000)
-	port map(clk50M => clk50M, rst => rst, data_sampled_valid => data_sampled_valid, dataIN => interDelayedInputs(j-1), dataOUT => interDelayedInputs(j));
+	port map(clk50M => clk50M, rst => rst, 
+				data_sampled_valid => data_sampled_valid, 
+				dataIN => interDelayedInputs(j-1), 
+				dataOUT => interDelayedInputs(j),
+				currentN => nbrDelaysPerLine_initEcho);
 END GENERATE delayLines;
 
 END GENERATE mainEchoCondition;
@@ -75,8 +79,12 @@ END GENERATE mainEchoCondition;
 nearEchoes : IF(i > 1)
 GENERATE
 delayLineOperator : entity work.delayLine(archi)
-	generic map(dataSize, delayValue_earlyEchoes)
-	port map(clk50M => clk50M, rst => rst, data_sampled_valid => data_sampled_valid, dataIN => delayedInputs(i-1), dataOUT => delayedInputs(i));
+	generic map(dataSize, 1000*nbrDelayLines_InitEcho/ratio_initEcho_earlyEchoes)
+	port map(clk50M => clk50M, rst => rst, 
+				data_sampled_valid => data_sampled_valid, 
+				dataIN => delayedInputs(i-1), 
+				dataOUT => delayedInputs(i),
+				currentN => nbrDelaysPerLine_initEcho*nbrDelayLines_InitEcho/ratio_initEcho_earlyEchoes + 5);
 END GENERATE nearEchoes;
 
 

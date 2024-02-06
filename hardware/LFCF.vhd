@@ -49,18 +49,30 @@ gain : entity work.coefMult(archi)
 -- filtre FCF dans la boucle de retour	
 FCFilter : entity work.FCF(archi)
 	generic map(secondDelayedOutputAdder'LENGTH)
-	port map(clk50M => clk50M, rst => rst, data_sampled_valid => data_sampled_valid, dataIN => secondDelayedOutputAdder, dataOUT => outFCFilter, dampingValue => dampingValue);
+	port map(clk50M => clk50M, rst => rst, 
+				data_sampled_valid => data_sampled_valid, 
+				dataIN => secondDelayedOutputAdder, 
+				dataOUT => outFCFilter, 
+				dampingValue => dampingValue);
 
 ------------- lignes à retard (2 instances pour pouvoir dépasser le retard de 1000 sans problème) --------------------
 -- opérateur retard 1
 delayLineOperator1 : entity work.delayLine(archi)
 	generic map(outputAdder'LENGTH, N/2)
-	port map(clk50M => clk50M, rst => rst, data_sampled_valid => data_sampled_valid, dataIN => outputAdder, dataOUT => firstDelayedOutputAdder);
+	port map(clk50M => clk50M, rst => rst, 
+				data_sampled_valid => data_sampled_valid, 
+				dataIN => outputAdder, 
+				dataOUT => firstDelayedOutputAdder,
+				currentN => N/2);
 
 -- opérateur retard 2
 delayLineOperator2 : entity work.delayLine(archi)
 	generic map(outputAdder'LENGTH, N/2)
-	port map(clk50M => clk50M, rst => rst, data_sampled_valid => data_sampled_valid, dataIN => firstDelayedOutputAdder, dataOUT => secondDelayedOutputAdder);
+	port map(clk50M => clk50M, rst => rst, 
+				data_sampled_valid => data_sampled_valid, 
+				dataIN => firstDelayedOutputAdder, 
+				dataOUT => secondDelayedOutputAdder,
+				currentN => N/2);
 ----------------------------------------------------------------------------------------------------------------------
 
 -- gain atténuation en sortie (pour ne pas dépasser un gain unitaire en moyenne)

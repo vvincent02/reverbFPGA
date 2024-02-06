@@ -58,6 +58,7 @@ entity reverbFPGA_Qsys is
 		mixvalue_pio_external_connection_export            : out   std_logic_vector(23 downto 0);                    --             mixvalue_pio_external_connection.export
 		paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => '0'); --            paramtype_pio_external_connection.export
 		paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => '0'); --     paramvalueupdate_pio_external_connection.export
+		predelayvalue_pio_external_connection_export       : out   std_logic_vector(9 downto 0);                     --        predelayvalue_pio_external_connection.export
 		reset_reset_n                                      : in    std_logic                     := '0';             --                                        reset.reset_n
 		serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := '0'              --                 serial_flash_loader_0_noe_in.noe
 	);
@@ -223,6 +224,19 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component reverbFPGA_Qsys_paramValueUpdate_PIO;
 
+	component reverbFPGA_Qsys_preDelayValue_PIO is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(9 downto 0)                      -- export
+		);
+	end component reverbFPGA_Qsys_preDelayValue_PIO;
+
 	component altera_serial_flash_loader is
 		generic (
 			INTENDED_DEVICE_FAMILY  : string  := "";
@@ -325,7 +339,12 @@ architecture rtl of reverbFPGA_Qsys is
 			paramType_PIO_s1_address                                            : out std_logic_vector(1 downto 0);                     -- address
 			paramType_PIO_s1_readdata                                           : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			paramValueUpdate_PIO_s1_address                                     : out std_logic_vector(1 downto 0);                     -- address
-			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X')  -- readdata
+			paramValueUpdate_PIO_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			preDelayValue_PIO_s1_address                                        : out std_logic_vector(1 downto 0);                     -- address
+			preDelayValue_PIO_s1_write                                          : out std_logic;                                        -- write
+			preDelayValue_PIO_s1_readdata                                       : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			preDelayValue_PIO_s1_writedata                                      : out std_logic_vector(31 downto 0);                    -- writedata
+			preDelayValue_PIO_s1_chipselect                                     : out std_logic                                         -- chipselect
 		);
 	end component reverbFPGA_Qsys_mm_interconnect_0;
 
@@ -395,106 +414,112 @@ architecture rtl of reverbFPGA_Qsys is
 		);
 	end component altera_reset_controller;
 
-	signal hps_0_h2f_lw_axi_master_awburst                       : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_AWBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awburst
-	signal hps_0_h2f_lw_axi_master_arlen                         : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_ARLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlen
-	signal hps_0_h2f_lw_axi_master_wstrb                         : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_WSTRB -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wstrb
-	signal hps_0_h2f_lw_axi_master_wready                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_wready -> hps_0:h2f_lw_WREADY
-	signal hps_0_h2f_lw_axi_master_rid                           : std_logic_vector(11 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rid -> hps_0:h2f_lw_RID
-	signal hps_0_h2f_lw_axi_master_rready                        : std_logic;                     -- hps_0:h2f_lw_RREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_rready
-	signal hps_0_h2f_lw_axi_master_awlen                         : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_AWLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlen
-	signal hps_0_h2f_lw_axi_master_wid                           : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_WID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wid
-	signal hps_0_h2f_lw_axi_master_arcache                       : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_ARCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arcache
-	signal hps_0_h2f_lw_axi_master_wvalid                        : std_logic;                     -- hps_0:h2f_lw_WVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wvalid
-	signal hps_0_h2f_lw_axi_master_araddr                        : std_logic_vector(20 downto 0); -- hps_0:h2f_lw_ARADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_araddr
-	signal hps_0_h2f_lw_axi_master_arprot                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_ARPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arprot
-	signal hps_0_h2f_lw_axi_master_awprot                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_AWPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awprot
-	signal hps_0_h2f_lw_axi_master_wdata                         : std_logic_vector(31 downto 0); -- hps_0:h2f_lw_WDATA -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wdata
-	signal hps_0_h2f_lw_axi_master_arvalid                       : std_logic;                     -- hps_0:h2f_lw_ARVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arvalid
-	signal hps_0_h2f_lw_axi_master_awcache                       : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_AWCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awcache
-	signal hps_0_h2f_lw_axi_master_arid                          : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_ARID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arid
-	signal hps_0_h2f_lw_axi_master_arlock                        : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_ARLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlock
-	signal hps_0_h2f_lw_axi_master_awlock                        : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_AWLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlock
-	signal hps_0_h2f_lw_axi_master_awaddr                        : std_logic_vector(20 downto 0); -- hps_0:h2f_lw_AWADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awaddr
-	signal hps_0_h2f_lw_axi_master_bresp                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bresp -> hps_0:h2f_lw_BRESP
-	signal hps_0_h2f_lw_axi_master_arready                       : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_arready -> hps_0:h2f_lw_ARREADY
-	signal hps_0_h2f_lw_axi_master_rdata                         : std_logic_vector(31 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rdata -> hps_0:h2f_lw_RDATA
-	signal hps_0_h2f_lw_axi_master_awready                       : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_awready -> hps_0:h2f_lw_AWREADY
-	signal hps_0_h2f_lw_axi_master_arburst                       : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_ARBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arburst
-	signal hps_0_h2f_lw_axi_master_arsize                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_ARSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arsize
-	signal hps_0_h2f_lw_axi_master_bready                        : std_logic;                     -- hps_0:h2f_lw_BREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_bready
-	signal hps_0_h2f_lw_axi_master_rlast                         : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rlast -> hps_0:h2f_lw_RLAST
-	signal hps_0_h2f_lw_axi_master_wlast                         : std_logic;                     -- hps_0:h2f_lw_WLAST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wlast
-	signal hps_0_h2f_lw_axi_master_rresp                         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rresp -> hps_0:h2f_lw_RRESP
-	signal hps_0_h2f_lw_axi_master_awid                          : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_AWID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awid
-	signal hps_0_h2f_lw_axi_master_bid                           : std_logic_vector(11 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bid -> hps_0:h2f_lw_BID
-	signal hps_0_h2f_lw_axi_master_bvalid                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bvalid -> hps_0:h2f_lw_BVALID
-	signal hps_0_h2f_lw_axi_master_awsize                        : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_AWSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awsize
-	signal hps_0_h2f_lw_axi_master_awvalid                       : std_logic;                     -- hps_0:h2f_lw_AWVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awvalid
-	signal hps_0_h2f_lw_axi_master_rvalid                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
-	signal mm_interconnect_0_dampingvalue_pio_s1_chipselect      : std_logic;                     -- mm_interconnect_0:dampingValue_PIO_s1_chipselect -> dampingValue_PIO:chipselect
-	signal mm_interconnect_0_dampingvalue_pio_s1_readdata        : std_logic_vector(31 downto 0); -- dampingValue_PIO:readdata -> mm_interconnect_0:dampingValue_PIO_s1_readdata
-	signal mm_interconnect_0_dampingvalue_pio_s1_address         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:dampingValue_PIO_s1_address -> dampingValue_PIO:address
-	signal mm_interconnect_0_dampingvalue_pio_s1_write           : std_logic;                     -- mm_interconnect_0:dampingValue_PIO_s1_write -> mm_interconnect_0_dampingvalue_pio_s1_write:in
-	signal mm_interconnect_0_dampingvalue_pio_s1_writedata       : std_logic_vector(31 downto 0); -- mm_interconnect_0:dampingValue_PIO_s1_writedata -> dampingValue_PIO:writedata
-	signal mm_interconnect_0_mixvalue_pio_s1_chipselect          : std_logic;                     -- mm_interconnect_0:mixValue_PIO_s1_chipselect -> mixValue_PIO:chipselect
-	signal mm_interconnect_0_mixvalue_pio_s1_readdata            : std_logic_vector(31 downto 0); -- mixValue_PIO:readdata -> mm_interconnect_0:mixValue_PIO_s1_readdata
-	signal mm_interconnect_0_mixvalue_pio_s1_address             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:mixValue_PIO_s1_address -> mixValue_PIO:address
-	signal mm_interconnect_0_mixvalue_pio_s1_write               : std_logic;                     -- mm_interconnect_0:mixValue_PIO_s1_write -> mm_interconnect_0_mixvalue_pio_s1_write:in
-	signal mm_interconnect_0_mixvalue_pio_s1_writedata           : std_logic_vector(31 downto 0); -- mm_interconnect_0:mixValue_PIO_s1_writedata -> mixValue_PIO:writedata
-	signal mm_interconnect_0_paramvalueupdate_pio_s1_readdata    : std_logic_vector(31 downto 0); -- paramValueUpdate_PIO:readdata -> mm_interconnect_0:paramValueUpdate_PIO_s1_readdata
-	signal mm_interconnect_0_paramvalueupdate_pio_s1_address     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:paramValueUpdate_PIO_s1_address -> paramValueUpdate_PIO:address
-	signal mm_interconnect_0_paramtype_pio_s1_readdata           : std_logic_vector(31 downto 0); -- paramType_PIO:readdata -> mm_interconnect_0:paramType_PIO_s1_readdata
-	signal mm_interconnect_0_paramtype_pio_s1_address            : std_logic_vector(1 downto 0);  -- mm_interconnect_0:paramType_PIO_s1_address -> paramType_PIO:address
-	signal mm_interconnect_0_decayvalue_pio_s1_chipselect        : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_chipselect -> decayValue_PIO:chipselect
-	signal mm_interconnect_0_decayvalue_pio_s1_readdata          : std_logic_vector(31 downto 0); -- decayValue_PIO:readdata -> mm_interconnect_0:decayValue_PIO_s1_readdata
-	signal mm_interconnect_0_decayvalue_pio_s1_address           : std_logic_vector(1 downto 0);  -- mm_interconnect_0:decayValue_PIO_s1_address -> decayValue_PIO:address
-	signal mm_interconnect_0_decayvalue_pio_s1_write             : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_write -> mm_interconnect_0_decayvalue_pio_s1_write:in
-	signal mm_interconnect_0_decayvalue_pio_s1_writedata         : std_logic_vector(31 downto 0); -- mm_interconnect_0:decayValue_PIO_s1_writedata -> decayValue_PIO:writedata
-	signal mm_interconnect_0_hex0_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex0_s1_chipselect -> hex0:chipselect
-	signal mm_interconnect_0_hex0_s1_readdata                    : std_logic_vector(31 downto 0); -- hex0:readdata -> mm_interconnect_0:hex0_s1_readdata
-	signal mm_interconnect_0_hex0_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex0_s1_address -> hex0:address
-	signal mm_interconnect_0_hex0_s1_write                       : std_logic;                     -- mm_interconnect_0:hex0_s1_write -> mm_interconnect_0_hex0_s1_write:in
-	signal mm_interconnect_0_hex0_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex0_s1_writedata -> hex0:writedata
-	signal mm_interconnect_0_hex1_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex1_s1_chipselect -> hex1:chipselect
-	signal mm_interconnect_0_hex1_s1_readdata                    : std_logic_vector(31 downto 0); -- hex1:readdata -> mm_interconnect_0:hex1_s1_readdata
-	signal mm_interconnect_0_hex1_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex1_s1_address -> hex1:address
-	signal mm_interconnect_0_hex1_s1_write                       : std_logic;                     -- mm_interconnect_0:hex1_s1_write -> mm_interconnect_0_hex1_s1_write:in
-	signal mm_interconnect_0_hex1_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex1_s1_writedata -> hex1:writedata
-	signal mm_interconnect_0_hex2_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex2_s1_chipselect -> hex2:chipselect
-	signal mm_interconnect_0_hex2_s1_readdata                    : std_logic_vector(31 downto 0); -- hex2:readdata -> mm_interconnect_0:hex2_s1_readdata
-	signal mm_interconnect_0_hex2_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex2_s1_address -> hex2:address
-	signal mm_interconnect_0_hex2_s1_write                       : std_logic;                     -- mm_interconnect_0:hex2_s1_write -> mm_interconnect_0_hex2_s1_write:in
-	signal mm_interconnect_0_hex2_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex2_s1_writedata -> hex2:writedata
-	signal mm_interconnect_0_hex3_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex3_s1_chipselect -> hex3:chipselect
-	signal mm_interconnect_0_hex3_s1_readdata                    : std_logic_vector(31 downto 0); -- hex3:readdata -> mm_interconnect_0:hex3_s1_readdata
-	signal mm_interconnect_0_hex3_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex3_s1_address -> hex3:address
-	signal mm_interconnect_0_hex3_s1_write                       : std_logic;                     -- mm_interconnect_0:hex3_s1_write -> mm_interconnect_0_hex3_s1_write:in
-	signal mm_interconnect_0_hex3_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex3_s1_writedata -> hex3:writedata
-	signal mm_interconnect_0_hex4_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex4_s1_chipselect -> hex4:chipselect
-	signal mm_interconnect_0_hex4_s1_readdata                    : std_logic_vector(31 downto 0); -- hex4:readdata -> mm_interconnect_0:hex4_s1_readdata
-	signal mm_interconnect_0_hex4_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex4_s1_address -> hex4:address
-	signal mm_interconnect_0_hex4_s1_write                       : std_logic;                     -- mm_interconnect_0:hex4_s1_write -> mm_interconnect_0_hex4_s1_write:in
-	signal mm_interconnect_0_hex4_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex4_s1_writedata -> hex4:writedata
-	signal mm_interconnect_0_hex5_s1_chipselect                  : std_logic;                     -- mm_interconnect_0:hex5_s1_chipselect -> hex5:chipselect
-	signal mm_interconnect_0_hex5_s1_readdata                    : std_logic_vector(31 downto 0); -- hex5:readdata -> mm_interconnect_0:hex5_s1_readdata
-	signal mm_interconnect_0_hex5_s1_address                     : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex5_s1_address -> hex5:address
-	signal mm_interconnect_0_hex5_s1_write                       : std_logic;                     -- mm_interconnect_0:hex5_s1_write -> mm_interconnect_0_hex5_s1_write:in
-	signal mm_interconnect_0_hex5_s1_writedata                   : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex5_s1_writedata -> hex5:writedata
-	signal rst_controller_reset_out_reset                        : std_logic;                     -- rst_controller:reset_out -> [audio_controller:reset, mm_interconnect_0:dampingValue_PIO_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
-	signal rst_controller_001_reset_out_reset                    : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
-	signal hps_0_h2f_reset_reset                                 : std_logic;                     -- hps_0:h2f_rst_n -> hps_0_h2f_reset_reset:in
-	signal reset_reset_n_ports_inv                               : std_logic;                     -- reset_reset_n:inv -> [audio_pll_0:ref_reset_reset, rst_controller:reset_in0]
-	signal mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv : std_logic;                     -- mm_interconnect_0_dampingvalue_pio_s1_write:inv -> dampingValue_PIO:write_n
-	signal mm_interconnect_0_mixvalue_pio_s1_write_ports_inv     : std_logic;                     -- mm_interconnect_0_mixvalue_pio_s1_write:inv -> mixValue_PIO:write_n
-	signal mm_interconnect_0_decayvalue_pio_s1_write_ports_inv   : std_logic;                     -- mm_interconnect_0_decayvalue_pio_s1_write:inv -> decayValue_PIO:write_n
-	signal mm_interconnect_0_hex0_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex0_s1_write:inv -> hex0:write_n
-	signal mm_interconnect_0_hex1_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex1_s1_write:inv -> hex1:write_n
-	signal mm_interconnect_0_hex2_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex2_s1_write:inv -> hex2:write_n
-	signal mm_interconnect_0_hex3_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex3_s1_write:inv -> hex3:write_n
-	signal mm_interconnect_0_hex4_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex4_s1_write:inv -> hex4:write_n
-	signal mm_interconnect_0_hex5_s1_write_ports_inv             : std_logic;                     -- mm_interconnect_0_hex5_s1_write:inv -> hex5:write_n
-	signal rst_controller_reset_out_reset_ports_inv              : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, hex0:reset_n, hex1:reset_n, hex2:reset_n, hex3:reset_n, hex4:reset_n, hex5:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n]
-	signal hps_0_h2f_reset_reset_ports_inv                       : std_logic;                     -- hps_0_h2f_reset_reset:inv -> rst_controller_001:reset_in0
+	signal hps_0_h2f_lw_axi_master_awburst                        : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_AWBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awburst
+	signal hps_0_h2f_lw_axi_master_arlen                          : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_ARLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlen
+	signal hps_0_h2f_lw_axi_master_wstrb                          : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_WSTRB -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wstrb
+	signal hps_0_h2f_lw_axi_master_wready                         : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_wready -> hps_0:h2f_lw_WREADY
+	signal hps_0_h2f_lw_axi_master_rid                            : std_logic_vector(11 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rid -> hps_0:h2f_lw_RID
+	signal hps_0_h2f_lw_axi_master_rready                         : std_logic;                     -- hps_0:h2f_lw_RREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_rready
+	signal hps_0_h2f_lw_axi_master_awlen                          : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_AWLEN -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlen
+	signal hps_0_h2f_lw_axi_master_wid                            : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_WID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wid
+	signal hps_0_h2f_lw_axi_master_arcache                        : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_ARCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arcache
+	signal hps_0_h2f_lw_axi_master_wvalid                         : std_logic;                     -- hps_0:h2f_lw_WVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wvalid
+	signal hps_0_h2f_lw_axi_master_araddr                         : std_logic_vector(20 downto 0); -- hps_0:h2f_lw_ARADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_araddr
+	signal hps_0_h2f_lw_axi_master_arprot                         : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_ARPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arprot
+	signal hps_0_h2f_lw_axi_master_awprot                         : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_AWPROT -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awprot
+	signal hps_0_h2f_lw_axi_master_wdata                          : std_logic_vector(31 downto 0); -- hps_0:h2f_lw_WDATA -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wdata
+	signal hps_0_h2f_lw_axi_master_arvalid                        : std_logic;                     -- hps_0:h2f_lw_ARVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arvalid
+	signal hps_0_h2f_lw_axi_master_awcache                        : std_logic_vector(3 downto 0);  -- hps_0:h2f_lw_AWCACHE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awcache
+	signal hps_0_h2f_lw_axi_master_arid                           : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_ARID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arid
+	signal hps_0_h2f_lw_axi_master_arlock                         : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_ARLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arlock
+	signal hps_0_h2f_lw_axi_master_awlock                         : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_AWLOCK -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awlock
+	signal hps_0_h2f_lw_axi_master_awaddr                         : std_logic_vector(20 downto 0); -- hps_0:h2f_lw_AWADDR -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awaddr
+	signal hps_0_h2f_lw_axi_master_bresp                          : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bresp -> hps_0:h2f_lw_BRESP
+	signal hps_0_h2f_lw_axi_master_arready                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_arready -> hps_0:h2f_lw_ARREADY
+	signal hps_0_h2f_lw_axi_master_rdata                          : std_logic_vector(31 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rdata -> hps_0:h2f_lw_RDATA
+	signal hps_0_h2f_lw_axi_master_awready                        : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_awready -> hps_0:h2f_lw_AWREADY
+	signal hps_0_h2f_lw_axi_master_arburst                        : std_logic_vector(1 downto 0);  -- hps_0:h2f_lw_ARBURST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arburst
+	signal hps_0_h2f_lw_axi_master_arsize                         : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_ARSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_arsize
+	signal hps_0_h2f_lw_axi_master_bready                         : std_logic;                     -- hps_0:h2f_lw_BREADY -> mm_interconnect_0:hps_0_h2f_lw_axi_master_bready
+	signal hps_0_h2f_lw_axi_master_rlast                          : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rlast -> hps_0:h2f_lw_RLAST
+	signal hps_0_h2f_lw_axi_master_wlast                          : std_logic;                     -- hps_0:h2f_lw_WLAST -> mm_interconnect_0:hps_0_h2f_lw_axi_master_wlast
+	signal hps_0_h2f_lw_axi_master_rresp                          : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rresp -> hps_0:h2f_lw_RRESP
+	signal hps_0_h2f_lw_axi_master_awid                           : std_logic_vector(11 downto 0); -- hps_0:h2f_lw_AWID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awid
+	signal hps_0_h2f_lw_axi_master_bid                            : std_logic_vector(11 downto 0); -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bid -> hps_0:h2f_lw_BID
+	signal hps_0_h2f_lw_axi_master_bvalid                         : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_bvalid -> hps_0:h2f_lw_BVALID
+	signal hps_0_h2f_lw_axi_master_awsize                         : std_logic_vector(2 downto 0);  -- hps_0:h2f_lw_AWSIZE -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awsize
+	signal hps_0_h2f_lw_axi_master_awvalid                        : std_logic;                     -- hps_0:h2f_lw_AWVALID -> mm_interconnect_0:hps_0_h2f_lw_axi_master_awvalid
+	signal hps_0_h2f_lw_axi_master_rvalid                         : std_logic;                     -- mm_interconnect_0:hps_0_h2f_lw_axi_master_rvalid -> hps_0:h2f_lw_RVALID
+	signal mm_interconnect_0_dampingvalue_pio_s1_chipselect       : std_logic;                     -- mm_interconnect_0:dampingValue_PIO_s1_chipselect -> dampingValue_PIO:chipselect
+	signal mm_interconnect_0_dampingvalue_pio_s1_readdata         : std_logic_vector(31 downto 0); -- dampingValue_PIO:readdata -> mm_interconnect_0:dampingValue_PIO_s1_readdata
+	signal mm_interconnect_0_dampingvalue_pio_s1_address          : std_logic_vector(1 downto 0);  -- mm_interconnect_0:dampingValue_PIO_s1_address -> dampingValue_PIO:address
+	signal mm_interconnect_0_dampingvalue_pio_s1_write            : std_logic;                     -- mm_interconnect_0:dampingValue_PIO_s1_write -> mm_interconnect_0_dampingvalue_pio_s1_write:in
+	signal mm_interconnect_0_dampingvalue_pio_s1_writedata        : std_logic_vector(31 downto 0); -- mm_interconnect_0:dampingValue_PIO_s1_writedata -> dampingValue_PIO:writedata
+	signal mm_interconnect_0_mixvalue_pio_s1_chipselect           : std_logic;                     -- mm_interconnect_0:mixValue_PIO_s1_chipselect -> mixValue_PIO:chipselect
+	signal mm_interconnect_0_mixvalue_pio_s1_readdata             : std_logic_vector(31 downto 0); -- mixValue_PIO:readdata -> mm_interconnect_0:mixValue_PIO_s1_readdata
+	signal mm_interconnect_0_mixvalue_pio_s1_address              : std_logic_vector(1 downto 0);  -- mm_interconnect_0:mixValue_PIO_s1_address -> mixValue_PIO:address
+	signal mm_interconnect_0_mixvalue_pio_s1_write                : std_logic;                     -- mm_interconnect_0:mixValue_PIO_s1_write -> mm_interconnect_0_mixvalue_pio_s1_write:in
+	signal mm_interconnect_0_mixvalue_pio_s1_writedata            : std_logic_vector(31 downto 0); -- mm_interconnect_0:mixValue_PIO_s1_writedata -> mixValue_PIO:writedata
+	signal mm_interconnect_0_paramvalueupdate_pio_s1_readdata     : std_logic_vector(31 downto 0); -- paramValueUpdate_PIO:readdata -> mm_interconnect_0:paramValueUpdate_PIO_s1_readdata
+	signal mm_interconnect_0_paramvalueupdate_pio_s1_address      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:paramValueUpdate_PIO_s1_address -> paramValueUpdate_PIO:address
+	signal mm_interconnect_0_paramtype_pio_s1_readdata            : std_logic_vector(31 downto 0); -- paramType_PIO:readdata -> mm_interconnect_0:paramType_PIO_s1_readdata
+	signal mm_interconnect_0_paramtype_pio_s1_address             : std_logic_vector(1 downto 0);  -- mm_interconnect_0:paramType_PIO_s1_address -> paramType_PIO:address
+	signal mm_interconnect_0_decayvalue_pio_s1_chipselect         : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_chipselect -> decayValue_PIO:chipselect
+	signal mm_interconnect_0_decayvalue_pio_s1_readdata           : std_logic_vector(31 downto 0); -- decayValue_PIO:readdata -> mm_interconnect_0:decayValue_PIO_s1_readdata
+	signal mm_interconnect_0_decayvalue_pio_s1_address            : std_logic_vector(1 downto 0);  -- mm_interconnect_0:decayValue_PIO_s1_address -> decayValue_PIO:address
+	signal mm_interconnect_0_decayvalue_pio_s1_write              : std_logic;                     -- mm_interconnect_0:decayValue_PIO_s1_write -> mm_interconnect_0_decayvalue_pio_s1_write:in
+	signal mm_interconnect_0_decayvalue_pio_s1_writedata          : std_logic_vector(31 downto 0); -- mm_interconnect_0:decayValue_PIO_s1_writedata -> decayValue_PIO:writedata
+	signal mm_interconnect_0_hex0_s1_chipselect                   : std_logic;                     -- mm_interconnect_0:hex0_s1_chipselect -> hex0:chipselect
+	signal mm_interconnect_0_hex0_s1_readdata                     : std_logic_vector(31 downto 0); -- hex0:readdata -> mm_interconnect_0:hex0_s1_readdata
+	signal mm_interconnect_0_hex0_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex0_s1_address -> hex0:address
+	signal mm_interconnect_0_hex0_s1_write                        : std_logic;                     -- mm_interconnect_0:hex0_s1_write -> mm_interconnect_0_hex0_s1_write:in
+	signal mm_interconnect_0_hex0_s1_writedata                    : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex0_s1_writedata -> hex0:writedata
+	signal mm_interconnect_0_hex1_s1_chipselect                   : std_logic;                     -- mm_interconnect_0:hex1_s1_chipselect -> hex1:chipselect
+	signal mm_interconnect_0_hex1_s1_readdata                     : std_logic_vector(31 downto 0); -- hex1:readdata -> mm_interconnect_0:hex1_s1_readdata
+	signal mm_interconnect_0_hex1_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex1_s1_address -> hex1:address
+	signal mm_interconnect_0_hex1_s1_write                        : std_logic;                     -- mm_interconnect_0:hex1_s1_write -> mm_interconnect_0_hex1_s1_write:in
+	signal mm_interconnect_0_hex1_s1_writedata                    : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex1_s1_writedata -> hex1:writedata
+	signal mm_interconnect_0_hex2_s1_chipselect                   : std_logic;                     -- mm_interconnect_0:hex2_s1_chipselect -> hex2:chipselect
+	signal mm_interconnect_0_hex2_s1_readdata                     : std_logic_vector(31 downto 0); -- hex2:readdata -> mm_interconnect_0:hex2_s1_readdata
+	signal mm_interconnect_0_hex2_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex2_s1_address -> hex2:address
+	signal mm_interconnect_0_hex2_s1_write                        : std_logic;                     -- mm_interconnect_0:hex2_s1_write -> mm_interconnect_0_hex2_s1_write:in
+	signal mm_interconnect_0_hex2_s1_writedata                    : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex2_s1_writedata -> hex2:writedata
+	signal mm_interconnect_0_hex3_s1_chipselect                   : std_logic;                     -- mm_interconnect_0:hex3_s1_chipselect -> hex3:chipselect
+	signal mm_interconnect_0_hex3_s1_readdata                     : std_logic_vector(31 downto 0); -- hex3:readdata -> mm_interconnect_0:hex3_s1_readdata
+	signal mm_interconnect_0_hex3_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex3_s1_address -> hex3:address
+	signal mm_interconnect_0_hex3_s1_write                        : std_logic;                     -- mm_interconnect_0:hex3_s1_write -> mm_interconnect_0_hex3_s1_write:in
+	signal mm_interconnect_0_hex3_s1_writedata                    : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex3_s1_writedata -> hex3:writedata
+	signal mm_interconnect_0_hex4_s1_chipselect                   : std_logic;                     -- mm_interconnect_0:hex4_s1_chipselect -> hex4:chipselect
+	signal mm_interconnect_0_hex4_s1_readdata                     : std_logic_vector(31 downto 0); -- hex4:readdata -> mm_interconnect_0:hex4_s1_readdata
+	signal mm_interconnect_0_hex4_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex4_s1_address -> hex4:address
+	signal mm_interconnect_0_hex4_s1_write                        : std_logic;                     -- mm_interconnect_0:hex4_s1_write -> mm_interconnect_0_hex4_s1_write:in
+	signal mm_interconnect_0_hex4_s1_writedata                    : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex4_s1_writedata -> hex4:writedata
+	signal mm_interconnect_0_hex5_s1_chipselect                   : std_logic;                     -- mm_interconnect_0:hex5_s1_chipselect -> hex5:chipselect
+	signal mm_interconnect_0_hex5_s1_readdata                     : std_logic_vector(31 downto 0); -- hex5:readdata -> mm_interconnect_0:hex5_s1_readdata
+	signal mm_interconnect_0_hex5_s1_address                      : std_logic_vector(1 downto 0);  -- mm_interconnect_0:hex5_s1_address -> hex5:address
+	signal mm_interconnect_0_hex5_s1_write                        : std_logic;                     -- mm_interconnect_0:hex5_s1_write -> mm_interconnect_0_hex5_s1_write:in
+	signal mm_interconnect_0_hex5_s1_writedata                    : std_logic_vector(31 downto 0); -- mm_interconnect_0:hex5_s1_writedata -> hex5:writedata
+	signal mm_interconnect_0_predelayvalue_pio_s1_chipselect      : std_logic;                     -- mm_interconnect_0:preDelayValue_PIO_s1_chipselect -> preDelayValue_PIO:chipselect
+	signal mm_interconnect_0_predelayvalue_pio_s1_readdata        : std_logic_vector(31 downto 0); -- preDelayValue_PIO:readdata -> mm_interconnect_0:preDelayValue_PIO_s1_readdata
+	signal mm_interconnect_0_predelayvalue_pio_s1_address         : std_logic_vector(1 downto 0);  -- mm_interconnect_0:preDelayValue_PIO_s1_address -> preDelayValue_PIO:address
+	signal mm_interconnect_0_predelayvalue_pio_s1_write           : std_logic;                     -- mm_interconnect_0:preDelayValue_PIO_s1_write -> mm_interconnect_0_predelayvalue_pio_s1_write:in
+	signal mm_interconnect_0_predelayvalue_pio_s1_writedata       : std_logic_vector(31 downto 0); -- mm_interconnect_0:preDelayValue_PIO_s1_writedata -> preDelayValue_PIO:writedata
+	signal rst_controller_reset_out_reset                         : std_logic;                     -- rst_controller:reset_out -> [audio_controller:reset, mm_interconnect_0:dampingValue_PIO_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
+	signal rst_controller_001_reset_out_reset                     : std_logic;                     -- rst_controller_001:reset_out -> mm_interconnect_0:hps_0_h2f_lw_axi_master_agent_clk_reset_reset_bridge_in_reset_reset
+	signal hps_0_h2f_reset_reset                                  : std_logic;                     -- hps_0:h2f_rst_n -> hps_0_h2f_reset_reset:in
+	signal reset_reset_n_ports_inv                                : std_logic;                     -- reset_reset_n:inv -> [audio_pll_0:ref_reset_reset, rst_controller:reset_in0]
+	signal mm_interconnect_0_dampingvalue_pio_s1_write_ports_inv  : std_logic;                     -- mm_interconnect_0_dampingvalue_pio_s1_write:inv -> dampingValue_PIO:write_n
+	signal mm_interconnect_0_mixvalue_pio_s1_write_ports_inv      : std_logic;                     -- mm_interconnect_0_mixvalue_pio_s1_write:inv -> mixValue_PIO:write_n
+	signal mm_interconnect_0_decayvalue_pio_s1_write_ports_inv    : std_logic;                     -- mm_interconnect_0_decayvalue_pio_s1_write:inv -> decayValue_PIO:write_n
+	signal mm_interconnect_0_hex0_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_hex0_s1_write:inv -> hex0:write_n
+	signal mm_interconnect_0_hex1_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_hex1_s1_write:inv -> hex1:write_n
+	signal mm_interconnect_0_hex2_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_hex2_s1_write:inv -> hex2:write_n
+	signal mm_interconnect_0_hex3_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_hex3_s1_write:inv -> hex3:write_n
+	signal mm_interconnect_0_hex4_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_hex4_s1_write:inv -> hex4:write_n
+	signal mm_interconnect_0_hex5_s1_write_ports_inv              : std_logic;                     -- mm_interconnect_0_hex5_s1_write:inv -> hex5:write_n
+	signal mm_interconnect_0_predelayvalue_pio_s1_write_ports_inv : std_logic;                     -- mm_interconnect_0_predelayvalue_pio_s1_write:inv -> preDelayValue_PIO:write_n
+	signal rst_controller_reset_out_reset_ports_inv               : std_logic;                     -- rst_controller_reset_out_reset:inv -> [dampingValue_PIO:reset_n, decayValue_PIO:reset_n, hex0:reset_n, hex1:reset_n, hex2:reset_n, hex3:reset_n, hex4:reset_n, hex5:reset_n, mixValue_PIO:reset_n, paramType_PIO:reset_n, paramValueUpdate_PIO:reset_n, preDelayValue_PIO:reset_n]
+	signal hps_0_h2f_reset_reset_ports_inv                        : std_logic;                     -- hps_0_h2f_reset_reset:inv -> rst_controller_001:reset_in0
 
 begin
 
@@ -721,6 +746,18 @@ begin
 			in_port  => paramvalueupdate_pio_external_connection_export     -- external_connection.export
 		);
 
+	predelayvalue_pio : component reverbFPGA_Qsys_preDelayValue_PIO
+		port map (
+			clk        => clk_clk,                                                --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,               --               reset.reset_n
+			address    => mm_interconnect_0_predelayvalue_pio_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_0_predelayvalue_pio_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_0_predelayvalue_pio_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_0_predelayvalue_pio_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_0_predelayvalue_pio_s1_readdata,        --                    .readdata
+			out_port   => predelayvalue_pio_external_connection_export            -- external_connection.export
+		);
+
 	serial_flash_loader : component altera_serial_flash_loader
 		generic map (
 			INTENDED_DEVICE_FAMILY  => "Cyclone V",
@@ -822,7 +859,12 @@ begin
 			paramType_PIO_s1_address                                            => mm_interconnect_0_paramtype_pio_s1_address,         --                                              paramType_PIO_s1.address
 			paramType_PIO_s1_readdata                                           => mm_interconnect_0_paramtype_pio_s1_readdata,        --                                                              .readdata
 			paramValueUpdate_PIO_s1_address                                     => mm_interconnect_0_paramvalueupdate_pio_s1_address,  --                                       paramValueUpdate_PIO_s1.address
-			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata  --                                                              .readdata
+			paramValueUpdate_PIO_s1_readdata                                    => mm_interconnect_0_paramvalueupdate_pio_s1_readdata, --                                                              .readdata
+			preDelayValue_PIO_s1_address                                        => mm_interconnect_0_predelayvalue_pio_s1_address,     --                                          preDelayValue_PIO_s1.address
+			preDelayValue_PIO_s1_write                                          => mm_interconnect_0_predelayvalue_pio_s1_write,       --                                                              .write
+			preDelayValue_PIO_s1_readdata                                       => mm_interconnect_0_predelayvalue_pio_s1_readdata,    --                                                              .readdata
+			preDelayValue_PIO_s1_writedata                                      => mm_interconnect_0_predelayvalue_pio_s1_writedata,   --                                                              .writedata
+			preDelayValue_PIO_s1_chipselect                                     => mm_interconnect_0_predelayvalue_pio_s1_chipselect   --                                                              .chipselect
 		);
 
 	rst_controller : component altera_reset_controller
@@ -974,6 +1016,8 @@ begin
 	mm_interconnect_0_hex4_s1_write_ports_inv <= not mm_interconnect_0_hex4_s1_write;
 
 	mm_interconnect_0_hex5_s1_write_ports_inv <= not mm_interconnect_0_hex5_s1_write;
+
+	mm_interconnect_0_predelayvalue_pio_s1_write_ports_inv <= not mm_interconnect_0_predelayvalue_pio_s1_write;
 
 	rst_controller_reset_out_reset_ports_inv <= not rst_controller_reset_out_reset;
 

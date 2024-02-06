@@ -162,7 +162,8 @@ void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType)	{
 		alt_write_word(ALT_LWFPGASLVS_ADDR + HPS_0_MIXVALUE_PIO_BASE, currentParamValue[MIX]*maxVal);
 		break;
 	case PREDELAY :
-
+		maxVal = (1<<HPS_0_PREDELAYVALUE_PIO_DATA_WIDTH) - 1;
+		alt_write_word(ALT_LWFPGASLVS_ADDR + HPS_0_PREDELAYVALUE_PIO_BASE, currentParamValue[PREDELAY]*maxVal);
 		break;
 	case DECAY :
 		maxVal = (1<<HPS_0_DECAYVALUE_PIO_DATA_WIDTH) - 1;
@@ -177,11 +178,14 @@ void updateParamValue(PARAM_TYPE paramType, UPDATE_TYPE updateType)	{
 		break;
 	}
 
-	/* --- display current parameter value in dB on 7seg --- */
-	uint8_t gain_times100 = 100*currentParamValue[paramType];
-	uint8_t hundred = gain_times100/100;
-	uint8_t ten = (gain_times100 - 100*hundred)/10;
-	uint8_t unit = (gain_times100 - 100*hundred - 10*ten);
+	/* --- display current parameter value on 7seg --- */
+	uint8_t valueToDisplay;
+	if(paramType == PREDELAY) valueToDisplay = 1000*NBR_DELAYLINE_INSTANCES_INITECHO*(currentParamValue[paramType]*1024)/SAMPLING_FREQ;
+	else valueToDisplay = 100*currentParamValue[paramType];
+
+	uint8_t hundred = valueToDisplay/100;
+	uint8_t ten = (valueToDisplay - 100*hundred)/10;
+	uint8_t unit = (valueToDisplay - 100*hundred - 10*ten);
 	if(paramType != NONE_PARAM)	{
 		alt_write_byte(ALT_LWFPGASLVS_ADDR + HPS_0_HEX5_BASE, (stringToDisplay[paramType][0] - 'A') + 10);
 		alt_write_byte(ALT_LWFPGASLVS_ADDR + HPS_0_HEX4_BASE, (stringToDisplay[paramType][1] - 'A') + 10);

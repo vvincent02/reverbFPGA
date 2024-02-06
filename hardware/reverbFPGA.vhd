@@ -62,8 +62,8 @@ signal dataL_sampled_valid : std_logic;
 signal dataR_sampled_valid : std_logic;
 
 -- paramètres de la reverb
---signal preDelayValue : std_logic_vector(23 downto 0);
 signal mixValue : std_logic_vector(dataSize-1 downto 0);
+signal preDelayValue : std_logic_vector(9 downto 0);
 signal decayValue : std_logic_vector(dataSize downto 0);
 signal dampingValue : std_logic_vector(dataSize downto 0);
 
@@ -120,12 +120,15 @@ signal dataR_OUT_sum_EarlyLate : signed(dataSize downto 0);
 component reverbFPGA_Qsys is
 port (
 	clk_clk                                           : in    std_logic                     := 'X';             -- clk
-	dampingvalue_pio_external_connection_export       : out   std_logic_vector(24 downto 0);                    -- export
-	decayvalue_pio_external_connection_export         : out   std_logic_vector(24 downto 0);                    -- export
+	reset_reset_n                                     : in    std_logic                     := 'X';             -- reset_n
+	
 	mixvalue_pio_external_connection_export           : out   std_logic_vector(23 downto 0);                    -- export
---	predelayvalue_pio_external_connection_export      : out   std_logic_vector(23 downto 0);                    -- export
+   predelayvalue_pio_external_connection_export      : out   std_logic_vector(9 downto 0);                    -- export
+	decayvalue_pio_external_connection_export         : out   std_logic_vector(24 downto 0);                    -- export
+	dampingvalue_pio_external_connection_export       : out   std_logic_vector(24 downto 0);                    -- export
 	paramtype_pio_external_connection_export          : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 	paramvalueupdate_pio_external_connection_export   : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
+	
 	memory_mem_a                                      : out   std_logic_vector(14 downto 0);                    -- mem_a
 	memory_mem_ba                                     : out   std_logic_vector(2 downto 0);                     -- mem_ba
 	memory_mem_ck                                     : out   std_logic;                                        -- mem_ck
@@ -142,7 +145,7 @@ port (
 	memory_mem_odt                                    : out   std_logic;                                        -- mem_odt
 	memory_mem_dm                                     : out   std_logic_vector(3 downto 0);                     -- mem_dm
 	memory_oct_rzqin                                  : in    std_logic                     := 'X';             -- oct_rzqin
-	reset_reset_n                                     : in    std_logic                     := 'X';             -- reset_n
+	
 	audio_controller_external_interface_ADCDAT        : in    std_logic                     := 'X';             -- ADCDAT
 	audio_controller_external_interface_ADCLRCK       : in    std_logic                     := 'X';             -- ADCLRCK
 	audio_controller_external_interface_BCLK          : in    std_logic                     := 'X';             -- BCLK
@@ -184,13 +187,15 @@ BEGIN
 Qsys : component reverbFPGA_Qsys
 port map (
 	clk_clk                                           => CLOCK_50,                                           --                                         clk.clk
-	dampingvalue_pio_external_connection_export       => dampingValue,       --        dampingvalue_pio_external_connection.export
-	decayvalue_pio_external_connection_export         => decayValue,         --          decayvalue_pio_external_connection.export
+	reset_reset_n                                     => rst,                                     --                                       reset.reset_n
+	
 	mixvalue_pio_external_connection_export           => mixValue,           --            mixvalue_pio_external_connection.export
+	predelayvalue_pio_external_connection_export      => preDelayValue,      --       predelayvalue_pio_external_connection.export
+	decayvalue_pio_external_connection_export         => decayValue,         --          decayvalue_pio_external_connection.export
+	dampingvalue_pio_external_connection_export       => dampingValue,       --        dampingvalue_pio_external_connection.export
 	paramtype_pio_external_connection_export      => paramType,      --       paramtype_pio_external_connection.export
 	paramvalueupdate_pio_external_connection_export   => paramValueUpdate,   --    paramvalueupdate_pio_external_connection.export
---	predelayvalue_pio_external_connection_export      => preDelayValue,      --       predelayvalue_pio_external_connection.export
-	reset_reset_n                                     => rst,                                     --                                       reset.reset_n
+	
 	audio_controller_avalon_left_channel_source_ready => audioL_IN_ready, -- audio_controller_avalon_left_channel_source.ready
 	audio_controller_avalon_left_channel_source_data  => audioL_IN_data,  --                                            .data
 	audio_controller_avalon_left_channel_source_valid => audioL_IN_valid, --                                            .valid
@@ -299,7 +304,7 @@ earlyReverbL : entity work.earlyReverb(archi)
 				dataIN => dataL_IN_signed,
 				dataOUT_toLateReverb => dataL_OUT_earlyToLateReverb,
 				dataOUT_earlyReverb => dataL_OUT_earlyReverb,
-				delayInitEcho => 0);
+				nbrDelaysPerLine_initEcho => to_integer(unsigned(preDelayValue)));
 
 earlyReverbR : entity work.earlyReverb(archi)
 	generic map(dataSize)
@@ -308,7 +313,7 @@ earlyReverbR : entity work.earlyReverb(archi)
 				dataIN => dataR_IN_signed,
 				dataOUT_toLateReverb => dataR_OUT_earlyToLateReverb,
 				dataOUT_earlyReverb => dataR_OUT_earlyReverb,
-				delayInitEcho => 0);
+				nbrDelaysPerLine_initEcho => to_integer(unsigned(preDelayValue)));
 ---------------------------------------------------------------------------------------------
 
 -------------------------------------- Late reverb ------------------------------------------
@@ -336,7 +341,6 @@ dataL_OUT_sum_EarlyLate <= resize(dataL_OUT_earlyReverb, dataL_OUT_sum_EarlyLate
 									resize(dataL_OUT_lateReverb, dataL_OUT_sum_EarlyLate'LENGTH);
 dataR_OUT_sum_EarlyLate <= resize(dataR_OUT_earlyReverb, dataR_OUT_sum_EarlyLate'LENGTH) + 
 									resize(dataR_OUT_lateReverb, dataR_OUT_sum_EarlyLate'LENGTH);
-
 ---------------------------------------------------------------------------------------------
 
 --------------------------------- Gestion du mix dry/wet ------------------------------------
