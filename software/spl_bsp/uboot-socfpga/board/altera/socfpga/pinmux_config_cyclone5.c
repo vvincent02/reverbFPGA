@@ -51,27 +51,27 @@ unsigned long sys_mgr_init_table[CONFIG_HPS_PINMUX_NUM] = {
 	0, /* EMACIO17 */
 	0, /* EMACIO18 */
 	0, /* EMACIO19 */
-	0, /* FLASHIO0 */
+	3, /* FLASHIO0 */
 	0, /* FLASHIO1 */
-	0, /* FLASHIO2 */
-	0, /* FLASHIO3 */
+	3, /* FLASHIO2 */
+	3, /* FLASHIO3 */
 	0, /* FLASHIO4 */
 	0, /* FLASHIO5 */
 	0, /* FLASHIO6 */
 	0, /* FLASHIO7 */
 	0, /* FLASHIO8 */
-	0, /* FLASHIO9 */
-	0, /* FLASHIO10 */
-	0, /* FLASHIO11 */
+	3, /* FLASHIO9 */
+	3, /* FLASHIO10 */
+	3, /* FLASHIO11 */
 	0, /* GENERALIO0 */
 	1, /* GENERALIO1 */
 	1, /* GENERALIO2 */
-	0, /* GENERALIO3 */
-	0, /* GENERALIO4 */
+	1, /* GENERALIO3 */
+	1, /* GENERALIO4 */
 	0, /* GENERALIO5 */
 	0, /* GENERALIO6 */
-	1, /* GENERALIO7 */
-	1, /* GENERALIO8 */
+	0, /* GENERALIO7 */
+	0, /* GENERALIO8 */
 	0, /* GENERALIO9 */
 	0, /* GENERALIO10 */
 	0, /* GENERALIO11 */

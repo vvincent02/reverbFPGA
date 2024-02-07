@@ -27,6 +27,14 @@ module reverbFPGA_Qsys (
 	hex3_external_connection_export,
 	hex4_external_connection_export,
 	hex5_external_connection_export,
+	hps_io_hps_io_sdio_inst_CMD,
+	hps_io_hps_io_sdio_inst_D0,
+	hps_io_hps_io_sdio_inst_D1,
+	hps_io_hps_io_sdio_inst_CLK,
+	hps_io_hps_io_sdio_inst_D2,
+	hps_io_hps_io_sdio_inst_D3,
+	hps_io_hps_io_uart0_inst_RX,
+	hps_io_hps_io_uart0_inst_TX,
 	hps_io_hps_io_i2c1_inst_SDA,
 	hps_io_hps_io_i2c1_inst_SCL,
 	hps_io_hps_io_gpio_inst_GPIO48,
@@ -81,6 +89,14 @@ module reverbFPGA_Qsys (
 	output	[5:0]	hex3_external_connection_export;
 	output	[5:0]	hex4_external_connection_export;
 	output	[5:0]	hex5_external_connection_export;
+	inout		hps_io_hps_io_sdio_inst_CMD;
+	inout		hps_io_hps_io_sdio_inst_D0;
+	inout		hps_io_hps_io_sdio_inst_D1;
+	output		hps_io_hps_io_sdio_inst_CLK;
+	inout		hps_io_hps_io_sdio_inst_D2;
+	inout		hps_io_hps_io_sdio_inst_D3;
+	input		hps_io_hps_io_uart0_inst_RX;
+	output		hps_io_hps_io_uart0_inst_TX;
 	inout		hps_io_hps_io_i2c1_inst_SDA;
 	inout		hps_io_hps_io_i2c1_inst_SCL;
 	inout		hps_io_hps_io_gpio_inst_GPIO48;

@@ -35,7 +35,15 @@ entity reverbFPGA_Qsys is
 		hex3_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex3_external_connection.export
 		hex4_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex4_external_connection.export
 		hex5_external_connection_export                    : out   std_logic_vector(5 downto 0);                     --                     hex5_external_connection.export
-		hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := '0';             --                                       hps_io.hps_io_i2c1_inst_SDA
+		hps_io_hps_io_sdio_inst_CMD                        : inout std_logic                     := '0';             --                                       hps_io.hps_io_sdio_inst_CMD
+		hps_io_hps_io_sdio_inst_D0                         : inout std_logic                     := '0';             --                                             .hps_io_sdio_inst_D0
+		hps_io_hps_io_sdio_inst_D1                         : inout std_logic                     := '0';             --                                             .hps_io_sdio_inst_D1
+		hps_io_hps_io_sdio_inst_CLK                        : out   std_logic;                                        --                                             .hps_io_sdio_inst_CLK
+		hps_io_hps_io_sdio_inst_D2                         : inout std_logic                     := '0';             --                                             .hps_io_sdio_inst_D2
+		hps_io_hps_io_sdio_inst_D3                         : inout std_logic                     := '0';             --                                             .hps_io_sdio_inst_D3
+		hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := '0';             --                                             .hps_io_uart0_inst_RX
+		hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        --                                             .hps_io_uart0_inst_TX
+		hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := '0';             --                                             .hps_io_i2c1_inst_SDA
 		hps_io_hps_io_i2c1_inst_SCL                        : inout std_logic                     := '0';             --                                             .hps_io_i2c1_inst_SCL
 		hps_io_hps_io_gpio_inst_GPIO48                     : inout std_logic                     := '0';             --                                             .hps_io_gpio_inst_GPIO48
 		hps_io_hps_io_gpio_inst_GPIO53                     : inout std_logic                     := '0';             --                                             .hps_io_gpio_inst_GPIO53
@@ -146,6 +154,14 @@ architecture rtl of reverbFPGA_Qsys is
 			mem_odt                 : out   std_logic;                                        -- mem_odt
 			mem_dm                  : out   std_logic_vector(3 downto 0);                     -- mem_dm
 			oct_rzqin               : in    std_logic                     := 'X';             -- oct_rzqin
+			hps_io_sdio_inst_CMD    : inout std_logic                     := 'X';             -- hps_io_sdio_inst_CMD
+			hps_io_sdio_inst_D0     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D0
+			hps_io_sdio_inst_D1     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D1
+			hps_io_sdio_inst_CLK    : out   std_logic;                                        -- hps_io_sdio_inst_CLK
+			hps_io_sdio_inst_D2     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D2
+			hps_io_sdio_inst_D3     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D3
+			hps_io_uart0_inst_RX    : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+			hps_io_uart0_inst_TX    : out   std_logic;                                        -- hps_io_uart0_inst_TX
 			hps_io_i2c1_inst_SDA    : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
 			hps_io_i2c1_inst_SCL    : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
 			hps_io_gpio_inst_GPIO48 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
@@ -672,7 +688,15 @@ begin
 			mem_odt                 => memory_mem_odt,                  --                  .mem_odt
 			mem_dm                  => memory_mem_dm,                   --                  .mem_dm
 			oct_rzqin               => memory_oct_rzqin,                --                  .oct_rzqin
-			hps_io_i2c1_inst_SDA    => hps_io_hps_io_i2c1_inst_SDA,     --            hps_io.hps_io_i2c1_inst_SDA
+			hps_io_sdio_inst_CMD    => hps_io_hps_io_sdio_inst_CMD,     --            hps_io.hps_io_sdio_inst_CMD
+			hps_io_sdio_inst_D0     => hps_io_hps_io_sdio_inst_D0,      --                  .hps_io_sdio_inst_D0
+			hps_io_sdio_inst_D1     => hps_io_hps_io_sdio_inst_D1,      --                  .hps_io_sdio_inst_D1
+			hps_io_sdio_inst_CLK    => hps_io_hps_io_sdio_inst_CLK,     --                  .hps_io_sdio_inst_CLK
+			hps_io_sdio_inst_D2     => hps_io_hps_io_sdio_inst_D2,      --                  .hps_io_sdio_inst_D2
+			hps_io_sdio_inst_D3     => hps_io_hps_io_sdio_inst_D3,      --                  .hps_io_sdio_inst_D3
+			hps_io_uart0_inst_RX    => hps_io_hps_io_uart0_inst_RX,     --                  .hps_io_uart0_inst_RX
+			hps_io_uart0_inst_TX    => hps_io_hps_io_uart0_inst_TX,     --                  .hps_io_uart0_inst_TX
+			hps_io_i2c1_inst_SDA    => hps_io_hps_io_i2c1_inst_SDA,     --                  .hps_io_i2c1_inst_SDA
 			hps_io_i2c1_inst_SCL    => hps_io_hps_io_i2c1_inst_SCL,     --                  .hps_io_i2c1_inst_SCL
 			hps_io_gpio_inst_GPIO48 => hps_io_hps_io_gpio_inst_GPIO48,  --                  .hps_io_gpio_inst_GPIO48
 			hps_io_gpio_inst_GPIO53 => hps_io_hps_io_gpio_inst_GPIO53,  --                  .hps_io_gpio_inst_GPIO53

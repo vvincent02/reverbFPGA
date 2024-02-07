@@ -39,6 +39,14 @@ PORT(
 		
 	HPS_I2C1_SDAT : INOUT std_logic;
 	HPS_I2C1_SCLK : INOUT std_logic;
+	
+	HPS_UART_RX : IN std_logic;
+	HPS_UART_TX : OUT std_logic;
+	
+	HPS_SD_CLK : OUT std_logic;
+	HPS_SD_CMD : INOUT std_logic;
+	HPS_SD_DATA : INOUT std_logic_vector(3 downto 0);
+	
 	HPS_I2C_CONTROL : INOUT std_logic;
 	HPS_LED : INOUT std_logic;
 	
@@ -166,8 +174,19 @@ port (
 
 	serial_flash_loader_0_noe_in_noe                  : in    std_logic                     := 'X';              -- noe
 	
+	hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+   hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        -- hps_io_uart0_inst_TX
+	
 	hps_io_hps_io_i2c1_inst_SDA                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
 	hps_io_hps_io_i2c1_inst_SCL                       : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
+	
+	hps_io_hps_io_sdio_inst_CMD                        : inout std_logic                     := 'X';             -- hps_io_sdio_inst_CMD
+	hps_io_hps_io_sdio_inst_D0                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D0
+	hps_io_hps_io_sdio_inst_D1                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D1
+	hps_io_hps_io_sdio_inst_CLK                        : out   std_logic;                                        -- hps_io_sdio_inst_CLK
+	hps_io_hps_io_sdio_inst_D2                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D2
+	hps_io_hps_io_sdio_inst_D3                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D3
+
 	hps_io_hps_io_gpio_inst_GPIO53                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 
@@ -234,8 +253,19 @@ port map (
 
 	serial_flash_loader_0_noe_in_noe => '0',
 	
+	hps_io_hps_io_uart0_inst_RX                        => HPS_UART_RX,                        --                                       hps_io.hps_io_uart0_inst_RX
+   hps_io_hps_io_uart0_inst_TX                        => HPS_UART_TX,                        --                                             .hps_io_uart0_inst_TX
+	
 	hps_io_hps_io_i2c1_inst_SDA                       => HPS_I2C1_SDAT,                       --                                            .hps_io_i2c0_inst_SDA
 	hps_io_hps_io_i2c1_inst_SCL                       => HPS_I2C1_SCLK,                       --                                            .hps_io_i2c0_inst_SCL
+	
+	hps_io_hps_io_sdio_inst_CMD                        => HPS_SD_CMD,                        --                                       hps_io.hps_io_sdio_inst_CMD
+	hps_io_hps_io_sdio_inst_D0                         => HPS_SD_DATA(0),                         --                                             .hps_io_sdio_inst_D0
+	hps_io_hps_io_sdio_inst_D1                         => HPS_SD_DATA(1),                         --                                             .hps_io_sdio_inst_D1
+	hps_io_hps_io_sdio_inst_CLK                        => HPS_SD_CLK,                        --                                             .hps_io_sdio_inst_CLK
+	hps_io_hps_io_sdio_inst_D2                         => HPS_SD_DATA(2),                         --                                             .hps_io_sdio_inst_D2
+	hps_io_hps_io_sdio_inst_D3                         => HPS_SD_DATA(3),                         --                                             .hps_io_sdio_inst_D3
+		
 	hps_io_hps_io_gpio_inst_GPIO53                    => HPS_LED,                    --                                            .hps_io_gpio_inst_GPIO00
    hps_io_hps_io_gpio_inst_GPIO48                    => HPS_I2C_CONTROL,                    --                                            .hps_io_gpio_inst_GPIO48
 	

@@ -916,8 +916,8 @@
   <parameter name="S2FINTERRUPT_USB_Enable" value="false" />
   <parameter name="S2FINTERRUPT_WATCHDOG_Enable" value="false" />
   <parameter name="S2F_Width" value="0" />
-  <parameter name="SDIO_Mode" value="N/A" />
-  <parameter name="SDIO_PinMuxing" value="Unused" />
+  <parameter name="SDIO_Mode" value="4-bit Data" />
+  <parameter name="SDIO_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="SEQUENCER_TYPE" value="NIOS" />
   <parameter name="SEQ_MODE" value="0" />
   <parameter name="SKIP_MEM_INIT" value="true" />
@@ -985,8 +985,8 @@
   <parameter name="TRACKING_WATCH_TEST" value="false" />
   <parameter name="TREFI" value="35100" />
   <parameter name="TRFC" value="350" />
-  <parameter name="UART0_Mode" value="N/A" />
-  <parameter name="UART0_PinMuxing" value="Unused" />
+  <parameter name="UART0_Mode" value="No Flow Control" />
+  <parameter name="UART0_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="UART1_Mode" value="N/A" />
   <parameter name="UART1_PinMuxing" value="Unused" />
   <parameter name="USB0_Mode" value="N/A" />

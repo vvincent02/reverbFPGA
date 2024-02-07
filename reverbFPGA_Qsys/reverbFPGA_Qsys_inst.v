@@ -26,7 +26,15 @@
 		.hex3_external_connection_export                    (<connected-to-hex3_external_connection_export>),                    //                     hex3_external_connection.export
 		.hex4_external_connection_export                    (<connected-to-hex4_external_connection_export>),                    //                     hex4_external_connection.export
 		.hex5_external_connection_export                    (<connected-to-hex5_external_connection_export>),                    //                     hex5_external_connection.export
-		.hps_io_hps_io_i2c1_inst_SDA                        (<connected-to-hps_io_hps_io_i2c1_inst_SDA>),                        //                                       hps_io.hps_io_i2c1_inst_SDA
+		.hps_io_hps_io_sdio_inst_CMD                        (<connected-to-hps_io_hps_io_sdio_inst_CMD>),                        //                                       hps_io.hps_io_sdio_inst_CMD
+		.hps_io_hps_io_sdio_inst_D0                         (<connected-to-hps_io_hps_io_sdio_inst_D0>),                         //                                             .hps_io_sdio_inst_D0
+		.hps_io_hps_io_sdio_inst_D1                         (<connected-to-hps_io_hps_io_sdio_inst_D1>),                         //                                             .hps_io_sdio_inst_D1
+		.hps_io_hps_io_sdio_inst_CLK                        (<connected-to-hps_io_hps_io_sdio_inst_CLK>),                        //                                             .hps_io_sdio_inst_CLK
+		.hps_io_hps_io_sdio_inst_D2                         (<connected-to-hps_io_hps_io_sdio_inst_D2>),                         //                                             .hps_io_sdio_inst_D2
+		.hps_io_hps_io_sdio_inst_D3                         (<connected-to-hps_io_hps_io_sdio_inst_D3>),                         //                                             .hps_io_sdio_inst_D3
+		.hps_io_hps_io_uart0_inst_RX                        (<connected-to-hps_io_hps_io_uart0_inst_RX>),                        //                                             .hps_io_uart0_inst_RX
+		.hps_io_hps_io_uart0_inst_TX                        (<connected-to-hps_io_hps_io_uart0_inst_TX>),                        //                                             .hps_io_uart0_inst_TX
+		.hps_io_hps_io_i2c1_inst_SDA                        (<connected-to-hps_io_hps_io_i2c1_inst_SDA>),                        //                                             .hps_io_i2c1_inst_SDA
 		.hps_io_hps_io_i2c1_inst_SCL                        (<connected-to-hps_io_hps_io_i2c1_inst_SCL>),                        //                                             .hps_io_i2c1_inst_SCL
 		.hps_io_hps_io_gpio_inst_GPIO48                     (<connected-to-hps_io_hps_io_gpio_inst_GPIO48>),                     //                                             .hps_io_gpio_inst_GPIO48
 		.hps_io_hps_io_gpio_inst_GPIO53                     (<connected-to-hps_io_hps_io_gpio_inst_GPIO53>),                     //                                             .hps_io_gpio_inst_GPIO53
