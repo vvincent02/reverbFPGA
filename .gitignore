@@ -1,3 +1,6 @@
+/.metadata/
+/.qsys_edit/
+
 # C
 # Object files
 *.o
