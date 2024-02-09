@@ -26,11 +26,13 @@
 		.hex3_external_connection_export                    (<connected-to-hex3_external_connection_export>),                    //                     hex3_external_connection.export
 		.hex4_external_connection_export                    (<connected-to-hex4_external_connection_export>),                    //                     hex4_external_connection.export
 		.hex5_external_connection_export                    (<connected-to-hex5_external_connection_export>),                    //                     hex5_external_connection.export
-		.hps_0_h2f_mpu_events_eventi                        (<connected-to-hps_0_h2f_mpu_events_eventi>),                        //                         hps_0_h2f_mpu_events.eventi
-		.hps_0_h2f_mpu_events_evento                        (<connected-to-hps_0_h2f_mpu_events_evento>),                        //                                             .evento
-		.hps_0_h2f_mpu_events_standbywfe                    (<connected-to-hps_0_h2f_mpu_events_standbywfe>),                    //                                             .standbywfe
-		.hps_0_h2f_mpu_events_standbywfi                    (<connected-to-hps_0_h2f_mpu_events_standbywfi>),                    //                                             .standbywfi
-		.hps_io_hps_io_uart0_inst_RX                        (<connected-to-hps_io_hps_io_uart0_inst_RX>),                        //                                       hps_io.hps_io_uart0_inst_RX
+		.hps_io_hps_io_sdio_inst_CMD                        (<connected-to-hps_io_hps_io_sdio_inst_CMD>),                        //                                       hps_io.hps_io_sdio_inst_CMD
+		.hps_io_hps_io_sdio_inst_D0                         (<connected-to-hps_io_hps_io_sdio_inst_D0>),                         //                                             .hps_io_sdio_inst_D0
+		.hps_io_hps_io_sdio_inst_D1                         (<connected-to-hps_io_hps_io_sdio_inst_D1>),                         //                                             .hps_io_sdio_inst_D1
+		.hps_io_hps_io_sdio_inst_CLK                        (<connected-to-hps_io_hps_io_sdio_inst_CLK>),                        //                                             .hps_io_sdio_inst_CLK
+		.hps_io_hps_io_sdio_inst_D2                         (<connected-to-hps_io_hps_io_sdio_inst_D2>),                         //                                             .hps_io_sdio_inst_D2
+		.hps_io_hps_io_sdio_inst_D3                         (<connected-to-hps_io_hps_io_sdio_inst_D3>),                         //                                             .hps_io_sdio_inst_D3
+		.hps_io_hps_io_uart0_inst_RX                        (<connected-to-hps_io_hps_io_uart0_inst_RX>),                        //                                             .hps_io_uart0_inst_RX
 		.hps_io_hps_io_uart0_inst_TX                        (<connected-to-hps_io_hps_io_uart0_inst_TX>),                        //                                             .hps_io_uart0_inst_TX
 		.hps_io_hps_io_i2c0_inst_SDA                        (<connected-to-hps_io_hps_io_i2c0_inst_SDA>),                        //                                             .hps_io_i2c0_inst_SDA
 		.hps_io_hps_io_i2c0_inst_SCL                        (<connected-to-hps_io_hps_io_i2c0_inst_SCL>),                        //                                             .hps_io_i2c0_inst_SCL
@@ -56,7 +58,7 @@
 		.paramtype_pio_external_connection_export           (<connected-to-paramtype_pio_external_connection_export>),           //            paramtype_pio_external_connection.export
 		.paramvalueupdate_pio_external_connection_export    (<connected-to-paramvalueupdate_pio_external_connection_export>),    //     paramvalueupdate_pio_external_connection.export
 		.predelayvalue_pio_external_connection_export       (<connected-to-predelayvalue_pio_external_connection_export>),       //        predelayvalue_pio_external_connection.export
-		.reset_reset_n                                      (<connected-to-reset_reset_n>),                                      //                                        reset.reset_n
-		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>)                    //                 serial_flash_loader_0_noe_in.noe
+		.serial_flash_loader_0_noe_in_noe                   (<connected-to-serial_flash_loader_0_noe_in_noe>),                   //                 serial_flash_loader_0_noe_in.noe
+		.reset_reset_n                                      (<connected-to-reset_reset_n>)                                       //                                        reset.reset_n
 	);
 

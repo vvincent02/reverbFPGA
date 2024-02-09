@@ -27,10 +27,12 @@
 			hex3_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
 			hex4_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
 			hex5_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
-			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
-			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
-			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe
-			hps_0_h2f_mpu_events_standbywfi                    : out   std_logic_vector(1 downto 0);                     -- standbywfi
+			hps_io_hps_io_sdio_inst_CMD                        : inout std_logic                     := 'X';             -- hps_io_sdio_inst_CMD
+			hps_io_hps_io_sdio_inst_D0                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D0
+			hps_io_hps_io_sdio_inst_D1                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D1
+			hps_io_hps_io_sdio_inst_CLK                        : out   std_logic;                                        -- hps_io_sdio_inst_CLK
+			hps_io_hps_io_sdio_inst_D2                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D2
+			hps_io_hps_io_sdio_inst_D3                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D3
 			hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
 			hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        -- hps_io_uart0_inst_TX
 			hps_io_hps_io_i2c0_inst_SDA                        : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA

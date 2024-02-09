@@ -27,10 +27,12 @@ module reverbFPGA_Qsys (
 	hex3_external_connection_export,
 	hex4_external_connection_export,
 	hex5_external_connection_export,
-	hps_0_h2f_mpu_events_eventi,
-	hps_0_h2f_mpu_events_evento,
-	hps_0_h2f_mpu_events_standbywfe,
-	hps_0_h2f_mpu_events_standbywfi,
+	hps_io_hps_io_sdio_inst_CMD,
+	hps_io_hps_io_sdio_inst_D0,
+	hps_io_hps_io_sdio_inst_D1,
+	hps_io_hps_io_sdio_inst_CLK,
+	hps_io_hps_io_sdio_inst_D2,
+	hps_io_hps_io_sdio_inst_D3,
 	hps_io_hps_io_uart0_inst_RX,
 	hps_io_hps_io_uart0_inst_TX,
 	hps_io_hps_io_i2c0_inst_SDA,
@@ -57,8 +59,8 @@ module reverbFPGA_Qsys (
 	paramtype_pio_external_connection_export,
 	paramvalueupdate_pio_external_connection_export,
 	predelayvalue_pio_external_connection_export,
-	reset_reset_n,
-	serial_flash_loader_0_noe_in_noe);	
+	serial_flash_loader_0_noe_in_noe,
+	reset_reset_n);	
 
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
 	input		audio_controller_avalon_left_channel_sink_valid;
@@ -87,10 +89,12 @@ module reverbFPGA_Qsys (
 	output	[5:0]	hex3_external_connection_export;
 	output	[5:0]	hex4_external_connection_export;
 	output	[5:0]	hex5_external_connection_export;
-	input		hps_0_h2f_mpu_events_eventi;
-	output		hps_0_h2f_mpu_events_evento;
-	output	[1:0]	hps_0_h2f_mpu_events_standbywfe;
-	output	[1:0]	hps_0_h2f_mpu_events_standbywfi;
+	inout		hps_io_hps_io_sdio_inst_CMD;
+	inout		hps_io_hps_io_sdio_inst_D0;
+	inout		hps_io_hps_io_sdio_inst_D1;
+	output		hps_io_hps_io_sdio_inst_CLK;
+	inout		hps_io_hps_io_sdio_inst_D2;
+	inout		hps_io_hps_io_sdio_inst_D3;
 	input		hps_io_hps_io_uart0_inst_RX;
 	output		hps_io_hps_io_uart0_inst_TX;
 	inout		hps_io_hps_io_i2c0_inst_SDA;
@@ -117,6 +121,6 @@ module reverbFPGA_Qsys (
 	input	[3:0]	paramtype_pio_external_connection_export;
 	input	[1:0]	paramvalueupdate_pio_external_connection_export;
 	output	[9:0]	predelayvalue_pio_external_connection_export;
-	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
+	input		reset_reset_n;
 endmodule

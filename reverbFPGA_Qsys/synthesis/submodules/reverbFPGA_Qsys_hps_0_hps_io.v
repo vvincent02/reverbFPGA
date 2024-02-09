@@ -23,7 +23,13 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		output wire        mem_odt,                 //       .mem_odt
 		output wire [3:0]  mem_dm,                  //       .mem_dm
 		input  wire        oct_rzqin,               //       .oct_rzqin
-		input  wire        hps_io_uart0_inst_RX,    // hps_io.hps_io_uart0_inst_RX
+		inout  wire        hps_io_sdio_inst_CMD,    // hps_io.hps_io_sdio_inst_CMD
+		inout  wire        hps_io_sdio_inst_D0,     //       .hps_io_sdio_inst_D0
+		inout  wire        hps_io_sdio_inst_D1,     //       .hps_io_sdio_inst_D1
+		output wire        hps_io_sdio_inst_CLK,    //       .hps_io_sdio_inst_CLK
+		inout  wire        hps_io_sdio_inst_D2,     //       .hps_io_sdio_inst_D2
+		inout  wire        hps_io_sdio_inst_D3,     //       .hps_io_sdio_inst_D3
+		input  wire        hps_io_uart0_inst_RX,    //       .hps_io_uart0_inst_RX
 		output wire        hps_io_uart0_inst_TX,    //       .hps_io_uart0_inst_TX
 		inout  wire        hps_io_i2c0_inst_SDA,    //       .hps_io_i2c0_inst_SDA
 		inout  wire        hps_io_i2c0_inst_SCL,    //       .hps_io_i2c0_inst_SCL
@@ -48,7 +54,13 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		.mem_odt                 (mem_odt),                 //       .mem_odt
 		.mem_dm                  (mem_dm),                  //       .mem_dm
 		.oct_rzqin               (oct_rzqin),               //       .oct_rzqin
-		.hps_io_uart0_inst_RX    (hps_io_uart0_inst_RX),    // hps_io.hps_io_uart0_inst_RX
+		.hps_io_sdio_inst_CMD    (hps_io_sdio_inst_CMD),    // hps_io.hps_io_sdio_inst_CMD
+		.hps_io_sdio_inst_D0     (hps_io_sdio_inst_D0),     //       .hps_io_sdio_inst_D0
+		.hps_io_sdio_inst_D1     (hps_io_sdio_inst_D1),     //       .hps_io_sdio_inst_D1
+		.hps_io_sdio_inst_CLK    (hps_io_sdio_inst_CLK),    //       .hps_io_sdio_inst_CLK
+		.hps_io_sdio_inst_D2     (hps_io_sdio_inst_D2),     //       .hps_io_sdio_inst_D2
+		.hps_io_sdio_inst_D3     (hps_io_sdio_inst_D3),     //       .hps_io_sdio_inst_D3
+		.hps_io_uart0_inst_RX    (hps_io_uart0_inst_RX),    //       .hps_io_uart0_inst_RX
 		.hps_io_uart0_inst_TX    (hps_io_uart0_inst_TX),    //       .hps_io_uart0_inst_TX
 		.hps_io_i2c0_inst_SDA    (hps_io_i2c0_inst_SDA),    //       .hps_io_i2c0_inst_SDA
 		.hps_io_i2c0_inst_SCL    (hps_io_i2c0_inst_SCL),    //       .hps_io_i2c0_inst_SCL

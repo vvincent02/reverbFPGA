@@ -35,7 +35,7 @@
 #define CONFIG_HPS_USB0 (0)
 #define CONFIG_HPS_USB1 (0)
 #define CONFIG_HPS_NAND (0)
-#define CONFIG_HPS_SDMMC (0)
+#define CONFIG_HPS_SDMMC (1)
 #define CONFIG_HPS_QSPI (0)
 #define CONFIG_HPS_UART0 (1)
 #define CONFIG_HPS_UART1 (0)
@@ -51,7 +51,7 @@
 #define CONFIG_HPS_CAN0 (0)
 #define CONFIG_HPS_CAN1 (0)
 
-#define CONFIG_HPS_SDMMC_BUSWIDTH (0)
+#define CONFIG_HPS_SDMMC_BUSWIDTH (4)
 
 #define CONFIG_HPS_QSPI_CS3 (0)
 #define CONFIG_HPS_QSPI_CS2 (0)

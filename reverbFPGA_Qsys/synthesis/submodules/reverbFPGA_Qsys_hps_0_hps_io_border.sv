@@ -30,6 +30,12 @@ module reverbFPGA_Qsys_hps_0_hps_io_border(
  ,output wire [4 - 1 : 0 ] mem_dm
  ,input wire [1 - 1 : 0 ] oct_rzqin
 // hps_io
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_CMD
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D0
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D1
+ ,output wire [1 - 1 : 0 ] hps_io_sdio_inst_CLK
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D2
+ ,inout wire [1 - 1 : 0 ] hps_io_sdio_inst_D3
  ,input wire [1 - 1 : 0 ] hps_io_uart0_inst_RX
  ,output wire [1 - 1 : 0 ] hps_io_uart0_inst_TX
  ,inout wire [1 - 1 : 0 ] hps_io_i2c0_inst_SDA
@@ -38,14 +44,53 @@ module reverbFPGA_Qsys_hps_0_hps_io_border(
  ,inout wire [1 - 1 : 0 ] hps_io_gpio_inst_GPIO53
 );
 
-assign hps_io_i2c0_inst_SDA = intermediate[0] ? '0 : 'z;
-assign hps_io_i2c0_inst_SCL = intermediate[1] ? '0 : 'z;
-assign hps_io_gpio_inst_GPIO48 = intermediate[3] ? intermediate[2] : 'z;
-assign hps_io_gpio_inst_GPIO53 = intermediate[5] ? intermediate[4] : 'z;
+assign hps_io_sdio_inst_CMD = intermediate[1] ? intermediate[0] : 'z;
+assign hps_io_sdio_inst_D0 = intermediate[3] ? intermediate[2] : 'z;
+assign hps_io_sdio_inst_D1 = intermediate[5] ? intermediate[4] : 'z;
+assign hps_io_sdio_inst_D2 = intermediate[7] ? intermediate[6] : 'z;
+assign hps_io_sdio_inst_D3 = intermediate[9] ? intermediate[8] : 'z;
+assign hps_io_i2c0_inst_SDA = intermediate[10] ? '0 : 'z;
+assign hps_io_i2c0_inst_SCL = intermediate[11] ? '0 : 'z;
+assign hps_io_gpio_inst_GPIO48 = intermediate[13] ? intermediate[12] : 'z;
+assign hps_io_gpio_inst_GPIO53 = intermediate[15] ? intermediate[14] : 'z;
 
-wire [6 - 1 : 0] intermediate;
+wire [16 - 1 : 0] intermediate;
 
 wire [69 - 1 : 0] floating;
+
+cyclonev_hps_peripheral_sdmmc sdio_inst(
+ .SDMMC_DATA_I({
+    hps_io_sdio_inst_D3[0:0] // 3:3
+   ,hps_io_sdio_inst_D2[0:0] // 2:2
+   ,hps_io_sdio_inst_D1[0:0] // 1:1
+   ,hps_io_sdio_inst_D0[0:0] // 0:0
+  })
+,.SDMMC_CMD_O({
+    intermediate[0:0] // 0:0
+  })
+,.SDMMC_CCLK({
+    hps_io_sdio_inst_CLK[0:0] // 0:0
+  })
+,.SDMMC_DATA_O({
+    intermediate[8:8] // 3:3
+   ,intermediate[6:6] // 2:2
+   ,intermediate[4:4] // 1:1
+   ,intermediate[2:2] // 0:0
+  })
+,.SDMMC_CMD_OE({
+    intermediate[1:1] // 0:0
+  })
+,.SDMMC_CMD_I({
+    hps_io_sdio_inst_CMD[0:0] // 0:0
+  })
+,.SDMMC_DATA_OE({
+    intermediate[9:9] // 3:3
+   ,intermediate[7:7] // 2:2
+   ,intermediate[5:5] // 1:1
+   ,intermediate[3:3] // 0:0
+  })
+);
+
 
 cyclonev_hps_peripheral_uart uart0_inst(
  .UART_RXD({
@@ -65,10 +110,10 @@ cyclonev_hps_peripheral_i2c i2c0_inst(
     hps_io_i2c0_inst_SCL[0:0] // 0:0
   })
 ,.I2C_DATA_OE({
-    intermediate[0:0] // 0:0
+    intermediate[10:10] // 0:0
   })
 ,.I2C_CLK_OE({
-    intermediate[1:1] // 0:0
+    intermediate[11:11] // 0:0
   })
 );
 
@@ -81,15 +126,15 @@ cyclonev_hps_peripheral_gpio gpio_inst(
    ,floating[22:4] // 18:0
   })
 ,.GPIO1_PORTA_OE({
-    intermediate[5:5] // 24:24
+    intermediate[15:15] // 24:24
    ,floating[26:23] // 23:20
-   ,intermediate[3:3] // 19:19
+   ,intermediate[13:13] // 19:19
    ,floating[45:27] // 18:0
   })
 ,.GPIO1_PORTA_O({
-    intermediate[4:4] // 24:24
+    intermediate[14:14] // 24:24
    ,floating[49:46] // 23:20
-   ,intermediate[2:2] // 19:19
+   ,intermediate[12:12] // 19:19
    ,floating[68:50] // 18:0
   })
 );
