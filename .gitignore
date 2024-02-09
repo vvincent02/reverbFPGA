@@ -51,6 +51,7 @@
 
 # Others
 *.txt
+*.csv
 
 # Fortran module files
 *.mod
