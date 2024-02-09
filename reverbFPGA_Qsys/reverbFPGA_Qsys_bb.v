@@ -27,8 +27,14 @@ module reverbFPGA_Qsys (
 	hex3_external_connection_export,
 	hex4_external_connection_export,
 	hex5_external_connection_export,
-	hps_io_hps_io_i2c1_inst_SDA,
-	hps_io_hps_io_i2c1_inst_SCL,
+	hps_0_h2f_mpu_events_eventi,
+	hps_0_h2f_mpu_events_evento,
+	hps_0_h2f_mpu_events_standbywfe,
+	hps_0_h2f_mpu_events_standbywfi,
+	hps_io_hps_io_uart0_inst_RX,
+	hps_io_hps_io_uart0_inst_TX,
+	hps_io_hps_io_i2c0_inst_SDA,
+	hps_io_hps_io_i2c0_inst_SCL,
 	hps_io_hps_io_gpio_inst_GPIO48,
 	hps_io_hps_io_gpio_inst_GPIO53,
 	memory_mem_a,
@@ -81,8 +87,14 @@ module reverbFPGA_Qsys (
 	output	[5:0]	hex3_external_connection_export;
 	output	[5:0]	hex4_external_connection_export;
 	output	[5:0]	hex5_external_connection_export;
-	inout		hps_io_hps_io_i2c1_inst_SDA;
-	inout		hps_io_hps_io_i2c1_inst_SCL;
+	input		hps_0_h2f_mpu_events_eventi;
+	output		hps_0_h2f_mpu_events_evento;
+	output	[1:0]	hps_0_h2f_mpu_events_standbywfe;
+	output	[1:0]	hps_0_h2f_mpu_events_standbywfi;
+	input		hps_io_hps_io_uart0_inst_RX;
+	output		hps_io_hps_io_uart0_inst_TX;
+	inout		hps_io_hps_io_i2c0_inst_SDA;
+	inout		hps_io_hps_io_i2c0_inst_SCL;
 	inout		hps_io_hps_io_gpio_inst_GPIO48;
 	inout		hps_io_hps_io_gpio_inst_GPIO53;
 	output	[14:0]	memory_mem_a;

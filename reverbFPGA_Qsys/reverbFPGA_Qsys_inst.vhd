@@ -27,8 +27,14 @@
 			hex3_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
 			hex4_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
 			hex5_external_connection_export                    : out   std_logic_vector(5 downto 0);                     -- export
-			hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
-			hps_io_hps_io_i2c1_inst_SCL                        : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
+			hps_0_h2f_mpu_events_eventi                        : in    std_logic                     := 'X';             -- eventi
+			hps_0_h2f_mpu_events_evento                        : out   std_logic;                                        -- evento
+			hps_0_h2f_mpu_events_standbywfe                    : out   std_logic_vector(1 downto 0);                     -- standbywfe
+			hps_0_h2f_mpu_events_standbywfi                    : out   std_logic_vector(1 downto 0);                     -- standbywfi
+			hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
+			hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        -- hps_io_uart0_inst_TX
+			hps_io_hps_io_i2c0_inst_SDA                        : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+			hps_io_hps_io_i2c0_inst_SCL                        : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                     : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                     : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
 			memory_mem_a                                       : out   std_logic_vector(14 downto 0);                    -- mem_a
@@ -85,8 +91,14 @@
 			hex3_external_connection_export                    => CONNECTED_TO_hex3_external_connection_export,                    --                     hex3_external_connection.export
 			hex4_external_connection_export                    => CONNECTED_TO_hex4_external_connection_export,                    --                     hex4_external_connection.export
 			hex5_external_connection_export                    => CONNECTED_TO_hex5_external_connection_export,                    --                     hex5_external_connection.export
-			hps_io_hps_io_i2c1_inst_SDA                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SDA,                        --                                       hps_io.hps_io_i2c1_inst_SDA
-			hps_io_hps_io_i2c1_inst_SCL                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SCL,                        --                                             .hps_io_i2c1_inst_SCL
+			hps_0_h2f_mpu_events_eventi                        => CONNECTED_TO_hps_0_h2f_mpu_events_eventi,                        --                         hps_0_h2f_mpu_events.eventi
+			hps_0_h2f_mpu_events_evento                        => CONNECTED_TO_hps_0_h2f_mpu_events_evento,                        --                                             .evento
+			hps_0_h2f_mpu_events_standbywfe                    => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfe,                    --                                             .standbywfe
+			hps_0_h2f_mpu_events_standbywfi                    => CONNECTED_TO_hps_0_h2f_mpu_events_standbywfi,                    --                                             .standbywfi
+			hps_io_hps_io_uart0_inst_RX                        => CONNECTED_TO_hps_io_hps_io_uart0_inst_RX,                        --                                       hps_io.hps_io_uart0_inst_RX
+			hps_io_hps_io_uart0_inst_TX                        => CONNECTED_TO_hps_io_hps_io_uart0_inst_TX,                        --                                             .hps_io_uart0_inst_TX
+			hps_io_hps_io_i2c0_inst_SDA                        => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SDA,                        --                                             .hps_io_i2c0_inst_SDA
+			hps_io_hps_io_i2c0_inst_SCL                        => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SCL,                        --                                             .hps_io_i2c0_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                     => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO48,                     --                                             .hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                     => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO53,                     --                                             .hps_io_gpio_inst_GPIO53
 			memory_mem_a                                       => CONNECTED_TO_memory_mem_a,                                       --                                       memory.mem_a

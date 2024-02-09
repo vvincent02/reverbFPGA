@@ -344,7 +344,11 @@
    type="conduit"
    dir="end" />
  <interface name="hps_0_h2f_loan_io" internal="hps_0.h2f_loan_io" />
- <interface name="hps_0_h2f_mpu_events" internal="hps_0.h2f_mpu_events" />
+ <interface
+   name="hps_0_h2f_mpu_events"
+   internal="hps_0.h2f_mpu_events"
+   type="conduit"
+   dir="end" />
  <interface name="hps_io" internal="hps_0.hps_io" type="conduit" dir="end" />
  <interface name="memory" internal="hps_0.memory" type="conduit" dir="end" />
  <interface
@@ -639,7 +643,7 @@
   <parameter name="ENABLE_USER_ECC" value="false" />
   <parameter name="EXPORT_AFI_HALF_CLK" value="false" />
   <parameter name="EXTRA_SETTINGS" value="" />
-  <parameter name="F2H_AXI_CLOCK_FREQ" value="100" />
+  <parameter name="F2H_AXI_CLOCK_FREQ" value="50000000" />
   <parameter name="F2H_SDRAM0_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM1_CLOCK_FREQ" value="100" />
   <parameter name="F2H_SDRAM2_CLOCK_FREQ" value="100" />
@@ -656,7 +660,7 @@
   <parameter name="F2SDRAM_Type" value="" />
   <parameter name="F2SDRAM_Width" value="" />
   <parameter name="F2SINTERRUPT_Enable" value="false" />
-  <parameter name="F2S_Width" value="0" />
+  <parameter name="F2S_Width" value="2" />
   <parameter name="FIX_READ_LATENCY" value="8" />
   <parameter name="FORCED_NON_LDC_ADDR_CMD_MEM_CK_INVERT" value="false" />
   <parameter name="FORCED_NUM_WRITE_FR_CYCLE_SHIFTS" value="0" />
@@ -694,7 +698,7 @@
   <parameter name="FPGA_PERIPHERAL_OUTPUT_CLOCK_FREQ_SPIM1_SCLK_OUT" value="100" />
   <parameter name="GPIO_Enable">No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,Yes,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No,No</parameter>
   <parameter name="GP_Enable" value="false" />
-  <parameter name="H2F_AXI_CLOCK_FREQ" value="100" />
+  <parameter name="H2F_AXI_CLOCK_FREQ" value="50000000" />
   <parameter name="H2F_CTI_CLOCK_FREQ" value="100" />
   <parameter name="H2F_DEBUG_APB_CLOCK_FREQ" value="100" />
   <parameter name="H2F_LW_AXI_CLOCK_FREQ" value="50000000" />
@@ -706,10 +710,10 @@
   <parameter name="HHP_HPS_VERIFICATION" value="false" />
   <parameter name="HLGPI_Enable" value="false" />
   <parameter name="HPS_PROTOCOL" value="DDR3" />
-  <parameter name="I2C0_Mode" value="N/A" />
-  <parameter name="I2C0_PinMuxing" value="Unused" />
-  <parameter name="I2C1_Mode" value="I2C" />
-  <parameter name="I2C1_PinMuxing" value="HPS I/O Set 0" />
+  <parameter name="I2C0_Mode" value="I2C" />
+  <parameter name="I2C0_PinMuxing" value="HPS I/O Set 0" />
+  <parameter name="I2C1_Mode" value="N/A" />
+  <parameter name="I2C1_PinMuxing" value="Unused" />
   <parameter name="I2C2_Mode" value="N/A" />
   <parameter name="I2C2_PinMuxing" value="Unused" />
   <parameter name="I2C3_Mode" value="N/A" />
@@ -778,7 +782,7 @@
   <parameter name="MEM_VERBOSE" value="true" />
   <parameter name="MEM_VOLTAGE" value="1.5V DDR3" />
   <parameter name="MEM_WTCL" value="6" />
-  <parameter name="MPU_EVENTS_Enable" value="false" />
+  <parameter name="MPU_EVENTS_Enable" value="true" />
   <parameter name="MRS_MIRROR_PING_PONG_ATSO" value="false" />
   <parameter name="MULTICAST_EN" value="false" />
   <parameter name="NAND_Mode" value="N/A" />
@@ -915,7 +919,7 @@
   <parameter name="S2FINTERRUPT_UART_Enable" value="false" />
   <parameter name="S2FINTERRUPT_USB_Enable" value="false" />
   <parameter name="S2FINTERRUPT_WATCHDOG_Enable" value="false" />
-  <parameter name="S2F_Width" value="0" />
+  <parameter name="S2F_Width" value="2" />
   <parameter name="SDIO_Mode" value="N/A" />
   <parameter name="SDIO_PinMuxing" value="Unused" />
   <parameter name="SEQUENCER_TYPE" value="NIOS" />
@@ -985,8 +989,8 @@
   <parameter name="TRACKING_WATCH_TEST" value="false" />
   <parameter name="TREFI" value="35100" />
   <parameter name="TRFC" value="350" />
-  <parameter name="UART0_Mode" value="N/A" />
-  <parameter name="UART0_PinMuxing" value="Unused" />
+  <parameter name="UART0_Mode" value="No Flow Control" />
+  <parameter name="UART0_PinMuxing" value="HPS I/O Set 0" />
   <parameter name="UART1_Mode" value="N/A" />
   <parameter name="UART1_PinMuxing" value="Unused" />
   <parameter name="USB0_Mode" value="N/A" />
@@ -1295,6 +1299,16 @@
    version="23.1"
    start="clk_0.clk"
    end="preDelayValue_PIO.clk" />
+ <connection
+   kind="clock"
+   version="23.1"
+   start="clk_0.clk"
+   end="hps_0.f2h_axi_clock" />
+ <connection
+   kind="clock"
+   version="23.1"
+   start="clk_0.clk"
+   end="hps_0.h2f_axi_clock" />
  <connection
    kind="clock"
    version="23.1"

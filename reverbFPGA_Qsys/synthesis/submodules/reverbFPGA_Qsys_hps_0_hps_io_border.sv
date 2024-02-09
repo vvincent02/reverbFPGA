@@ -30,14 +30,16 @@ module reverbFPGA_Qsys_hps_0_hps_io_border(
  ,output wire [4 - 1 : 0 ] mem_dm
  ,input wire [1 - 1 : 0 ] oct_rzqin
 // hps_io
- ,inout wire [1 - 1 : 0 ] hps_io_i2c1_inst_SDA
- ,inout wire [1 - 1 : 0 ] hps_io_i2c1_inst_SCL
+ ,input wire [1 - 1 : 0 ] hps_io_uart0_inst_RX
+ ,output wire [1 - 1 : 0 ] hps_io_uart0_inst_TX
+ ,inout wire [1 - 1 : 0 ] hps_io_i2c0_inst_SDA
+ ,inout wire [1 - 1 : 0 ] hps_io_i2c0_inst_SCL
  ,inout wire [1 - 1 : 0 ] hps_io_gpio_inst_GPIO48
  ,inout wire [1 - 1 : 0 ] hps_io_gpio_inst_GPIO53
 );
 
-assign hps_io_i2c1_inst_SDA = intermediate[0] ? '0 : 'z;
-assign hps_io_i2c1_inst_SCL = intermediate[1] ? '0 : 'z;
+assign hps_io_i2c0_inst_SDA = intermediate[0] ? '0 : 'z;
+assign hps_io_i2c0_inst_SCL = intermediate[1] ? '0 : 'z;
 assign hps_io_gpio_inst_GPIO48 = intermediate[3] ? intermediate[2] : 'z;
 assign hps_io_gpio_inst_GPIO53 = intermediate[5] ? intermediate[4] : 'z;
 
@@ -45,12 +47,22 @@ wire [6 - 1 : 0] intermediate;
 
 wire [69 - 1 : 0] floating;
 
-cyclonev_hps_peripheral_i2c i2c1_inst(
+cyclonev_hps_peripheral_uart uart0_inst(
+ .UART_RXD({
+    hps_io_uart0_inst_RX[0:0] // 0:0
+  })
+,.UART_TXD({
+    hps_io_uart0_inst_TX[0:0] // 0:0
+  })
+);
+
+
+cyclonev_hps_peripheral_i2c i2c0_inst(
  .I2C_DATA({
-    hps_io_i2c1_inst_SDA[0:0] // 0:0
+    hps_io_i2c0_inst_SDA[0:0] // 0:0
   })
 ,.I2C_CLK({
-    hps_io_i2c1_inst_SCL[0:0] // 0:0
+    hps_io_i2c0_inst_SCL[0:0] // 0:0
   })
 ,.I2C_DATA_OE({
     intermediate[0:0] // 0:0

@@ -58,8 +58,8 @@
     <config name='sdram_pll_c5' value='5' />
   </system>
   <fpga_interfaces>
-    <config name='F2H_AXI_SLAVE' used='false' />
-    <config name='H2F_AXI_MASTER' used='false' />
+    <config name='F2H_AXI_SLAVE' used='true' />
+    <config name='H2F_AXI_MASTER' used='true' />
     <config name='LWH2F_AXI_MASTER' used='true' />
     <config name='F2SDRAM_COMMAND_PORT_USED' value='0x0' />
     <config name='F2SDRAM_READ_PORT_USED' value='0x0' />
@@ -85,11 +85,11 @@
     <peripheral name='spim1' used='false' />
     <peripheral name='spis0' used='false' />
     <peripheral name='spis1' used='false' />
-    <peripheral name='uart0' used='false'>
-      <config name='CONFIG_HPS_UART0_TX' value='0' />
+    <peripheral name='uart0' used='true'>
+      <config name='CONFIG_HPS_UART0_TX' value='1' />
       <config name='CONFIG_HPS_UART0_CTS' value='0' />
       <config name='CONFIG_HPS_UART0_RTS' value='0' />
-      <config name='CONFIG_HPS_UART0_RX' value='0' />
+      <config name='CONFIG_HPS_UART0_RX' value='1' />
     </peripheral>
     <peripheral name='uart1' used='false'>
       <config name='CONFIG_HPS_UART1_TX' value='0' />
@@ -97,8 +97,8 @@
       <config name='CONFIG_HPS_UART1_RTS' value='0' />
       <config name='CONFIG_HPS_UART1_RX' value='0' />
     </peripheral>
-    <peripheral name='i2c0' used='false' />
-    <peripheral name='i2c1' used='true' />
+    <peripheral name='i2c0' used='true' />
+    <peripheral name='i2c1' used='false' />
     <peripheral name='i2c2' used='false' />
     <peripheral name='i2c3' used='false' />
     <peripheral name='can0' used='false' />
@@ -106,8 +106,10 @@
     <peripheral name='trace' used='false' />
   </peripherals>
   <pin_muxes>
-    <pin_mux name='GENERALIO3' choice='I2C1_SDA' value='1' />
-    <pin_mux name='GENERALIO4' choice='I2C1_SCL' value='1' />
+    <pin_mux name='GENERALIO1' choice='UART0_RX' value='1' />
+    <pin_mux name='GENERALIO2' choice='UART0_TX' value='1' />
+    <pin_mux name='GENERALIO7' choice='I2C0_SDA' value='1' />
+    <pin_mux name='GENERALIO8' choice='I2C0_SCL' value='1' />
     <pin_mux name='GENERALIO0' choice='GPIO/LoanIO' value='0' />
     <pin_mux name='GPLMUX48' choice='GPIO' value='1' />
     <pin_mux name='GENERALIO5' choice='GPIO/LoanIO' value='0' />

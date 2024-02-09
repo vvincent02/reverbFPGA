@@ -74,7 +74,6 @@ set_global_assignment -name FLOW_DISABLE_ASSEMBLER OFF
 set_global_assignment -name TIMING_ANALYZER_MULTICORNER_ANALYSIS ON
 set_global_assignment -name SAVE_DISK_SPACE ON
 set_global_assignment -name SMART_RECOMPILE OFF
-set_global_assignment -name BOARD "DE1-SoC Board"
 set_location_assignment PIN_AJ4 -to ADC_CS_N
 set_location_assignment PIN_AK4 -to ADC_DIN
 set_location_assignment PIN_AK3 -to ADC_DOUT
@@ -780,8 +779,6 @@ set_location_assignment PIN_E19 -to HPS_FLASH_DATA_3
 set_location_assignment PIN_D19 -to HPS_FLASH_DCLK
 set_location_assignment PIN_A18 -to HPS_FLASH_NCSO
 set_location_assignment PIN_B22 -to HPS_GSENSOR_INT
-set_location_assignment PIN_E23 -to HPS_I2C1_SCLK
-set_location_assignment PIN_C24 -to HPS_I2C1_SDAT
 set_location_assignment PIN_H23 -to HPS_I2C2_SCLK
 set_location_assignment PIN_A25 -to HPS_I2C2_SDAT
 set_location_assignment PIN_B26 -to HPS_I2C_CONTROL

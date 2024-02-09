@@ -23,8 +23,10 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		output wire        mem_odt,                 //       .mem_odt
 		output wire [3:0]  mem_dm,                  //       .mem_dm
 		input  wire        oct_rzqin,               //       .oct_rzqin
-		inout  wire        hps_io_i2c1_inst_SDA,    // hps_io.hps_io_i2c1_inst_SDA
-		inout  wire        hps_io_i2c1_inst_SCL,    //       .hps_io_i2c1_inst_SCL
+		input  wire        hps_io_uart0_inst_RX,    // hps_io.hps_io_uart0_inst_RX
+		output wire        hps_io_uart0_inst_TX,    //       .hps_io_uart0_inst_TX
+		inout  wire        hps_io_i2c0_inst_SDA,    //       .hps_io_i2c0_inst_SDA
+		inout  wire        hps_io_i2c0_inst_SCL,    //       .hps_io_i2c0_inst_SCL
 		inout  wire        hps_io_gpio_inst_GPIO48, //       .hps_io_gpio_inst_GPIO48
 		inout  wire        hps_io_gpio_inst_GPIO53  //       .hps_io_gpio_inst_GPIO53
 	);
@@ -46,8 +48,10 @@ module reverbFPGA_Qsys_hps_0_hps_io (
 		.mem_odt                 (mem_odt),                 //       .mem_odt
 		.mem_dm                  (mem_dm),                  //       .mem_dm
 		.oct_rzqin               (oct_rzqin),               //       .oct_rzqin
-		.hps_io_i2c1_inst_SDA    (hps_io_i2c1_inst_SDA),    // hps_io.hps_io_i2c1_inst_SDA
-		.hps_io_i2c1_inst_SCL    (hps_io_i2c1_inst_SCL),    //       .hps_io_i2c1_inst_SCL
+		.hps_io_uart0_inst_RX    (hps_io_uart0_inst_RX),    // hps_io.hps_io_uart0_inst_RX
+		.hps_io_uart0_inst_TX    (hps_io_uart0_inst_TX),    //       .hps_io_uart0_inst_TX
+		.hps_io_i2c0_inst_SDA    (hps_io_i2c0_inst_SDA),    //       .hps_io_i2c0_inst_SDA
+		.hps_io_i2c0_inst_SCL    (hps_io_i2c0_inst_SCL),    //       .hps_io_i2c0_inst_SCL
 		.hps_io_gpio_inst_GPIO48 (hps_io_gpio_inst_GPIO48), //       .hps_io_gpio_inst_GPIO48
 		.hps_io_gpio_inst_GPIO53 (hps_io_gpio_inst_GPIO53)  //       .hps_io_gpio_inst_GPIO53
 	);
