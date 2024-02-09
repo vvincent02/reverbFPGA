@@ -11,7 +11,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="axf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="clean" description="" id="com.arm.eclipse.build.config.v6.exe.debug.base.var.arm_compiler_6-6.1579444578" name="Debug" parent="com.arm.eclipse.build.config.v6.exe.debug.base.var.arm_compiler_6-6">
+				<configuration artifactExtension="axf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="clean" description="" id="com.arm.eclipse.build.config.v6.exe.debug.base.var.arm_compiler_6-6.1579444578" name="Debug" parent="com.arm.eclipse.build.config.v6.exe.debug.base.var.arm_compiler_6-6" postbuildStep="fromelf app.axf -o app.bin">
 					<folderInfo id="com.arm.eclipse.build.config.v6.exe.debug.base.var.arm_compiler_6-6.1579444578." name="/" resourcePath="">
 						<toolChain id="com.arm.toolchain.v6.base.var.arm_compiler_6-6.2031169745" name="Arm Compiler for Embedded 6" superClass="com.arm.toolchain.v6.base.var.arm_compiler_6-6">
 							<option defaultValue="com.arm.tool.c.compiler.v6.base.options.debug.level.std" id="com.arm.toolchain.v6.base.options.debug.level.24732204" name="Debug Level" superClass="com.arm.toolchain.v6.base.options.debug.level" useByScannerDiscovery="false" valueType="enumerated"/>
@@ -31,12 +31,12 @@
 								<option id="com.arm.tool.c.compiler.v6.base.option.arch.1926566179" name="Architecture (-march)" superClass="com.arm.tool.c.compiler.v6.base.option.arch" useByScannerDiscovery="true" value="" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.arm.tool.c.compiler.v6.base.option.incpath.1331325817" name="Include path (-I)" superClass="com.arm.tool.c.compiler.v6.base.option.incpath" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/safeclib}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\generated&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hps_macros}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/safeclib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av/socal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\generated&quot;"/>
 								</option>
 								<inputType id="com.arm.tool.c.compiler.v6.base.input.218305077" superClass="com.arm.tool.c.compiler.v6.base.input"/>
 							</tool>
@@ -81,7 +81,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactExtension="axf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="clean" description="" id="com.arm.eclipse.build.config.v6.exe.release.base.var.arm_compiler_6-6.1489465223" name="Release" parent="com.arm.eclipse.build.config.v6.exe.release.base.var.arm_compiler_6-6">
+				<configuration artifactExtension="axf" artifactName="${ProjName}" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.release" cleanCommand="clean" description="" id="com.arm.eclipse.build.config.v6.exe.release.base.var.arm_compiler_6-6.1489465223" name="Release" parent="com.arm.eclipse.build.config.v6.exe.release.base.var.arm_compiler_6-6" postbuildStep="fromelf app.axf -o app.bin">
 					<folderInfo id="com.arm.eclipse.build.config.v6.exe.release.base.var.arm_compiler_6-6.1489465223." name="/" resourcePath="">
 						<toolChain id="com.arm.toolchain.v6.exe.release.base.var.arm_compiler_6-6.1653006880" name="Arm Compiler for Embedded 6" superClass="com.arm.toolchain.v6.exe.release.base.var.arm_compiler_6-6">
 							<option defaultValue="com.arm.tool.c.compiler.v6.base.options.debug.level.none" id="com.arm.toolchain.v6.base.options.debug.level.355317642" name="Debug Level" superClass="com.arm.toolchain.v6.base.options.debug.level" valueType="enumerated"/>
@@ -90,6 +90,15 @@
 							<tool id="com.arm.tool.c.compiler.v6.base.var.arm_compiler_6-6.425509818" name="Arm C Compiler for Embedded 6" superClass="com.arm.tool.c.compiler.v6.base.var.arm_compiler_6-6">
 								<option defaultValue="com.arm.tool.c.compiler.v6.base.option.optlevel.high" id="com.arm.tool.c.compiler.v6.base.option.optlevel.241001280" name="Optimization level" superClass="com.arm.tool.c.compiler.v6.base.option.optlevel" useByScannerDiscovery="true" valueType="enumerated"/>
 								<option defaultValue="com.arm.tool.c.compiler.v6.base.options.debug.level.none" id="com.arm.tool.c.compiler.v6.base.options.debug.level.1932760943" name="Debug Level" superClass="com.arm.tool.c.compiler.v6.base.options.debug.level" useByScannerDiscovery="true" valueType="enumerated"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.arm.tool.c.compiler.v6.base.option.incpath.430419892" name="Include path (-I)" superClass="com.arm.tool.c.compiler.v6.base.option.incpath" useByScannerDiscovery="false" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hps_macros}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/safeclib}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av/socal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\generated&quot;"/>
+								</option>
 								<inputType id="com.arm.tool.c.compiler.v6.base.input.35085102" superClass="com.arm.tool.c.compiler.v6.base.input"/>
 							</tool>
 							<tool id="com.arm.tool.cpp.compiler.v6.base.var.arm_compiler_6-6.231757564" name="Arm C++ Compiler for Embedded 6" superClass="com.arm.tool.cpp.compiler.v6.base.var.arm_compiler_6-6">
