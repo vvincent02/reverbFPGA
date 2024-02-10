@@ -35,8 +35,8 @@
 			hps_io_hps_io_sdio_inst_D3                         : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D3
 			hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
 			hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        -- hps_io_uart0_inst_TX
-			hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
-			hps_io_hps_io_i2c1_inst_SCL                        : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
+			hps_io_hps_io_i2c0_inst_SDA                        : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+			hps_io_hps_io_i2c0_inst_SCL                        : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                     : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                     : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
 			memory_mem_a                                       : out   std_logic_vector(14 downto 0);                    -- mem_a
@@ -59,8 +59,8 @@
 			paramtype_pio_external_connection_export           : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			paramvalueupdate_pio_external_connection_export    : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- export
 			predelayvalue_pio_external_connection_export       : out   std_logic_vector(9 downto 0);                     -- export
-			reset_reset_n                                      : in    std_logic                     := 'X';             -- reset_n
-			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X'              -- noe
+			serial_flash_loader_0_noe_in_noe                   : in    std_logic                     := 'X';             -- noe
+			reset_reset_n                                      : in    std_logic                     := 'X'              -- reset_n
 		);
 	end component reverbFPGA_Qsys;
 
@@ -101,8 +101,8 @@
 			hps_io_hps_io_sdio_inst_D3                         => CONNECTED_TO_hps_io_hps_io_sdio_inst_D3,                         --                                             .hps_io_sdio_inst_D3
 			hps_io_hps_io_uart0_inst_RX                        => CONNECTED_TO_hps_io_hps_io_uart0_inst_RX,                        --                                             .hps_io_uart0_inst_RX
 			hps_io_hps_io_uart0_inst_TX                        => CONNECTED_TO_hps_io_hps_io_uart0_inst_TX,                        --                                             .hps_io_uart0_inst_TX
-			hps_io_hps_io_i2c1_inst_SDA                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SDA,                        --                                             .hps_io_i2c1_inst_SDA
-			hps_io_hps_io_i2c1_inst_SCL                        => CONNECTED_TO_hps_io_hps_io_i2c1_inst_SCL,                        --                                             .hps_io_i2c1_inst_SCL
+			hps_io_hps_io_i2c0_inst_SDA                        => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SDA,                        --                                             .hps_io_i2c0_inst_SDA
+			hps_io_hps_io_i2c0_inst_SCL                        => CONNECTED_TO_hps_io_hps_io_i2c0_inst_SCL,                        --                                             .hps_io_i2c0_inst_SCL
 			hps_io_hps_io_gpio_inst_GPIO48                     => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO48,                     --                                             .hps_io_gpio_inst_GPIO48
 			hps_io_hps_io_gpio_inst_GPIO53                     => CONNECTED_TO_hps_io_hps_io_gpio_inst_GPIO53,                     --                                             .hps_io_gpio_inst_GPIO53
 			memory_mem_a                                       => CONNECTED_TO_memory_mem_a,                                       --                                       memory.mem_a
@@ -125,7 +125,7 @@
 			paramtype_pio_external_connection_export           => CONNECTED_TO_paramtype_pio_external_connection_export,           --            paramtype_pio_external_connection.export
 			paramvalueupdate_pio_external_connection_export    => CONNECTED_TO_paramvalueupdate_pio_external_connection_export,    --     paramvalueupdate_pio_external_connection.export
 			predelayvalue_pio_external_connection_export       => CONNECTED_TO_predelayvalue_pio_external_connection_export,       --        predelayvalue_pio_external_connection.export
-			reset_reset_n                                      => CONNECTED_TO_reset_reset_n,                                      --                                        reset.reset_n
-			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe                    --                 serial_flash_loader_0_noe_in.noe
+			serial_flash_loader_0_noe_in_noe                   => CONNECTED_TO_serial_flash_loader_0_noe_in_noe,                   --                 serial_flash_loader_0_noe_in.noe
+			reset_reset_n                                      => CONNECTED_TO_reset_reset_n                                       --                                        reset.reset_n
 		);
 

@@ -43,8 +43,8 @@ entity reverbFPGA_Qsys is
 		hps_io_hps_io_sdio_inst_D3                         : inout std_logic                     := '0';             --                                             .hps_io_sdio_inst_D3
 		hps_io_hps_io_uart0_inst_RX                        : in    std_logic                     := '0';             --                                             .hps_io_uart0_inst_RX
 		hps_io_hps_io_uart0_inst_TX                        : out   std_logic;                                        --                                             .hps_io_uart0_inst_TX
-		hps_io_hps_io_i2c1_inst_SDA                        : inout std_logic                     := '0';             --                                             .hps_io_i2c1_inst_SDA
-		hps_io_hps_io_i2c1_inst_SCL                        : inout std_logic                     := '0';             --                                             .hps_io_i2c1_inst_SCL
+		hps_io_hps_io_i2c0_inst_SDA                        : inout std_logic                     := '0';             --                                             .hps_io_i2c0_inst_SDA
+		hps_io_hps_io_i2c0_inst_SCL                        : inout std_logic                     := '0';             --                                             .hps_io_i2c0_inst_SCL
 		hps_io_hps_io_gpio_inst_GPIO48                     : inout std_logic                     := '0';             --                                             .hps_io_gpio_inst_GPIO48
 		hps_io_hps_io_gpio_inst_GPIO53                     : inout std_logic                     := '0';             --                                             .hps_io_gpio_inst_GPIO53
 		memory_mem_a                                       : out   std_logic_vector(14 downto 0);                    --                                       memory.mem_a
@@ -162,8 +162,8 @@ architecture rtl of reverbFPGA_Qsys is
 			hps_io_sdio_inst_D3     : inout std_logic                     := 'X';             -- hps_io_sdio_inst_D3
 			hps_io_uart0_inst_RX    : in    std_logic                     := 'X';             -- hps_io_uart0_inst_RX
 			hps_io_uart0_inst_TX    : out   std_logic;                                        -- hps_io_uart0_inst_TX
-			hps_io_i2c1_inst_SDA    : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SDA
-			hps_io_i2c1_inst_SCL    : inout std_logic                     := 'X';             -- hps_io_i2c1_inst_SCL
+			hps_io_i2c0_inst_SDA    : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SDA
+			hps_io_i2c0_inst_SCL    : inout std_logic                     := 'X';             -- hps_io_i2c0_inst_SCL
 			hps_io_gpio_inst_GPIO48 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO48
 			hps_io_gpio_inst_GPIO53 : inout std_logic                     := 'X';             -- hps_io_gpio_inst_GPIO53
 			h2f_rst_n               : out   std_logic;                                        -- reset_n
@@ -696,8 +696,8 @@ begin
 			hps_io_sdio_inst_D3     => hps_io_hps_io_sdio_inst_D3,      --                  .hps_io_sdio_inst_D3
 			hps_io_uart0_inst_RX    => hps_io_hps_io_uart0_inst_RX,     --                  .hps_io_uart0_inst_RX
 			hps_io_uart0_inst_TX    => hps_io_hps_io_uart0_inst_TX,     --                  .hps_io_uart0_inst_TX
-			hps_io_i2c1_inst_SDA    => hps_io_hps_io_i2c1_inst_SDA,     --                  .hps_io_i2c1_inst_SDA
-			hps_io_i2c1_inst_SCL    => hps_io_hps_io_i2c1_inst_SCL,     --                  .hps_io_i2c1_inst_SCL
+			hps_io_i2c0_inst_SDA    => hps_io_hps_io_i2c0_inst_SDA,     --                  .hps_io_i2c0_inst_SDA
+			hps_io_i2c0_inst_SCL    => hps_io_hps_io_i2c0_inst_SCL,     --                  .hps_io_i2c0_inst_SCL
 			hps_io_gpio_inst_GPIO48 => hps_io_hps_io_gpio_inst_GPIO48,  --                  .hps_io_gpio_inst_GPIO48
 			hps_io_gpio_inst_GPIO53 => hps_io_hps_io_gpio_inst_GPIO53,  --                  .hps_io_gpio_inst_GPIO53
 			h2f_rst_n               => hps_0_h2f_reset_reset,           --         h2f_reset.reset_n

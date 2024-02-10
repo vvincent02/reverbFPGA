@@ -54,6 +54,7 @@
 
 # Others
 *.txt
+*.csv
 
 # Fortran module files
 *.mod
@@ -79,6 +80,7 @@
 **/stamp/*
 **/.qsys_edit
 *.sopcinfo
+*.swinfo
 *.qws
 *.map
 **/bsp/*

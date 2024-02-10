@@ -30,12 +30,13 @@
 								<option id="com.arm.tool.c.compiler.v6.base.option.inst.1362765845" name="Instruction set" superClass="com.arm.tool.c.compiler.v6.base.option.inst" useByScannerDiscovery="true" value="com.arm.tool.c.compiler.v6.base.option.inst.arm" valueType="enumerated"/>
 								<option id="com.arm.tool.c.compiler.v6.base.option.arch.1926566179" name="Architecture (-march)" superClass="com.arm.tool.c.compiler.v6.base.option.arch" useByScannerDiscovery="true" value="" valueType="string"/>
 								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.arm.tool.c.compiler.v6.base.option.incpath.1331325817" name="Include path (-I)" superClass="com.arm.tool.c.compiler.v6.base.option.incpath" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hps_macros}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hps_macros}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/safeclib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av/socal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\generated&quot;"/>
 								</option>
 								<inputType id="com.arm.tool.c.compiler.v6.base.input.218305077" superClass="com.arm.tool.c.compiler.v6.base.input"/>
 							</tool>
@@ -89,13 +90,14 @@
 							<tool id="com.arm.tool.c.compiler.v6.base.var.arm_compiler_6-6.425509818" name="Arm C Compiler for Embedded 6" superClass="com.arm.tool.c.compiler.v6.base.var.arm_compiler_6-6">
 								<option defaultValue="com.arm.tool.c.compiler.v6.base.option.optlevel.high" id="com.arm.tool.c.compiler.v6.base.option.optlevel.241001280" name="Optimization level" superClass="com.arm.tool.c.compiler.v6.base.option.optlevel" useByScannerDiscovery="true" valueType="enumerated"/>
 								<option defaultValue="com.arm.tool.c.compiler.v6.base.options.debug.level.none" id="com.arm.tool.c.compiler.v6.base.options.debug.level.1932760943" name="Debug Level" superClass="com.arm.tool.c.compiler.v6.base.options.debug.level" useByScannerDiscovery="true" valueType="enumerated"/>
-								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.arm.tool.c.compiler.v6.base.option.incpath.890665782" name="Include path (-I)" superClass="com.arm.tool.c.compiler.v6.base.option.incpath" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hps_macros}&quot;"/>
+								<option IS_BUILTIN_EMPTY="false" IS_VALUE_EMPTY="false" id="com.arm.tool.c.compiler.v6.base.option.incpath.430419892" name="Include path (-I)" superClass="com.arm.tool.c.compiler.v6.base.option.incpath" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hps_macros}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/safeclib}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/inc/hwlib/soc_cv_av/socal}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\generated&quot;"/>
 								</option>
 								<inputType id="com.arm.tool.c.compiler.v6.base.input.35085102" superClass="com.arm.tool.c.compiler.v6.base.input"/>
 							</tool>
@@ -107,9 +109,7 @@
 								<option defaultValue="com.arm.tool.assembler.v6.base.options.debug.level.none" id="com.arm.tool.assembler.v6.base.options.debug.level.710494820" name="Debug Level" superClass="com.arm.tool.assembler.v6.base.options.debug.level" useByScannerDiscovery="false" valueType="enumerated"/>
 								<inputType id="com.arm.tool.assembler.v6.base.input.1445071015" superClass="com.arm.tool.assembler.v6.base.input"/>
 							</tool>
-							<tool id="com.arm.tool.c.linker.v6.base.var.arm_compiler_6-6.230545609" name="Arm Linker 6" superClass="com.arm.tool.c.linker.v6.base.var.arm_compiler_6-6">
-								<option id="com.arm.tool.c.linker.option.scatter.6317866" name="Scatter file (--scatter)" superClass="com.arm.tool.c.linker.option.scatter" useByScannerDiscovery="false" value="C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\app\scatter_SDRAM.scat" valueType="string"/>
-							</tool>
+							<tool id="com.arm.tool.c.linker.v6.base.var.arm_compiler_6-6.230545609" name="Arm Linker 6" superClass="com.arm.tool.c.linker.v6.base.var.arm_compiler_6-6"/>
 							<tool id="com.arm.tool.librarian.v6.base.var.arm_compiler_6-6.914989035" name="Arm Librarian 6" superClass="com.arm.tool.librarian.v6.base.var.arm_compiler_6-6"/>
 						</toolChain>
 					</folderInfo>
@@ -131,9 +131,6 @@
 	<storageModule moduleId="com.arm.projectSettings" version="6.0.0"/>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
 	<storageModule moduleId="refreshScope" versionNumber="2">
-		<configuration configurationName="Multiple configurations">
-			<resource resourceType="PROJECT" workspacePath="/app"/>
-		</configuration>
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/app"/>
 		</configuration>

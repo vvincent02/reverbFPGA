@@ -35,8 +35,8 @@ module reverbFPGA_Qsys (
 	hps_io_hps_io_sdio_inst_D3,
 	hps_io_hps_io_uart0_inst_RX,
 	hps_io_hps_io_uart0_inst_TX,
-	hps_io_hps_io_i2c1_inst_SDA,
-	hps_io_hps_io_i2c1_inst_SCL,
+	hps_io_hps_io_i2c0_inst_SDA,
+	hps_io_hps_io_i2c0_inst_SCL,
 	hps_io_hps_io_gpio_inst_GPIO48,
 	hps_io_hps_io_gpio_inst_GPIO53,
 	memory_mem_a,
@@ -59,8 +59,8 @@ module reverbFPGA_Qsys (
 	paramtype_pio_external_connection_export,
 	paramvalueupdate_pio_external_connection_export,
 	predelayvalue_pio_external_connection_export,
-	reset_reset_n,
-	serial_flash_loader_0_noe_in_noe);	
+	serial_flash_loader_0_noe_in_noe,
+	reset_reset_n);	
 
 	input	[23:0]	audio_controller_avalon_left_channel_sink_data;
 	input		audio_controller_avalon_left_channel_sink_valid;
@@ -97,8 +97,8 @@ module reverbFPGA_Qsys (
 	inout		hps_io_hps_io_sdio_inst_D3;
 	input		hps_io_hps_io_uart0_inst_RX;
 	output		hps_io_hps_io_uart0_inst_TX;
-	inout		hps_io_hps_io_i2c1_inst_SDA;
-	inout		hps_io_hps_io_i2c1_inst_SCL;
+	inout		hps_io_hps_io_i2c0_inst_SDA;
+	inout		hps_io_hps_io_i2c0_inst_SCL;
 	inout		hps_io_hps_io_gpio_inst_GPIO48;
 	inout		hps_io_hps_io_gpio_inst_GPIO53;
 	output	[14:0]	memory_mem_a;
@@ -121,6 +121,6 @@ module reverbFPGA_Qsys (
 	input	[3:0]	paramtype_pio_external_connection_export;
 	input	[1:0]	paramvalueupdate_pio_external_connection_export;
 	output	[9:0]	predelayvalue_pio_external_connection_export;
-	input		reset_reset_n;
 	input		serial_flash_loader_0_noe_in_noe;
+	input		reset_reset_n;
 endmodule
