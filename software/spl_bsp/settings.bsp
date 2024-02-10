@@ -2,10 +2,10 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>spl</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Feb 9, 2024 7:11:46 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1707502306439</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Feb 10, 2024 9:29:04 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1707553744705</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
-        <BspSettingsFile>settings.bsp</BspSettingsFile>
+        <BspSettingsFile>C:\Users\User\Documents\Projet_reverb_FPGA\reverbFPGA\software\spl_bsp\settings.bsp</BspSettingsFile>
         <HpsSettingsPath>..\..\hps_isw_handoff\reverbFPGA_Qsys_hps_0\</HpsSettingsPath>
         <JdiFile>default</JdiFile>
         <Cpu xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
@@ -278,7 +278,7 @@
                 <SettingName>spl.boot.FAT_BOOT_PARTITION</SettingName>
                 <Identifier>none</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>2</Value>
+                <Value>1</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>When FAT partition support is enabled, this specifies the FAT partition where the boot image is located.</Description>

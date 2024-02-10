@@ -60,7 +60,7 @@
  * When FAT partition support is enabled, this specifies the
  * FAT partition where the boot image is located.
  */
-#define CONFIG_PRELOADER_FAT_BOOT_PARTITION	(2)
+#define CONFIG_PRELOADER_FAT_BOOT_PARTITION	(1)
 
 /*
  * When FAT partition supported is enabled, this specifies the
