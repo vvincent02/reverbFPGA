@@ -26,9 +26,9 @@ constant nbrExtraBits : integer range 0 to 6 := 1;
 
 signal firstDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondDelayedOutputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
-signal outFCFilter : signed(dataIN'HIGH + nbrExtraBits downto 0);
+signal outLPFilter : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
-signal LFCFoutput : signed(dataIN'HIGH + nbrExtraBits downto 0);
+signal LLPFoutput : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal firstInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 signal secondInputAdder : signed(dataIN'HIGH + nbrExtraBits downto 0);
 
@@ -43,16 +43,16 @@ outputAdder <= firstInputAdder + secondInputAdder;
 
 -- gain (feedback correspondant au paramètre decay de la reverb)
 gain : entity work.coefMult(archi)
-	generic map(outFCFilter'LENGTH)
-	port map(dataIN => outFCFilter, dataOUT => secondInputAdder, coef => decayValue);
+	generic map(outLPFilter'LENGTH)
+	port map(dataIN => outLPFilter, dataOUT => secondInputAdder, coef => decayValue);
 
--- filtre FCF dans la boucle de retour	
-FCFilter : entity work.FCF(archi)
+-- filtre LPF dans la boucle de retour	
+LPFilter : entity work.LPF(archi)
 	generic map(secondDelayedOutputAdder'LENGTH)
 	port map(clk50M => clk50M, rst => rst, 
 				data_sampled_valid => data_sampled_valid, 
 				dataIN => secondDelayedOutputAdder, 
-				dataOUT => outFCFilter, 
+				dataOUT => outLPFilter, 
 				dampingValue => dampingValue);
 
 ------------- lignes à retard (2 instances pour pouvoir dépasser le retard de 1000 sans problème) --------------------
@@ -78,9 +78,9 @@ delayLineOperator2 : entity work.delayLine(archi)
 -- gain atténuation en sortie (pour ne pas dépasser un gain unitaire en moyenne)
 reductionGain : entity work.coefMult(archi)
 	generic map(secondDelayedOutputAdder'LENGTH)
-	port map(dataIN => secondDelayedOutputAdder, dataOUT => LFCFoutput, coef => "1100110011001100110011001"); -- gain d'atténuation = 0.8
+	port map(dataIN => secondDelayedOutputAdder, dataOUT => LLPFoutput, coef => "1100110011001100110011001"); -- gain d'atténuation = 0.8
 	
 -- sortie de l'entité
-dataOUT <= resize(LFCFoutput, dataOUT'LENGTH);
+dataOUT <= resize(LLPFoutput, dataOUT'LENGTH);
 
 END archi;

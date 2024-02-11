@@ -1518,6 +1518,7 @@ set_location_assignment PIN_AC12 -to paramType[1]
 set_location_assignment PIN_AF9 -to paramType[2]
 set_location_assignment PIN_AF10 -to paramType[3]
 set_location_assignment PIN_AE12 -to stereo_n_mono
+set_global_assignment -name VHDL_FILE hardware/LPF.vhd
 set_global_assignment -name VHDL_FILE hardware/earlyReverb.vhd
 set_global_assignment -name VHDL_FILE hardware/segDecod.vhd
 set_global_assignment -name QIP_FILE reverbFPGA_Qsys/synthesis/reverbFPGA_Qsys.qip
