@@ -72,10 +72,6 @@ ARCHITECTURE archi OF reverbFPGA IS
 
 constant dataSize : integer range 0 to 32 := 24;
 
--- signaux de cadencement des opérations numériques (1 lorsque les données peuvent être lues et écrites)
-signal dataL_sampled_valid : std_logic;
-signal dataR_sampled_valid : std_logic;
-
 -- paramètres de la reverb
 signal mixValue : std_logic_vector(dataSize-1 downto 0);
 signal preDelayValue : std_logic_vector(9 downto 0);
@@ -104,18 +100,11 @@ signal audioR_OUT_ready : std_logic;
 signal audioR_OUT_valid : std_logic;
 signal audioR_OUT_data : std_logic_vector(dataSize-1 downto 0);
 
--- signaux interfaçe controleur audio / traitement reverb
-type interfaceState_type is (idle, transferData, endTransfer);
-signal interfaceStateL : interfaceState_type;
-signal interfaceStateR : interfaceState_type;
-signal dataL_IN : std_logic_vector(dataSize-1 downto 0);
-signal dataL_IN_signed : signed(dataSize-1 downto 0);
-signal dataL_OUT : std_logic_vector(dataSize-1 downto 0);
-signal dataL_OUT_signed : signed(dataSize-1 downto 0);
-signal dataR_IN : std_logic_vector(dataSize-1 downto 0);
-signal dataR_IN_signed : signed(dataSize-1 downto 0);
-signal dataR_OUT : std_logic_vector(dataSize-1 downto 0);
-signal dataR_OUT_signed : signed(dataSize-1 downto 0);
+-- signaux à l'interfaçe controleur audio / traitement reverb
+signal dataL_IN : signed(dataSize-1 downto 0);
+signal dataL_OUT : signed(dataSize-1 downto 0);
+signal dataR_IN : signed(dataSize-1 downto 0);
+signal dataR_OUT : signed(dataSize-1 downto 0);
 
 -- signaux intermédiaire dans le traitement de la réverb
 signal dataL_OUT_dryGain : signed(dataSize-1 downto 0);
@@ -301,44 +290,28 @@ hex5 : entity work.segDecod(archi)
 	port map(valueIN => hex5Val, segOUT => HEX5_N);
 ---------------------------------------------------
 
---------------- interfaces bus Avalon ST - signals AUD codec (L+R) -----------------------------------
-interfaceL : entity work.interface_AVST_proc(archi)
-	generic map(dataSize)
-	port map(clk50M => CLOCK_50, rst => rst, 
-				audio_IN_ready => audioL_IN_ready, 
-				audio_IN_valid => audioL_IN_valid,
-				audio_IN_data => audioL_IN_data,
-				audio_OUT_ready => audioL_OUT_ready, 
-				audio_OUT_valid => audioL_OUT_valid,
-				audio_OUT_data => audioL_OUT_data,
-				data_IN => dataL_IN,
-				data_OUT => dataL_OUT,
-				data_sampled_valid => dataL_sampled_valid);
-dataL_IN_signed <= signed(dataL_IN);
-dataL_OUT <= std_logic_vector(dataL_OUT_signed);
+--------------- interface bus Avalon ST - traitement réverb (L+R) --------------------------------------
+-- les données d'entrées et de sortie doivent être lues/écrites lorsque audio_IN_valid est à 1
+-- la valeur lue correspond à la valeur envoyée par le controleur audio au cycle (clock 50MHz) précédent
+-- la valeur écrite sera effectivement envoyée au CODEC audio au prochain audio_IN_valid 
+-- (-> décalage d'un échantillon par rapport à l'entrée) 
+audioL_OUT_valid <= audioL_IN_valid;
+audioL_IN_ready <= audioL_OUT_ready;
+dataL_IN <= signed(audioL_IN_data);
+audioL_OUT_data <= std_logic_vector(dataL_OUT);
 				
-interfaceR : entity work.interface_AVST_proc(archi)
-	generic map(dataSize)
-	port map(clk50M => CLOCK_50, rst => rst,
-				audio_IN_ready => audioR_IN_ready, 
-				audio_IN_valid => audioR_IN_valid,
-				audio_IN_data => audioR_IN_data,
-				audio_OUT_ready => audioR_OUT_ready, 
-				audio_OUT_valid => audioR_OUT_valid,
-				audio_OUT_data => audioR_OUT_data,
-				data_IN => dataR_IN,
-				data_OUT => dataR_OUT,
-				data_sampled_valid => dataR_sampled_valid);
-dataR_IN_signed <= signed(dataR_IN);
-dataR_OUT <= std_logic_vector(dataR_OUT_signed);
+audioR_OUT_valid <= audioR_IN_valid;
+audioR_IN_ready <= audioR_OUT_ready;
+dataR_IN <= signed(audioR_IN_data);
+audioR_OUT_data <= std_logic_vector(dataR_OUT);
 --------------------------------------------------------------------------------------------------------
 
 -------------------------------------- Early reverb -----------------------------------------
 earlyReverbL : entity work.earlyReverb(archi)
 	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst,
-				data_sampled_valid => dataL_sampled_valid,
-				dataIN => dataL_IN_signed,
+				data_sampled_valid => audioL_IN_valid,
+				dataIN => dataL_IN,
 				dataOUT_toLateReverb => dataL_OUT_earlyToLateReverb,
 				dataOUT_earlyReverb => dataL_OUT_earlyReverb,
 				nbrDelaysPerLine_initEcho => to_integer(unsigned(preDelayValue)));
@@ -346,8 +319,8 @@ earlyReverbL : entity work.earlyReverb(archi)
 earlyReverbR : entity work.earlyReverb(archi)
 	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst,
-				data_sampled_valid => dataR_sampled_valid,
-				dataIN => dataR_IN_signed,
+				data_sampled_valid => audioR_IN_valid,
+				dataIN => dataR_IN,
 				dataOUT_toLateReverb => dataR_OUT_earlyToLateReverb,
 				dataOUT_earlyReverb => dataR_OUT_earlyReverb,
 				nbrDelaysPerLine_initEcho => to_integer(unsigned(preDelayValue)));
@@ -357,7 +330,7 @@ earlyReverbR : entity work.earlyReverb(archi)
 lateReverbL : entity work.lateReverb(archi)
 	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst, 
-				data_sampled_valid => dataL_sampled_valid, 
+				data_sampled_valid => audioL_IN_valid, 
 				dataIN => dataL_OUT_earlyToLateReverb, 
 				dataOUT => dataL_OUT_lateReverb, 
 				dampingValue => unsigned(dampingValue), 
@@ -366,7 +339,7 @@ lateReverbL : entity work.lateReverb(archi)
 lateReverbR : entity work.lateReverb(archi)
 	generic map(dataSize)
 	port map(clk50M => CLOCK_50, rst => rst,
-				data_sampled_valid => dataR_sampled_valid, 
+				data_sampled_valid => audioR_IN_valid, 
 				dataIN => dataR_OUT_earlyToLateReverb, 
 				dataOUT => dataR_OUT_lateReverb, 
 				dampingValue => unsigned(dampingValue), 
@@ -384,10 +357,10 @@ dataR_OUT_sum_EarlyLate <= resize(dataR_OUT_earlyReverb, dataR_OUT_sum_EarlyLate
 -- gain dry pour l'envoi du son "pur" en sortie
 dryGainL : entity work.coefMult(archi)
 	generic map(dataSize)
-	port map(dataIN => dataL_IN_signed, dataOUT => dataL_OUT_dryGain, coef => unsigned(not(mixValue)));
+	port map(dataIN => dataL_IN, dataOUT => dataL_OUT_dryGain, coef => unsigned(not(mixValue)));
 dryGainR : entity work.coefMult(archi)
 	generic map(dataSize)
-	port map(dataIN => dataR_IN_signed, dataOUT => dataR_OUT_dryGain, coef => unsigned(not(mixValue)));
+	port map(dataIN => dataR_IN, dataOUT => dataR_OUT_dryGain, coef => unsigned(not(mixValue)));
 
 -- gain wet pour l'envoi du son réverbéré en sortie
 wetGainL : entity work.coefMult(archi)
@@ -398,10 +371,10 @@ wetGainR : entity work.coefMult(archi)
 	port map(dataIN => dataR_OUT_sum_EarlyLate(dataR_OUT_sum_EarlyLate'HIGH downto 1), dataOUT => dataR_OUT_wetGain, coef => unsigned(mixValue));
 	
 -- ajout des deux signaux (dry+wet) + multiplexeur sur le canal droit pour choisir reverb stereo ou mono
-dataL_OUT_signed <= dataL_OUT_dryGain + dataL_OUT_wetGain;
-with stereo_n_mono select dataR_OUT_signed <=
+dataL_OUT <= dataL_OUT_dryGain + dataL_OUT_wetGain;
+with stereo_n_mono select dataR_OUT <=
 	(dataR_OUT_dryGain + dataR_OUT_wetGain) when '1',
-	dataL_OUT_signed when '0';
+	dataL_OUT when '0';
 ---------------------------------------------------------------------------------------------
 
 END archi;

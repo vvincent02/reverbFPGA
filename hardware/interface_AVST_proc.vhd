@@ -26,55 +26,67 @@ END interface_AVST_proc;
 
 ARCHITECTURE archi OF interface_AVST_proc IS
 
-type interfaceState_type is (idle, transferData, endTransfer, assertDataSampledValid);
-signal interfaceState : interfaceState_type;
+--type interfaceState_type is (idle, transferData, endTransfer);--, assertDataSampledValid);
+--signal interfaceState : interfaceState_type;
 
 BEGIN
 
+audio_OUT_valid <= audio_IN_valid;
+audio_IN_ready <= audio_OUT_ready;
+
+data_sampled_valid <= audio_IN_valid;
+
+data_IN <= audio_IN_data; -- les données lues sont les dernières reçues
+audio_OUT_data <= data_OUT; -- les données envoyées (data_OUT) seront prises en compte au prochain data_valid (décalage d'un échantillon par rapport à l'entrée)
+
+
 -- machine d'état permettant l'interfaçage entre les données du controleur audio (bus avalon streaming) et celles traitées en dur dans le FPGA
-interface : process(clk50M)
-begin
-	if(clk50M'EVENT and clk50M='1') then
-		if(rst='0') then
-			data_sampled_valid <= '0';
-			
-			interfaceState <= idle;
-		else
-			case interfaceState is 
-				when idle =>
-					data_sampled_valid <= '0';
-					
-					audio_IN_ready <= '0';
-					audio_OUT_valid <= '0';
-					if(audio_IN_valid = '1') then
-						-- data IN are read from the audio controller source while asserting ready
-						data_IN <= audio_IN_data;
-						audio_IN_ready <= '1';
-						
-						-- data OUT are loaded and ready to be read by the audio controller sink at the next cycle
-						audio_OUT_valid <= '1';
-						audio_OUT_data <= data_OUT;
-						
-						interfaceState <= transferData;
-					end if;
-				when transferData =>
-					audio_IN_ready <= '0';
-					
-					-- les données de sortie sont lues par le controleur audio
-			
-					interfaceState <= endTransfer;
-				when endTransfer =>
-					-- wait while the audio controller sink has not assert ready
-					if(audio_OUT_ready = '1') then
-						interfaceState <= assertDataSampledValid;
-					end if;
-				when assertDataSampledValid =>
-					data_sampled_valid <= '1';
-					
-					interfaceState <= idle;
-			end case;
-		end if;
-	end if;
-end process;
+--interface : process(clk50M)
+--begin
+--	if(clk50M'EVENT and clk50M='1') then
+--		if(rst='0') then
+--			data_sampled_valid <= '0';
+--			
+--			interfaceState <= idle;
+--		else
+--			case interfaceState is 
+--				when idle =>
+--					data_sampled_valid <= '0';
+--					
+--					audio_IN_ready <= '0';
+--					audio_OUT_valid <= '0';
+--					if(audio_IN_valid = '1') then
+--						-- data IN are read from the audio controller source while asserting ready
+--						data_IN <= audio_IN_data;
+--						audio_IN_ready <= '1';
+--						
+--						-- data OUT are loaded and ready to be read by the audio controller sink at the next cycle
+--						audio_OUT_valid <= '1';
+--						audio_OUT_data <= data_OUT;
+--						
+--						interfaceState <= transferData;
+--					end if;
+--				when transferData =>
+--					audio_IN_ready <= '0';
+--					
+--					-- les données de sortie sont lues par le controleur audio
+--			
+--					interfaceState <= endTransfer;
+--				when endTransfer =>
+--					-- wait while the audio controller sink has not assert ready
+--					if(audio_OUT_ready = '1') then
+--						data_sampled_valid <= '1';
+--						
+--						--interfaceState <= assertDataSampledValid;
+--						interfaceState <= idle;
+--					end if;
+----				when assertDataSampledValid =>
+----					data_sampled_valid <= '1';
+----					
+----					interfaceState <= idle;
+--			end case;
+--		end if;
+--	end if;
+--end process;
 
 END archi;
