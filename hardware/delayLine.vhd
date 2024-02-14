@@ -30,7 +30,7 @@ ARCHITECTURE archi OF delayLine IS
 
 constant N : integer range 4 to 1000 := Ns_max - 1; -- la structure de la ligne à retard induit déjà un décalage d'un échantillon au minimum
 
-type shiftState_type is (idle, pull, startPipeline, shift, endPipeline, push);
+type shiftState_type is (idle, pull, shift, endPipeline, push);
 signal shiftState : shiftState_type; 
 
 signal wr_data : std_logic_vector(dataIN'range);
@@ -39,8 +39,6 @@ signal wr_addr : integer range 0 to N-1;
 signal rd_addr : integer range 0 to N-1;
 signal we : std_logic;
 
-signal dataOUT_prev : signed(dataIN'range);
-signal dataIN_valid : signed(dataIN'range);
 signal currentN_valid : integer range 4 to 1000;
 
 BEGIN
@@ -49,7 +47,7 @@ RAM_module : entity work.RAM(rtl)
 	generic map(data_width => dataSize, nbr_blocks => N)
 	port map(clk => clk50M, wr_data => wr_data, rd_data => rd_data, wr_addr => wr_addr, rd_addr => rd_addr, we => we);
 
--- décalage de N échantilloNs_max et mise à jour de la valeur de sortie 
+-- décalage de N échantillons et mise à jour de la valeur de sortie 
 process(clk50M)
 
 variable cnt : integer range 0 to 2;
@@ -58,7 +56,6 @@ variable read_addr_pipeline : integer range 0 to N-4; -- adresse de la donnée (
 begin
 	if(clk50M'EVENT and clk50M='1') then
 		if(rst = '0') then
-			dataOUT_prev <= (others => '0');
 			we <= '0';
 			
 			shiftState <= idle;
@@ -72,48 +69,25 @@ begin
 					
 					-- si on peut lancer le décalage
 					if(data_sampled_valid = '1') then
-						dataOUT <= dataOUT_prev; -- mise à jour de la sortie avec la dernière valeur de la précédente file
-						dataIN_valid <= dataIN; -- on récupère l'entrée actuelle pour la mettre au début de la prochaine file
 						currentN_valid <= currentN - 1; -- on récupère le nombre de retards de la ligne
 						read_addr_pipeline := (currentN - 1) - 4;
+						
+						rd_addr <= (currentN-1)-1;
 						shiftState <= pull;
 					end if;
 					
-				-- on récupère la donnée en fin de la file (i.e l'entrée décalée)
+				-- on récupère la donnée en fin de la file (i.e l'entrée décalée) + mise en place du pipeline (début de l'empilement des données)
 				when pull =>
-					case cnt is
-						when 0 =>
-							rd_addr <= currentN_valid-1;
-						when 1 => 
-							-- accès à la donnée en RAM à l'adresse N-1
-						when 2 => 
-							dataOUT_prev <= signed(rd_data);
-							
-							shiftState <= startPipeline;
-					end case;
-					
-					if(cnt < 2) then
+					if(cnt = 0) then
+						rd_addr <= currentN_valid-2;
+						
 						cnt := cnt + 1;
-					else 
+					elsif(cnt = 1) then 
+						rd_addr <= currentN_valid-3;
+						dataOUT <= signed(rd_data);
+						
 						cnt := 0;
-					end if;
-					
-				-- mise en place du pipeline (début de l'empilement des données)
-				when startPipeline =>
-					case cnt is
-						when 0 =>
-							rd_addr <= currentN_valid-2;
-						when 1 => 
-							rd_addr <= currentN_valid-3;
-							
-							shiftState <= shift;
-						when others =>
-					end case;
-					
-					if(cnt < 1) then
-						cnt := cnt + 1;
-					else 
-						cnt := 0;
+						shiftState <= shift;
 					end if;
 					
 				-- le pipeline est lancé -> décalage des données
@@ -131,28 +105,23 @@ begin
 				
 				-- fin du pipeline
 				when endPipeline =>
-					case cnt is
-						when 0 =>
-							wr_addr <= 2;
-							wr_data <= rd_data;
-						when 1 => 
-							wr_addr <= 1;
-							wr_data <= rd_data; 
-							
-							shiftState <= push;
-						when others =>
-					end case;
-					
-					if(cnt < 1) then
+					if(cnt = 0) then
+						wr_addr <= 2;
+						wr_data <= rd_data;
+						
 						cnt := cnt + 1;
-					else 
+					elsif(cnt = 1) then
+						wr_addr <= 1;
+						wr_data <= rd_data; 
+						
 						cnt := 0;
+						shiftState <= push;
 					end if;
 					
 				-- ajout de la dernière valeur au début de la file
 				when push =>
 					wr_addr <= 0;
-					wr_data <= std_logic_vector(dataIN_valid);
+					wr_data <= std_logic_vector(dataIN);
 				
 					shiftState <= idle;
 			end case;
